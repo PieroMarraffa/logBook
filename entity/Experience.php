@@ -13,6 +13,13 @@ class Experience
 
     private $placeList;
 
+    private $descrition;
+
+    private $imageList;
+
+    private $experienceList;
+    
+
     /**
      * @return mixed
      */
@@ -45,11 +52,6 @@ class Experience
         $this->experienceList = $experienceList;
     }
 
-    private $descrition;
-
-    private $imageList;
-
-    private $experienceList;
 
     /**
      * @return mixed
