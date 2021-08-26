@@ -1,7 +1,7 @@
 <?php
 
 
-class Page
+class Experience
 {
     private $id;
 
@@ -11,11 +11,45 @@ class Page
 
     private $title;
 
+    private $placeList;
+
+    /**
+     * @return mixed
+     */
+    public function getPlaceList()
+    {
+        return $this->placeList;
+    }
+
+    /**
+     * @param mixed $placeList
+     */
+    public function setPlaceList($placeList): void
+    {
+        $this->placeList = $placeList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExperienceList()
+    {
+        return $this->experienceList;
+    }
+
+    /**
+     * @param mixed $experienceList
+     */
+    public function setExperienceList($experienceList): void
+    {
+        $this->experienceList = $experienceList;
+    }
+
     private $descrition;
 
     private $imageList;
 
-    private $metaList;
+    private $experienceList;
 
     /**
      * @return mixed
@@ -113,19 +147,5 @@ class Page
         $this->imageList = $imageList;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMetaList()
-    {
-        return $this->metaList;
-    }
 
-    /**
-     * @param mixed $metaList
-     */
-    public function setMetaList($metaList)
-    {
-        $this->metaList = $metaList;
-    }
 }

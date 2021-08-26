@@ -13,7 +13,6 @@ class Place
 
     private $nVisitatoriMedi;
 
-    private $listaMeteTuristiche;
 
     /**
      * @return mixed
@@ -77,22 +76,6 @@ class Place
     public function setNVisitatoriMedi($nVisitatoriMedi)
     {
         $this->nVisitatoriMedi = $nVisitatoriMedi;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getListaMeteTuristiche()
-    {
-        return $this->listaMeteTuristiche;
-    }
-
-    /**
-     * @param mixed $listaMeteTuristiche
-     */
-    public function setListaMeteTuristiche($listaMeteTuristiche)
-    {
-        $this->listaMeteTuristiche = $listaMeteTuristiche;
     }
 
     /**
