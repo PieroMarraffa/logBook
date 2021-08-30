@@ -3,8 +3,6 @@
 
 class Experience
 {
-    private $id;
-
     private $startDay;
 
     private $endDay;
@@ -13,7 +11,7 @@ class Experience
 
     private $placeList;
 
-    private $descrition;
+    private $description;
 
     private $imageList;
 
@@ -120,17 +118,17 @@ class Experience
     /**
      * @return mixed
      */
-    public function getDescrition()
+    public function getDescription()
     {
-        return $this->descrition;
+        return $this->description;
     }
 
     /**
-     * @param mixed $descrition
+     * @param mixed $description
      */
-    public function setDescrition($descrition)
+    public function setDescription($description)
     {
-        $this->descrition = $descrition;
+        $this->description = $description;
     }
 
     /**

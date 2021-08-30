@@ -3,15 +3,31 @@
 
 class Place
 {
-    private $IDLuogo;
+    private $name;
 
     private $latitude;
 
     private $longitude;
 
-    private $nazione;
+    private $nation;
 
-    private $nVisitatoriMedi;
+    private $averageOfVisitors;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
 
 
     /**
@@ -49,33 +65,33 @@ class Place
     /**
      * @return mixed
      */
-    public function getNazione()
+    public function getNation()
     {
-        return $this->nazione;
+        return $this->nation;
     }
 
     /**
-     * @param mixed $nazione
+     * @param mixed $nation
      */
-    public function setNazione($nazione)
+    public function setNation($nation)
     {
-        $this->nazione = $nazione;
+        $this->nation = $nation;
     }
 
     /**
      * @return mixed
      */
-    public function getNVisitatoriMedi()
+    public function getAverageOfVisitors()
     {
-        return $this->nVisitatoriMedi;
+        return $this->averageOfVisitors;
     }
 
     /**
-     * @param mixed $nVisitatoriMedi
+     * @param mixed $averageOfVisitors
      */
-    public function setNVisitatoriMedi($nVisitatoriMedi)
+    public function setAverageOfVisitors($averageOfVisitors)
     {
-        $this->nVisitatoriMedi = $nVisitatoriMedi;
+        $this->averageOfVisitors = $averageOfVisitors;
     }
 
     /**

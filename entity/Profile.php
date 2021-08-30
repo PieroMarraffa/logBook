@@ -1,9 +1,9 @@
 <?php
 
 
-class Profilo
+class Profile
 {
-    private String $nomeUtente;
+    private String $utentName;
     private String $imgPathFile;
     private String $description;
     private array $likedPosts;
@@ -13,17 +13,17 @@ class Profilo
     /**
      * @return String
      */
-    public function getNomeUtente(): string
+    public function getUtentName(): string
     {
-        return $this->nomeUtente;
+        return $this->utentName;
     }
 
     /**
-     * @param String $nomeUtente
+     * @param String $utentName
      */
-    public function setNomeUtente(string $nomeUtente): void
+    public function setUtentName(string $utentName): void
     {
-        $this->nomeUtente = $nomeUtente;
+        $this->utentName = $utentName;
     }
 
     /**
