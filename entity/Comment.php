@@ -1,6 +1,7 @@
 <?php
 
-class comment{
+class Comment{
+    private int $commentID;
     private RegisteredUser $author;
     private bool $eliminated;
     private array $signaledList;
@@ -12,6 +13,22 @@ class comment{
         $this->eliminated = $eliminated;
         $this->signaledList = $signaledList;
         $this->content = $content;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCommentID(): int
+    {
+        return $this->commentID;
+    }
+
+    /**
+     * @param int $commentID
+     */
+    public function setCommentID(int $commentID): void
+    {
+        $this->commentID = $commentID;
     }
 
     public function getAuthor(): UtenteRegistrato

@@ -3,11 +3,12 @@
 
 class Person
 {
-    public String $name;
-    public bool $admin;
-    public String $password;
-    public int $personID;
-    public String $mail;
+    private String $name;
+    private bool $admin;
+    private String $password;
+    private int $personID;
+    private String $mail;
+
 
     /**
      * Person constructor.

@@ -3,15 +3,28 @@
 
 class Place
 {
-    private $name;
+    private String $name;
+    private Double $latitude;
+    private Double $longitude;
+    private String $nation;
+    private Double $averageOfVisitors;
+    private int $placeID;
 
-    private $latitude;
+    /**
+     * @return int
+     */
+    public function getPlaceID(): int
+    {
+        return $this->placeID;
+    }
 
-    private $longitude;
-
-    private $nation;
-
-    private $averageOfVisitors;
+    /**
+     * @param int $placeID
+     */
+    public function setPlaceID(int $placeID): void
+    {
+        $this->placeID = $placeID;
+    }
 
     /**
      * @return mixed

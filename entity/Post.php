@@ -9,6 +9,23 @@ class Post
     private array $likeList;
     private \Cassandra\Date $creationDate;
     private Experience $experience;
+    private int $postID;
+
+    /**
+     * @return int
+     */
+    public function getPostID(): int
+    {
+        return $this->postID;
+    }
+
+    /**
+     * @param int $postID
+     */
+    public function setPostID(int $postID): void
+    {
+        $this->postID = $postID;
+    }
 
     /**
      * @return Person

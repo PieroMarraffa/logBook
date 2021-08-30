@@ -3,20 +3,30 @@
 
 class Experience
 {
-    private $startDay;
+    private int $experienceID;
+    private \Cassandra\Date $startDay;
+    private \Cassandra\Date $endDay;
+    private String $title;
+    private array $placeList;
+    private String $description;
+    private array $imageList;
+    private array $experienceList;
 
-    private $endDay;
+    /**
+     * @return int
+     */
+    public function getExperienceID(): int
+    {
+        return $this->experienceID;
+    }
 
-    private $title;
-
-    private $placeList;
-
-    private $description;
-
-    private $imageList;
-
-    private $experienceList;
-    
+    /**
+     * @param int $experienceID
+     */
+    public function setExperienceID(int $experienceID): void
+    {
+        $this->experienceID = $experienceID;
+    }
 
     /**
      * @return mixed

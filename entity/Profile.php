@@ -9,6 +9,23 @@ class Profile
     private array $likedPosts;
     private array $personalPosts;
     private array $visitedPlaces;
+    private int $profileID;
+
+    /**
+     * @return int
+     */
+    public function getProfileID(): int
+    {
+        return $this->profileID;
+    }
+
+    /**
+     * @param int $profileID
+     */
+    public function setProfileID(int $profileID): void
+    {
+        $this->profileID = $profileID;
+    }
 
     /**
      * @return String

@@ -4,6 +4,23 @@
 class RegisteredUser extends Person
 {
     private Profile $profile;
+    private int $registeredUserID;
+
+    /**
+     * @return int
+     */
+    public function getRegisteredUserID(): int
+    {
+        return $this->registeredUserID;
+    }
+
+    /**
+     * @param int $registeredUserID
+     */
+    public function setRegisteredUserID(int $registeredUserID): void
+    {
+        $this->registeredUserID = $registeredUserID;
+    }
 
     /**
      * RegisteredUser constructor.

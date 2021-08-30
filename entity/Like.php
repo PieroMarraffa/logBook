@@ -5,6 +5,23 @@ class Like
 {
     private int $value;
     private Profile $author;
+    private int $likeID;
+
+    /**
+     * @return int
+     */
+    public function getLikeID(): int
+    {
+        return $this->likeID;
+    }
+
+    /**
+     * @param int $likeID
+     */
+    public function setLikeID(int $likeID): void
+    {
+        $this->likeID = $likeID;
+    }
 
     /**
      * @return int
