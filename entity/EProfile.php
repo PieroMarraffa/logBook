@@ -3,124 +3,146 @@
 
 class EProfile
 {
-    private String $utentName;
-    private String $imgPathFile;
-    private String $description;
-    private array $likedPosts;
-    private array $personalPosts;
-    private array $visitedPlaces;
-    private int $profileID;
+    private $utentName;
+    private $imgPathFile;
+    private $description;
+    private $likedPosts;
+    private $personalPosts;
+    private $visitedPlaces;
+    private $profileID;
 
     /**
-     * @return int
+     * EProfile constructor.
+     * @param $utentName
+     * @param $imgPathFile
+     * @param $description
+     * @param $likedPosts
+     * @param $personalPosts
+     * @param $visitedPlaces
+     * @param $profileID
      */
-    public function getProfileID(): int
+    public function __construct($utentName, $imgPathFile, $description, $likedPosts, $personalPosts, $visitedPlaces, $profileID)
     {
-        return $this->profileID;
-    }
-
-    /**
-     * @param int $profileID
-     */
-    public function setProfileID(int $profileID): void
-    {
+        $this->utentName = $utentName;
+        $this->imgPathFile = $imgPathFile;
+        $this->description = $description;
+        $this->likedPosts = $likedPosts;
+        $this->personalPosts = $personalPosts;
+        $this->visitedPlaces = $visitedPlaces;
         $this->profileID = $profileID;
     }
 
+
     /**
-     * @return String
+     * @return mixed
      */
-    public function getUtentName(): string
+    public function getUtentName()
     {
         return $this->utentName;
     }
 
     /**
-     * @param String $utentName
+     * @param mixed $utentName
      */
-    public function setUtentName(string $utentName): void
+    public function setUtentName($utentName)
     {
         $this->utentName = $utentName;
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getImgPathFile(): string
+    public function getImgPathFile()
     {
         return $this->imgPathFile;
     }
 
     /**
-     * @param String $imgPathFile
+     * @param mixed $imgPathFile
      */
-    public function setImgPathFile(string $imgPathFile): void
+    public function setImgPathFile($imgPathFile)
     {
         $this->imgPathFile = $imgPathFile;
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
     /**
-     * @param String $description
+     * @param mixed $description
      */
-    public function setDescription(string $description): void
+    public function setDescription($description)
     {
         $this->description = $description;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getLikedPosts(): array
+    public function getLikedPosts()
     {
         return $this->likedPosts;
     }
 
     /**
-     * @param array $likedPosts
+     * @param mixed $likedPosts
      */
-    public function setLikedPosts(array $likedPosts): void
+    public function setLikedPosts($likedPosts)
     {
         $this->likedPosts = $likedPosts;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getPersonalPosts(): array
+    public function getPersonalPosts()
     {
         return $this->personalPosts;
     }
 
     /**
-     * @param array $personalPosts
+     * @param mixed $personalPosts
      */
-    public function setPersonalPosts(array $personalPosts): void
+    public function setPersonalPosts($personalPosts)
     {
         $this->personalPosts = $personalPosts;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getVisitedPlaces(): array
+    public function getVisitedPlaces()
     {
         return $this->visitedPlaces;
     }
 
     /**
-     * @param array $visitedPlaces
+     * @param mixed $visitedPlaces
      */
-    public function setVisitedPlaces(array $visitedPlaces): void
+    public function setVisitedPlaces($visitedPlaces)
     {
         $this->visitedPlaces = $visitedPlaces;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfileID()
+    {
+        return $this->profileID;
+    }
+
+    /**
+     * @param mixed $profileID
+     */
+    public function setProfileID($profileID)
+    {
+        $this->profileID = $profileID;
     }
 
 

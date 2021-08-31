@@ -3,28 +3,32 @@
 
 class EPlace
 {
-    private String $name;
-    private Double $latitude;
-    private Double $longitude;
-    private String $nation;
-    private Double $averageOfVisitors;
-    private int $placeID;
+    private $name;
+    private $latitude;
+    private $longitude;
+    private $nation;
+    private $averageOfVisitors;
+    private $placeID;
 
     /**
-     * @return int
+     * EPlace constructor.
+     * @param $name
+     * @param $latitude
+     * @param $longitude
+     * @param $nation
+     * @param $averageOfVisitors
+     * @param $placeID
      */
-    public function getPlaceID(): int
+    public function __construct($name, $latitude, $longitude, $nation, $averageOfVisitors, $placeID)
     {
-        return $this->placeID;
-    }
-
-    /**
-     * @param int $placeID
-     */
-    public function setPlaceID(int $placeID): void
-    {
+        $this->name = $name;
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+        $this->nation = $nation;
+        $this->averageOfVisitors = $averageOfVisitors;
         $this->placeID = $placeID;
     }
+
 
     /**
      * @return mixed
@@ -37,11 +41,10 @@ class EPlace
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
-
 
     /**
      * @return mixed
@@ -110,18 +113,20 @@ class EPlace
     /**
      * @return mixed
      */
-    public function getIDLuogo()
+    public function getPlaceID()
     {
-        return $this->IDLuogo;
+        return $this->placeID;
     }
 
     /**
-     * @param mixed $IDLuogo
+     * @param mixed $placeID
      */
-    public function setIDLuogo($IDLuogo)
+    public function setPlaceID($placeID)
     {
-        $this->IDLuogo = $IDLuogo;
+        $this->placeID = $placeID;
     }
+
+
 
 
 }

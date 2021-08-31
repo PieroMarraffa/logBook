@@ -3,123 +3,146 @@
 
 class EPost
 {
-    private EPerson $author;
-    private String $title;
-    private array $commentList;
-    private array $likeList;
-    private \Cassandra\Date $creationDate;
-    private EExperience $experience;
-    private int $postID;
+    private $author;
+    private $title;
+    private $commentList;
+    private $likeList;
+    private $creationDate;
+    private $experience;
+    private $postID;
 
     /**
-     * @return int
+     * EPost constructor.
+     * @param $author
+     * @param $title
+     * @param $commentList
+     * @param $likeList
+     * @param $creationDate
+     * @param $experience
+     * @param $postID
      */
-    public function getPostID(): int
+    public function __construct($author, $title, $commentList, $likeList, $creationDate, $experience, $postID)
     {
-        return $this->postID;
-    }
-
-    /**
-     * @param int $postID
-     */
-    public function setPostID(int $postID): void
-    {
+        $this->author = $author;
+        $this->title = $title;
+        $this->commentList = $commentList;
+        $this->likeList = $likeList;
+        $this->creationDate = $creationDate;
+        $this->experience = $experience;
         $this->postID = $postID;
     }
 
     /**
-     * @return EPerson
+     * @return mixed
      */
-    public function getAuthor(): EPerson
+    public function getAuthor()
     {
         return $this->author;
     }
 
     /**
-     * @param EPerson $author
+     * @param mixed $author
      */
-    public function setAuthor(EPerson $author): void
+    public function setAuthor($author)
     {
         $this->author = $author;
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
 
     /**
-     * @param String $title
+     * @param mixed $title
      */
-    public function setTitle(string $title): void
+    public function setTitle($title)
     {
         $this->title = $title;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getCommentList(): array
+    public function getCommentList()
     {
         return $this->commentList;
     }
 
     /**
-     * @param array $commentList
+     * @param mixed $commentList
      */
-    public function setCommentList(array $commentList): void
+    public function setCommentList($commentList)
     {
         $this->commentList = $commentList;
     }
 
     /**
-     * @return array
+     * @return mixed
      */
-    public function getLikeList(): array
+    public function getLikeList()
     {
         return $this->likeList;
     }
 
     /**
-     * @param array $likeList
+     * @param mixed $likeList
      */
-    public function setLikeList(array $likeList): void
+    public function setLikeList($likeList)
     {
         $this->likeList = $likeList;
     }
 
     /**
-     * @return \Cassandra\Date
+     * @return mixed
      */
-    public function getCreationDate(): \Cassandra\Date
+    public function getCreationDate()
     {
         return $this->creationDate;
     }
 
     /**
-     * @param \Cassandra\Date $creationDate
+     * @param mixed $creationDate
      */
-    public function setCreationDate(\Cassandra\Date $creationDate): void
+    public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
     }
 
     /**
-     * @return EExperience
+     * @return mixed
      */
-    public function getExperience(): EExperience
+    public function getExperience()
     {
         return $this->experience;
     }
 
     /**
-     * @param EExperience $experience
+     * @param mixed $experience
      */
-    public function setExperience(EExperience $experience): void
+    public function setExperience($experience)
     {
         $this->experience = $experience;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPostID()
+    {
+        return $this->postID;
+    }
+
+    /**
+     * @param mixed $postID
+     */
+    public function setPostID($postID)
+    {
+        $this->postID = $postID;
+    }
+
+
 }

@@ -3,48 +3,46 @@
 
 class ERegisteredUser extends EPerson
 {
-    private EProfile $profile;
-    private int $registeredUserID;
+    private $profile;
+    private $registeredUserID;
 
-    /**
-     * @return int
-     */
-    public function getRegisteredUserID(): int
-    {
-        return $this->registeredUserID;
-    }
-
-    /**
-     * @param int $registeredUserID
-     */
-    public function setRegisteredUserID(int $registeredUserID): void
-    {
-        $this->registeredUserID = $registeredUserID;
-    }
-
-    /**
-     * ERegisteredUser constructor.
-     * @param EProfile $profile
-     */
-    public function __construct(EProfile $profile)
-    {
+    public function __construct($nome, $admin, $pass, $personID ,$mail , $profile , $rUID ) {
+        parent::__construct($nome , $admin , $pass ,$personID, $mail);
         $this->profile = $profile;
+        $this->registeredUserID = $rUID;
     }
 
+
     /**
-     * @return EProfile
+     * @return mixed
      */
-    public function getProfile(): EProfile
+    public function getProfile()
     {
         return $this->profile;
     }
 
     /**
-     * @param EProfile $profile
+     * @param mixed $profile
      */
-    public function setProfile(EProfile $profile): void
+    public function setProfile($profile)
     {
         $this->profile = $profile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRegisteredUserID()
+    {
+        return $this->registeredUserID;
+    }
+
+    /**
+     * @param mixed $registeredUserID
+     */
+    public function setRegisteredUserID($registeredUserID)
+    {
+        $this->registeredUserID = $registeredUserID;
     }
 
 
