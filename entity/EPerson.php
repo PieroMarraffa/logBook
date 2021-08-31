@@ -3,22 +3,22 @@
 
 class EPerson
 {
-    private String $name;
-    private bool $admin;
-    private String $password;
-    private int $personID;
-    private String $mail;
-
+    private $name;
+    private $admin;
+    private $password;
+    private $personID;
+    private $mail;
 
     /**
      * EPerson constructor.
-     * @param String $name
-     * @param bool $admin
-     * @param String $password
-     * @param int $personID
-     * @param String $mail
+     * @param $name
+     * @param $admin
+     * @param $password
+     * @param $personID
+     * @param $mail
      */
-    public function __construct(string $name, bool $admin, string $password, int $personID, string $mail)
+
+    public function __construct($name, $admin, $password, $personID, $mail)
     {
         $this->name = $name;
         $this->admin = $admin;
@@ -28,84 +28,84 @@ class EPerson
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param String $name
+     * @param mixed $name
      */
-    public function setName(string $name): void
+    public function setName($name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return bool
+     * @return mixed
      */
-    public function isAdmin(): bool
+    public function getAdmin()
     {
         return $this->admin;
     }
 
     /**
-     * @param bool $admin
+     * @param mixed $admin
      */
-    public function setAdmin(bool $admin): void
+    public function setAdmin($admin): void
     {
         $this->admin = $admin;
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return $this->password;
     }
 
     /**
-     * @param String $password
+     * @param mixed $password
      */
-    public function setPassword(string $password): void
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getPersonID(): int
+    public function getPersonID()
     {
         return $this->personID;
     }
 
     /**
-     * @param int $personID
+     * @param mixed $personID
      */
-    public function setPersonID(int $personID): void
+    public function setPersonID($personID): void
     {
         $this->personID = $personID;
     }
 
     /**
-     * @return String
+     * @return mixed
      */
-    public function getMail(): string
+    public function getMail()
     {
         return $this->mail;
     }
 
     /**
-     * @param String $mail
+     * @param mixed $mail
      */
-    public function setMail(string $mail): void
+    public function setMail($mail): void
     {
         $this->mail = $mail;
     }
 
 
-}
+    }

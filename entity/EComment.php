@@ -1,73 +1,108 @@
 <?php
 
 class EComment{
-    private int $commentID;
-    private ERegisteredUser $author;
-    private bool $eliminated;
-    private array $signaledList;
-    private string $content;
+    private $commentID;
+    private $author;
+    private $eliminated;
+    private $signaledList;
+    private $content;
 
-    public function __construct(ERegisteredUser $autore, bool $eliminated, array $signaledList, string $content)
+    /**
+     * EComment constructor.
+     * @param $commentID
+     * @param $author
+     * @param $eliminated
+     * @param $signaledList
+     * @param $content
+     */
+
+    public function __construct($commentID, $author, $eliminated, $signaledList, $content)
     {
-        $this->author = $autore;
+        $this->commentID = $commentID;
+        $this->author = $author;
         $this->eliminated = $eliminated;
         $this->signaledList = $signaledList;
         $this->content = $content;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getCommentID(): int
+    public function getCommentID()
     {
         return $this->commentID;
     }
 
     /**
-     * @param int $commentID
+     * @param mixed $commentID
      */
-    public function setCommentID(int $commentID): void
+    public function setCommentID($commentID): void
     {
         $this->commentID = $commentID;
     }
 
-    public function getAuthor(): UtenteRegistrato
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
     {
         return $this->author;
     }
 
-    public function isEliminated(): bool
-    {
-        return $this->eliminated;
-    }
-
-    public function getSignaledList(): array
-    {
-        return $this->signaledList;
-    }
-
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    public function setAuthor(UtenteRegistrato $author): void
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor($author): void
     {
         $this->author = $author;
     }
 
-    public function setEliminated(bool $eliminated): void
+    /**
+     * @return mixed
+     */
+    public function getEliminated()
+    {
+        return $this->eliminated;
+    }
+
+    /**
+     * @param mixed $eliminated
+     */
+    public function setEliminated($eliminated): void
     {
         $this->eliminated = $eliminated;
     }
 
-    public function setSignaledList(array $signaledList): void
+    /**
+     * @return mixed
+     */
+    public function getSignaledList()
+    {
+        return $this->signaledList;
+    }
+
+    /**
+     * @param mixed $signaledList
+     */
+    public function setSignaledList($signaledList): void
     {
         $this->signaledList = $signaledList;
     }
 
-    public function setContent(string $content): void
+    /**
+     * @return mixed
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param mixed $content
+     */
+    public function setContent($content): void
     {
         $this->content = $content;
     }
-}
+
+    }

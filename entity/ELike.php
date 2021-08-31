@@ -3,55 +3,70 @@
 
 class ELike
 {
-    private int $value;
-    private EProfile $author;
-    private int $likeID;
+    private $value;
+    private $author;
+    private $likeID;
 
     /**
-     * @return int
+     * ELike constructor.
+     * @param $value
+     * @param $author
+     * @param $likeID
      */
-    public function getLikeID(): int
-    {
-        return $this->likeID;
-    }
 
-    /**
-     * @param int $likeID
-     */
-    public function setLikeID(int $likeID): void
+    public function __construct($value, $author, $likeID)
     {
+        $this->value = $value;
+        $this->author = $author;
         $this->likeID = $likeID;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getValue(): int
+    public function getValue()
     {
         return $this->value;
     }
 
     /**
-     * @param int $value
+     * @param mixed $value
      */
-    public function setValue(int $value): void
+    public function setValue($value): void
     {
         $this->value = $value;
     }
 
     /**
-     * @return EProfile
+     * @return mixed
      */
-    public function getAuthor(): EProfile
+    public function getAuthor()
     {
         return $this->author;
     }
 
     /**
-     * @param EProfile $author
+     * @param mixed $author
      */
-    public function setAuthor(EProfile $author): void
+    public function setAuthor($author): void
     {
         $this->author = $author;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLikeID()
+    {
+        return $this->likeID;
+    }
+
+    /**
+     * @param mixed $likeID
+     */
+    public function setLikeID($likeID): void
+    {
+        $this->likeID = $likeID;
+    }
+
 }
