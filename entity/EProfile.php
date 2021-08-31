@@ -3,7 +3,7 @@
 
 class EProfile
 {
-    private $utentName;
+    private $userName;
     private $imgPathFile;
     private $description;
     private $likedPosts;
@@ -13,22 +13,20 @@ class EProfile
 
     /**
      * EProfile constructor.
-     * @param $utentName
+     * @param $userName
      * @param $imgPathFile
      * @param $description
-     * @param $likedPosts
      * @param $personalPosts
-     * @param $visitedPlaces
      * @param $profileID
      */
-    public function __construct($utentName, $imgPathFile, $description, $likedPosts, $personalPosts, $visitedPlaces, $profileID)
+    public function __construct($userName, $imgPathFile, $description, $profileID)
     {
-        $this->utentName = $utentName;
+        $this->userName = $userName;
         $this->imgPathFile = $imgPathFile;
         $this->description = $description;
-        $this->likedPosts = $likedPosts;
-        $this->personalPosts = $personalPosts;
-        $this->visitedPlaces = $visitedPlaces;
+        $this->likedPosts = array();
+        $this->personalPosts = array();
+        $this->visitedPlaces = array();
         $this->profileID = $profileID;
     }
 
@@ -36,17 +34,17 @@ class EProfile
     /**
      * @return mixed
      */
-    public function getUtentName()
+    public function getUserName()
     {
-        return $this->utentName;
+        return $this->userName;
     }
 
     /**
-     * @param mixed $utentName
+     * @param mixed $userName
      */
-    public function setUtentName($utentName)
+    public function setUserName($userName)
     {
-        $this->utentName = $utentName;
+        $this->userName = $userName;
     }
 
     /**

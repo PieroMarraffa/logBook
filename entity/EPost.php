@@ -1,6 +1,8 @@
 <?php
 
 
+use Cassandra\Date;
+
 class EPost
 {
     private $author;
@@ -21,14 +23,16 @@ class EPost
      * @param $experience
      * @param $postID
      */
-    public function __construct($author, $title, $commentList, $likeList, $creationDate, $experience, $postID)
+    public function __construct($author, $title, $creationDate,EExperience $experience, $postID)
     {
         $this->author = $author;
         $this->title = $title;
-        $this->commentList = $commentList;
-        $this->likeList = $likeList;
-        $this->creationDate = $creationDate;
-        $this->experience = $experience;
+        $this->commentList = array();
+        $this->likeList = array();
+        $this->creationDate = new Date($creationDate);
+        $this->experience = new EExperience($experience->getExperienceID(),$experience->getStartDay(),
+            $experience->getEndDay(), $experience->getTitle(),$experience->getPlaceList(),
+            $experience->getDescription(),$experience->getImageList(),$experience->getExperienceList());
         $this->postID = $postID;
     }
 
