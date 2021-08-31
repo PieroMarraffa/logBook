@@ -1,10 +1,10 @@
 <?php
 
 
-class Like
+class ELike
 {
     private int $value;
-    private Profile $author;
+    private EProfile $author;
     private int $likeID;
 
     /**
@@ -40,17 +40,17 @@ class Like
     }
 
     /**
-     * @return Profile
+     * @return EProfile
      */
-    public function getAuthor(): Profile
+    public function getAuthor(): EProfile
     {
         return $this->author;
     }
 
     /**
-     * @param Profile $author
+     * @param EProfile $author
      */
-    public function setAuthor(Profile $author): void
+    public function setAuthor(EProfile $author): void
     {
         $this->author = $author;
     }

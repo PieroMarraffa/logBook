@@ -1,13 +1,13 @@
 <?php
 
-class Comment{
+class EComment{
     private int $commentID;
-    private RegisteredUser $author;
+    private ERegisteredUser $author;
     private bool $eliminated;
     private array $signaledList;
     private string $content;
 
-    public function __construct(RegisteredUser $autore, bool $eliminated, array $signaledList, string $content)
+    public function __construct(ERegisteredUser $autore, bool $eliminated, array $signaledList, string $content)
     {
         $this->author = $autore;
         $this->eliminated = $eliminated;

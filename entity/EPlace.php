@@ -1,7 +1,7 @@
 <?php
 
 
-class Place
+class EPlace
 {
     private String $name;
     private Double $latitude;

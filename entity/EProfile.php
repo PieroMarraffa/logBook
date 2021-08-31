@@ -1,7 +1,7 @@
 <?php
 
 
-class Profile
+class EProfile
 {
     private String $utentName;
     private String $imgPathFile;

@@ -1,9 +1,9 @@
 <?php
 
 
-class RegisteredUser extends Person
+class ERegisteredUser extends EPerson
 {
-    private Profile $profile;
+    private EProfile $profile;
     private int $registeredUserID;
 
     /**
@@ -23,26 +23,26 @@ class RegisteredUser extends Person
     }
 
     /**
-     * RegisteredUser constructor.
-     * @param Profile $profile
+     * ERegisteredUser constructor.
+     * @param EProfile $profile
      */
-    public function __construct(Profile $profile)
+    public function __construct(EProfile $profile)
     {
         $this->profile = $profile;
     }
 
     /**
-     * @return Profile
+     * @return EProfile
      */
-    public function getProfile(): Profile
+    public function getProfile(): EProfile
     {
         return $this->profile;
     }
 
     /**
-     * @param Profile $profile
+     * @param EProfile $profile
      */
-    public function setProfile(Profile $profile): void
+    public function setProfile(EProfile $profile): void
     {
         $this->profile = $profile;
     }

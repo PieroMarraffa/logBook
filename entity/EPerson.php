@@ -1,7 +1,7 @@
 <?php
 
 
-class Person
+class EPerson
 {
     private String $name;
     private bool $admin;
@@ -11,7 +11,7 @@ class Person
 
 
     /**
-     * Person constructor.
+     * EPerson constructor.
      * @param String $name
      * @param bool $admin
      * @param String $password

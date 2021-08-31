@@ -1,14 +1,14 @@
 <?php
 
 
-class Post
+class EPost
 {
-    private Person $author;
+    private EPerson $author;
     private String $title;
     private array $commentList;
     private array $likeList;
     private \Cassandra\Date $creationDate;
-    private Experience $experience;
+    private EExperience $experience;
     private int $postID;
 
     /**
@@ -28,17 +28,17 @@ class Post
     }
 
     /**
-     * @return Person
+     * @return EPerson
      */
-    public function getAuthor(): Person
+    public function getAuthor(): EPerson
     {
         return $this->author;
     }
 
     /**
-     * @param Person $author
+     * @param EPerson $author
      */
-    public function setAuthor(Person $author): void
+    public function setAuthor(EPerson $author): void
     {
         $this->author = $author;
     }
@@ -108,17 +108,17 @@ class Post
     }
 
     /**
-     * @return Experience
+     * @return EExperience
      */
-    public function getExperience(): Experience
+    public function getExperience(): EExperience
     {
         return $this->experience;
     }
 
     /**
-     * @param Experience $experience
+     * @param EExperience $experience
      */
-    public function setExperience(Experience $experience): void
+    public function setExperience(EExperience $experience): void
     {
         $this->experience = $experience;
     }

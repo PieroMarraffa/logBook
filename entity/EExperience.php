@@ -1,7 +1,7 @@
 <?php
 
 
-class Experience
+class EExperience
 {
     private int $experienceID;
     private \Cassandra\Date $startDay;
