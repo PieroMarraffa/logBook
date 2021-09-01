@@ -91,6 +91,7 @@ class FDataBase
         }
     }
 
+
     /** Elimina un'elemento del database dalla tabella ($entity)
      * in cui il campo specificato ($field) corrisponde al valore
      * dato in ingresso ($id). */
@@ -180,6 +181,8 @@ class FDataBase
             $this->database->rollBack();
             return null;}
     }
+
+
 
 
 

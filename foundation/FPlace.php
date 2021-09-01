@@ -1,9 +1,9 @@
 <?php
 
 
-class FLuogo extends FDataBase
+class FPlace extends FDataBase
 {
-    public static $class="FLuogo";
+    public static $class="FPlace";
 
     public static $table="place";
 
@@ -17,7 +17,6 @@ class FLuogo extends FDataBase
         $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_INT);
         $statement->bindValue(":Nation",$place->getNation(), PDO::PARAM_STR);
         $statement->bindValue(":AverageVisitors",$place->getAverageOfVisitors(), PDO::PARAM_INT);
-
     }
 
     /**
@@ -59,16 +58,22 @@ class FLuogo extends FDataBase
         return null;
     }
 
+
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
      */
     public function update($field,$newValue,$id){
+        $u=false;
         $database=FDataBase::getInstance();
         $exist= $database->existDB(self::getTable(),"IDPlace",$id->getId());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDPlace",$id->getId());
+            return $u;
         }
+        return $u;
     }
+
+
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public function loadPlace($field,$id){
         $database=FDataBase::getInstance();
