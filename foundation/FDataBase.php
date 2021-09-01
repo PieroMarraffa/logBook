@@ -68,7 +68,7 @@ class FDataBase
      */
     public function loadById($entity,$field,$id){
         try{
-            $query="SELECT * FROM " . $entity . "WHERE " . $field ."=" . $id;
+            $query="SELECT * FROM " . $entity . " WHERE " . $field ." = " . $id;
             $statement= $this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
@@ -180,5 +180,9 @@ class FDataBase
             $this->database->rollBack();
             return null;}
     }
+
+
+
+
 
 }
