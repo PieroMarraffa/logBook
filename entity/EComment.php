@@ -4,6 +4,10 @@ class EComment{
     private $commentID;
     private $author;
     private $eliminated;
+    /**
+     * Elenco di segnalatori
+     * @AttributeType Array<EProfile>
+     */
     private $signaledList;
     private $content;
 
@@ -16,14 +20,24 @@ class EComment{
      * @param $content
      */
 
-    public function __construct($commentID, $author, $eliminated, $signaledList, $content)
+
+    //--------------COSTRUTTORE----------------------
+
+
+    public function __construct($commentID, EProfile $author, $eliminated, $content)
     {
         $this->commentID = $commentID;
-        $this->author = $author;
+        $this->author = new EProfile($author->getUtentName(), $author->getImgPathFile(),
+            $author->getDescription(), $author->getProfileID());
         $this->eliminated = $eliminated;
-        $this->signaledList = $signaledList;
+        $this->signaledList = array();
         $this->content = $content;
     }
+
+
+
+    //--------------METODI GETTER E SETTER----------------------
+
 
     /**
      * @return mixed
@@ -103,6 +117,17 @@ class EComment{
     public function setContent($content): void
     {
         $this->content = $content;
+    }
+
+    //--------------METODI ADD TO LIST----------------------
+
+    public function addSignalator(EProfile $signalator){
+        array_push($this->signaledList, $signalator);
+    }
+
+    public function removeSignalator($pos){
+        unset($this->signaledList[$pos]);
+        $this->signaledList = array_values($this->signaledList);
     }
 
     }

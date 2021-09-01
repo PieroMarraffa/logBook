@@ -1,6 +1,8 @@
 <?php
 
 
+use Cassandra\Date;
+
 class EExperience
 {
     private $experienceID;
@@ -12,29 +14,33 @@ class EExperience
     private $imageList;
     private $experienceList;
 
+
+    //--------------COSTRUTTORE----------------------
+
+
     /**
      * EExperience constructor.
      * @param $experienceID
      * @param $startDay
      * @param $endDay
      * @param $title
-     * @param $placeList
      * @param $description
-     * @param $imageList
-     * @param $experienceList
      */
 
-    public function __construct($experienceID, $startDay, $endDay, $title, $placeList, $description, $imageList, $experienceList)
+    public function __construct($experienceID, $startDay, $endDay, $title, $description)
     {
         $this->experienceID = $experienceID;
-        $this->startDay = $startDay;
-        $this->endDay = $endDay;
+        $this->startDay = new Date($startDay);
+        $this->endDay = new Date($endDay);
         $this->title = $title;
-        $this->placeList = $placeList;
+        $this->placeList = array();
         $this->description = $description;
-        $this->imageList = $imageList;
-        $this->experienceList = $experienceList;
+        $this->imageList = array();
+        $this->experienceList = array();
     }
+
+    //--------------METODI GETTER E SETTER----------------------
+
 
     /**
      * @return mixed
@@ -163,5 +169,37 @@ class EExperience
     {
         $this->experienceList = $experienceList;
     }
+
+
+    //--------------METODI ADD TO LIST----------------------
+
+    public function addPlace(EPlace $place){
+        array_push($this->placeList, $place);
+    }
+
+    public function removePlace($pos){
+        unset($this->placeList[$pos]);
+        $this->placeList = array_values($this->placeList);
+    }
+
+    public function addExperience(EExperience $experience){
+        array_push($this->experienceList, $experience);
+    }
+
+    public function removeExperience($pos){
+        unset($this->experienceList[$pos]);
+        $this->experienceList = array_values($this->experienceList);
+    }
+
+    public function addImg(String $url){
+        array_push($this->imageList, $url);
+    }
+
+    public function removeImg($pos){
+        unset($this->imageList[$pos]);
+        $this->imageList = array_values($this->imageList);
+    }
+
+
 
     }
