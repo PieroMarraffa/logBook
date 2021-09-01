@@ -36,6 +36,8 @@ class EPost
         $this->postID = $postID;
     }
 
+
+
     /**
      * @return mixed
      */
@@ -148,5 +150,24 @@ class EPost
         $this->postID = $postID;
     }
 
+    /** Metodi che aggiungono e tolgono dagli array di like e commento */
 
+
+    public function addCommentList(EComment $c){
+        array_push($this->commentList,$c);
+    }
+
+    public function removeComment($position) {
+        unset($this->commentList[$position]);
+        $this->commentList=array_values($this->commentList);
+    }
+
+    public function addLikeList(ELike $l){
+        array_push($this->likeList,$l);
+    }
+
+    public function removeLike($position) {
+        unset($this->likeList[$position]);
+        $this->LikeList=array_values($this->likeList);
+    }
 }

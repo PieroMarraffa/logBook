@@ -177,7 +177,7 @@ class FDataBase
         }
         }catch (PDOException $e) {
             echo "ERROR " . $e->getMessage();
-            $this->db->rollBack();
+            $this->database->rollBack();
             return null;}
     }
 

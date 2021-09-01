@@ -31,6 +31,7 @@ class EProfile
     }
 
 
+
     /**
      * @return mixed
      */
@@ -142,6 +143,36 @@ class EProfile
     {
         $this->profileID = $profileID;
     }
+
+    /** Metodi per inserire o togliere dagli array LikedPost, PersonalPost, VisitedPlaces */
+
+    public function addLikedPost(EPost $p){
+        array_push($this->likedPosts,$p);
+    }
+
+    public function removeLikedPost($position) {
+        unset($this->likedPosts[$position]);
+        $this->likedPosts=array_values($this->likedPosts);
+    }
+
+    public function addPost(EPost $p){
+        array_push($this->personalPosts,$p);
+    }
+
+    public function removePost($position) {
+        unset($this->personalPosts[$position]);
+        $this->personalPosts=array_values($this->personalPosts);
+    }
+
+    public function addVisitedPlace(EPlace $p){
+        array_push($this->visitedPlaces,$p);
+    }
+
+    public function removeVisitedPost($position) {
+        unset($this->visitedPlaces[$position]);
+        $this->visitedPlaces=array_values($this->visitedPlaces);
+    }
+
 
 
 }
