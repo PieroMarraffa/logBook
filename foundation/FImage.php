@@ -1,24 +1,21 @@
 <?php
 
 
-class FExperience extends FDataBase
+class FImage extends FDataBase
 {
-    public static $class="FExperience";
+    public static $class="FImage";
 
-    public static $table="experience";
+    public static $table="image";
 
-    public static $value="(:IDExperience,:IDExperienceFather,:IDPost,:StartDay,:EndDay,:Title,:Description)";
+    public static $value="(:IDImage,:IDExperience,:Category,:Url)";
 
     public function __constructor(){}
 
-    public static function bind($statement,EExperience $experience){
-        $statement->bindValue(":IDExperience",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDExperienceFather",$experience->get, PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDPost",$experience->get, PDO::PARAM_INT);              //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DEL POST
-        $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
-        $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
-        $statement->bindValue(":Title",$experience->getTitle(), PDO::PARAM_STR);
-        $statement->bindValue(":Description",$experience->getDescription(), PDO::PARAM_STR);
+    public static function bind($statement,EImage $image){
+        $statement->bindValue(":IDImage",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":IDExperience",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":Category",$image->getCategory(), PDO::PARAM_STR);
+        $statement->bindValue(":Url",$image->getUrl(), PDO::PARAM_STR);
     }
 
     /**
@@ -49,11 +46,11 @@ class FExperience extends FDataBase
      *se non è presente lo aggiunge e ritorna il relativo ID
      *altirmenti ritorna null
      */
-    public static function store(EExperience $e){
+    public static function store(EImage $img){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDExperience",$e->getExperienceID());
+        $exist= $database->existDB(self::getTable(),"IDImage",$img->getExperienceID());
         if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$e);
+            $id=$database->storeInDB(self::getTable(),$img);
             return $id;
         }
         return null;
@@ -66,9 +63,9 @@ class FExperience extends FDataBase
     public function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDExperience",$id->getID());
+        $exist= $database->existDB(self::getTable(),"IDImage",$id->getID());
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDPlace",$id->getId());
+            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDImage",$id->getId());
             return $u;
         }
         return $u;
@@ -82,16 +79,6 @@ class FExperience extends FDataBase
         return $result;
     }
 
-
-    /** Restituisce la lista di tutte le esperienze figlie relative all'ID
-     * dell'esperienza padre passato in ingresso
-     */
-    public function loadExperienceChild($idParent){
-        $field="IDExperienceFather";
-        $database=FDataBase::getInstance();
-        $result= $database->loadById(self::getTable(),$field,$idParent);
-        return $result;
-    }
 
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
@@ -113,5 +100,4 @@ class FExperience extends FDataBase
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
-
 }

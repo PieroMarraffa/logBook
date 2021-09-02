@@ -75,7 +75,7 @@ class FPlace extends FDataBase
 
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
-    public function loadPlace($field,$id){
+    public function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         return $result;
@@ -95,9 +95,9 @@ class FPlace extends FDataBase
 
 
     /** Elimina l'elemento in cui l'id corrisponde a quello inserito */
-    public function delete($id){
+    public function delete($field,$id){
         $database=FDataBase::getInstance();
-        $database->deleteFromDB(self::getTable(),"IDPlace",$id);
+        $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
 
