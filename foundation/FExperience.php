@@ -89,8 +89,15 @@ class FExperience extends FDataBase
     public function loadExperienceChild($idParent){
         $field="IDExperienceFather";
         $database=FDataBase::getInstance();
-        $result= $database->loadById(self::getTable(),$field,$idParent);
-        return $result;
+        return $database->loadById(self::getTable(),$field,$idParent);
+
+    }
+
+    public function loadByPost($idPost){
+        $field="IDPost";
+        $database=FDataBase::getInstance();
+        return $database->loadById(self::getTable(),$field,$idPost);
+
     }
 
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true

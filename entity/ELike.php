@@ -4,7 +4,9 @@
 class ELike
 {
     private $value;
+
     private $author;
+
     private $likeID;
 
     /**

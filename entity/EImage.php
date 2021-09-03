@@ -5,20 +5,16 @@ class EImage
 {
     private $imageID;
 
-    private $category;
-
     private $url;
 
     /**
      * EImage constructor.
      * @param $imageID
-     * @param $category
      * @param $url
      */
-    public function __construct($imageID, $category, $url)
+    public function __construct($imageID, $url)
     {
         $this->imageID = $imageID;
-        $this->category = $category;
         $this->url = $url;
     }
 
@@ -38,21 +34,6 @@ class EImage
         $this->imageID = $imageID;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category): void
-    {
-        $this->category = $category;
-    }
 
     /**
      * @return mixed

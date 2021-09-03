@@ -7,14 +7,13 @@ class FImage extends FDataBase
 
     public static $table="image";
 
-    public static $value="(:IDImage,:IDExperience,:Category,:Url)";
+    public static $value="(:IDImage,:IDExperience,:Url)";
 
     public function __constructor(){}
 
     public static function bind($statement,EImage $image){
         $statement->bindValue(":IDImage",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDExperience",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":Category",$image->getCategory(), PDO::PARAM_STR);
         $statement->bindValue(":Url",$image->getUrl(), PDO::PARAM_STR);
     }
 

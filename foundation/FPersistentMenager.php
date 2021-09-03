@@ -48,6 +48,12 @@ class FPersistentMenager
         return $result;
     }
 
+    public static function loadExperienceByPost($idPost){
+        $result=null;
+        $result=FExperience::loadByPost($idPost);
+        return $result;
+    }
+
     public static function loadByNation($nation){
         $result=null;
         $result=FPlace::loadByNation($nation);
