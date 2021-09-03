@@ -57,6 +57,12 @@ class FPersistentMenager
     public static function loadByNation($nation){
         $result=null;
         $result=FPlace::loadByNation($nation);
+        return $result;
+    }
+
+    public static function loadAdmin(){
+        $result=FUser::loadAdmin();
+        return $result;
     }
 
 }

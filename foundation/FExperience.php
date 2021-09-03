@@ -7,14 +7,14 @@ class FExperience extends FDataBase
 
     public static $table="experience";
 
-    public static $value="(:IDExperience,:IDExperienceFather,:IDPost,:StartDay,:EndDay,:Title,:Description)";
+    public static $value="(:IDexperience,:IDExperienceFather,:IDpost,:StartDay,:EndDay,:Title,:Description)";
 
     public function __constructor(){}
 
     public static function bind($statement,EExperience $experience){
-        $statement->bindValue(":IDExperience",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":IDexperience",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDExperienceFather",$experience->get, PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDPost",$experience->get, PDO::PARAM_INT);              //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DEL POST
+        $statement->bindValue(":IDpost",$experience->get, PDO::PARAM_INT);              //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DEL POST
         $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
         $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
         $statement->bindValue(":Title",$experience->getTitle(), PDO::PARAM_STR);
@@ -51,7 +51,7 @@ class FExperience extends FDataBase
      */
     public static function store(EExperience $e){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDExperience",$e->getExperienceID());
+        $exist= $database->existDB(self::getTable(),"IDexperience",$e->getExperienceID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$e);
             return $id;
@@ -63,12 +63,12 @@ class FExperience extends FDataBase
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
      */
-    public function update($field,$newValue,$id){
+    public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDExperience",$id->getID());
+        $exist= $database->existDB(self::getTable(),"IDexperience",$id->getID());
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDPlace",$id->getId());
+            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDplace",$id->getID());
             return $u;
         }
         return $u;
@@ -76,7 +76,7 @@ class FExperience extends FDataBase
 
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
-    public function load($field,$id){
+    public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         return $result;
@@ -86,14 +86,14 @@ class FExperience extends FDataBase
     /** Restituisce la lista di tutte le esperienze figlie relative all'ID
      * dell'esperienza padre passato in ingresso
      */
-    public function loadExperienceChild($idParent){
+    public static function loadExperienceChild($idParent){
         $field="IDExperienceFather";
         $database=FDataBase::getInstance();
         return $database->loadById(self::getTable(),$field,$idParent);
     }
 
-    public function loadByPost($idPost){
-        $field="IDPost";
+    public static function loadByPost($idPost){
+        $field="IDpost";
         $database=FDataBase::getInstance();
         return $database->loadById(self::getTable(),$field,$idPost);
 
@@ -102,7 +102,7 @@ class FExperience extends FDataBase
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
      */
-    public function exist($field,$id){
+    public static function exist($field,$id){
         $database=FDataBase::getInstance();
         $e=$database->existInDB(self::getTable(),$field,$id);
         if($e>0){
@@ -115,7 +115,7 @@ class FExperience extends FDataBase
     /** Elimina l'elemento in cui l'id corrisponde a quello
      * inserito nel campo corrispondente al campo field
      */
-    public function delete($field,$id){
+    public static function delete($field,$id){
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }

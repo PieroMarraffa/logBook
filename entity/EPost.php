@@ -12,6 +12,7 @@ class EPost
     private $creationDate;
     private $experience;
     private $postID;
+    private $deleted;
 
     /**
      * EPost constructor.
@@ -23,7 +24,7 @@ class EPost
      * @param $experience
      * @param $postID
      */
-    public function __construct($author, $title, $creationDate,EExperience $experience, $postID)
+    public function __construct($author, $title, $creationDate,EExperience $experience, $postID,$deleted)
     {
         $this->author = $author;
         $this->title = $title;
@@ -34,6 +35,23 @@ class EPost
             $experience->getEndDay(), $experience->getTitle(),$experience->getPlaceList(),
             $experience->getDescription(),$experience->getImageList(),$experience->getExperienceList());
         $this->postID = $postID;
+        $this->deleted=$deleted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * @param mixed $deleted
+     */
+    public function setDeleted($deleted): void
+    {
+        $this->deleted = $deleted;
     }
 
 

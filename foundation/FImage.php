@@ -7,13 +7,13 @@ class FImage extends FDataBase
 
     public static $table="image";
 
-    public static $value="(:IDImage,:IDExperience,:Url)";
+    public static $value="(:IDimage,:IDexperience,:Url)";
 
     public function __constructor(){}
 
     public static function bind($statement,EImage $image){
-        $statement->bindValue(":IDImage",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDExperience",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":IDexperience",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":Url",$image->getUrl(), PDO::PARAM_STR);
     }
 
@@ -47,7 +47,7 @@ class FImage extends FDataBase
      */
     public static function store(EImage $img){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDImage",$img->getExperienceID());
+        $exist= $database->existDB(self::getTable(),"IDimage",$img->getImageID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$img);
             return $id;
@@ -59,12 +59,12 @@ class FImage extends FDataBase
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
      */
-    public function update($field,$newValue,$id){
+    public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDImage",$id->getID());
+        $exist= $database->existDB(self::getTable(),"IDimage",$id->getID());
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDImage",$id->getId());
+            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDimage",$id->getId());
             return $u;
         }
         return $u;
@@ -72,7 +72,7 @@ class FImage extends FDataBase
 
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
-    public function load($field,$id){
+    public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         return $result;
@@ -82,7 +82,7 @@ class FImage extends FDataBase
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
      */
-    public function exist($field,$id){
+    public static function exist($field,$id){
         $database=FDataBase::getInstance();
         $e=$database->existInDB(self::getTable(),$field,$id);
         if($e>0){
@@ -95,7 +95,7 @@ class FImage extends FDataBase
     /** Elimina l'elemento in cui l'id corrisponde a quello
      * inserito nel campo corrispondente al campo field
      */
-    public function delete($field,$id){
+    public static function delete($field,$id){
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }

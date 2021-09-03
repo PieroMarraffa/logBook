@@ -8,6 +8,7 @@ class EUser
     private $name;
     private $password;
     private $mail;
+    private $admin;
     private $imgPathFile;
     private $description;
     private $likedPosts;
@@ -21,21 +22,39 @@ class EUser
      * @param $name
      * @param $password
      * @param $mail
+     * @param $admin
      * @param $imgPathFile
      * @param $description
      */
-    public function __construct($userID, $userName, $name, $password, $mail, $imgPathFile, $description)
+    public function __construct($userID, $userName, $name, $password, $mail, $admin, $imgPathFile, $description)
     {
         $this->userID = $userID;
         $this->userName = $userName;
         $this->name = $name;
         $this->password = $password;
         $this->mail = $mail;
+        $this->admin=$admin;
         $this->imgPathFile = $imgPathFile;
         $this->description = $description;
         $this->likedPosts = array();
         $this->personalPosts = array();
         $this->visitedPlaces = array();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAdmin()
+    {
+        return $this->admin;
+    }
+
+    /**
+     * @param mixed $admin
+     */
+    public function setAdmin($admin): void
+    {
+        $this->admin = $admin;
     }
 
 

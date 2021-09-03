@@ -24,7 +24,7 @@ class FDataBase
      *RICHIAMARE SEMPRE QUESTO
      *Se non è ancora stato istanziato il db lo istanzia.
      */
-    public function getInstance(){
+    public static function getInstance(){
         if(self::$instance==null){
             self::$instance==new FDataBase();
         }
@@ -252,6 +252,128 @@ class FDataBase
         else{
             try{
                 $query="SELECT * FROM " . $secondClass . "_to_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
+                $statement=$this->database->prepare($query);
+                $statement->execute();
+                $num=$statement->rowCount();
+                if($num == 0){
+                    $resID=null;
+                }
+                elseif ($num ==1){
+                    $resID = $statement->fetch(PDO::FETCH_ASSOC);
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $stmt=$this->database->prepare($query);
+                    $stmt->execute();
+                    $number=$stmt->rowCount();
+                    if($number == 0){
+                        $result=null;
+                    }
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                    else{
+                        $result=array();
+                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        while ($row = $stmt->fetch())
+                            $result[] = $row;
+                    }
+                }
+                else{
+                    $resID=array();
+                    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                    while ($row = $statement->fetch())
+                        $resID[] = $row;
+                    foreach ($resID as $r){
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        $stmt=$this->database->prepare($query);
+                        $stmt->execute();
+                        $number=$stmt->rowCount();
+                        if($number == 0){
+                            $result=null;
+                        }
+                        elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                        else{
+                            $result=array();
+                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                            while ($row = $stmt->fetch())
+                                $result[] = $row;
+                        }
+                    }
+                }
+                $this->closeDbConnection();
+                return $result;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                return null;
+            }
+
+        }
+    }
+
+
+    /** Prende in ingresso il nome di due tabelle e l'id da cercare
+     *va a cercare nella classe entity1_to_entity2 e restituisce l'id associato,
+     * utilizzando quel/quegli ID va a cercare nella tabella entity2  gli elementi
+     * associati a quell'ID e li restituisce
+     * N.B. le combinazioni ammesse sono
+     * entity1= comment => entity2=user
+     * entity1= post => entity2=user
+     */
+    public function loadEntityReportedByEntity($firstClass,$idFirstClass,$secondClass){
+        if($secondClass=="user"){
+            try{
+                $query="SELECT * FROM " . $firstClass . "_reported_by_" . $secondClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
+                $statement=$this->database->prepare($query);
+                $statement->execute();
+                $num=$statement->rowCount();
+                if($num == 0){
+                    $resID=null;
+                }
+                elseif ($num ==1){
+                    $resID = $statement->fetch(PDO::FETCH_ASSOC);
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $stmt=$this->database->prepare($query);
+                    $stmt->execute();
+                    $number=$stmt->rowCount();
+                    if($number == 0){
+                        $result=null;
+                    }
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                    else{
+                        $result=array();
+                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        while ($row = $stmt->fetch())
+                            $result[] = $row;
+                    }
+                }
+                else{
+                    $resID=array();
+                    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                    while ($row = $statement->fetch())
+                        $resID[] = $row;
+                    foreach ($resID as $r){
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        $stmt=$this->database->prepare($query);
+                        $stmt->execute();
+                        $number=$stmt->rowCount();
+                        if($number == 0){
+                            $result=null;
+                        }
+                        elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                        else{
+                            $result=array();
+                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                            while ($row = $stmt->fetch())
+                                $result[] = $row;
+                        }
+                    }
+                }
+                $this->closeDbConnection();
+                return $result;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                return null;
+            }}
+        else{
+            try{
+                $query="SELECT * FROM " . $secondClass . "_reported_by_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
                 $statement->execute();
                 $num=$statement->rowCount();

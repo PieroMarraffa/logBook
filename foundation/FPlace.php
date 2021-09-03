@@ -7,7 +7,7 @@ class FPlace extends FDataBase
 
     public static $table="place";
 
-    public static $value="(:IDPlace,:Latitude,:Longitude,:Nation,:AverageVisitors)";
+    public static $value="(:IDplace,:Latitude,:Longitude,:Nation,:AverageVisitors)";
 
     public function __constructor(){}
 
@@ -48,9 +48,9 @@ class FPlace extends FDataBase
      *se non è presente lo aggiunge e ritorna il relativo ID
      *altirmenti ritorna null
      */
-    public static function store(ELuogo $l){
+    public static function store(EPlace $l){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDPlace",$l->getId());
+        $exist= $database->existDB(self::getTable(),"IDplace",$l->getPlaceId());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$l);
             return $id;
@@ -62,12 +62,12 @@ class FPlace extends FDataBase
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
      */
-    public function update($field,$newValue,$id){
+    public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDPlace",$id->getId());
+        $exist= $database->existDB(self::getTable(),"IDplace",$id->getId());
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDPlace",$id->getId());
+            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDplace",$id->getId());
             return $u;
         }
         return $u;
@@ -75,7 +75,7 @@ class FPlace extends FDataBase
 
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
-    public function load($field,$id){
+    public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         return $result;
@@ -84,7 +84,7 @@ class FPlace extends FDataBase
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
      */
-    public function exist($field,$id){
+    public static function exist($field,$id){
         $database=FDataBase::getInstance();
         $e=$database->existInDB(self::getTable(),$field,$id);
         if($e>0){
@@ -95,7 +95,7 @@ class FPlace extends FDataBase
 
 
     /** Elimina l'elemento in cui l'id corrisponde a quello inserito */
-    public function delete($field,$id){
+    public static function delete($field,$id){
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
