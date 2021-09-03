@@ -111,4 +111,26 @@ class FUser extends FDataBase
         $result=$database->loadById(self::getTable(),"Admin",true);
         return $result;
     }
+
+    /** ritorna true se l'id passato in ingresso è associato ad un account admin
+     *altrimenti false
+     */
+    public static function isAdmin($id){
+        $admin= self::loadAdmin();
+        foreach ($admin as $a){
+            if($a->getUserID()==$id){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
+    /** Ritorna tutti i luoghi associati ad un'utente */  //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
+    public static function loadPlaceToUser($id){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity(self::getTable(),$id,"place");
+        return $result;
+    }
 }

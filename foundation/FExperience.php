@@ -120,4 +120,10 @@ class FExperience extends FDataBase
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
+    public static function loadExperienceByPlace($id){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity("place",$id,self::getTable());
+        return $result;
+    }
+
 }

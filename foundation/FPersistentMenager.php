@@ -13,8 +13,8 @@ class FPersistentMenager
 
     public static function delete($field,$val,$Fclass){
         $Fclass::delete($field,$val);
-        if ($Fclass == "FExperience" || $Fclass == "FPlace" )//AGGIUNGI LE FOUNDATION MAN MANO
-            $Fclass::delete($field,$val);                   // CHE LE FANNO SE IMPLEMENTANO IL METODO UPDATE
+        if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
+            $Fclass::delete($field,$val);
         else
             print ("METODO NON SUPPORTATO DALLA CLASSE");
     }
@@ -35,7 +35,7 @@ class FPersistentMenager
 
     public static function update($field, $newvalue, $val,$Fclass) {
         $ris = null;
-        if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass== "FImage")//AGGIUNGI LE FOUNDATION MAN MANO CHE LE FANNO SE IMPLEMENTANO IL METODO UPDATE
+        if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
             $ris = $Fclass::update($field, $newvalue, $val);
         else
             print ("METODO NON SUPPORTATO DALLA CLASSE");

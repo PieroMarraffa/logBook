@@ -103,4 +103,10 @@ class FPost
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
+    public static function loadPostByPlace($id){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity("place",$id,self::getTable());
+        return $result;
+    }
+
 }
