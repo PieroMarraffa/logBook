@@ -68,14 +68,14 @@ class FDataBase
      */
     public function loadById($entity,$field,$id){
         try{
-            $query="SELECT * FROM " . $entity . " WHERE " . $field ." = " . $id;
+            $query="SELECT * FROM " . $entity . " WHERE " . $field ." = '" . $id."';";
             $statement= $this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
             if($num == 0){
                 $result=null;
             }
-            elseif ($num =1){
+            elseif ($num ==1){
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
             }else{
                 $result=array();
@@ -102,7 +102,7 @@ class FDataBase
             $exist = $this->existInDB($entity, $field, $id);
             if($exist) {
                 $this->database->beginTransaction();
-                $query = "DELETE * FROM " . $entity . " WHERE " . $field . " = " . $id;
+                $query = "DELETE * FROM " . $entity . " WHERE " . $field . " = '" . $id."'";
                 $statement = $this->database->prepare($query);
                 $statement->execute();
                 $this->database->commit();
@@ -124,13 +124,14 @@ class FDataBase
      */
     public function existInDB($entity,$field,$id){
         try{
-        $query = "SELECT * FROM " . $entity . " WHERE " . $field . " = " . $id;
+        $query = "SELECT * FROM " . $entity . " WHERE " . $field . " = '" . $id."';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         if (count($result) == 1) return 1;
         else if (count($result) > 1) return count($result);
-        $this->closeDbConnection();}
+        $this->closeDbConnection();
+        }
         catch(PDOException $e){
             echo "ERROR" . $e->getMessage();
             return null;
@@ -167,7 +168,7 @@ class FDataBase
     public function verifiedAccess($email,$password){
         try{
         $class=FRegisteredUser;
-        $query="SELECT * FROM ". $class::getTable() . " WHERE email = '" . $email ."' AND password = '" . $password . "'";
+        $query="SELECT * FROM ". $class::getTable() . " WHERE email = '" . $email ."' AND password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();
@@ -180,6 +181,130 @@ class FDataBase
             echo "ERROR " . $e->getMessage();
             $this->database->rollBack();
             return null;}
+    }
+
+
+
+    /** Prende in ingresso il nome di due tabelle e l'id da cercare
+     *va a cercare nella classe entity1_to_entity2 e restituisce l'id associato,
+     * utilizzando quel/quegli ID va a cercare nella tabella entity2  gli elementi
+     * associati a quell'ID e li restituisce
+     * N.B. le combinazioni ammesse sono
+     * entity1= place => entity2=experience
+     * entity1= place => entity2=post
+     * entity1= place => entity2=user
+     */
+    public function loadEntityToEntity($firstClass,$idFirstClass,$secondClass){
+        if($firstClass=="place"){
+        try{
+            $query="SELECT * FROM " . $firstClass . "_to_" . $secondClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num == 0){
+                $resID=null;
+            }
+            elseif ($num ==1){
+                $resID = $statement->fetch(PDO::FETCH_ASSOC);
+                $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                $stmt=$this->database->prepare($query);
+                $stmt->execute();
+                $number=$stmt->rowCount();
+                if($number == 0){
+                    $result=null;
+                }
+                elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                else{
+                    $result=array();
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    while ($row = $stmt->fetch())
+                        $result[] = $row;
+                }
+            }
+            else{
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch())
+                    $resID[] = $row;
+                foreach ($resID as $r){
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                    $stmt=$this->database->prepare($query);
+                    $stmt->execute();
+                    $number=$stmt->rowCount();
+                    if($number == 0){
+                        $result=null;
+                    }
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                    else{
+                        $result=array();
+                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        while ($row = $stmt->fetch())
+                            $result[] = $row;
+                    }
+                }
+            }
+            $this->closeDbConnection();
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }}
+        else{
+            try{
+                $query="SELECT * FROM " . $secondClass . "_to_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
+                $statement=$this->database->prepare($query);
+                $statement->execute();
+                $num=$statement->rowCount();
+                if($num == 0){
+                    $resID=null;
+                }
+                elseif ($num ==1){
+                    $resID = $statement->fetch(PDO::FETCH_ASSOC);
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $stmt=$this->database->prepare($query);
+                    $stmt->execute();
+                    $number=$stmt->rowCount();
+                    if($number == 0){
+                        $result=null;
+                    }
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                    else{
+                        $result=array();
+                        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                        while ($row = $stmt->fetch())
+                            $result[] = $row;
+                    }
+                }
+                else{
+                    $resID=array();
+                    $statement->setFetchMode(PDO::FETCH_ASSOC);
+                    while ($row = $statement->fetch())
+                        $resID[] = $row;
+                    foreach ($resID as $r){
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        $stmt=$this->database->prepare($query);
+                        $stmt->execute();
+                        $number=$stmt->rowCount();
+                        if($number == 0){
+                            $result=null;
+                        }
+                        elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
+                        else{
+                            $result=array();
+                            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                            while ($row = $stmt->fetch())
+                                $result[] = $row;
+                        }
+                    }
+                }
+                $this->closeDbConnection();
+                return $result;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                return null;
+            }
+
+        }
     }
 
 
