@@ -147,4 +147,20 @@ class FPersistentMenager
         return $result;
     }
 
+    public static function loadLogin($email,$password){
+        $result=FUser::loadLogin($email,$password);
+        return $result;
+    }
+
+    public static function updateExperienceAssociatedToPost($idExperience,$idPlace){
+        $result=FExperience::updateExperienceAssociatedToPost($idExperience,$idPlace);
+        return $result;
+    }
+
+    public static function updatePlaceAssociatedToPost($idPost,$idPlace){
+        $result=FPost::updatePlaceAssociatedToPost($idPost,$idPlace);
+        return $result;
+
+    }
+
 }

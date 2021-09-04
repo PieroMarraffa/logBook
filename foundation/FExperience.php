@@ -137,4 +137,10 @@ class FExperience extends FDataBase
         return $result;
     }
 
+    public static function updateExperienceAssociatedToPost($idExperience,$idPlace){
+        $database=FDataBase::getInstance();
+        $result=$database->updateEntityToEntity(self::getTable(),$idExperience,"place",$idPlace);
+        return $result;
+    }
+
 }

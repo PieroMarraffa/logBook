@@ -168,4 +168,17 @@ class FUser extends FDataBase
         return $result;
     }
 
+
+    public static function loadLogin($email,$password){
+        $database=FDatabase::getInstance();
+        $result=$database->VerifiedAccess($email, $password);
+        if(isset($result)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    /** FAI IL METODO PER LA RICERCA DEGLI UTENTI IN BASE ALLA STRINGA INSERITA */
 }

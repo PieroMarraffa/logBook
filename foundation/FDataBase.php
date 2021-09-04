@@ -63,7 +63,7 @@ class FDataBase
      * in cui il campo specificato ($field) corrisponde al valore
      * dato in ingresso ($id).
      * Se il valore restituito è unico viene restituito solo l'oggetto.
-     * Se la query ritorna loadBypiù valori viene restituito un array contenente
+     * Se la query ritorna più valori viene restituito un array contenente
      * gli oggetti restituiti.
      */
     public function loadById($entity,$field,$id){
@@ -436,7 +436,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
     if($firstClass="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
         try{
             $this->database->beginTransaction();
-            $id=$this->database->query("INSERT INTO " .$firstClass. "_to_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .")" );
+            $id=$this->database->query("INSERT INTO " .$firstClass. "_to_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
             $this->database->commit();
             $this->closeDbConnection();
             return $id;
@@ -449,7 +449,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
     elseif($secondClass=="place" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
         try{
             $this->database->beginTransaction();
-            $id=$this->database->query("INSERT INTO " .$secondClass. "_to_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .")" );
+            $id=$this->database->query("INSERT INTO " .$secondClass. "_to_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .");" );
             $this->database->commit();
             $this->closeDbConnection();
             return $id;
@@ -471,7 +471,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
         if($secondClass="user" && ($firstClass=="comment" || $firstClass=="post")){
             try{
                 $this->database->beginTransaction();
-                $id=$this->database->query("INSERT INTO " .$firstClass. "_reported_by_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .")" );
+                $id=$this->database->query("INSERT INTO " .$firstClass. "_reported_by_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
                 $this->database->commit();
                 $this->closeDbConnection();
                 return $id;
@@ -484,7 +484,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
         elseif($firstClass=="user" && ($secondClass=="comment" || $secondClass=="post")){
             try{
                 $this->database->beginTransaction();
-                $id=$this->database->query("INSERT INTO " .$secondClass. "_reported_by_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .")" );
+                $id=$this->database->query("INSERT INTO " .$secondClass. "_reported_by_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .");" );
                 $this->database->commit();
                 $this->closeDbConnection();
                 return $id;
@@ -502,7 +502,73 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
     }
 
 
-    /** AGGIUNGI ANCHE IL METODO UPDATEEEEEEEEEEEE */
+    public function updateEntityToEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
+        if($firstClass="place" && ($firstClass=="comment" || $firstClass=="post")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE " .$firstClass. "_to_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        elseif($secondClass=="place" && ($firstClass=="comment" || $firstClass=="post")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE " .$secondClass. "_to_". $firstClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        else{
+            echo "LA CLASSE INSERITA NON E' VALIDA " ;
+            return null;
 
+        }
+    }
+
+
+    public function updateEntityReportedByEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
+        if($firstClass="user" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE " .$firstClass. "_reported_by_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        elseif($secondClass=="user" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE " .$secondClass. "_reported_by_". $firstClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        else{
+            echo "LA CLASSE INSERITA NON E' VALIDA " ;
+            return null;
+
+        }
+    }
 
 }

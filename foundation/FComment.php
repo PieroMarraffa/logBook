@@ -110,4 +110,19 @@ class FComment
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
         return $result;
     }
+
+    /** visualizza tutti i commenti che possono essere visualizzati */
+    public static function loadAllVisibleComment()
+    {
+        $result = self::load("Deleted", "false");
+        return $result;
+    }
+
+    /** visualizza tutti i post che non possono essere visualizzati */
+    public static function loadAllDeletedComment()
+    {
+        $result = self::load("Deleted", "true");
+        return $result;
+    }
+
 }
