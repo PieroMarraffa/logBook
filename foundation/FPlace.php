@@ -108,4 +108,26 @@ class FPlace extends FDataBase
         return $places;
     }
 
+    /** ritorna tutte le esperienze associate a quel determinato luogo passato in ingresso */
+    public static function loadExperienceByPlace($idPLace){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"experience");
+        return $result;
+    }
+
+    /** ritorna tutte i post associati a quel determinato luogo passato in ingresso */
+    public static function loadPostByPlace($idPLace){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"post");
+        return $result;
+    }
+
+    /** ritorna tutte gli utenti associati a quel determinato luogo passato in ingresso */
+    public static function loadUserByPlace($idPLace){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"user");
+        return $result;
+    }
+
+
 }

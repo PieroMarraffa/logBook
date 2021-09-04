@@ -65,4 +65,86 @@ class FPersistentMenager
         return $result;
     }
 
+    public static function isAdmin($id){
+        $result=FUser::isAdmin($id);
+        return $result;
+    }
+
+    public static function loadPlaceByExperience($idExperience){
+        $result=FExperience::loadPlaceByExperience($idExperience);
+        return $result;
+    }
+
+    public static function storePlaceToExperience($idExperience,$idPLace){
+        $result=FExperience::storePlaceToExperience($idExperience,$idPLace);
+        return $result;
+    }
+
+
+    public static function loadExperienceByPlace($id){
+        $result= FPlace::loadExperienceByPlace($id);
+        return $result;
+    }
+
+    public static function loadPostByPlace($id){
+        $result = FPlace::loadPostByPlace($id);
+        return $result;
+    }
+
+    public static function loadUserByPlace($id){
+        $result =FPlace::loadUserByPlace($id);
+        return $result;
+    }
+
+    public static function storePlaceToPost($idPost,$idPlace){
+        $result=FPost::storePlaceToPost($idPost,$idPlace);
+        return $result;
+    }
+
+    public static function storePlaceToUser($idUser,$idPlace){
+        $result=FUser::storePlaceToUser($idUser,$idPlace);
+        return $result;
+    }
+
+    public static function loadPlaceByPost($idPost){
+        $result=FPost::loadPlaceByPost($idPost);
+        return $result;
+    }
+
+    public static function loadPlaceByUser($idUser){
+        $result=FUser::loadPlaceByUser($idUser);
+        return $result;
+    }
+
+    public static function loadCommentReportedByUser($idUser){
+        $result=FUser::loadCommentReportedByUser($idUser);
+        return $result;
+
+    }
+
+    public static function loadPostReportedByUser($idUser){
+        $result=FUser::loadPostReportedByUser($idUser);
+        return $result;
+    }
+
+    public static function storeCommentReporter($idUser,$idComment){
+        $result=FUser::storeCommentReporter($idUser,$idComment);
+        return $result;
+    }
+
+    public static function storePostReporter($idUser,$idPost){
+        $result=FUser::storePostReporter($idUser,$idPost);
+        return $result;
+    }
+
+    public static function loadCommentReporter($idComment){
+        $result=FComment::loadCommentReporter($idComment);
+        return $result;
+    }
+
+    public static function loadPostReporter($idPost){
+        $result=FPost::loadPostReporter($idPost);
+        return $result;
+    }
+
 }

@@ -127,10 +127,45 @@ class FUser extends FDataBase
     }
 
 
-    /** Ritorna tutti i luoghi associati ad un'utente */  //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
-    public static function loadPlaceToUser($id){
+    /** Restituisce tutti i valori di place associati a quell'utente */   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
+    public static function loadPlaceByUser($idUser){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity(self::getTable(),$id,"place");
+        $result=$database->loadEntityToEntity(self::getTable(),$idUser,"place");
         return $result;
     }
+
+    /** Inserisce nella tabella place_to_user l'associazione tra l'utente associata a idUser e
+     *il posto associato a $idPlace
+     */
+    public static function storePlaceToUser($idUser,$idPLace){
+        $database=FDataBase::getInstance();
+        $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idUser);
+        return $result;
+    }
+
+    public static function loadCommentReportedByUser($idUser){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"comment");
+        return $result;
+
+    }
+
+    public static function loadPostReportedByUser($idUser){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"post");
+        return $result;
+    }
+
+    public static function storeCommentReporter($idUser,$idComment){
+        $database=FDataBase::getInstance();
+        $result=$database->storeEntityReportedByEntity("comment",$idComment,self::getTable(),$idUser);
+        return $result;
+    }
+
+    public static function storePostReporter($idUser,$idPost){
+        $database=FDataBase::getInstance();
+        $result=$database->storeEntityReportedByEntity("post",$idPost,self::getTable(),$idUser);
+        return $result;
+    }
+
 }

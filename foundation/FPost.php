@@ -103,9 +103,27 @@ class FPost
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
-    public static function loadPostByPlace($id){
+
+    /** Restituisce tutti i valori di place associati a quel post */
+    public static function loadPlaceByPost($idPost){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity("place",$id,self::getTable());
+        $result=$database->loadEntityToEntity(self::getTable(),$idPost,"place");
+        return $result;
+    }
+
+    /** Inserisce nella tabella place_to_post l'associazione tra il post associata a idPost e
+     *il posto associato a $idPlace
+     */
+    public static function storePlaceToPost($idPost,$idPLace){
+        $database=FDataBase::getInstance();
+        $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idPost);
+        return $result;
+    }
+
+    /** restituisce la persona o le persone che hanno reportato quel post */
+    public static function loadPostReporter($idPost){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityReportedByEntity(self::getTable(),$idPost,"user");
         return $result;
     }
 

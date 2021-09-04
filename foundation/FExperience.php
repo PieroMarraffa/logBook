@@ -120,9 +120,20 @@ class FExperience extends FDataBase
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
-    public static function loadExperienceByPlace($id){
+    /** Restituisce tutti i valori di place associati a quell'esperienza */
+    public static function loadPlaceByExperience($idExperience){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity("place",$id,self::getTable());
+        $result=$database->loadEntityToEntity(self::getTable(),$idExperience,"place");
+        return $result;
+    }
+
+
+    /** Inserisce nella tabella place to experience l'associazione tra l'experience associata a idExperience e
+     *il posto associato a $idPlace
+     */
+    public static function storePlaceToExperience($idExperience,$idPLace){
+        $database=FDataBase::getInstance();
+        $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idExperience);
         return $result;
     }
 

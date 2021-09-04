@@ -44,7 +44,7 @@ class FDataBase
     public function storeInDB($entity,$object){
         try{
             $this->database->beginTransaction();
-            $query="INSERT INTO" . $entity::getTable() . "VALUES" . $entity::getValues();
+            $query="INSERT INTO " . $entity::getTable() . "VALUES " . $entity::getValues();
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
             $statement->execute();
@@ -195,7 +195,7 @@ class FDataBase
      * entity1= place => entity2=user
      */
     public function loadEntityToEntity($firstClass,$idFirstClass,$secondClass){
-        if($firstClass=="place"){
+        if($firstClass=="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
         try{
             $query="SELECT * FROM " . $firstClass . "_to_" . $secondClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
             $statement=$this->database->prepare($query);
@@ -249,7 +249,7 @@ class FDataBase
             echo "ERROR " . $e->getMessage();
             return null;
         }}
-        else{
+        elseif($secondClass=="place" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
             try{
                 $query="SELECT * FROM " . $secondClass . "_to_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
@@ -317,7 +317,7 @@ class FDataBase
      * entity1= post => entity2=user
      */
     public function loadEntityReportedByEntity($firstClass,$idFirstClass,$secondClass){
-        if($secondClass=="user"){
+        if($secondClass=="user" && ($firstClass=="comment" || $firstClass=="post")){
             try{
                 $query="SELECT * FROM " . $firstClass . "_reported_by_" . $secondClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
@@ -371,7 +371,7 @@ class FDataBase
                 echo "ERROR " . $e->getMessage();
                 return null;
             }}
-        else{
+        elseif($firstClass="place" && ($secondClass=="comment" || $secondClass=="post")){
             try{
                 $query="SELECT * FROM " . $secondClass . "_reported_by_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
@@ -430,9 +430,79 @@ class FDataBase
     }
 
 
+/** metodi per aggiungere elementi alle classi intermedie del database */
+
+public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
+    if($firstClass="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
+        try{
+            $this->database->beginTransaction();
+            $id=$this->database->query("INSERT INTO " .$firstClass. "_to_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .")" );
+            $this->database->commit();
+            $this->closeDbConnection();
+            return $id;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
+    elseif($secondClass=="place" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
+        try{
+            $this->database->beginTransaction();
+            $id=$this->database->query("INSERT INTO " .$secondClass. "_to_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .")" );
+            $this->database->commit();
+            $this->closeDbConnection();
+            return $id;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
+    else{
+        echo "LA CLASSE INSERITA NON E' VALIDA " ;
+        return null;
+
+    }
+}
 
 
+    public function storeEntityReportedByEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
+        if($secondClass="user" && ($firstClass=="comment" || $firstClass=="post")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query("INSERT INTO " .$firstClass. "_reported_by_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .")" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        elseif($firstClass=="user" && ($secondClass=="comment" || $secondClass=="post")){
+            try{
+                $this->database->beginTransaction();
+                $id=$this->database->query("INSERT INTO " .$secondClass. "_reported_by_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .")" );
+                $this->database->commit();
+                $this->closeDbConnection();
+                return $id;
+            }catch(PDOException $e){
+                echo "ERROR " . $e->getMessage();
+                $this->database->rollBack();
+                return null;
+            }
+        }
+        else{
+            echo "LA CLASSE INSERITA NON E' VALIDA " ;
+            return null;
 
+        }
+    }
+
+
+    /** AGGIUNGI ANCHE IL METODO UPDATEEEEEEEEEEEE */
 
 
 }

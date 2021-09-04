@@ -103,4 +103,11 @@ class FComment
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
+
+    /** restituisce la persona che ha reportato il commento */
+    public static function loadCommentReporter($idComment){
+        $database=FDataBase::getInstance();
+        $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
+        return $result;
+    }
 }
