@@ -163,4 +163,14 @@ class FPersistentMenager
 
     }
 
+    public static function loadByCategory($idCategory){
+        $result=FPlace::loadByCategory($idCategory);
+        return $result;
+    }
+
+    public static function loadLowerCategory($idCategory){
+        $result=FPlace::loadLowerCategory($idCategory);
+        return $result;
+    }
+
 }

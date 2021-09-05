@@ -1,6 +1,13 @@
 <?php
 
 
+
+/** DEVI AGGIUNGERE LA ROBA DI INSTALLAZIONE CHE CREA IL FILE CONFIG E SFRUTTA IL COCKIE DI ACCESSO */
+
+/** RICORDIAMOCI DI CONTROLLARE SE I COOKIE SONO ABILITATI O NO E SE NON SONO ABILITATI NOTIFICARLO ALL'UTENTE PERCHE SENNO'
+ *L'APPLICAZIONE NON FUNZIONA 
+ */
+
 class FDataBase
 {
     /**Utilizzo il pattern singelton*/
@@ -162,13 +169,15 @@ class FDataBase
 
 
     /** Dati in ingresso i dati ($email e $password) la query va a verificare se
-     * questi sono presenti all'interno della tabella RegisteredUser del DB.
+     * i dati inseriti corrispondono a quelli del Supreme_admin altrimenti va a controllare
+     * se questi sono presenti all'interno della tabella RegisteredUser del DB.
      *Se si ritorna l'utente associato se no ritorna null
      */
     public function verifiedAccess($email,$password){
+
         try{
-        $class=FRegisteredUser;
-        $query="SELECT * FROM ". $class::getTable() . " WHERE email = '" . $email ."' AND password = '" . $password . "';";
+        $class=FSupremeAdmin;
+        $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();
@@ -177,10 +186,22 @@ class FDataBase
         }elseif ($num > 0){
             $result=$statement->fetch(PDO::FETCH_ASSOC);
         }
+        else{
+        $class=FRegisteredUser;
+        $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
+        $statement=$this->database->prepare($query);
+        $statement->execute();
+        $num= $statement->rowCount();
+        if($num ==0){
+            $result=null;
+        }elseif ($num > 0){
+            $result=$statement->fetch(PDO::FETCH_ASSOC);
+        }}
         }catch (PDOException $e) {
             echo "ERROR " . $e->getMessage();
             $this->database->rollBack();
             return null;}
+        return $result;
     }
 
 

@@ -8,6 +8,7 @@ class EPlace
     private $longitude;
     private $nation;
     private $averageOfVisitors;
+    private $category;
     private $placeID;
 
     /**
@@ -19,14 +20,31 @@ class EPlace
      * @param $averageOfVisitors
      * @param $placeID
      */
-    public function __construct($name, $latitude, $longitude, $nation, $averageOfVisitors, $placeID)
+    public function __construct($name, $latitude, $longitude, $nation, $averageOfVisitors,$category, $placeID)
     {
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->nation = $nation;
         $this->averageOfVisitors = $averageOfVisitors;
+        $this->category=$category;
         $this->placeID = $placeID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 
 

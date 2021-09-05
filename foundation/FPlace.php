@@ -7,7 +7,7 @@ class FPlace extends FDataBase
 
     public static $table="place";
 
-    public static $value="(:IDplace,:Latitude,:Longitude,:Nation,:AverageVisitors)";
+    public static $value="(:IDplace,:Latitude,:Longitude,:Nation,:AverageVisitors,:Category)";
 
     public function __constructor(){}
 
@@ -17,6 +17,8 @@ class FPlace extends FDataBase
         $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_INT);
         $statement->bindValue(":Nation",$place->getNation(), PDO::PARAM_STR);
         $statement->bindValue(":AverageVisitors",$place->getAverageOfVisitors(), PDO::PARAM_INT);
+        $statement->bindValue(":Category",$place->getCategory(), PDO::PARAM_STR);
+
     }
 
     /**
@@ -129,7 +131,20 @@ class FPlace extends FDataBase
         return $result;
     }
 
-
+    /** ritorna tutti gli elementi della categoria associata */
+    public static function loadByCategory($idCategory){
+        $database=FDataBase::getInstance();
+        $result=$database->loadById(self::getTable(),"Category",$idCategory);
+        return $result;
+    }
+    /** ritorna tutti gli elementi della categgoria inferiore a quella associata */
+    public static function loadLowerCategory($idCategory){
+        $result=array();
+        for($i=$idCategory;$i>0;$i--){
+            array_push($result,self::loadByCategory($i));
+        }
+        return $result;
+    }
 
 
 }
