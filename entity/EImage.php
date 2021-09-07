@@ -5,7 +5,7 @@ class EImage
 {
     private $imageID;
 
-    private $url;
+    private $imageFile;
 
     private $width;
 
@@ -16,10 +16,10 @@ class EImage
      * @param $imageID
      * @param $url
      */
-    public function __construct($imageID, $url,$width,$height)
+    public function __construct($imageID, $imageFile,$width,$height)
     {
         $this->imageID = $imageID;
-        $this->url = $url;
+        $this->imageFile = $imageFile;
         $this->width=$width;
         $this->height=$height;
 
@@ -77,17 +77,17 @@ class EImage
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getImageFile()
     {
-        return $this->url;
+        return $this->imageFile;
     }
 
     /**
      * @param mixed $url
      */
-    public function setUrl($url): void
+    public function setImageFile($imageFile): void
     {
-        $this->url = $url;
+        $this->imageFile = $imageFile;
     }
 
 }

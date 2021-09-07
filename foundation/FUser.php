@@ -7,7 +7,7 @@ class FUser extends FDataBase
 
     public static $table="user";
 
-    public static $value="(:IDuser,:Email,:Password,:Name,:Admin,:Description,:Image,:UserName)";
+    public static $value="(:IDuser,:Email,:Password,:Name,:Description,:Image,:UserName)";
 
     public function __constructor(){}
 
@@ -16,7 +16,6 @@ class FUser extends FDataBase
         $statement->bindValue(":Email",$user->getMail(), PDO::PARAM_STR);
         $statement->bindValue(":Password",$user->getPassword(), PDO::PARAM_STR);
         $statement->bindValue(":Name",$user->getName(), PDO::PARAM_STR);
-        $statement->bindValue(":Admin",$user->getAdmin(), PDO::PARAM_BOOL);
         $statement->bindValue(":Description",$user->getDescription(),PDO::PARAM_STR);
         $statement->bindValue(":Image",$user->getImgPathFile(),PDO::PARAM_STR);
         $statement->bindValue("UserName",$user->getUserName(),PDO::PARAM_STR);
@@ -104,27 +103,6 @@ class FUser extends FDataBase
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
-
-    /** Ritorna tutti gli elementi della tabella il cui attributo admin è messo a true */
-    public static function loadAdmin(){
-        $database=FDataBase::getInstance();
-        $result=$database->loadById(self::getTable(),"Admin",true);
-        return $result;
-    }
-
-    /** ritorna true se l'id passato in ingresso è associato ad un account admin
-     *altrimenti false
-     */
-    public static function isAdmin($id){
-        $admin= self::loadAdmin();
-        foreach ($admin as $a){
-            if($a->getUserID()==$id){
-                return true;
-            }
-
-        }
-        return false;
-    }
 
 
     /** Restituisce tutti i valori di place associati a quell'utente */   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place

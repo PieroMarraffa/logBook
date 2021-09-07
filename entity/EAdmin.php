@@ -1,8 +1,11 @@
 <?php
 
 
-class EAdmin extends EUser
+class EAdmin
 {
+    private $userName;
+    private $password;
+    private $mail;
     private $signaledPosts;
     private $deletedPosts;
     private $deletedComments;
@@ -10,13 +13,75 @@ class EAdmin extends EUser
 
     //--------------------COSTRUTTORE----------------
 
-    public function __construct($userID, $userName, $name, $password, $mail, $imgPathFile, $description){
-        parent::__construct($userID, $userName, $name, $password, $mail, $imgPathFile, $description);
-        $this->signaledPosts = array();
-        $this->deletedPosts = array();
-        $this->deletedComments = array();
-        $this->signaledComments = array();
+    /**
+     * EAdmin constructor.
+     * @param $userName
+     * @param $password
+     * @param $mail
+     * @param $signaledPosts
+     * @param $deletedPosts
+     * @param $deletedComments
+     * @param $signaledComments
+     */
+    public function __construct($userName, $password, $mail, $signaledPosts, $deletedPosts, $deletedComments, $signaledComments)
+    {
+        $this->userName = $userName;
+        $this->password = $password;
+        $this->mail = $mail;
+        $this->signaledPosts = $signaledPosts;
+        $this->deletedPosts = $deletedPosts;
+        $this->deletedComments = $deletedComments;
+        $this->signaledComments = $signaledComments;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @param mixed $mail
+     */
+    public function setMail($mail): void
+    {
+        $this->mail = $mail;
+    }
+
 
     /**
      * @return mixed

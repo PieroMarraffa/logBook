@@ -3,7 +3,7 @@
 
 class FPersistentMenager
 {
-
+/** forse rimuovere il supreme admin dalle classi che supportano la store */
     public static function store($object){
         $Eclass=get_class($object);
         $Fclass=$Eclass;
@@ -173,4 +173,27 @@ class FPersistentMenager
         return $result;
     }
 
+    public static function loadAllVisibleComment()
+    {
+        $result = FComment::loadAllVisibleComment();
+        return $result;
+    }
+
+    public static function loadAllDeletedComment()
+    {
+        $result = FComment::loadAllDeletedComment();
+        return $result;
+    }
+
+    public static function deleteComment($id){
+        FComment::deleteComment($id);}
+
+    public static function restoreComment($id){
+        FComment::restoreComment($id);}
+
+    public static function deletePost($id){
+        FPost::deletePost($id);}
+
+    public static function restorePost($id){
+        FPost::restorePost($id);}
 }

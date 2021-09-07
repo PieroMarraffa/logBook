@@ -17,7 +17,6 @@ class FComment
         $statement->bindValue(":IDpost",$comment->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":Deleted",$comment->getEliminated(), PDO::PARAM_BOOL);
         $statement->bindValue(":Content",$comment->getContent(), PDO::PARAM_STR);
-
     }
 
     /**
@@ -101,6 +100,17 @@ class FComment
     public static function delete($field,$id){
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
+    }
+    /** il commento non viene più visualizzato perchè il campo deleted è posto a true */
+    public static function deleteComment($id){
+        $database=FDataBase::getInstance();
+        $database->updateInDB(self::getTable(),"Deleted",true,"IDComment",$id);
+    }
+
+    /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
+    public static function restoreComment($id){
+        $database=FDataBase::getInstance();
+        $database->updateInDB(self::getTable(),"Deleted",false,"IDComment",$id);
     }
 
 

@@ -176,18 +176,16 @@ class FDataBase
     public function verifiedAccess($email,$password){
 
         try{
-        $class=FSupremeAdmin;
+        $class=FAdmin;
         $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();
-        if($num ==0){
-            $result=null;
-        }elseif ($num > 0){
-            $result=$statement->fetch(PDO::FETCH_ASSOC);
+        if ($num > 0){
+            $result=$statement->fetch(PDO::FETCH_ASSOC); /** DEVI DISTINGUERE IL LOGIN DEL SUPREME ADMIN DA QUELLO DELL'UTENTE NORMALI */
         }
         else{
-        $class=FRegisteredUser;
+        $class=FUser;
         $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
@@ -556,6 +554,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
 
         }
     }
+
 
 
     public function updateEntityReportedByEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){

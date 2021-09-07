@@ -37,19 +37,9 @@ class CFrontController
                         //else if ($num == 6) $controller::$function($param[0], $param[1], $param[2], $param[3], $param[4], $param[5]);
 
                     }else {
-                        if (CUser::isLogged()) {
-                            $user = unserialize($_SESSION['utente']);
-                            if ($user->getEmail() == 'admin@admin.com')
-                                header('Location: /FillSpaceWEB/Admin/homepage');
-                            else {
-                                CUser::login();
-
-                            }
-                        }
-                        else {
-                            //$smarty = StartSmarty::configuration();
-                            CRicerca::trasportiHome();
-                        }
+                       /** Vanno fatti tutti gli else relativi
+                        * vedi CFrontController di fillspace
+                        */
                     }
                 }
             }

@@ -27,6 +27,8 @@ class USession{
         return USession::$instance;
     }
 
+    /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
+
 
     /** BISOGNA USARE QUESTA PER ACCEDERE AGLI ELEMENTI DI _SESSION */
     private static function getElement($index){

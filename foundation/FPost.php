@@ -112,6 +112,16 @@ class FPost
         $database->deleteFromDB(self::getTable(), $field, $id);
     }
 
+    public static function deletePost($id){
+        $database=FDataBase::getInstance();
+        $database->updateInDB(self::getTable(),"Deleted",true,"IDPost",$id);
+    }
+
+    public static function restorePost($id){
+        $database=FDataBase::getInstance();
+        $database->updateInDB(self::getTable(),"Deleted",false,"IDPost",$id);
+    }
+
 
     /** Restituisce tutti i valori di place associati a quel post */
     public static function loadPlaceByPost($idPost)
