@@ -29,6 +29,20 @@ class USession{
 
     /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
 
+    private static function destroySession(){
+        session_destroy();
+    }
+
+    /** fa l'unset di tutti gli elementi dell'array session */
+    private static function unsetSession(){
+        session_unset();
+    }
+
+    /** fa l'unset dell'elemento relativo passato in ingresso */
+    private static function unsetSessionElement($id){
+        unset($_SESSION[$id]);
+    }
+
 
     /** BISOGNA USARE QUESTA PER ACCEDERE AGLI ELEMENTI DI _SESSION */
     private static function getElement($index){
