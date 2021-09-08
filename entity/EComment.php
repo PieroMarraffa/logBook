@@ -121,7 +121,7 @@ class EComment{
 
     //--------------METODI ADD TO LIST----------------------
 
-    public function addSignalator(EProfile $signalator){
+    public function addSignalator(EUser $signalator){
         array_push($this->signaledList, $signalator);
     }
 
