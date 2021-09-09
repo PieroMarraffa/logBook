@@ -3,18 +3,17 @@
 
 class FExperience extends FDataBase
 {
-    public static $class="FExperience";
+    private static $class="FExperience";
 
-    public static $table="experience";
+    private static $table="experience";
 
-    public static $value="(:IDexperience,:IDExperienceFather,:IDpost,:StartDay,:EndDay,:Title,:Description)";
+    private static $value="(:IDexperience,:IDtravel,:StartDay,:EndDay,:Title,:Description)";
 
     public function __constructor(){}
 
     public static function bind($statement,EExperience $experience){
         $statement->bindValue(":IDexperience",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDExperienceFather",$experience->get, PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDpost",$experience->get, PDO::PARAM_INT);              //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DEL POST
+        $statement->bindValue(":IDtravel",$experience->get, PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
         $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
         $statement->bindValue(":Title",$experience->getTitle(), PDO::PARAM_STR);
@@ -68,7 +67,7 @@ class FExperience extends FDataBase
         $database=FDataBase::getInstance();
         $exist= $database->existDB(self::getTable(),"IDexperience",$id->getID());
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDplace",$id->getID());
+            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDexperience",$id->getID());
             return $u;
         }
         return $u;
@@ -79,7 +78,21 @@ class FExperience extends FDataBase
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
+            $experience->setExperienceID($result['IDexperience']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $experience[] = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
+                    $experience[$i]->setExperienceID($result['IDexperience']);
+                }
+            }
+        }
+        return $experience;
     }
 
 
@@ -137,9 +150,9 @@ class FExperience extends FDataBase
         return $result;
     }
 
-    public static function updateExperienceAssociatedToPost($idExperience,$idPlace){
+    public static function updateExperienceAssociatedToTravel($idExperience,$idTravel){
         $database=FDataBase::getInstance();
-        $result=$database->updateEntityToEntity(self::getTable(),$idExperience,"place",$idPlace);
+        $result=$database->updateEntityToEntity(self::getTable(),$idExperience,"travel",$idTravel);
         return $result;
     }
 
