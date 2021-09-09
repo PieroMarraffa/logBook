@@ -23,12 +23,28 @@ class CUser
 
     public function homepage(){
         $pm = new FPersistentManager();
-        $allPosts = array(EPost);
+        $allPosts = array();
+        $allLikes = array();
+        $mostLikedPost = array();
+
         $allPosts->addAll($pm->loadAllPost());
         $allLikes = $pm->loadAllLikes();
-        for($i = 0; $i < $allPosts->size(); $i++){
-            $idPost = $allPosts[$i]->getPostId();
+        if ($pm->etPostCount() > 0){
+            $mostLikedPost[0]= $allPosts[0];
+            if ($pm->etPostCount() > 1){
+                $mostLikedPost[1]= $allPosts[1];
+                if ($pm->etPostCount() > 2){
+                    $mostLikedPost[2]= $allPosts[2];
+                    if ($pm->etPostCount() > 3){
+                        $mostLikedPost[3]= $allPosts[3];
+                        if ($pm->etPostCount() > 4){
+                            for($i = 4; $i < $allPosts->size(); $i++){
 
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
