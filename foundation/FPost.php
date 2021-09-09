@@ -98,7 +98,17 @@ class FPost
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                    $Like=count(Flike::load("IDpost",$result['IDpost']));
+                    $nLike=0;
+                    $nDislike=0;
+                    foreach ($Like as $l){
+                        if($l->getValue()==1){
+                            $nLike ++;
+                        }elseif ($l->getValue()==-1){
+                            $nDislike++;
+                        }
+                    }
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted'],$nLike,$nDislike);
                 }
             }
         }

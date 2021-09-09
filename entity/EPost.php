@@ -10,9 +10,11 @@ class EPost
     private $commentList;
     private $likeList;
     private $creationDate;
-    private $experience;
+    private $travel;
     private $postID;
     private $deleted;
+    private $nLike;
+    private $nDisLike;
 
     /**
      * EPost constructor.
@@ -24,18 +26,18 @@ class EPost
      * @param $experience
      * @param $postID
      */
-    public function __construct($author, $title, $commentList, $likeList, $creationDate,EExperience $experience, $postID,$deleted)
+    public function __construct($author, $title, $commentList, $likeList, $creationDate,ETravel $travel, $postID,$deleted,$nLike,$nDisLike)
     {
         $this->author = $author;
         $this->title = $title;
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = new Date($creationDate);
-        $this->experience = new EExperience($experience->getExperienceID(),$experience->getStartDay(),
-            $experience->getEndDay(), $experience->getTitle(),$experience->getPlaceList(),
-            $experience->getDescription(),$experience->getImageList(),$experience->getExperienceList());
+        $this->travel=$travel;
         $this->postID = $postID;
         $this->deleted=$deleted;
+        $this->nLike=$nLike;
+        $this->nDisLike=$nDisLike;
     }
 
     /**
