@@ -9,7 +9,7 @@ class CUser
             if(static::isLogged()) {
                 $pm = new FPersistentManager();
                 $view = new VUser();
-                $result = $pm->loadAll();
+                self::homepage();
                 $view->loginOk($result);
             }
             else{
@@ -22,7 +22,14 @@ class CUser
 
 
     public function homepage(){
-        
+        $pm = new FPersistentManager();
+        $allPosts = array(EPost);
+        $allPosts->addAll($pm->loadAllPost());
+        $allLikes = $pm->loadAllLikes();
+        for($i = 0; $i < $allPosts->size(); $i++){
+            $idPost = $allPosts[$i]->getPostId();
+
+        }
     }
 
 

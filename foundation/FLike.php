@@ -100,4 +100,10 @@ class FLike
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
+
+    public static function loadAll(){
+        $database = FDataBase::getInstance();
+        $result=$database->getAllByTable(self::getTable());
+        return $result;
+    }
 }

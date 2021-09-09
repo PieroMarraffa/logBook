@@ -86,7 +86,7 @@ class FPersistentManager
         return $result;
     }
 
-    public static function loadPost(){
+    public static function loadAllPost(){
         $result = FPost::loadAll();
         return $result;
     }
@@ -202,7 +202,10 @@ class FPersistentManager
     public static function restorePost($id){
         FPost::restorePost($id);}
 
-    public static function loadMostLikedPost(){
-        FPost::getMostLikedPost();
+    public static function loadAllLikes(){
+        $result = FPost::loadAll();
+        return $result;
     }
+
+
 }
