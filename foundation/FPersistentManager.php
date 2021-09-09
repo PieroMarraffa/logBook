@@ -207,5 +207,8 @@ class FPersistentManager
         return $result;
     }
 
-
+    public static function getPostCount(){
+        $result = FPost::getPostCount();
+        return $result;
+    }
 }

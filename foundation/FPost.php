@@ -273,4 +273,10 @@ class FPost
         }
         return $post;
     }
+
+    public static function getPostCount(){
+        $result = self::load("Deleted", "false");
+        $rows_number = count($result);
+        return $rows_number;
+    }
 }
