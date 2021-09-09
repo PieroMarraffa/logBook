@@ -10,6 +10,14 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="http://localhost:63342/logbook/Smarty/css/styles.css" rel="stylesheet" />
+    <script>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
 </head>
 <body>
 <!-- Navigation-->

@@ -10,6 +10,14 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="../css/login.css" rel="stylesheet" />
+  <script>
+    function ready(){
+      if (!navigator.cookieEnabled) {
+        alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+      }
+    }
+    document.addEventListener("DOMContentLoaded", ready);
+  </script>
 </head>
 <body>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
