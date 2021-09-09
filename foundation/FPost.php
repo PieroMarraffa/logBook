@@ -171,4 +171,10 @@ class FPost
         return $result;
 
     }
+
+    public static function loadAll(){
+        $database = FDataBase::getInstance();
+        $result=$database->getAllByTable(self::getTable());
+        return $result;
+    }
 }

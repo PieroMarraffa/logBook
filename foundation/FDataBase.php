@@ -591,4 +591,28 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
         }
     }
 
+    public function getAllByTable($table){
+        try {
+            $query="SELECT * FROM " . $table . ";";
+            $statement= $this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num == 0){
+                $result=null;
+            } elseif ($num ==1){
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                $result=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch())
+                    $result[] = $row;
+            }
+            $this->closeDbConnection();
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
 }

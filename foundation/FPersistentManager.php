@@ -1,7 +1,7 @@
 <?php
 
 
-class FPersistentMenager
+class FPersistentManager
 {
 /** forse rimuovere il supreme admin dalle classi che supportano la store */
     public static function store($object){
@@ -83,6 +83,11 @@ class FPersistentMenager
 
     public static function loadExperienceByPlace($id){
         $result= FPlace::loadExperienceByPlace($id);
+        return $result;
+    }
+
+    public static function loadPost(){
+        $result = FPost::loadAll();
         return $result;
     }
 
@@ -196,4 +201,8 @@ class FPersistentMenager
 
     public static function restorePost($id){
         FPost::restorePost($id);}
+
+    public static function loadMostLikedPost(){
+        FPost::getMostLikedPost();
+    }
 }

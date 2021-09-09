@@ -4,6 +4,28 @@
 class CUser
 {
 
+    static function login(){
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            if(static::isLogged()) {
+                $pm = new FPersistentManager();
+                $view = new VUser();
+                $result = $pm->loadAll();
+                $view->loginOk($result);
+            }
+            else{
+                $view=new VUtente();
+                $view->showFormLogin();
+            }
+        }elseif ($_SERVER['REQUEST_METHOD']=="POST")
+            static::verifica();
+    }
+
+
+    public function homepage(){
+        
+    }
+
+
     /** Ogni volta che bisogn accedere ad un'area in cui bisogna essere loggati si richiama questa funzione
      *Se l'utente è loggato
      *Se non è loggato si viene rimandati alla schermata di login
