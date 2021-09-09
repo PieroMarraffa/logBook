@@ -39,7 +39,14 @@ class FAdmin
     public static function loadAdmin($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $deletedPost=FUser::load("Deleted",true);
+            $deletedComment=FComment::load("Deleted",true);
+            $admin = new EAdmin($result['Username'], $result['Password'],$result['Email'],$deletedPost,$deletedComment);
+        }
+
+        return $admin;
     }
 
 

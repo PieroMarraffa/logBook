@@ -77,7 +77,25 @@ class FComment
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $reportedList=self::loadCommentReporter($result['IDcomment']);
+            $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
+                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+
+                }
+            }
+        }
+        return $comment;
+
     }
 
 
@@ -118,21 +136,56 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
-        return $result;
+        $reporter= new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+        return $reporter;
     }
 
     /** visualizza tutti i commenti che possono essere visualizzati */
     public static function loadAllVisibleComment()
     {
         $result = self::load("Deleted", "false");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $reportedList=self::loadCommentReporter($result['IDcomment']);
+            $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
+                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+
+                }
+            }
+        }
+        return $comment;
     }
 
     /** visualizza tutti i post che non possono essere visualizzati */
     public static function loadAllDeletedComment()
     {
         $result = self::load("Deleted", "true");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $reportedList=self::loadCommentReporter($result['IDcomment']);
+            $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
+                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+
+                }
+            }
+        }
+        return $comment;
     }
 
 }

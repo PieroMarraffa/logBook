@@ -24,12 +24,12 @@ class EPost
      * @param $experience
      * @param $postID
      */
-    public function __construct($author, $title, $creationDate,EExperience $experience, $postID,$deleted)
+    public function __construct($author, $title, $commentList, $likeList, $creationDate,EExperience $experience, $postID,$deleted)
     {
         $this->author = $author;
         $this->title = $title;
-        $this->commentList = array();
-        $this->likeList = array();
+        $this->commentList = $commentList;
+        $this->likeList = $likeList;
         $this->creationDate = new Date($creationDate);
         $this->experience = new EExperience($experience->getExperienceID(),$experience->getStartDay(),
             $experience->getEndDay(), $experience->getTitle(),$experience->getPlaceList(),

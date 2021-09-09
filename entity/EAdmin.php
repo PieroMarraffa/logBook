@@ -6,10 +6,8 @@ class EAdmin
     private $userName;
     private $password;
     private $mail;
-    private $signaledPosts;
     private $deletedPosts;
     private $deletedComments;
-    private $signaledComments;
 
     //--------------------COSTRUTTORE----------------
 
@@ -23,15 +21,13 @@ class EAdmin
      * @param $deletedComments
      * @param $signaledComments
      */
-    public function __construct($userName, $password, $mail, $signaledPosts, $deletedPosts, $deletedComments, $signaledComments)
+    public function __construct($userName, $password, $mail, $deletedPosts, $deletedComments)
     {
         $this->userName = $userName;
         $this->password = $password;
         $this->mail = $mail;
-        $this->signaledPosts = $signaledPosts;
         $this->deletedPosts = $deletedPosts;
         $this->deletedComments = $deletedComments;
-        $this->signaledComments = $signaledComments;
     }
 
     /**
@@ -83,21 +79,6 @@ class EAdmin
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function getSignaledPosts()
-    {
-        return $this->signaledPosts;
-    }
-
-    /**
-     * @param mixed $signaledPosts
-     */
-    public function setSignaledPosts($signaledPosts): void
-    {
-        $this->signaledPosts = $signaledPosts;
-    }
 
     /**
      * @return mixed
@@ -131,33 +112,13 @@ class EAdmin
         $this->deletedComments = $deletedComments;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSignaledComments()
-    {
-        return $this->signaledComments;
-    }
-
-    /**
-     * @param mixed $signaledComments
-     */
-    public function setSignaledComments($signaledComments): void
-    {
-        $this->signaledComments = $signaledComments;
-    }
 
 
     //--------------METODI ADD TO LIST----------------------
 
-    public function addPostToReported(EPost $post){
-        array_push($this->signaledPosts, $post);
-    }
 
-    public function removePostFromReported($pos){
-        unset($this->signaledPosts[$pos]);
-        $this->signaledPosts = array_values($this->signaledPosts);
-    }
+
+
 
     public function addPostToDeleted(EPost $post){
         array_push($this->deletedPosts, $post);
@@ -168,14 +129,6 @@ class EAdmin
         $this->deletedPosts = array_values($this->deletedPosts);
     }
 
-    public function addCommentToReported(EComment $comment){
-        array_push($this->signaledComments, $comment);
-    }
-
-    public function removeCommentFromReported($pos){
-        unset($this->signaledComments[$pos]);
-        $this->signaledComments = array_values($this->signaledComments);
-    }
 
     public function addCommentToDeleted(EComment $comment){
         array_push($this->deletedComments, $comment);

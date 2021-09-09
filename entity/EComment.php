@@ -2,12 +2,9 @@
 
 class EComment{
     private $commentID;
+    private $idPost;
     private $author;
-    private $eliminated;
-    /**
-     * Elenco di segnalatori
-     * @AttributeType Array<EProfile>
-     */
+    private $deleted;
     private $signaledList;
     private $content;
 
@@ -24,13 +21,13 @@ class EComment{
     //--------------COSTRUTTORE----------------------
 
 
-    public function __construct($commentID, EProfile $author, $eliminated, $content)
+    public function __construct($commentID, $idPost,EUser $author, $deleted, $signaledList, $content)
     {
         $this->commentID = $commentID;
-        $this->author = new EProfile($author->getUtentName(), $author->getImgPathFile(),
-            $author->getDescription(), $author->getProfileID());
-        $this->eliminated = $eliminated;
-        $this->signaledList = array();
+        $this->idPost=$idPost;
+        $this->author = $author;
+        $this->deleted = $deleted;
+        $this->signaledList = $signaledList;
         $this->content = $content;
     }
 
@@ -74,17 +71,17 @@ class EComment{
     /**
      * @return mixed
      */
-    public function getEliminated()
+    public function getDeleted()
     {
-        return $this->eliminated;
+        return $this->deleted;
     }
 
     /**
      * @param mixed $eliminated
      */
-    public function setEliminated($eliminated): void
+    public function setDeleted($deleted): void
     {
-        $this->eliminated = $eliminated;
+        $this->deleted = $deleted;
     }
 
     /**

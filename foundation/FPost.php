@@ -84,7 +84,25 @@ class FPost
     {
         $database = FDataBase::getInstance();
         $result = $database->loadById(self::getTable(), $field, $id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $commentList=FComment::load("IDpost",$result['IDpost']);
+            $likeList=FLike::load("IDpost",$result['IDpost']);
+            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                }
+            }
+        }
+        return $post;
     }
 
 
@@ -146,7 +164,19 @@ class FPost
     {
         $database = FDataBase::getInstance();
         $result = $database->loadEntityReportedByEntity(self::getTable(), $idPost, "user");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+                }
+            }
+        }
+        return $user;
     }
 
 
@@ -154,14 +184,50 @@ class FPost
     public static function loadAllVisiblePost()
     {
         $result = self::load("Deleted", "false");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $commentList=FComment::load("IDpost",$result['IDpost']);
+            $likeList=FLike::load("IDpost",$result['IDpost']);
+            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                }
+            }
+        }
+        return $post;
     }
 
     /** visualizza tutti i post che possono essere visualizzati */
     public static function loadAllDeletedPost()
     {
         $result = self::load("Deleted", "true");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $commentList=FComment::load("IDpost",$result['IDpost']);
+            $likeList=FLike::load("IDpost",$result['IDpost']);
+            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                }
+            }
+        }
+        return $post;
     }
 
 
@@ -175,6 +241,24 @@ class FPost
     public static function loadAll(){
         $database = FDataBase::getInstance();
         $result=$database->getAllByTable(self::getTable());
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $commentList=FComment::load("IDpost",$result['IDpost']);
+            $likeList=FLike::load("IDpost",$result['IDpost']);
+            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                }
+            }
+        }
+        return $post;
     }
 }

@@ -98,19 +98,38 @@ class FExperience extends FDataBase
 
     /** Restituisce la lista di tutte le esperienze figlie relative all'ID
      * dell'esperienza padre passato in ingresso
-     */
+
     public static function loadExperienceChild($idParent){
         $field="IDExperienceFather";
         $database=FDataBase::getInstance();
         return $database->loadById(self::getTable(),$field,$idParent);
     }
 
-    public static function loadByPost($idPost){
-        $field="IDpost";
+     */
+
+
+    public static function loadByTravel($idTravel){
+        $field="IDtravel";
         $database=FDataBase::getInstance();
-        return $database->loadById(self::getTable(),$field,$idPost);
+        $result= $database->loadById(self::getTable(),$field,$idTravel);
+        $rows_number = $database->interestedRows(static::getClass(), $field, $idTravel);
+        if(($result != null) && ($rows_number == 1)) {
+            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
+            $experience->setExperienceID($result['IDexperience']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $experience[] = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
+                    $experience[$i]->setExperienceID($result['IDexperience']);
+                }
+            }
+        }
+        return $experience;
 
     }
+
 
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
@@ -137,7 +156,8 @@ class FExperience extends FDataBase
     public static function loadPlaceByExperience($idExperience){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idExperience,"place");
-        return $result;
+        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+        return $place;
     }
 
 

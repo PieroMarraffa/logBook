@@ -80,7 +80,19 @@ class FUser extends FDataBase
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+                }
+            }
+        }
+        return $user;
     }
 
 
@@ -109,7 +121,8 @@ class FUser extends FDataBase
     public static function loadPlaceByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idUser,"place");
-        return $result;
+        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+        return $place;
     }
 
     /** Inserisce nella tabella place_to_user l'associazione tra l'utente associata a idUser e
@@ -124,14 +137,49 @@ class FUser extends FDataBase
     public static function loadCommentReportedByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"comment");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $reportedList=self::loadCommentReporter($result['IDcomment']);
+            $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
+                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+
+                }
+            }
+        }
+        return $comment;
 
     }
 
     public static function loadPostReportedByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"post");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $commentList=FComment::load("IDpost",$result['IDpost']);
+            $likeList=FLike::load("IDpost",$result['IDpost']);
+            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                }
+            }
+        }
+        return $post;
     }
 
     public static function storeCommentReporter($idUser,$idComment){
