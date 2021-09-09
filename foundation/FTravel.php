@@ -75,22 +75,47 @@ class FTravel
         return $u;
     }
 
+    public static function lowerAndHigherDate($experienceList){
+        $lower=new DateTime("2100-12-31");
+        $higher=new DateTime("1000-01-01");
+        foreach ($experienceList as $ex){
+            if($ex->getStartDay()<$lower){
+                $lower=$ex->getStartDay();
+            }
+            if($ex->getEndDay()>$higher){
+                $higher=$ex->getEndDay();
+            }
+        }
+        $return=array($lower,$higher);
+        return $return;
+    }
 
-    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
+
+    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id
+     * @throws Exception
+     */
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $travel = new ETravel($result['Title'], $result['IDpost']);
-            $travel->setId($result['IDtravel']);
+            $imageList=FImage::load("IDtravel",$result["IDtravel"]);
+            $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
+            $r=self::lowerAndHigherDate();
+            $startDate=$r[0];
+            $finishDate=$r[1];
+            $travel = new ETravel($result['IDtravel'],$result['IDpost'],$result['Title'],$experienceList, $imageList,$startDate,$finishDate);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $travel = array();
                 for($i = 0; $i < count($result); $i++){
-                    $travel[] = new ETravel($result[$i]['Title'], $result[$i]['IDpost']);
-                    $travel[$i]->setId($result[$i]['IDtravel']);
+                    $imageList=FImage::load("IDtravel",$result[$i]["IDtravel"]);
+                    $experienceList=FExperience::load("IDtravel",$result[$i]["IDtravel"]);
+                    $r=self::lowerAndHigherDate();
+                    $startDate=$r[0];
+                    $finishDate=$r[1];
+                    $travel[] = new ETravel($result[$i]['IDtravel'],$result[$i]['IDpost'],$result[$i]['Title'],$experienceList, $imageList,$startDate,$finishDate);
                 }
             }
         }

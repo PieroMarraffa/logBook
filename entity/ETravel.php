@@ -20,30 +20,21 @@ class ETravel
      * @param $title
      * @param $imageList
      * @param $experienceList
-     * @param $startDate bisogna fornire una stringa in formato yyyy-mm-dd
-     * @param $finishDate bisogna fornire una stringa in formato yyyy-mm-dd
+     * @param $startDate
+     * fornire una stringa in formato yyyy-mm-dd
+     * @param $finishDate
+     * bisogna fornire una stringa in formato yyyy-mm-dd
      * @throws Exception
      */
-    public function __construct($travelID, $postID, $title, $startDate, $finishDate)
+    public function __construct($travelID, $postID, $title, $experienceList, $imageList, $startDate, $finishDate)
     {
         $this->travelID = $travelID;
         $this->postID = $postID;
         $this->startDate = new DateTime($startDate);
-        try {
-            $this->startDate = new DateTime($startDate);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit(1);
-        }
-        try {
-            $this->finishDate = new DateTime($finishDate);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            exit(1);
-        }
+        $this->finishDate = new DateTime($finishDate);
         $this->title = $title;
-        $this->experienceList = array();
-        $this->imageList = array();
+        $this->experienceList = $experienceList;
+        $this->imageList = $imageList;
     }
 
     //--------------METODI GETTER E SETTER----------------------

@@ -7,6 +7,8 @@ class EImage
 
     private $imageFile;
 
+    private $travelID;
+
     private $width;
 
     private $height;
@@ -16,13 +18,30 @@ class EImage
      * @param $imageID
      * @param $url
      */
-    public function __construct($imageID, $imageFile,$width,$height)
+    public function __construct($imageID, $imageFile,$travelID,$width,$height)
     {
         $this->imageID = $imageID;
         $this->imageFile = $imageFile;
+        $this->travelID=$travelID;
         $this->width=$width;
         $this->height=$height;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTravelID()
+    {
+        return $this->travelID;
+    }
+
+    /**
+     * @param mixed $travelID
+     */
+    public function setTravelID($travelID): void
+    {
+        $this->travelID = $travelID;
     }
 
     /**

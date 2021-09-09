@@ -9,6 +9,8 @@ class ELike
 
     private $likeID;
 
+    private $postID;
+
 
     /**
      * ELike constructor.
@@ -17,11 +19,28 @@ class ELike
      * @param $likeID
      */
 
-    public function __construct($value, $author, $likeID)
+    public function __construct($value, $author, $likeID,$postID)
     {
         $this->value = $value;
         $this->author = $author;
         $this->likeID = $likeID;
+        $this->postID=$postID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostID()
+    {
+        return $this->postID;
+    }
+
+    /**
+     * @param mixed $postID
+     */
+    public function setPostID($postID): void
+    {
+        $this->postID = $postID;
     }
 
     /**

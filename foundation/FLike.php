@@ -76,7 +76,21 @@ class FLike
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $like = new ELike($result['Value'],$author,$result['IDlike'],$result['IDpost']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $like = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDlike'],$result[$i]['IDpost']);
+                }
+            }
+        }
+        return like;
     }
 
 
@@ -104,6 +118,20 @@ class FLike
     public static function loadAll(){
         $database = FDataBase::getInstance();
         $result=$database->getAllByTable(self::getTable());
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $author=FUser::load("IDuser",$result['IDuser']);
+            $like = new ELike($result['Value'],$author,$result['IDlike'],$result['IDpost']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $like = array();
+                for($i = 0; $i < count($result); $i++){
+                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
+                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDlike'],$result[$i]['IDpost']);
+                }
+            }
+        }
+        return like;
     }
 }

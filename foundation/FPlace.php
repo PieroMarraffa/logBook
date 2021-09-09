@@ -191,7 +191,7 @@ class FPlace extends FDataBase
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $user= array();
                 for($i = 0; $i < count($result); $i++){
                     $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
                 }

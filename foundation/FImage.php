@@ -7,13 +7,13 @@ class FImage extends FDataBase
 
     public static $table="image";
 
-    public static $value="(:IDimage,:IDexperience,:ImageFile,:Width,:Height)";
+    public static $value="(:IDimage,:IDtravel,:ImageFile,:Width,:Height)";
 
     public function __constructor(){}
 
     public static function bind($statement,EImage $image){
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDexperience",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDtravel",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":ImageFile",$image->ImageFile(), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
         $statement->bindValue(":Width",$image->getWidth(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
         $statement->bindValue(":Height",$image->getHeight(), PDO::PARAM_INT);
@@ -78,7 +78,19 @@ class FImage extends FDataBase
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        return $result;
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        if(($result != null) && ($rows_number == 1)) {
+            $image = new EImage($result['IDimage'], $result['ImageFile'],$result['IDtravel'],$result['Width'],$result['Height']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $image = array();
+                for($i = 0; $i < count($result); $i++){
+                    $image[]= new EImage($result[$i]['IDimage'], $result[$i]['ImageFile'],$result[$i]['IDtravel'],$result[$i]['Width'],$result[$i]['Height']);
+                }
+            }
+        }
+        return $image;
     }
 
 

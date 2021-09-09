@@ -93,7 +93,7 @@ class FPost
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
@@ -146,7 +146,19 @@ class FPost
     {
         $database = FDataBase::getInstance();
         $result = $database->loadEntityToEntity(self::getTable(), $idPost, "place");
-        return $result;
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $place = array();
+                for($i = 0; $i < count($result); $i++){
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                }
+            }
+        }
+        return $place;
     }
 
     /** Inserisce nella tabella place_to_post l'associazione tra il post associata a idPost e
@@ -170,7 +182,7 @@ class FPost
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
                 }
@@ -193,7 +205,7 @@ class FPost
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
@@ -218,7 +230,7 @@ class FPost
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
@@ -250,7 +262,7 @@ class FPost
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
