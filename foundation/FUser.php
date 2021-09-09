@@ -86,7 +86,7 @@ class FUser extends FDataBase
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $user = array();
                 for($i = 0; $i < count($result); $i++){
                     $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
                 }
@@ -145,7 +145,7 @@ class FUser extends FDataBase
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
@@ -170,7 +170,7 @@ class FUser extends FDataBase
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post = array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
