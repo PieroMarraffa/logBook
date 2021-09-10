@@ -27,7 +27,6 @@ class USession{
         return USession::$instance;
     }
 
-    /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
 
     private static function destroySession(){
         session_destroy();

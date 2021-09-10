@@ -22,6 +22,7 @@
 <body>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../js/registration.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
@@ -34,13 +35,13 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="name" class="fadeIn second" name="register" placeholder="Name and surname">
-      <input type="text" id="email" class="fadeIn second" name="register" placeholder="Email">
-      <input type="text" id="username" class="fadeIn second" name="register" placeholder="Username">
+    <form method="post" action="/logBook/User/registration" onsubmit="return convalidaForm(this) ">
+      <input type="text" id="name" class="fadeIn second" name="Name" placeholder="Name" required>
+      <input type="text" id="email" class="fadeIn second" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,}" name="email" placeholder="Email" required>
+      <input type="text" id="username" class="fadeIn second" name="Username" placeholder="Username" required>
 
-      <input type="password" id="password" class="fadeIn third" name="register" placeholder="Password">
-      <input type="password" id="confirm_password" class="fadeIn third" name="register" placeholder="Confirm Password">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required>
+      <input type="password" id="confirm_password" class="fadeIn third" name="password2" placeholder="Confirm Password" required>
 
       <input type="submit" class="fadeIn fourth" value="Register">
     </form>
