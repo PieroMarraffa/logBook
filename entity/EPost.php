@@ -25,6 +25,8 @@ class EPost
      * @param $creationDate
      * @param $experience
      * @param $postID
+     * @param $nLike
+     * @param $nDisLike
      */
     public function __construct($author, $title, $commentList, $likeList, $creationDate,ETravel $travel, $postID,$deleted,$nLike,$nDisLike)
     {
@@ -38,6 +40,54 @@ class EPost
         $this->deleted=$deleted;
         $this->nLike=$nLike;
         $this->nDisLike=$nDisLike;
+    }
+
+    /**
+     * @return ETravel
+     */
+    public function getTravel(): ETravel
+    {
+        return $this->travel;
+    }
+
+    /**
+     * @param ETravel $travel
+     */
+    public function setTravel(ETravel $travel): void
+    {
+        $this->travel = $travel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNLike()
+    {
+        return $this->nLike;
+    }
+
+    /**
+     * @param mixed $nLike
+     */
+    public function setNLike($nLike): void
+    {
+        $this->nLike = $nLike;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNDisLike()
+    {
+        return $this->nDisLike;
+    }
+
+    /**
+     * @param mixed $nDisLike
+     */
+    public function setNDisLike($nDisLike): void
+    {
+        $this->nDisLike = $nDisLike;
     }
 
     /**

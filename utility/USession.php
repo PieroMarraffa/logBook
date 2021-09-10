@@ -27,30 +27,45 @@ class USession{
         return USession::$instance;
     }
 
+    /** RESTITUISCE LO STATO DELLA SESSIONE COME INTERO */
+    static function getSessionStatus(){
+        return session_status();
+    }
 
-    private static function destroySession(){
+    /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
+    static function destroySession(){
         session_destroy();
     }
 
     /** fa l'unset di tutti gli elementi dell'array session */
-    private static function unsetSession(){
+    static function unsetSession(){
         session_unset();
     }
 
     /** fa l'unset dell'elemento relativo passato in ingresso */
-    private static function unsetSessionElement($id){
+    static function unsetSessionElement($id){
         unset($_SESSION[$id]);
     }
 
 
     /** BISOGNA USARE QUESTA PER ACCEDERE AGLI ELEMENTI DI _SESSION */
-    private static function getElement($index){
+    static function getElement($index){
         return $_SESSION[$index];
     }
 
     /** BISOGNA USARE QUESTA PER SCRIVERE ALL'INTERNO DI _SESSION */
-    public static function setElement($index,$object){
+    static function setElement($index,$object){
         $_SESSION[$index]=$object;
+    }
+
+    /** RESTITUISCE UN BOOLEANO CHE INDICA SE UNA CHIAVE ($id) HA UN VALORE ASSOCIATO O NO */
+    static function getIsSet($id){
+        if (isset($_SESSION[$id])) {
+            return true;
+        }
+        else {
+            return  false;
+        }
     }
 
 }

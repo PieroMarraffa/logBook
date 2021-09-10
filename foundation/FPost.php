@@ -359,4 +359,51 @@ class FPost
         $rows_number = count($result);
         return $rows_number;
     }
+
+    public static function getLikeCount(EPost $post){
+        return $post->getNLike();
+    }
+
+    public static function loadPostHomePage(){
+        $allPosts = self::loadAll();
+        $mostLikedPost = array();
+        $toReturn = array();
+
+        if (self::getPostCount() > 0){
+            $mostLikedPost[0]= $allPosts[0];
+            if (self::getPostCount() > 1){
+                $mostLikedPost[1]= $allPosts[1];
+                if (self::getPostCount() > 2){
+                    $mostLikedPost[2]= $allPosts[2];
+                    if (self::getPostCount() > 3){
+                        $mostLikedPost[3]= $allPosts[3];
+                        if (self::getPostCount() > 4){
+                            $sortable = array();
+                            for($i = 4; $i < $allPosts->size(); $i++ ){
+                                $sortable[$allPosts[i]] = self::getLikeCount($allPosts[$i]);
+                            }
+                            arsort($sortable);
+                            $toReturn[0] = $sortable[0];
+                            $toReturn[1] = $sortable[1];
+                            $toReturn[2] = $sortable[2];
+                            $toReturn[3] = $sortable[3];
+                        } else{
+                            $toReturn = $mostLikedPost;
+                        }
+                    } else{
+                        $toReturn = $mostLikedPost;
+                    }
+                } else{
+                    $toReturn = $mostLikedPost;
+                }
+            } else{
+                $toReturn = $mostLikedPost;
+            }
+
+            return $toReturn;
+
+        } else{
+            return null;
+        }
+    }
 }

@@ -211,4 +211,9 @@ class FPersistentManager
         $result = FPost::getPostCount();
         return $result;
     }
+
+    public function loadPostHomePage(){
+        $result = FPost::loadPostHomePage();
+        return $result;
+    }
 }

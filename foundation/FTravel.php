@@ -77,7 +77,7 @@ class FTravel
 
     public static function lowerAndHigherDate($experienceList){
         $lower=new DateTime("2100-12-31");
-        $higher=new DateTime("1000-01-01");
+        $higher=new DateTime("0000-00-00");
         foreach ($experienceList as $ex){
             if($ex->getStartDay()<$lower){
                 $lower=$ex->getStartDay();

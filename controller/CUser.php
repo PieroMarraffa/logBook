@@ -4,49 +4,55 @@
 class CUser
 {
 
-    static function login(){
-        if($_SERVER['REQUEST_METHOD']=="GET"){
+    static function login2(){
+        if(UServer::getMethod() =="GET"){
             if(static::isLogged()) {
                 $pm = new FPersistentManager();
                 $view = new VUser();
-                self::homepage();
+                $result = $pm->loadPostHomePage();
                 $view->loginOk($result);
             }
             else{
-                $view=new VUtente();
+                $view=new VUser();
                 $view->showFormLogin();
             }
-        }elseif ($_SERVER['REQUEST_METHOD']=="POST")
+        }elseif (UServer::getMethod()=="POST")
             static::verifica();
     }
 
+    /**
+     * CONTROLLO SE HO GIA' UNA SESSIONE APERTA
+        * SE LA SESSIONE E' APERTA E ATTIVA CONTROLLO SE HO GIA' SETTATO LO USERNAME,
+        * CIOE' SE HO GIA'  FATTO L'ACCESSO
+            * SE HO FATTO GIA' L'ACCESSO RIMANDO ALLA HOMEPAGE LOGGATO CON L'ARRAY DI POST DA MOSTRARE
+            * ALTRIMENTI RIMANDO ALLA PAGINA DI LOGIN
+        * SE LA SESSIONE E' ACCESA MA NON ATTIVA o E' SPENTA, LA ATTIVO E RIMANDO ALLA PAGINA DI LOGIN
+     */
+    static function login(){
 
-    public function homepage(){
-        $pm = new FPersistentManager();
-        $allPosts = array();
-        $allLikes = array();
-        $mostLikedPost = array();
+        $view = new VUser();
 
-        $allPosts->addAll($pm->loadAllPost());
-        $allLikes = $pm->loadAllLikes();
-        if ($pm->etPostCount() > 0){
-            $mostLikedPost[0]= $allPosts[0];
-            if ($pm->etPostCount() > 1){
-                $mostLikedPost[1]= $allPosts[1];
-                if ($pm->etPostCount() > 2){
-                    $mostLikedPost[2]= $allPosts[2];
-                    if ($pm->etPostCount() > 3){
-                        $mostLikedPost[3]= $allPosts[3];
-                        if ($pm->etPostCount() > 4){
-                            for($i = 4; $i < $allPosts->size(); $i++){
+        if (USession::getSessionStatus() == PHP_SESSION_ACTIVE){
 
-                            }
-                        }
-                    }
-                }
+            if (USession::getIsSet("userName")){
+
+                $pm = new FPersistentManager();
+                $result = $pm->loadPostHomePage();
+                $view->loggedHome($result);
+
+            } else{
+
+                $view->loginForm();
+
             }
+        } else{
+
+            USession::getInstance();
+            $view->loginForm();
+
         }
     }
+
 
 
     /** Ogni volta che bisogn accedere ad un'area in cui bisogna essere loggati si richiama questa funzione
@@ -62,17 +68,47 @@ class CUser
      */
     static function isLogged() {
         $logged = false;
-        if (isset($_COOKIE['PHPSESSID'])) {
-            if (session_status() == PHP_SESSION_NONE) {
-                //header('Cache-Control: no cache'); //no cache
-                //session_cache_limiter('private_no_expire'); // works
-                //session_cache_limiter('public'); // works too
-                session_start();
+        if (UCookie::getIsSet('PHPSESSID')) {
+            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                USession::getInstance();
             }
         }
-        if (isset($_SESSION['utente'])) {
+        if (USession::getIsSet('utente')) {
             $logged = true;
         }
         return $logged;
+    }
+
+    private static function verifica(){
+        $view = new VUtente();
+        $pm = new FPersistentManager();
+        $utente = $pm->loadLogin($_POST['email'], $_POST['password']);
+        if ($utente != null && $utente->getState() != false) {
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+                $salvare = serialize($utente);
+                $_SESSION['utente'] = $salvare;
+                if ($_POST['email'] != 'admin@admin.com') {
+                    if (isset($_COOKIE['chat']) && $_COOKIE['chat'] != $_POST['email']){
+                        header('Location: /FillSpaceWEB/Messaggi/chat');
+                    }
+                    elseif (isset($_COOKIE['nome_visitato'])) {
+                        header('Location: /FillSpaceWEB/Utente/dettaglioutente');
+                    }
+                    else {
+                        if (isset($_COOKIE['chat']))
+                            setcookie("chat", null, time() - 900,"/");
+                        else
+                            header('Location: /FillSpaceWEB/');
+                    }
+                }
+                else {
+                    header('Location: /FillSpaceWEB/Admin/homepage');
+                }
+            }
+        }
+        else {
+            $view->loginError();
+        }
     }
 }

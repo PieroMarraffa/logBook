@@ -5,7 +5,7 @@ class VUser
 {
     /**
      * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
-     * @param $array elenco di Anunci da visualizzare
+     * @param $array elenco di Post da visualizzare
      * @throws SmartyException
      */
     public function loginOk($array) {
@@ -13,6 +13,14 @@ class VUser
         $this->smarty->assign('userlogged',"loggato");
         $this->smarty->assign('array', $array);
         $this->smarty->assign('toSearch', 'trasporti');
-        $this->smarty->display('home.tpl');
+        $this->smarty->display('home_logged.tpl');
+    }
+
+    public function loggedHome($homePagePost){
+
+    }
+
+    public function loginForm(){
+
     }
 }
