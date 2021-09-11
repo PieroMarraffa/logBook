@@ -35,7 +35,7 @@
           <div class="row-cols-5">
             <div class="col-md-11 py-4">
 
-                  <input type="text" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' > </input>
+                  <input type="text" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
               <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
             </div>
@@ -52,23 +52,12 @@
     </div>
     <div class="col-md-3">
       <div class="card">
-        <div class="card-body">
-          <a class="btn btn-primary" onclick="creaExperience()" >+ Add Experience</a><br>
-          <input class="btn btn-primary" type="file" id="avatar" accept="image/png, image/jpeg">
-          <div class="card">
-            <div class="card-header">
-              <div class="input-group">
-                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-              </div>
-            </div>
-            <div class="card-body">
-              {foreach $array as $a}
-              <input  onclick="addPlace()" class="form-control" type="checkbox">{$a->getName}</input>
-              <div class="container " id="container2">
-            </div>
-          </div>
-        </div>
+
+          <button class="col btn btn-primary " onclick="creaExperience()" >+ Add Experience</button><br>
+        <form action="logBook/User/takeImage" method="post">
+          <input class="btn btn-primary my-1" type="file" id="image" accept="image/png, image/jpeg">
+        </form>
+
       </div>
     </div>
   </div>

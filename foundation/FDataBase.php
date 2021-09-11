@@ -173,28 +173,19 @@ class FDataBase
      * se questi sono presenti all'interno della tabella RegisteredUser del DB.
      *Se si ritorna l'utente associato se no ritorna null
      */
-    public function verifiedAccess($email,$password){
+    public function verifiedAccess($class,$email,$password){
 
         try{
-        $class=FAdmin;
-        $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
-        $statement=$this->database->prepare($query);
-        $statement->execute();
-        $num= $statement->rowCount();
-        if ($num > 0){
-            $result=$statement->fetch(PDO::FETCH_ASSOC); /** DEVI DISTINGUERE IL LOGIN DEL SUPREME ADMIN DA QUELLO DELL'UTENTE NORMALI */
-        }
-        else{
-        $class=FUser;
         $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();
         if($num ==0){
             $result=null;
-        }elseif ($num > 0){
-            $result=$statement->fetch(PDO::FETCH_ASSOC);
-        }}
+        }
+        elseif ($num > 0){
+            $result=$statement->fetch(PDO::FETCH_ASSOC); /** DEVI DISTINGUERE IL LOGIN DEL SUPREME ADMIN DA QUELLO DELL'UTENTE NORMALI */
+        }
         }catch (PDOException $e) {
             echo "ERROR " . $e->getMessage();
             $this->database->rollBack();

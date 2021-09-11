@@ -5,15 +5,35 @@
     nuovo_elemento.setAttribute("class","quadrato");
     nuovo_elemento.innerHTML=
         "<form method='post' action='/logBook/CreatePost/create'><div class='card'>" +
-        "<div class='card-header'><textarea class='form-control' rows='1' maxlength='49' placeholder='Insert title here'> </textarea><div class='row py-2'>" +
-        "<div class='col-md-3'><input type='date' class='px-2'></div><div class='col-md-3'><input type='date' class='px-2'></div></div></div>" +
-        "<div class='card-body'><textarea class='form-control' maxlength='499' rows='4' placeholder='Insert description here'> </textarea></div></div></form>";
+        "<div class='card-header'>" +
+        "<textarea class='form-control' rows='1' maxlength='49' placeholder='Insert title here'> </textarea>" +
+        "<div class='row py-2'>" +
+        "<div class='col-md-3'>" +
+        "<input type='date' class='px-2'>" +
+        "</div><div class='col-md-3'>" +
+        "<input type='date' class='px-2'>" +
+        "</div><div class='col-md-3'>" +
+        "<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
+        "</div>"+
+        "<div class='col-md-3'></div></div></div>" +
+        "<div class='card-body'>" +
+        "<textarea class='form-control' maxlength='499' rows='6' placeholder='Insert description here'> </textarea>" +
+        "</div></div></form>";
     document.getElementById("container").appendChild(nuovo_elemento);
     obj=eval("document.getElementById(\"quadro"+parseInt(document.getElementById("container").childNodes.length)+"\")");
     obj.style.height="400px";
     obj.style.width="1000px";
+}
 
-
+    function selectPlace(){
+        var place= window.prompt("Insert place here");
+        var array = new Array()
+        if(place in array){
+            return place;
+        }
+        else{
+            window.alert("Place is not in our database");
+        }
 }
     function addPlace(){
         nuovo_elemento = document.createElement("div");
