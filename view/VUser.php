@@ -21,6 +21,7 @@ class VUser
     public function loggedHome($array, $username){
         $this->smarty->assign('array', $array);
         $this->smarty->assign('username', $username);
+        $this->smarty->display('home_logged.tpl');
     }
 
     /**

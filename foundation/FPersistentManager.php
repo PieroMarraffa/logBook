@@ -238,4 +238,8 @@ class FPersistentManager
     public static function loadReportedPosts(){
         return FPost::loadDeletedPosts();
     }
+
+    public static function loadReportedComments(){
+        return FComment::loadReportedComments();
+    }
 }

@@ -122,7 +122,7 @@ class FComment
     /** il commento non viene più visualizzato perchè il campo deleted è posto a true */
     public static function deleteComment($id){
         $database=FDataBase::getInstance();
-        $database->updateInDB(self::getTable(),"Deleted",true,"IDComment",$id);
+        $database->deleteFromDB(self::getTable(),'IDcomment',$id);
     }
 
     /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
@@ -152,7 +152,7 @@ class FComment
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
@@ -165,7 +165,7 @@ class FComment
     }
 
     /** visualizza tutti i post che non possono essere visualizzati */
-    public static function loadAllDeletedComment()
+    public static function loadReportedComments()
     {
         $result = self::load("Deleted", "true");
         $rows_number = count($result);
@@ -176,16 +176,15 @@ class FComment
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
-
+                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],
+                            $author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
                 }
             }
         }
         return $comment;
     }
-
 }

@@ -25,4 +25,9 @@ class VAdmin
     public function loginForm(){
         $this->smarty->display('login.tpl');
     }
+
+    public function toReportedComments($array){
+        $this->smarty->assign('reportedComments', $array);
+        $this->smarty->display('admin_reported_comment.tpl');
+    }
 }

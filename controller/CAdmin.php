@@ -26,7 +26,6 @@ class CAdmin
     }
 
     static function getReportedPost(){
-        $session = new USession();
         $view = new VAdmin();
         $reportedPosts = FPersistentManager::loadReportedPosts();
         $view->toAdminHomepage($reportedPosts);
@@ -37,5 +36,32 @@ class CAdmin
         $postID = $session->getElement('IDpost');
         FPersistentManager::deletePost($postID);
         self::getReportedPost();
+    }
+
+    static function restorePost(){
+        $session = new USession();
+        $postID = $session->getElement('IDpost');
+        FPersistentManager::restorePost($postID);
+        self::getReportedPost();
+    }
+
+    static function getReportedComments(){
+        $view = new VAdmin();
+        $reportedComments = FPersistentManager::loadReportedComments();
+        $view->toReportedComments($reportedComments);
+    }
+
+    static function deleteComment(){
+        $session = new USession();
+        $commentID = $session->getElement('IDcomment');
+        FPersistentManager::deleteComment($commentID);
+        self::getReportedComments();
+    }
+
+    static function restoreComment(){
+        $session = new USession();
+        $commentID = $session->getElement('IDcomment');
+        FPersistentManager::restoreComment($commentID);
+        self::getReportedComments();
     }
 }

@@ -152,7 +152,7 @@ class FPost
 
     public static function deletePost($id){
         $database=FDataBase::getInstance();
-        $database->updateInDB(self::getTable(),"Deleted",true,"IDPost",$id);
+        $database->eleteFromDB(self::getTable(),'IDpost',$id);
     }
 
     public static function restorePost($id){
