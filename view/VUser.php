@@ -4,23 +4,29 @@
 class VUser
 {
     /**
-     * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
-     * @param $array elenco di Post da visualizzare
-     * @throws SmartyException
+     * @var Smarty
      */
-    public function loginOk($array) {
-        $this->smarty->assign('immagine', "/logBook/Smarty/immagini/truck.png");
-        $this->smarty->assign('userlogged',"loggato");
+    private $smarty;
+
+    /**
+     * Funzione che inizializza e configura smarty.
+     */
+    public function __construct() {
+        $this->smarty = StartSmarty::configuration();
+    }
+
+    /**
+     * Funzione che reindirizza alla home da loggati.
+     */
+    public function loggedHome($array, $username){
         $this->smarty->assign('array', $array);
-        $this->smarty->assign('toSearch', 'trasporti');
-        $this->smarty->display('home_logged.tpl');
+        $this->smarty->assign('username', $username);
     }
 
-    public function loggedHome($homePagePost){
-
-    }
-
+    /**
+     * Funzione che indirizza alla pagina con il form di login.
+     */
     public function loginForm(){
-
+        $this->smarty->display('login.tpl');
     }
 }

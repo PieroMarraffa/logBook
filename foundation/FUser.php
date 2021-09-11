@@ -205,6 +205,10 @@ class FUser extends FDataBase
         }
     }
 
+    public static function checkCredentials(){
+
+    }
+
     /** FAI IL METODO DI RIPRISTINO DEI COMMENTI E DEI POST  */
     /** FAI IL METODO PER LA RICERCA DEGLI UTENTI IN BASE ALLA STRINGA INSERITA */
 }

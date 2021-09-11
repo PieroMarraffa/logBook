@@ -9,6 +9,9 @@ class FAdmin
 
     public static $value="(:IDadmin,:Email,:Password,:Username)";
 
+    public static function checkCredentials(){
+    }
+
     public function __constructor(){}
 
     /**

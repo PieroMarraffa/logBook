@@ -4,22 +4,6 @@
 class CUser
 {
 
-    static function login2(){
-        if(UServer::getMethod() =="GET"){
-            if(static::isLogged()) {
-                $pm = new FPersistentManager();
-                $view = new VUser();
-                $result = $pm->loadPostHomePage();
-                $view->loginOk($result);
-            }
-            else{
-                $view=new VUser();
-                $view->showFormLogin();
-            }
-        }elseif (UServer::getMethod()=="POST")
-            static::verifica();
-    }
-
     /**
      * CONTROLLO SE HO GIA' UNA SESSIONE APERTA
         * SE LA SESSIONE E' APERTA E ATTIVA CONTROLLO SE HO GIA' SETTATO LO USERNAME,
@@ -36,8 +20,7 @@ class CUser
 
             if (USession::getIsSet("userName")){
 
-                $pm = new FPersistentManager();
-                $result = $pm->loadPostHomePage();
+                $result = FPersistentManager::loadPostHomePage();
                 $view->loggedHome($result);
 
             } else{
@@ -53,6 +36,14 @@ class CUser
         }
     }
 
+
+    /** QUESTA FUNZIONE VERIFICA SE LE CREDENZIALI IMMESSE NELLA FORM DI LOGIN CORRISPONDONO A QUELLE DI UN UTENTE ESISTENTE.
+     *  VIENE RICHIAMATA DAL BOTTONE DI LOG IN QUINDI HO LA CERTEZZA CHE UNA SESSIONE E' GIA' APERTA.
+     *  LA FUNZIONE RICHIAMA LA FUNZIONE DI FDataBase IN CUI SI PRELEVA L'UTENTE CON MAIL E PASSWORD ASSEGNATI
+     */
+    static function verificaCredenziali(){
+        FPersistentManager::checkUserCredentials();
+    }
 
 
     /** Ogni volta che bisogn accedere ad un'area in cui bisogna essere loggati si richiama questa funzione

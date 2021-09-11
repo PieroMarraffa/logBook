@@ -382,11 +382,15 @@ class FPost
                             for($i = 4; $i < $allPosts->size(); $i++ ){
                                 $sortable[$allPosts[i]] = self::getLikeCount($allPosts[$i]);
                             }
+                            $sorted = array();
+                            $sorted[0] = $sortable[0];
+                            $sorted[1] = $sortable[1];
+                            $sorted[2] = $sortable[2];
+                            $sorted[3] = $sortable[3];
                             arsort($sortable);
-                            $toReturn[0] = $sortable[0];
-                            $toReturn[1] = $sortable[1];
-                            $toReturn[2] = $sortable[2];
-                            $toReturn[3] = $sortable[3];
+                            foreach ($sorted as $key => $value){
+                                $mostLikedPost[] = $key;
+                            }
                         } else{
                             $toReturn = $mostLikedPost;
                         }

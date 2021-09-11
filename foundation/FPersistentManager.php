@@ -212,8 +212,18 @@ class FPersistentManager
         return $result;
     }
 
-    public function loadPostHomePage(){
+    public static function loadPostHomePage(){
         $result = FPost::loadPostHomePage();
         return $result;
+    }
+
+    public static function checkUserCredentials($em, $pw){
+        $logged = FUser::checkCredentials();
+        return $logged;
+    }
+
+    public static function checkAdminCredentials($em, $pw){
+        $logged = FAdmin::checkCredentials();
+        return $logged;
     }
 }
