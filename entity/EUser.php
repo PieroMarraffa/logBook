@@ -13,6 +13,23 @@ class EUser
     private $likedPosts;
     private $personalPosts;
     private $visitedPlaces;
+    private $banned=false;
+
+    /**
+     * @return bool
+     */
+    public function isBanned(): bool
+    {
+        return $this->banned;
+    }
+
+    /**
+     * @param bool $banned
+     */
+    public function setBanned(bool $banned): void
+    {
+        $this->banned = $banned;
+    }
 
     /**
      * EUser constructor.

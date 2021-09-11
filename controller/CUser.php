@@ -15,7 +15,7 @@ class CUser
     static function login(){
 
         $view = new VUser();
-        $session = new USession();
+        $session = USession()::_instance();
         $logged = $session->getElement("logged");
 
         if ($logged){

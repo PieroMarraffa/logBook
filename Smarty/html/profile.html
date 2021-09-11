@@ -41,10 +41,10 @@
 <div class="container my-5">
   <div class="row">
     <div class="col-md-2">
-      <img class="rounded-circle" src="https://dummyimage.com/150x150/dee2e6/6c757d.jpg" width="150" height="150">
+      <img class="rounded-circle" src="data:{$type};base64,{$user->getProfileImage()}" width="150" height="150">
     </div>
     <div class="col-md-2">
-      <h1><b>{$username}</b></h1>
+      <h1><b>{$user->getUsername()}</b></h1>
     </div>
     <div class="col-md-5">
     </div>
@@ -57,85 +57,29 @@
   </div>
 </div>
 
+
 <div class="container my-5">
   <div class="row">
     <!-- Blog entries-->
+    {if isset($user->getPostList())}
+    {foreach $user->getPostList() as $p}
+
       <div class="row">
           <!-- Blog post-->
         <div class="col-md-4">
           <div class="card mb-4">
-            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+            <img class="card-img-top" src="" alt="..." />
             <div class="card-body">
-              <div class="small text-muted">{$date}</div>
-              <h2 class="card-title h4">{$postTitle}</h2>
-              <p class="card-text">{$description}</p>
-              <a class="btn btn-primary" href="#!">Go to the Post →</a>
+              <div class="small text-muted">{$p->getDate()}</div>
+              <h2 class="card-title h4">{$p->getPostTitle()}</h2>
+              <p class="card-text">{$p->getDescription()}</p>
+              <a class="btn btn-primary" href="/logBook/Research/postDetail/{$p->getID()}">Go to the Post →</a>
             </div>
           </div>
         </div>
-        <!-- Blog post-->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-            <div class="card-body">
-              <div class="small text-muted">January 1, 2021</div>
-              <h2 class="card-title h4">Post Title</h2>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-              <a class="btn btn-primary" href="#!">Read more →</a>
-            </div>
-          </div>
-        </div>
-        <!-- Blog post-->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-          <div class="card-body">
-            <div class="small text-muted">January 1, 2021</div>
-            <h2 class="card-title h4">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
-          </div>
-        </div>
       </div>
-    </div>
-    <div class="row">
-      <!-- Blog post-->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-          <div class="card-body">
-            <div class="small text-muted">January 1, 2021</div>
-            <h2 class="card-title h4">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <!-- Blog post-->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-          <div class="card-body">
-            <div class="small text-muted">January 1, 2021</div>
-            <h2 class="card-title h4">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
-          </div>
-        </div>
-      </div>
-      <!-- Blog post-->
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-          <div class="card-body">
-            <div class="small text-muted">January 1, 2021</div>
-            <h2 class="card-title h4">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    {/foreach}
+    {/if}
   </div>
 </div>
 <!-- Footer-->

@@ -7,7 +7,7 @@ class FUser extends FDataBase
 
     public static $table="user";
 
-    public static $value="(:IDuser,:Email,:Password,:Name,:Description,:Image,:UserName)";
+    public static $value="(:IDuser,:Email,:Password,:Name,:Description,:Image,:UserName,:Banned)";
 
     public function __constructor(){}
 
@@ -19,6 +19,7 @@ class FUser extends FDataBase
         $statement->bindValue(":Description",$user->getDescription(),PDO::PARAM_STR);
         $statement->bindValue(":Image",$user->getImgPathFile(),PDO::PARAM_STR);
         $statement->bindValue("UserName",$user->getUserName(),PDO::PARAM_STR);
+        $statement->bindValue(":Banned",$user->isBanned(),PDO::PARAM_BOOL);
     }
 
     /**
@@ -140,7 +141,7 @@ class FUser extends FDataBase
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=self::loadCommentReporter($result['IDcomment']);
+            $reportedList=FComment::loadCommentReporter($result['IDcomment']);
             $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
         }
         else {
@@ -148,7 +149,7 @@ class FUser extends FDataBase
                 $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
+                    $reportedList=FComment::loadCommentReporter($result[$i]['IDcomment']);
                     $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
 
                 }
@@ -166,7 +167,17 @@ class FUser extends FDataBase
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted']);
+            $Like=Flike::load("IDpost",$result['IDpost']);
+            $nLike=0;
+            $nDislike=0;
+            foreach ($Like as $l){
+                if($l->getValue()==1){
+                    $nLike ++;
+                }elseif ($l->getValue()==-1){
+                    $nDislike++;
+                }
+            }
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -175,7 +186,17 @@ class FUser extends FDataBase
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted']);
+                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
+                    $nLike=0;
+                    $nDislike=0;
+                    foreach ($Like as $l){
+                        if($l->getValue()==1){
+                            $nLike ++;
+                        }elseif ($l->getValue()==-1){
+                            $nDislike++;
+                        }
+                    }
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted'],$nLike,$nDislike);
                 }
             }
         }

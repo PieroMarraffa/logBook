@@ -28,37 +28,40 @@
   </div>
 </nav>
 <section>
+
   <div class="row">
     <div class="col-md-9">
       <div class="card">
         <div class="card-body">
-          <div class="row-cols-5">
-            <div class="col-md-11 py-4">
+          <form method="post" action="/logBook/CreatePost/tekeExperience">
+            <div class="row-cols-5">
+              <div class="col-md-11 py-4">
 
-                  <input type="text" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                    <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
-              <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
-            </div>
-            <div class="col-md-8">
-              <div class="container py-3" id="container">
+                <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
               </div>
-                <div class="col-md-4">
-                  <a class="btn btn-primary" >Save</a>
+              <div class="col-md-8">
+                <div class="container py-3" id="container">
                 </div>
+                  <div class="col-md-4">
+                    <input name="send" type="submit" class="btn btn-primary" >
+                  </div>
+
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="card">
+    <div class="col-md-3" >
 
-          <button class="col btn btn-primary " onclick="creaExperience()" >+ Add Experience</button><br>
-        <form action="logBook/User/takeImage" method="post">
+          <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+          <button class="btn btn-primary " onclick="creaImage()" >+ Add Image</button>
+        <form action="logBook/CreatePost/takeImage" method="post">
           <input class="btn btn-primary my-1" type="file" id="image" accept="image/png, image/jpeg">
         </form>
 
-      </div>
     </div>
   </div>
 </section>

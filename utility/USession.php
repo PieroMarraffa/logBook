@@ -11,6 +11,22 @@ class USession{
     private static $instance=null;
 
 
+
+
+    public static function _instance()
+    {
+        // Start a session if not already started
+        session_start();
+
+        if ( false == isset( $_SESSION[ self::$_singleton_class ] ) )
+        {
+            $class = self::$_singleton_class;
+            $_SESSION[ self::$_singleton_class ] = new $class;
+        }
+
+        return $_SESSION[ self::$_singleton_class ];
+    }
+
     static function getInstance(){
 
         session_start();
@@ -49,7 +65,7 @@ class USession{
 
 
     /** BISOGNA USARE QUESTA PER ACCEDERE AGLI ELEMENTI DI _SESSION */
-    function getElement($index){
+    static function getElement($index){
         return $_SESSION[$index];
     }
 

@@ -11299,7 +11299,7 @@ header.masthead {
 header.masthead:before {
   content: "";
   position: absolute;
-  background-color: #1c375e;
+  background-image: url("https://lh3.googleusercontent.com/proxy/RM1Id18PLvcrrZcBae8Dsk07Sf8qZITscLLizaghjwKdRlRtxV3czJoUj0owMiEuR7u6pu2uWf0yPJc7mUUrqBXIBwTSFxs0x-Cu7MAIUDLU3cVeVC42Esp_m-Px429KG-1KHI_TYA");
   height: 100%;
   width: 100%;
   top: 0;
