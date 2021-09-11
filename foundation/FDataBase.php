@@ -173,10 +173,10 @@ class FDataBase
      * se questi sono presenti all'interno della tabella RegisteredUser del DB.
      *Se si ritorna l'utente associato se no ritorna null
      */
-    public function verifiedAccess($class,$email,$password){
+    public function verifiedAccess($classTable,$email,$password){
 
         try{
-        $query="SELECT * FROM ". $class::getTable() . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
+        $query="SELECT * FROM ". $classTable . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();

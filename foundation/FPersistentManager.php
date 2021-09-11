@@ -217,13 +217,20 @@ class FPersistentManager
         return $result;
     }
 
-    public static function checkUserCredentials($em, $pw){
-        $logged = FUser::checkCredentials();
+    public static function checkUserCredentials($em, $pw)
+    {
+        $logged = FUser::checkCredentials($em, $pw);
         return $logged;
     }
 
-    public static function checkAdminCredentials($em, $pw){
-        $logged = FAdmin::checkCredentials();
+    public static function checkAdminCredentials($em, $pw)
+    {
+        $logged = FAdmin::checkCredentials($em, $pw);
         return $logged;
+    }
+
+    public static function checkExistingUser($email){
+        $taken = FUser::checkExistingUser($email);
+        return $taken;
     }
 }

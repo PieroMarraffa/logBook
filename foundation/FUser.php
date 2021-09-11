@@ -205,8 +205,22 @@ class FUser extends FDataBase
         }
     }
 
-    public static function checkCredentials(){
+    public static function checkCredentials($email, $password){
+        $database = FDataBase::getInstance();
+        $result = $database->verifiedAccess(FUser::$table,$email,$password);
+        if ($result != null){
+            return false;
+        } else{
+            return true;
+        }
+    }
 
+    public static function checkExistingUser($email){
+        $database = FDataBase::getInstance();
+        $result = $database->loadById(FUser::$table, 'Email', $email);
+        if ($result != null){
+            return false;
+        } else return true;
     }
 
     /** FAI IL METODO DI RIPRISTINO DEI COMMENTI E DEI POST  */

@@ -364,7 +364,8 @@ class FPost
         return $post->getNLike();
     }
 
-    public static function loadPostHomePage(){
+    public static function loadPostHomePage()
+    {
         $allPosts = self::loadAll();
         $mostLikedPost = array();
         $toReturn = array();
@@ -382,12 +383,12 @@ class FPost
                             for($i = 4; $i < $allPosts->size(); $i++ ){
                                 $sortable[$allPosts[i]] = self::getLikeCount($allPosts[$i]);
                             }
+                            arsort($sortable);
                             $sorted = array();
                             $sorted[0] = $sortable[0];
                             $sorted[1] = $sortable[1];
                             $sorted[2] = $sortable[2];
                             $sorted[3] = $sortable[3];
-                            arsort($sortable);
                             foreach ($sorted as $key => $value){
                                 $mostLikedPost[] = $key;
                             }

@@ -29,4 +29,8 @@ class VUser
     public function loginForm(){
         $this->smarty->display('login.tpl');
     }
+
+    public function signupForm(){
+        $this->smarty->display('registration.tpl');
+    }
 }

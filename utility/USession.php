@@ -28,17 +28,17 @@ class USession{
     }
 
     /** RESTITUISCE LO STATO DELLA SESSIONE COME INTERO */
-    static function getSessionStatus(){
+    function getSessionStatus(){
         return session_status();
     }
 
     /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
-    static function destroySession(){
+    function destroySession(){
         session_destroy();
     }
 
     /** fa l'unset di tutti gli elementi dell'array session */
-    static function unsetSession(){
+    function unsetSession(){
         session_unset();
     }
 
@@ -49,17 +49,17 @@ class USession{
 
 
     /** BISOGNA USARE QUESTA PER ACCEDERE AGLI ELEMENTI DI _SESSION */
-    static function getElement($index){
+    function getElement($index){
         return $_SESSION[$index];
     }
 
     /** BISOGNA USARE QUESTA PER SCRIVERE ALL'INTERNO DI _SESSION */
-    static function setElement($index,$object){
+    function setElement($index,$object){
         $_SESSION[$index]=$object;
     }
 
     /** RESTITUISCE UN BOOLEANO CHE INDICA SE UNA CHIAVE ($id) HA UN VALORE ASSOCIATO O NO */
-    static function getIsSet($id){
+    function getIsSet($id){
         if (isset($_SESSION[$id])) {
             return true;
         }

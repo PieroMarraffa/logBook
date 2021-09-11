@@ -9,10 +9,20 @@ class FAdmin
 
     public static $value="(:IDadmin,:Email,:Password,:Username)";
 
-    public static function checkCredentials(){
-    }
 
     public function __constructor(){}
+
+
+    public static function checkCredentials($email, $password){
+        $database = FDataBase::getInstance();
+        $result = $database->verifiedAccess(FAdmin::$table,$email,$password);
+        if ($result != null){
+            return false;
+        } else{
+            return true;
+        }
+    }
+
 
     /**
      * @return string

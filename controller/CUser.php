@@ -4,7 +4,7 @@
 class CUser
 {
 
-    /**
+    /**QUESTA E' LA FUNZIONE CHE RIMANDA ALLA FORM DI LOGIN
      * CONTROLLO SE HO GIA' UNA SESSIONE APERTA
         * SE LA SESSIONE E' APERTA E ATTIVA CONTROLLO SE HO GIA' SETTATO LO USERNAME,
         * CIOE' SE HO GIA'  FATTO L'ACCESSO
@@ -15,91 +15,98 @@ class CUser
     static function login(){
 
         $view = new VUser();
+        $session = new USession();
+        $logged = $session->getElement("logged");
 
-        if (USession::getSessionStatus() == PHP_SESSION_ACTIVE){
+        if ($logged){
 
-            if (USession::getIsSet("userName")){
+            $result = FPersistentManager::loadPostHomePage();
+            $view->loggedHome($result, "username");
 
-                $result = FPersistentManager::loadPostHomePage();
-                $view->loggedHome($result);
-
-            } else{
-
-                $view->loginForm();
-
-            }
         } else{
 
-            USession::getInstance();
             $view->loginForm();
 
         }
+
     }
 
 
     /** QUESTA FUNZIONE VERIFICA SE LE CREDENZIALI IMMESSE NELLA FORM DI LOGIN CORRISPONDONO A QUELLE DI UN UTENTE ESISTENTE.
      *  VIENE RICHIAMATA DAL BOTTONE DI LOG IN QUINDI HO LA CERTEZZA CHE UNA SESSIONE E' GIA' APERTA.
      *  LA FUNZIONE RICHIAMA LA FUNZIONE DI FDataBase IN CUI SI PRELEVA L'UTENTE CON MAIL E PASSWORD ASSEGNATI
+        * SE L'UTENTE RISULTA ESISTENTE VIENE REINDIRIZZATO ALLA HOME LOGGED
+        * ALTRIMENTI VIENE RIMANDATO ALLA FORM DI LOGIN
      */
     static function verificaCredenziali(){
-        FPersistentManager::checkUserCredentials();
+
+        $view = new VUser();
+        $logged = FPersistentManager::checkUserCredentials("email", "password");
+
+        if ($logged){
+
+            $result = FPersistentManager::loadPostHomePage();
+            $view->loggedHome($result, "username");
+
+        } else{
+
+            $view->loginForm();
+
+        }
     }
 
 
-    /** Ogni volta che bisogn accedere ad un'area in cui bisogna essere loggati si richiama questa funzione
-     *Se l'utente è loggato
-     *Se non è loggato si viene rimandati alla schermata di login
+    /** QUESTA E' LA FUNZIONE CHE RIMANDA ALLA FORM DI SIGNUP
+     * CONTROLLA CHE NON SIA RICHIAMATA DA UN UTENTE GIA' LOGGATO
+     * RIMANDA ALLA FORM DI REGISTRAZIONE
      */
-        static function logged(){
+    static function registrazione(){
+
+        $view = new VUser();
+        $session = new USession();
+        $logged = $session->getElement("logged");
+
+        if ($logged){
+
+            $result = FPersistentManager::loadPostHomePage();
+            $view->loggedHome($result, "username");
+
+        } else{
+
+            $view->signupForm();
 
         }
-
-    /**
-     * Metodo che verifica se l'utente è loggato
-     */
-    static function isLogged() {
-        $logged = false;
-        if (UCookie::getIsSet('PHPSESSID')) {
-            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                USession::getInstance();
-            }
-        }
-        if (USession::getIsSet('utente')) {
-            $logged = true;
-        }
-        return $logged;
     }
 
-    private static function verifica(){
-        $view = new VUtente();
-        $pm = new FPersistentManager();
-        $utente = $pm->loadLogin($_POST['email'], $_POST['password']);
-        if ($utente != null && $utente->getState() != false) {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-                $salvare = serialize($utente);
-                $_SESSION['utente'] = $salvare;
-                if ($_POST['email'] != 'admin@admin.com') {
-                    if (isset($_COOKIE['chat']) && $_COOKIE['chat'] != $_POST['email']){
-                        header('Location: /FillSpaceWEB/Messaggi/chat');
-                    }
-                    elseif (isset($_COOKIE['nome_visitato'])) {
-                        header('Location: /FillSpaceWEB/Utente/dettaglioutente');
-                    }
-                    else {
-                        if (isset($_COOKIE['chat']))
-                            setcookie("chat", null, time() - 900,"/");
-                        else
-                            header('Location: /FillSpaceWEB/');
-                    }
-                }
-                else {
-                    header('Location: /FillSpaceWEB/Admin/homepage');
-                }
-            }
+    /** QUESTA E' LA FUNZIONE CHE VERIFICA SE LE CREDENZIALI INSERITE NELLA REGISTRAZIONE APPARTENGONO GIA' AD UN ALTRO USER
+     * CONTROLLA CHE NON SIA RICHIAMATA DA UN UTENTE GIA' ESISTENTE
+     * RIMANDA ALLA HOME PAGE LOGGED
+     */
+    static function accountEsistente(){
+
+        $view = new VUser();
+        $session = new USession();
+        $email = $session->getElement("email");
+
+        if (FPersistentManager::checkExistingUser($email)){
+
+            $view->loginForm();
+
+        } else{
+
+            $view->loggedHome();
+
         }
-        else {
-            $view->loginError();
-        }
+
+    }
+
+
+    static function clickedPost(){
+
+        $view = new VUser();
+        $session = new USession();
+        $id = $session->getElement("IDpost");
+
+
     }
 }
