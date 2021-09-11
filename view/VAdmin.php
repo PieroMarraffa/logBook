@@ -30,4 +30,9 @@ class VAdmin
         $this->smarty->assign('reportedComments', $array);
         $this->smarty->display('admin_reported_comment.tpl');
     }
+
+    public function toReportedUsers($array){
+        $this->smarty->assign('reportedComments', $array);
+        $this->smarty->display('admin_reported_user.tpl');
+    }
 }

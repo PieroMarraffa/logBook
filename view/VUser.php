@@ -44,4 +44,8 @@ class VUser
         $this->smarty->assign('IDpost', $id);
         $this->smarty->display('post_detail.tpl');
     }
+
+    public function profile(){
+        $this->smarty->display('display.html');
+    }
 }

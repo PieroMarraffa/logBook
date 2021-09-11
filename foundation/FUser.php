@@ -83,13 +83,13 @@ class FUser extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
                 }
             }
         }
@@ -242,6 +242,16 @@ class FUser extends FDataBase
         if ($result != null){
             return false;
         } else return true;
+    }
+
+    public static function loadReportedUsers(){
+        $result = self::load("Banned", "true");
+        return $result;
+    }
+
+    public static function newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned){
+        $user = new EUser($IDuser, $email, $password, $name, $description, $image, $username, $banned);
+        self::store($user);
     }
 
     /** FAI IL METODO DI RIPRISTINO DEI COMMENTI E DEI POST  */

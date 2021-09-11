@@ -13,23 +13,7 @@ class EUser
     private $likedPosts;
     private $personalPosts;
     private $visitedPlaces;
-    private $banned=false;
-
-    /**
-     * @return bool
-     */
-    public function isBanned(): bool
-    {
-        return $this->banned;
-    }
-
-    /**
-     * @param bool $banned
-     */
-    public function setBanned(bool $banned): void
-    {
-        $this->banned = $banned;
-    }
+    private $banned;
 
     /**
      * EUser constructor.
@@ -40,19 +24,21 @@ class EUser
      * @param $mail
      * @param $imgPathFile
      * @param $description
+     * @param $banned
      */
-    public function __construct($userID, $userName, $name, $password, $mail, $imgPathFile, $description)
+    public function __construct($IDuser, $email, $password, $name, $description, $image, $username, $banned)
     {
-        $this->userID = $userID;
-        $this->userName = $userName;
+        $this->userID = $IDuser;
+        $this->userName = $username;
         $this->name = $name;
         $this->password = $password;
-        $this->mail = $mail;
-        $this->imgPathFile = $imgPathFile;
+        $this->mail = $email;
+        $this->imgPathFile = $image;
         $this->description = $description;
         $this->likedPosts = array();
         $this->personalPosts = array();
         $this->visitedPlaces = array();
+        $this->banned = $banned;
     }
 
 
@@ -214,6 +200,22 @@ class EUser
     public function setVisitedPlaces($visitedPlaces): void
     {
         $this->visitedPlaces = $visitedPlaces;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBanned(): bool
+    {
+        return $this->banned;
+    }
+
+    /**
+     * @param bool $banned
+     */
+    public function setBanned(bool $banned): void
+    {
+        $this->banned = $banned;
     }
 
 

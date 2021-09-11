@@ -416,4 +416,13 @@ class FPost
         $database = FDataBase::getInstance();
         return $database->loadReportedPosts();
     }
+
+    static function newPost($idpost, $iduser, $autore, $titolo, $data, $deleted){
+        $post = new EPost($idpost, $iduser, $autore, $titolo, $data, $deleted);
+        self::store($post);
+    }
+
+    public static function reportPost($reportedPostId){
+        self::update('Deleted', true, $reportedPostId);
+    }
 }

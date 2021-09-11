@@ -64,4 +64,24 @@ class CAdmin
         FPersistentManager::restoreComment($commentID);
         self::getReportedComments();
     }
+
+    static function getReportedUsers(){
+        $view = new VAdmin();
+        $reportedUsers = FPersistentManager::loadReportedUsers();
+        $view->toReportedUsers($reportedUsers);
+    }
+
+    static function deleteUsers(){
+        $session = new USession();
+        $userID = $session->getElement('IDuser');
+        FPersistentManager::deleteUser($userID);
+        self::getReportedUsers();
+    }
+
+    static function restoreUser(){
+        $session = new USession();
+        $userID = $session->getElement('IDuser');
+        FPersistentManager::restoreUser($userID);
+        self::getReportedUsers();
+    }
 }

@@ -242,4 +242,20 @@ class FPersistentManager
     public static function loadReportedComments(){
         return FComment::loadReportedComments();
     }
+
+    public static function loadReportedUsers(){
+        return FPost::loadDeletedPosts();
+    }
+
+    public static function newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned){
+        FUser::newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned);
+    }
+
+    public static function newPost($idpost, $iduser, $autore, $titolo, $data, $deleted){
+        FPost::newPost($idpost, $iduser, $autore, $titolo, $data, $deleted);
+    }
+
+    public static function reportPost($reportedPostId){
+        FPost::reportPost($reportedPostId);
+    }
 }

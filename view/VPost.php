@@ -14,4 +14,17 @@ class VPost
     public function __construct() {
         $this->smarty = StartSmarty::configuration();
     }
+
+    public function salvaPost($title, $img, $description){
+        $this->smarty->assign('title', $title);
+        $this->smarty->assign('image', $img);
+        $this->smarty->assign('description', $description);
+        $this->smarty->display('home_logged.tpl');
+    }
+
+    public function creaPost($creatorId,$creatorUsername){
+        $this->smarty->assign('creatorID', $creatorId);
+        $this->smarty->assign('creatoUsername',$creatorUsername);
+        $this->smarty->display('create_post.html');
+    }
 }

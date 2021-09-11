@@ -14,4 +14,8 @@ class VRicerca
     public function __construct() {
         $this->smarty = StartSmarty::configuration();
     }
+
+    public function search_result(){
+        $this->smarty->display('research_result.tpl');
+    }
 }

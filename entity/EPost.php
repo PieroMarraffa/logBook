@@ -15,6 +15,7 @@ class EPost
     private $deleted;
     private $nLike;
     private $nDisLike;
+    private $userID;
 
     /**
      * EPost constructor.
@@ -28,18 +29,31 @@ class EPost
      * @param $nLike
      * @param $nDisLike
      */
-    public function __construct($author, $title, $commentList, $likeList, $creationDate,ETravel $travel, $postID,$deleted,$nLike,$nDisLike)
+    public function __construct($idpost, $iduser, $autore, $titolo, $data, $deleted)
     {
-        $this->author = $author;
-        $this->title = $title;
-        $this->commentList = $commentList;
-        $this->likeList = $likeList;
-        $this->creationDate = new Date($creationDate);
-        $this->travel=$travel;
-        $this->postID = $postID;
+        $this->author = $autore;
+        $this->title = $titolo;
+        $this->creationDate = $data;
+        $this->postID = $idpost;
         $this->deleted=$deleted;
-        $this->nLike=$nLike;
-        $this->nDisLike=$nDisLike;
+        $this->userID = $iduser;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+    /**
+     * @param mixed $userID
+     */
+    public function setUserID($userID): void
+    {
+        $this->userID = $userID;
     }
 
     /**

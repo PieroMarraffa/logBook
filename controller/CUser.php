@@ -94,6 +94,16 @@ class CUser
 
         } else{
 
+            $IDuser = $session->getElement("IDuser");
+            $email = $session->getElement("email");
+            $password = $session->getElement("password");
+            $name = $session->getElement("name");
+            $description = $session->getElement("description");
+            $image = $session->getElement("image");
+            $username = $session->getElement("username");
+            $banned = $session->getElement("banned");
+
+            FPersistentManager::newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned);
             $view->loggedHome();
 
         }
