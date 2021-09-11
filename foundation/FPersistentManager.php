@@ -60,8 +60,8 @@ class FPersistentManager
         return $result;
     }
 
-    public static function loadAdmin(){
-        $result=FUser::loadAdmin();
+    public static function loadAdmin($entity,$id){
+        $result=FAdmin::loadAdmin($entity,$id);
         return $result;
     }
 

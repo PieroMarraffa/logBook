@@ -31,6 +31,25 @@ class CUser
 
     }
 
+    /**
+     * Metodo che verifica se l'utente è loggato
+     */
+    static function isLogged() {
+        $identificato = false;
+        if (UCookie::getIsSet('PHPSESSID')) {
+            if (session_status() == PHP_SESSION_NONE) {
+                //header('Cache-Control: no cache'); //no cache
+                //session_cache_limiter('private_no_expire'); // works
+                //session_cache_limiter('public'); // works too
+                USession::getInstance();
+            }
+        }
+        if (USession::getIsSet('utente')) {
+            $identificato = true;
+        }
+        return $identificato;
+    }
+
 
     /** QUESTA FUNZIONE VERIFICA SE LE CREDENZIALI IMMESSE NELLA FORM DI LOGIN CORRISPONDONO A QUELLE DI UN UTENTE ESISTENTE.
      *  VIENE RICHIAMATA DAL BOTTONE DI LOG IN QUINDI HO LA CERTEZZA CHE UNA SESSIONE E' GIA' APERTA.

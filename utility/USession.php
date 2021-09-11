@@ -75,7 +75,7 @@ class USession{
     }
 
     /** RESTITUISCE UN BOOLEANO CHE INDICA SE UNA CHIAVE ($id) HA UN VALORE ASSOCIATO O NO */
-    function getIsSet($id){
+    static function getIsSet($id){
         if (isset($_SESSION[$id])) {
             return true;
         }

@@ -36,11 +36,52 @@ class CFrontController
                         else if ($num == 5) $controller::$function($param[0], $param[1], $param[2], $param[3], $param[4]);
                         //else if ($num == 6) $controller::$function($param[0], $param[1], $param[2], $param[3], $param[4], $param[5]);
 
-                    }else {
-                       /** Vanno fatti tutti gli else relativi
-                        * vedi CFrontController di fillspace
-                        */
+                    } else {
+                        if (CUser::isLogged()) {
+
+                            $utente = unserialize(USession::getElement('utente'));
+                            $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                            if (isset($adm))
+                                header('Location: '); /** dobbiamo vede che metterci */
+                            else {
+                                //$smarty = StartSmarty::configuration();
+                                CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                            }
+                        } else {
+                            //$smarty = StartSmarty::configuration();
+                            CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        }
                     }
+                } else {
+                    if (CUser::isLogged()) {
+
+                        $utente = unserialize(USession::getElement('utente'));
+                        $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                        if (isset($adm))
+                            header('Location: '); /** dobbiamo vede che metterci */
+                        else {
+                            //$smarty = StartSmarty::configuration();
+                            CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        }
+                    } else {
+                        //$smarty = StartSmarty::configuration();
+                        CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                    }
+                }
+            } else {
+                if (CUser::isLogged()) {
+
+                    $utente = unserialize(USession::getElement('utente'));
+                    $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                    if (isset($adm))
+                        header('Location: '); /** dobbiamo vede che metterci */
+                    else {
+                        //$smarty = StartSmarty::configuration();
+                        CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                    }
+                } else {
+                    //$smarty = StartSmarty::configuration();
+                    CRicerca::trasportiHome();/** dobbiamo vede che metterci */
                 }
             }
         }
