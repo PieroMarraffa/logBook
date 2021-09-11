@@ -234,4 +234,8 @@ class FPersistentManager
         $taken = FUser::checkExistingUser($email);
         return $taken;
     }
+
+    public static function loadReportedPosts(){
+        return FPost::loadDeletedPosts();
+    }
 }

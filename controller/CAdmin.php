@@ -16,7 +16,7 @@ class CAdmin
 
         if ($logged){
 
-            $view->toAdminHomepage();
+           self::getReportedPost();
 
         }else{
 
@@ -25,10 +25,17 @@ class CAdmin
         }
     }
 
-    static function deletePost(){
+    static function getReportedPost(){
         $session = new USession();
         $view = new VAdmin();
+        $reportedPosts = FPersistentManager::loadReportedPosts();
+        $view->toAdminHomepage($reportedPosts);
+    }
+
+    static function deletePost(){
+        $session = new USession();
         $postID = $session->getElement('IDpost');
-        
+        FPersistentManager::deletePost($postID);
+        self::getReportedPost();
     }
 }

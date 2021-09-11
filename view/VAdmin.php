@@ -17,7 +17,8 @@ class VAdmin
     }
 
 
-    public function toAdminHomepage(){
+    public function toAdminHomepage($array){
+        $this->smarty->assign('reportedPosts', $array);
         $this->smarty->display('admin_reported_posts.tpl');
     }
 

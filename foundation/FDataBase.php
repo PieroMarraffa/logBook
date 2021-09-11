@@ -317,6 +317,36 @@ class FDataBase
         }
     }
 
+    /** seleziona tutti gli id dei post segnalati senza doppioni
+     */
+    public function loadReportedPosts(){
+        try {
+            $query="SELECT DISTINCT IDpost FROM post_reported_by_user" ;
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num == 0){
+
+                $result=null;
+
+            } elseif ($num==1){
+
+                $result=$statement->fetch(PDO::FETCH_ASSOC);
+
+            } else{
+
+                $result=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch())
+                    $result[] = $row;
+
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+    }
 
     /** Prende in ingresso il nome di due tabelle e l'id da cercare
      *va a cercare nella classe entity1_to_entity2 e restituisce l'id associato,

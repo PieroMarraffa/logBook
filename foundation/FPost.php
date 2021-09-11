@@ -258,7 +258,7 @@ class FPost
     }
 
     /** visualizza tutti i post che possono essere visualizzati */
-    public static function loadAllDeletedPost()
+    public static function loadDeletedPosts()
     {
         $result = self::load("Deleted", "true");
         $rows_number = count($result);
@@ -366,7 +366,7 @@ class FPost
 
     public static function loadPostHomePage()
     {
-        $allPosts = self::loadAll();
+        $allPosts = self::loadAllVisiblePost();
         $mostLikedPost = array();
         $toReturn = array();
 
@@ -410,5 +410,10 @@ class FPost
         } else{
             return null;
         }
+    }
+
+    static function loadReportedPost(){
+        $database = FDataBase::getInstance();
+        return $database->loadReportedPosts();
     }
 }
