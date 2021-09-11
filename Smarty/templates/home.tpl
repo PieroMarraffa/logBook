@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{assign var='userlogged' value=$userlogged|default:'nouser'}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Landing Page - Start Bootstrap Theme</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <script>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="home.html"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        {if $userlogged!='nouser'}
+        <a class="btn btn-primary" href="login.html">Sign Up</a>
+        {else}
+        <a class="btn btn-primary" href="profile.html">{$username}</a>
+        {/if}
+    </div>
+</nav>
+<!-- Masthead-->
+<header class="masthead" >
+    <div class="container position-relative">
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="text-center text-white">
+                    <!-- Page heading-->
+                    <h1 class="mb-5 text-dark" ><b>Go wherever you want...</b></h1>
+                    <form method="get" action="/logBook/Research/find">
+                        <!--PER ORA GLI HO MESSO UN NOME A CASO RICORDIAMOCI DI CAMBIARLO A SECONDA DEL METODO-->
+                        <div class="row">
+                            <div class="input-group">
+                                <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {if $array}
+        {if is_array($array)}
+        {foreach $array as $post}
+        <div class="col mb-5">
+            <div class="card h-100">
+                <!-- Profile image-->
+                <img class="card-img-top" src="data:{$type};base64,{$post->getImage()}" alt="..." />
+                <!-- Product details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name-->
+                        <h5 class="fw-bolder">{$post->getTitle()}</h5>
+                        <!-- Product price-->
+                        <h6 class="text-muted ">{$post->getAuthor()}</h6>
+                    </div>
+                </div>
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-primary" href="/logBook/Research/postDetail/{$post->getID()}">Go to the post -></a></div>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+        {/if}
+        {/if}
+    </div>
+</div>
+<!-- Footer-->
+<footer class="footer bg-light">
+
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>
