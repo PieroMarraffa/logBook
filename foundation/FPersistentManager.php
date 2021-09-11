@@ -197,7 +197,8 @@ class FPersistentManager
         FComment::restoreComment($id);}
 
     public static function deletePost($id){
-        FPost::deletePost($id);}
+        FPost::deletePost($id);
+    }
 
     public static function restorePost($id){
         FPost::restorePost($id);}

@@ -1,8 +1,8 @@
+
 <?php
 
 
-
-class VAdmin
+class VError
 {
     /**
      * @var Smarty
@@ -14,14 +14,5 @@ class VAdmin
      */
     public function __construct() {
         $this->smarty = StartSmarty::configuration();
-    }
-
-
-    public function toAdminHomepage(){
-        $this->smarty->display('admin_reported_posts.tpl');
-    }
-
-    public function loginForm(){
-        $this->smarty->display('login.tpl');
     }
 }
