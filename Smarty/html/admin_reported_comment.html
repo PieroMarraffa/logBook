@@ -35,28 +35,20 @@
 </nav>
 <!-- Section-->
 <section class="py-5">
-
-    <div class="row">
-      <!-- Blog entries-->
-      <div class="row">
-        {if $arrayReportedPost}
-        {foreach $arrayReportedPost as $a}
-        <!-- Blog post-->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
-            <div class="card-body">
-              <div class="small text-muted">{$a->getDate()}</div>
-              <h2 class="card-title h4">{$a->getTitle()}</h2>
-              <p class="card-text">{$a->getAuthor()}</p>
-              <a class="btn btn-primary" href="/logBook/Research/postDetail/{$a->getID()}">Go to the Post →</a>
-            </div>
-          </div>
-        </div>
-        {/foreach}
-        {/if}
-      </div>
+{if $commentArrayReported}
+  {foreach $commentArrayReported as $c}
+  <div id="comment"class="d-flex mb-4">
+    <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
+    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+    <div class="ms-3">
+      <div class="fw-bold">{$commentArrayReported->getAuthor()}<button onclick="remove()" id="delete" class="btn btn-primary">
+        Delete</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
+      {$commentArrayReported->getContent()}
     </div>
+  </div>
+  {/foreach}
+  {/if}
+
 
 </section>
 <!-- Footer-->

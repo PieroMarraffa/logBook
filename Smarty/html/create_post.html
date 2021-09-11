@@ -55,11 +55,15 @@
       </div>
     </div>
     <div class="col-md-3" >
-
+          <div class="row">
           <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
-          <button class="btn btn-primary " onclick="creaImage()" >+ Add Image</button>
+          </div>
+        <div class="row">
+          <button class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+        </div>
         <form action="logBook/CreatePost/takeImage" method="post">
-          <input class="btn btn-primary my-1" type="file" id="image" accept="image/png, image/jpeg">
+          <div id="container2" class="containerpy-3">
+          </div>
         </form>
 
     </div>

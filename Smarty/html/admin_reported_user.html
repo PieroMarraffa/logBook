@@ -29,34 +29,30 @@
     <a href="admin_reported_comment.html" >Reported comments</a>
     <a href="admin_reported_posts.html" >Reported posts</a>
     <a href="admin_reported_user.html" >Reported user</a>
-
     <a class="btn btn-primary align-content-end" href="login.html">Logout</a>
   </div>
 </nav>
 <!-- Section-->
-<section class="py-5">
+<section class="  py-5">
 
-    <div class="row">
-      <!-- Blog entries-->
-      <div class="row">
-        {if $arrayReportedPost}
-        {foreach $arrayReportedPost as $a}
-        <!-- Blog post-->
-        <div class="col-md-4">
-          <div class="card mb-4">
-            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
-            <div class="card-body">
-              <div class="small text-muted">{$a->getDate()}</div>
-              <h2 class="card-title h4">{$a->getTitle()}</h2>
-              <p class="card-text">{$a->getAuthor()}</p>
-              <a class="btn btn-primary" href="/logBook/Research/postDetail/{$a->getID()}">Go to the Post →</a>
-            </div>
-          </div>
-        </div>
-        {/foreach}
-        {/if}
-      </div>
+  {if $userReported}
+  {foreach $userReported as $u}
+  <div class="col-md-3">
+  <div id="user"class="card">
+    <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
+    <div class="card-header">
+    <div class="flex-shrink-0"><img class="rounded-circle" width="100" height="100" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+    <div class="ms-3">
+      <div class="fw-bold">{$user->getName()}<br><button onclick="remove()" id="bann" class="btn btn-primary">
+        Bann</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
+      <a class="btn btn-primary" href="/logBook/Research/postDetail/{$a->getID()}">Go to the Profile → </a>
     </div>
+  </div>
+  </div>
+  </div>
+  {/foreach}
+  {/if}
+
 
 </section>
 <!-- Footer-->
