@@ -100,13 +100,23 @@ class CUser
 
     }
 
-
+    /** QUESTA E' LA FUNZIONE CHE CARICA LA PAGINA DI DETTAGLIO DEL POST CLICCATO SULLA HOME PAGE
+     */
     static function clickedPost(){
 
         $view = new VUser();
         $session = new USession();
-        $id = $session->getElement("IDpost");
 
+        if ($session->getElement('logged')){
 
+            $id = $session->getElement("IDpost");
+            $view->detailPostLogged($id);
+
+        } else{
+
+            $id = $session->getElement("IDpost");
+            $view->detailPost($id);
+
+        }
     }
 }

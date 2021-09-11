@@ -33,4 +33,14 @@ class VUser
     public function signupForm(){
         $this->smarty->display('registration.tpl');
     }
+
+    public function detailPostLogged($id){
+        $this->smarty->assign('IDpost', $id);
+        $this->smarty->display('post_detail_logged.tpl');
+    }
+
+    public function detailPost($id){
+        $this->smarty->assign('IDpost', $id);
+        $this->smarty->display('post_detail.tpl');
+    }
 }
