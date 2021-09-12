@@ -15,7 +15,7 @@ class FComment
         $statement->bindValue(":IDcomment",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDuser",$comment->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":IDpost",$comment->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":Deleted",$comment->getEliminated(), PDO::PARAM_BOOL);
+        $statement->bindValue(":Deleted",$comment->getDeleted(), PDO::PARAM_BOOL);
         $statement->bindValue(":Content",$comment->getContent(), PDO::PARAM_STR);
     }
 
@@ -49,7 +49,7 @@ class FComment
      */
     public static function store(EComment $comment){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDcomment",$comment->getCommentID());
+        $exist= $database->existInDB(self::getTable(),"IDcomment",$comment->getCommentID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$comment);
             return $id;
@@ -64,7 +64,7 @@ class FComment
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDcomment",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDcomment",$id->getID());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDcomment",$id->getId());
             return $u;
@@ -85,7 +85,7 @@ class FComment
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
@@ -136,7 +136,7 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
-        $reporter= new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+        $reporter= new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
         return $reporter;
     }
 

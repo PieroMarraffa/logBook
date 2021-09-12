@@ -29,7 +29,7 @@ class EPost
      * @param $nLike
      * @param $nDisLike
      */
-    public function __construct($idpost, $iduser, $autore, $titolo, $data, $deleted)
+    public function __construct($idpost, $iduser, $autore, $titolo, $data, $deleted, $nLike, $nDisLike)
     {
         $this->author = $autore;
         $this->title = $titolo;
@@ -37,6 +37,8 @@ class EPost
         $this->postID = $idpost;
         $this->deleted=$deleted;
         $this->userID = $iduser;
+        $this->nLike=$nLike;
+        $this->nDisLike=$nDisLike;
     }
 
 
@@ -202,21 +204,7 @@ class EPost
         $this->creationDate = $creationDate;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getExperience()
-    {
-        return $this->experience;
-    }
 
-    /**
-     * @param mixed $experience
-     */
-    public function setExperience($experience)
-    {
-        $this->experience = $experience;
-    }
 
     /**
      * @return mixed

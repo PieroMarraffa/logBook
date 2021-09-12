@@ -50,7 +50,7 @@ class FExperience extends FDataBase
      */
     public static function store(EExperience $e){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDexperience",$e->getExperienceID());
+        $exist= $database->existInDB(self::getTable(),"IDexperience",$e->getExperienceID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$e);
             return $id;
@@ -65,7 +65,7 @@ class FExperience extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDexperience",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDexperience",$id->getID());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDexperience",$id->getID());
             return $u;
@@ -156,7 +156,7 @@ class FExperience extends FDataBase
     public static function loadPlaceByExperience($idExperience){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idExperience,"place");
-        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         return $place;
     }
 

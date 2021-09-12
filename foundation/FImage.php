@@ -14,7 +14,7 @@ class FImage extends FDataBase
     public static function bind($statement,EImage $image){
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDtravel",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":ImageFile",$image->ImageFile(), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
+        $statement->bindValue(":ImageFile",$image->getImageFile(), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
         $statement->bindValue(":Width",$image->getWidth(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
         $statement->bindValue(":Height",$image->getHeight(), PDO::PARAM_INT);
 
@@ -50,7 +50,7 @@ class FImage extends FDataBase
      */
     public static function store(EImage $img){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDimage",$img->getImageID());
+        $exist= $database->existInDB(self::getTable(),"IDimage",$img->getImageID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$img);
             return $id;
@@ -65,7 +65,7 @@ class FImage extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDimage",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDimage",$id->getID());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDimage",$id->getId());
             return $u;

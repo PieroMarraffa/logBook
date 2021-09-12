@@ -122,7 +122,7 @@ class FUser extends FDataBase
     public static function loadPlaceByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idUser,"place");
-        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         return $place;
     }
 
@@ -218,7 +218,8 @@ class FUser extends FDataBase
 
     public static function loadLogin($email,$password){
         $database=FDatabase::getInstance();
-        $result=$database->VerifiedAccess($email, $password);
+        $class=FUser::getTable();
+        $result=$database->VerifiedAccess($class,$email, $password);
         if(isset($result)){
             return true;
         }else{

@@ -48,7 +48,7 @@ class FLike
      */
     public static function store(ELike $like){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDlike",$like->getLikeID());
+        $exist= $database->existInDB(self::getTable(),"IDlike",$like->getLikeID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$like);
             return $id;
@@ -63,7 +63,7 @@ class FLike
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDlike",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDlike",$id->getID());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDimage",$id->getId());
             return $u;
@@ -90,7 +90,7 @@ class FLike
                 }
             }
         }
-        return like;
+        return $like;
     }
 
 
@@ -132,6 +132,6 @@ class FLike
                 }
             }
         }
-        return like;
+        return $like;
     }
 }

@@ -6,8 +6,6 @@ class EPlace
     private $name;
     private $latitude;
     private $longitude;
-    private $nation;
-    private $averageOfVisitors;
     private $category;
     private $placeID;
 
@@ -20,13 +18,11 @@ class EPlace
      * @param $averageOfVisitors
      * @param $placeID
      */
-    public function __construct($name, $latitude, $longitude, $nation, $averageOfVisitors,$category, $placeID)
+    public function __construct($name, $latitude, $longitude,$category, $placeID)
     {
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-        $this->nation = $nation;
-        $this->averageOfVisitors = $averageOfVisitors;
         $this->category=$category;
         $this->placeID = $placeID;
     }
@@ -94,38 +90,6 @@ class EPlace
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNation()
-    {
-        return $this->nation;
-    }
-
-    /**
-     * @param mixed $nation
-     */
-    public function setNation($nation)
-    {
-        $this->nation = $nation;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAverageOfVisitors()
-    {
-        return $this->averageOfVisitors;
-    }
-
-    /**
-     * @param mixed $averageOfVisitors
-     */
-    public function setAverageOfVisitors($averageOfVisitors)
-    {
-        $this->averageOfVisitors = $averageOfVisitors;
     }
 
     /**

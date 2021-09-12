@@ -7,7 +7,7 @@ class FPlace extends FDataBase
 
     public static $table="place";
 
-    public static $value="(:IDplace,:Latitude,:Longitude,:Nation,:AverageVisitors,:Category,:Name)";
+    public static $value="(:IDplace,:Latitude,:Longitude,:Category,:Name)";
 
     public function __constructor(){}
 
@@ -15,8 +15,6 @@ class FPlace extends FDataBase
         $statement->bindValue(":IDPlace",NULL, PDO::PARAM_INT);
         $statement->bindValue(":Latitude",$place->getLatitude(), PDO::PARAM_INT);
         $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_INT);
-        $statement->bindValue(":Nation",$place->getNation(), PDO::PARAM_STR);
-        $statement->bindValue(":AverageVisitors",$place->getAverageOfVisitors(), PDO::PARAM_INT);
         $statement->bindValue(":Category",$place->getCategory(), PDO::PARAM_STR);
         $statement->bindValue(":Name",$place->getName(), PDO::PARAM_STR);
 
@@ -53,7 +51,7 @@ class FPlace extends FDataBase
      */
     public static function store(EPlace $l){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDplace",$l->getPlaceId());
+        $exist= $database->existInDB(self::getTable(),"IDplace",$l->getPlaceId());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$l);
             return $id;
@@ -68,7 +66,7 @@ class FPlace extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDplace",$id->getId());
+        $exist= $database->existInDB(self::getTable(),"IDplace",$id->getId());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDplace",$id->getId());
             return $u;
@@ -83,13 +81,13 @@ class FPlace extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
                 }
             }
         }
@@ -122,13 +120,13 @@ class FPlace extends FDataBase
         $result=$database->loadById(self::getTable(),"Nation", $nation);
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
                 }
             }
         }
@@ -141,15 +139,15 @@ class FPlace extends FDataBase
         $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"experience");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
-            $experience->setExperienceID($result['IDexperience']);
+            $placeList=$database->loadEntityToEntity("experience",$result['IDexperience'],"place");
+            $experience = new EExperience($result['IDexperience'],$result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $experience = array();
                 for($i = 0; $i < count($result); $i++){
-                    $experience[] = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'], $result['Description']);
-                    $experience[$i]->setExperienceID($result['IDexperience']);
+                    $placeList=$database->loadEntityToEntity("experience",$result[$i]['IDexperience'],"place");
+                    $experience[] = new EExperience($result[$i]['IDexperience'],$result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
                 }
             }
         }
@@ -175,7 +173,7 @@ class FPlace extends FDataBase
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -207,13 +205,13 @@ class FPlace extends FDataBase
         $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"user");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user= array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
                 }
             }
         }
@@ -226,13 +224,13 @@ class FPlace extends FDataBase
         $result=$database->loadById(self::getTable(),"Category",$idCategory);
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
                 }
             }
         }
@@ -248,13 +246,13 @@ class FPlace extends FDataBase
         }
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
                 }
             }
         }

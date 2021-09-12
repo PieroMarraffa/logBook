@@ -54,7 +54,7 @@ class FPost
     public static function store(EPost $post)
     {
         $database = FDataBase::getInstance();
-        $exist = $database->existDB(self::getTable(), "IDpost", $post->getPostID());
+        $exist = $database->existInDB(self::getTable(), "IDpost", $post->getPostID());
         if (!$exist) {
             $id = $database->storeInDB(self::getTable(), $post);
             return $id;
@@ -70,7 +70,7 @@ class FPost
     {
         $u = false;
         $database = FDataBase::getInstance();
-        $exist = $database->existDB(self::getTable(), "IDpost", $id->getID());
+        $exist = $database->existInDB(self::getTable(), "IDpost", $id->getID());
         if ($exist) {
             $u = $database->updateInDB(self::getTable(), $field, $newValue, "IDpost", $id->getId());
             return $u;
@@ -152,7 +152,7 @@ class FPost
 
     public static function deletePost($id){
         $database=FDataBase::getInstance();
-        $database->eleteFromDB(self::getTable(),'IDpost',$id);
+        $database->deleteFromDB(self::getTable(),'IDpost',$id);
     }
 
     public static function restorePost($id){
@@ -168,13 +168,13 @@ class FPost
         $result = $database->loadEntityToEntity(self::getTable(), $idPost, "place");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Nation'],$result['AverageVisitors'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Nation'],$result[$i]['AverageVisitors'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
                 }
             }
         }
@@ -198,13 +198,13 @@ class FPost
         $result = $database->loadEntityReportedByEntity(self::getTable(), $idPost, "user");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description']);
+                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
                 }
             }
         }

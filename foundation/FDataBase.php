@@ -51,7 +51,7 @@ class FDataBase
     public function storeInDB($entity,$object){
         try{
             $this->database->beginTransaction();
-            $query="INSERT INTO " . $entity::getTable() . "VALUES " . $entity::getValues();
+            $query="INSERT INTO " . $entity::getTable() . " VALUES " . $entity::getValues();
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
             $statement->execute();
