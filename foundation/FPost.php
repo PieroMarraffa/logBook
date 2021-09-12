@@ -41,7 +41,7 @@ class FPost
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }

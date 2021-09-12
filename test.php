@@ -9,12 +9,12 @@ class test
 {
     public static function trySelectReportedPosts(){
 
-         $e=new EUser("gino","pippi","g","g","huh","gyg",0);
-         FUser::store($e);
-         $l=FUser::load("Email","gino");
+         //$e=new EUser("gino","pippi","g","g","huh","gyg",0);
+         $l=FUser::delete("Password","44444");
+         //$l=FUser::load("Password","44444");
          return $l;
     }
 }
 
 $e=test::trySelectReportedPosts();
-echo isset($e);
+echo $e;

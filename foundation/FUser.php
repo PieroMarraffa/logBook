@@ -55,8 +55,7 @@ class FUser extends FDataBase
         $database= FDataBase::getInstance();
         $exist= $database->existInDB(self::getTable(),"IDuser",$u->getUserID());
         if(!$exist){
-            echo "ciaoPippi";
-            $id=$database->storeInDB(self::getTable(),$u);
+            $id=$database->storeInDB(self::getClass(),$u);
             return $id;
         }
         return null;
@@ -69,9 +68,9 @@ class FUser extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDuser",$id->getId());
+        $exist= $database->existInDB(self::getTable(),"IDuser",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDuser",$id->getId());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDuser",$id);
             return $u;
         }
         return $u;
@@ -84,14 +83,14 @@ class FUser extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+            $user = new EUser($result['UserName'],$result['Email'],$result['Password'],$result['Name'],$result['Description'],$result['Image'], $result['Banned']);
             $user->setUserID($result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+                    $user[] = new EUser($result[$i]['UserName'],$result[$i]['Email'],$result[$i]['Password'],$result[$i]['Name'],$result[$i]['Description'],$result[$i]['Image'], $result[$i]['Banned']);
                     $user[$i]->setUserID($result[$i]['IDuser']);
                 }
             }
@@ -117,6 +116,7 @@ class FUser extends FDataBase
     public static function delete($field,$id){
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
+        return true;
     }
 
 

@@ -18,7 +18,7 @@ class FDataBase
     private function __construct()
     {
         try{
-            $this->database=new PDO("mysql:dbname=logbook;host=localhost; charset=utf8;","root","pippo");
+            $this->database=new PDO("mysql:dbname=logbook;host=127.0.0.1; charset=utf8;","root","pippo");
         }
         catch(PDOException $e){
            echo "ERROR". $e->getMessage();
@@ -54,6 +54,7 @@ class FDataBase
         try{
             $this->database->beginTransaction();
             $query="INSERT INTO " . $entity::getTable() . " VALUES " . $entity::getValues();
+            echo $entity::getTable();
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
             $statement->execute();
@@ -106,20 +107,22 @@ class FDataBase
      * dato in ingresso ($id). */
     public function deleteFromDB($entity,$field,$id){
         try{
-            $result=null;
             $this->database->beginTransaction();
             $exist = $this->existInDB($entity, $field, $id);
             if($exist) {
-                $this->database->beginTransaction();
-                $query = "DELETE * FROM " . $entity . " WHERE " . $field . " = '" . $id."'";
+                $query = "DELETE FROM " . $entity . " WHERE " . $field . " = '" . $id."'";
                 $statement = $this->database->prepare($query);
                 $statement->execute();
                 $this->database->commit();
                 $this->closeDbConnection();
                 $result = true;
             }
+            else{
+                $this->closeDbConnection();
+                $result=false;
+            }
         }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
+            echo "ERROREEE" . $e->getMessage();
             $this->database->rollBack();
             $result= false;
         }
