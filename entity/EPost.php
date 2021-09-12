@@ -30,14 +30,14 @@ class EPost
      * @param $nDisLike
      * @param $userID
      */
-    public function __construct($title, $commentList, $likeList, $creationDate, $travel, $deleted, $nLike, $nDisLike, $userID)
+    public function __construct($title, $commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
     {
 
         $this->title = $title;
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = $creationDate;
-        $this->travel = $travel;
+        $this->travel =new ETravel( $travel);
         $this->deleted = $deleted;
         $this->nLike = $nLike;
         $this->nDisLike = $nDisLike;
