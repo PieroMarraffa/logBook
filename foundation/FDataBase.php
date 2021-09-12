@@ -32,9 +32,11 @@ class FDataBase
      *Se non è ancora stato istanziato il db lo istanzia.
      */
     public static function getInstance(){
-        if(self::$instance==null){
+            if(self::$instance==null){
             self::$instance=new FDataBase();
-        }
+
+            }
+
         return self::$instance;
     }
 
@@ -135,9 +137,11 @@ class FDataBase
         $statement=$this->database->prepare($query);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $this->closeDbConnection();
         if (count($result) == 1) return 1;
         else if (count($result) > 1) return count($result);
-        $this->closeDbConnection();
+        else{ return 0;}
+
         }
         catch(PDOException $e){
             echo "ERROR" . $e->getMessage();

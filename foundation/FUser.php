@@ -55,6 +55,7 @@ class FUser extends FDataBase
         $database= FDataBase::getInstance();
         $exist= $database->existInDB(self::getTable(),"IDuser",$u->getUserID());
         if(!$exist){
+            echo "ciaoPippi";
             $id=$database->storeInDB(self::getTable(),$u);
             return $id;
         }
