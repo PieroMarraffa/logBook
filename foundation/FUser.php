@@ -53,10 +53,10 @@ class FUser extends FDataBase
      */
     public static function store(EUser $u){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDuser",$u->getUserID());
+        $exist= $database->existInDB(self::getTable(),"Email",$u->getMail());
         if(!$exist){
-            $id=$database->storeInDB(self::getClass(),$u);
-            return $id;
+            $database->storeInDB(self::getClass(),$u);
+            return true;
         }
         return null;
     }

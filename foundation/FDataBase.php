@@ -54,14 +54,12 @@ class FDataBase
         try{
             $this->database->beginTransaction();
             $query="INSERT INTO " . $entity::getTable() . " VALUES " . $entity::getValues();
-            echo $entity::getTable();
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
             $statement->execute();
-            $id=$this->database->lastInsertId();
             $this->database->commit();
             $this->closeDbConnection();
-            return $id;
+            return true;
         }catch(PDOException $e){
             echo "ERROR" . $e->getMessage();
             $this->database->rollBack();
@@ -122,7 +120,7 @@ class FDataBase
                 $result=false;
             }
         }catch(PDOException $e){
-            echo "ERROREEE" . $e->getMessage();
+            echo "ERROR" . $e->getMessage();
             $this->database->rollBack();
             $result= false;
         }
@@ -223,7 +221,7 @@ class FDataBase
             }
             elseif ($num ==1){
                 $resID = $statement->fetch(PDO::FETCH_ASSOC);
-                $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID["ID".$secondClass] ."';";
                 $stmt=$this->database->prepare($query);
                 $stmt->execute();
                 $number=$stmt->rowCount();
@@ -244,7 +242,7 @@ class FDataBase
                 while ($row = $statement->fetch())
                     $resID[] = $row;
                 foreach ($resID as $r){
-                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r["ID".$secondClass] ."';";
                     $stmt=$this->database->prepare($query);
                     $stmt->execute();
                     $number=$stmt->rowCount();
@@ -277,7 +275,7 @@ class FDataBase
                 }
                 elseif ($num ==1){
                     $resID = $statement->fetch(PDO::FETCH_ASSOC);
-                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID["ID".$secondClass] ."';";
                     $stmt=$this->database->prepare($query);
                     $stmt->execute();
                     $number=$stmt->rowCount();
@@ -296,9 +294,12 @@ class FDataBase
                     $resID=array();
                     $statement->setFetchMode(PDO::FETCH_ASSOC);
                     while ($row = $statement->fetch())
-                        $resID[] = $row;
+                        $resID[]=$row;
+                    echo "CIAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+
                     foreach ($resID as $r){
-                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        var_dump($r);
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r["ID".$secondClass] ."';";
                         $stmt=$this->database->prepare($query);
                         $stmt->execute();
                         $number=$stmt->rowCount();
@@ -375,7 +376,7 @@ class FDataBase
                 }
                 elseif ($num ==1){
                     $resID = $statement->fetch(PDO::FETCH_ASSOC);
-                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID["ID".$secondClass] ."';";
                     $stmt=$this->database->prepare($query);
                     $stmt->execute();
                     $number=$stmt->rowCount();
@@ -396,7 +397,7 @@ class FDataBase
                     while ($row = $statement->fetch())
                         $resID[] = $row;
                     foreach ($resID as $r){
-                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r["ID".$secondClass] ."';";
                         $stmt=$this->database->prepare($query);
                         $stmt->execute();
                         $number=$stmt->rowCount();
@@ -429,7 +430,7 @@ class FDataBase
                 }
                 elseif ($num ==1){
                     $resID = $statement->fetch(PDO::FETCH_ASSOC);
-                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID ."';";
+                    $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID["ID".$secondClass] ."';";
                     $stmt=$this->database->prepare($query);
                     $stmt->execute();
                     $number=$stmt->rowCount();
@@ -450,7 +451,7 @@ class FDataBase
                     while ($row = $statement->fetch())
                         $resID[] = $row;
                     foreach ($resID as $r){
-                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r ."';";
+                        $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r["ID".$secondClass] ."';";
                         $stmt=$this->database->prepare($query);
                         $stmt->execute();
                         $number=$stmt->rowCount();
