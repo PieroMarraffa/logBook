@@ -81,13 +81,16 @@ class FPlace extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+
                 }
             }
         }
@@ -120,13 +123,15 @@ class FPlace extends FDataBase
         $result=$database->loadById(self::getTable(),"Nation", $nation);
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
                 }
             }
         }
@@ -140,14 +145,16 @@ class FPlace extends FDataBase
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
             $placeList=$database->loadEntityToEntity("experience",$result['IDexperience'],"place");
-            $experience = new EExperience($result['IDexperience'],$result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
+            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
+            $experience->setExperienceID($result['IDexperience']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $experience = array();
                 for($i = 0; $i < count($result); $i++){
                     $placeList=$database->loadEntityToEntity("experience",$result[$i]['IDexperience'],"place");
-                    $experience[] = new EExperience($result[$i]['IDexperience'],$result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
+                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
+                    $experience[$i]->setExperienceID($result[$i]['IDexperience']);
                 }
             }
         }
@@ -175,7 +182,8 @@ class FPlace extends FDataBase
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
+            $post->setPostID($result['IDpost']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -194,7 +202,8 @@ class FPlace extends FDataBase
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
         }
@@ -207,13 +216,16 @@ class FPlace extends FDataBase
         $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"user");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+            $user->setUserID($result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user= array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+                    $user[$i]->setUserID($result[$i]['IDuser']);
+
                 }
             }
         }
@@ -226,13 +238,16 @@ class FPlace extends FDataBase
         $result=$database->loadById(self::getTable(),"Category",$idCategory);
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
+
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
                 }
             }
         }
@@ -248,13 +263,17 @@ class FPlace extends FDataBase
         }
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
+
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category'],$result[$i]['IDplace']);
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+
                 }
             }
         }

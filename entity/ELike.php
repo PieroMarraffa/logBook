@@ -19,11 +19,10 @@ class ELike
      * @param $likeID
      */
 
-    public function __construct($value, $author, $likeID,$postID)
+    public function __construct($value, $author,$postID)
     {
         $this->value = $value;
         $this->author = $author;
-        $this->likeID = $likeID;
         $this->postID=$postID;
     }
 

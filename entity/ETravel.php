@@ -25,9 +25,8 @@ class ETravel
      * bisogna fornire una stringa in formato yyyy-mm-dd
      * @throws Exception
      */
-    public function __construct($travelID, $postID, $experienceList, $imageList, $startDate, $finishDate)
+    public function __construct( $postID, $experienceList, $imageList, $startDate, $finishDate)
     {
-        $this->travelID = $travelID;
         $this->postID = $postID;
         $this->startDate = new DateTime($startDate);
         $this->finishDate = new DateTime($finishDate);

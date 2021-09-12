@@ -18,9 +18,9 @@ class EImage
      * @param $imageID
      * @param $url
      */
-    public function __construct($imageID, $imageFile,$travelID,$width,$height)
+    public function __construct( $imageFile,$travelID,$width,$height)
     {
-        $this->imageID = $imageID;
+
         $this->imageFile = $imageFile;
         $this->travelID=$travelID;
         $this->width=$width;

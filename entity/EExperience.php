@@ -26,9 +26,8 @@ class EExperience
      * @param $description
      */
 
-    public function __construct($experienceID,$travelID, $startDay, $endDay, $title,$placeList, $description)
+    public function __construct($travelID, $startDay, $endDay, $title,$placeList, $description)
     {
-        $this->experienceID = $experienceID;
         $this->travelID=$travelID;
         $this->startDay = new Date($startDay);
         $this->endDay = new Date($endDay);

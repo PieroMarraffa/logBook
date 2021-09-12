@@ -8,7 +8,8 @@ require '../logBook/entity/EUser.php';
 class test
 {
     public static function trySelectReportedPosts(){
-        $pm=FUser::load("Name","federico");
+        $e=new EUser()
+        $pm=FUser::store();
         return $pm;
     }
 }

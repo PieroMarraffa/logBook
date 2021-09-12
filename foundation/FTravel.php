@@ -103,7 +103,9 @@ class FTravel
             $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];
             $finishDate=$r[1];
-            $travel = new ETravel($result['IDtravel'],$result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+            $travel = new ETravel($result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+            $travel->setTravelID($result['IDtravel']);
+
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -114,7 +116,8 @@ class FTravel
                     $r=self::lowerAndHigherDate($experienceList);
                     $startDate=$r[0];
                     $finishDate=$r[1];
-                    $travel[] = new ETravel($result[$i]['IDtravel'],$result[$i]['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+                    $travel[] = new ETravel($result[$i]['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+                    $travel[$i]->setTravelID($result[$i]['IDtravel']);
                 }
             }
         }

@@ -83,13 +83,15 @@ class FUser extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+            $user->setUserID($result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['IDuser'],$result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'], $result['Banned']);
+                    $user[$i]->setUserID($result[$i]['IDuser']);
                 }
             }
         }
@@ -122,7 +124,8 @@ class FUser extends FDataBase
     public static function loadPlaceByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idUser,"place");
-        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category'],$result['IDplace']);
+        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+        $place->setPlaceID($result['IDplace']);
         return $place;
     }
 
@@ -142,7 +145,8 @@ class FUser extends FDataBase
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=FComment::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDcomment'],$result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+            $comment->setCommentID($result['IDcomment']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -150,8 +154,8 @@ class FUser extends FDataBase
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=FComment::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDcomment'],$result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
-
+                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+                    $comment[$i]->setCommentID($result[$i]['IDcomment']);
                 }
             }
         }
@@ -177,7 +181,8 @@ class FUser extends FDataBase
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            $post->setPostID($result['IDpost']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -196,7 +201,9 @@ class FUser extends FDataBase
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['IDpost'],$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[$i]->setPostID($result[$i]['IDpost']);
+
                 }
             }
         }
@@ -250,8 +257,8 @@ class FUser extends FDataBase
         return $result;
     }
 
-    public static function newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned){
-        $user = new EUser($IDuser, $email, $password, $name, $description, $image, $username, $banned);
+    public static function newUserToDB( $email, $password, $name, $description, $image, $username, $banned){
+        $user = new EUser( $email, $password, $name, $description, $image, $username, $banned);
         self::store($user);
     }
 

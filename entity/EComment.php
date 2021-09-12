@@ -21,9 +21,9 @@ class EComment{
     //--------------COSTRUTTORE----------------------
 
 
-    public function __construct($commentID, $idPost,EUser $author, $deleted, $signaledList, $content)
+    public function __construct( $idPost,EUser $author, $deleted, $signaledList, $content)
     {
-        $this->commentID = $commentID;
+
         $this->idPost=$idPost;
         $this->author = $author;
         $this->deleted = $deleted;

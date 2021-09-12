@@ -26,9 +26,8 @@ class EUser
      * @param $description
      * @param $banned
      */
-    public function __construct($IDuser, $email, $password, $name, $description, $image, $username, $banned)
+    public function __construct( $email, $password, $name, $description, $image, $username, $banned)
     {
-        $this->userID = $IDuser;
         $this->userName = $username;
         $this->name = $name;
         $this->password = $password;

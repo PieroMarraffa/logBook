@@ -79,14 +79,17 @@ class FLike
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
-            $like = new ELike($result['Value'],$author,$result['IDlike'],$result['IDpost']);
+            $like = new ELike($result['Value'],$author,$result['IDpost']);
+            $like->setLikeID($result['IDlike']);
+
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDlike'],$result[$i]['IDpost']);
+                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDpost']);
+                    $like[$i]->setLikeID($result[$i]['IDlike']);
                 }
             }
         }
@@ -121,14 +124,16 @@ class FLike
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
-            $like = new ELike($result['Value'],$author,$result['IDlike'],$result['IDpost']);
+            $like = new ELike($result['Value'],$author,$result['IDpost']);
+            $like->setLikeID($result['IDlike']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDlike'],$result[$i]['IDpost']);
+                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDpost']);
+                    $like[$i]->setLikeID($result[$i]['IDlike']);
                 }
             }
         }

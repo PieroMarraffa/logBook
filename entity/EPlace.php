@@ -18,13 +18,12 @@ class EPlace
      * @param $averageOfVisitors
      * @param $placeID
      */
-    public function __construct($name, $latitude, $longitude,$category, $placeID)
+    public function __construct($name, $latitude, $longitude,$category)
     {
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->category=$category;
-        $this->placeID = $placeID;
     }
 
     /**
