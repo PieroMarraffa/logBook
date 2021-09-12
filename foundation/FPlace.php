@@ -154,7 +154,9 @@ class FPlace extends FDataBase
         return $experience;
     }
 
-    /** ritorna tutte i post associati a quel determinato luogo passato in ingresso */
+    /** ritorna tutte i post associati a quel determinato luogo passato in ingresso
+     * @throws Exception
+     */
     public static function loadPostByPlace($idPLace){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"post");
@@ -173,11 +175,11 @@ class FPlace extends FDataBase
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['IDpost'],$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+                $post= array();
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);

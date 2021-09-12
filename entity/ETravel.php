@@ -5,7 +5,6 @@ class ETravel
 {
     private $travelID;
     private $postID;
-    private $title;
     private $imageList;
     private $experienceList;
     private $startDate;
@@ -26,13 +25,12 @@ class ETravel
      * bisogna fornire una stringa in formato yyyy-mm-dd
      * @throws Exception
      */
-    public function __construct($travelID, $postID, $title, $experienceList, $imageList, $startDate, $finishDate)
+    public function __construct($travelID, $postID, $experienceList, $imageList, $startDate, $finishDate)
     {
         $this->travelID = $travelID;
         $this->postID = $postID;
         $this->startDate = new DateTime($startDate);
         $this->finishDate = new DateTime($finishDate);
-        $this->title = $title;
         $this->experienceList = $experienceList;
         $this->imageList = $imageList;
     }
@@ -72,22 +70,6 @@ class ETravel
     }
 
     /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title): void
-    {
-        $this->title = $title;
-    }
-
-    /**
      * @return array
      */
     public function getImageList(): array
@@ -120,7 +102,7 @@ class ETravel
     }
 
     /**
-     * @return Date
+     * @return DateTime
      */
     public function getStartDate(): DateTime
     {
@@ -128,7 +110,7 @@ class ETravel
     }
 
     /**
-     * @param Date $startDate
+     * @param DateTime $startDate
      */
     public function setStartDate(DateTime $startDate): void
     {
@@ -136,7 +118,7 @@ class ETravel
     }
 
     /**
-     * @return Date
+     * @return DateTime
      */
     public function getFinishDate(): DateTime
     {
@@ -144,7 +126,7 @@ class ETravel
     }
 
     /**
-     * @param Date $finishDate
+     * @param DateTime $finishDate
      */
     public function setFinishDate(DateTime $finishDate): void
     {

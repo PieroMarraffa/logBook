@@ -15,7 +15,6 @@ class FTravel
 
     public static function bind($statement,ETravel $travel){
         $statement->bindValue(":IDtravel",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":Title",$travel->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":IDpost",$travel->g, PDO::PARAM_INT);//DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
 
     }
@@ -52,7 +51,7 @@ class FTravel
      */
     public static function store(EExperience $e){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDexperience",$e->getExperienceID());
+        $exist= $database->existInDB(self::getTable(),"IDexperience",$e->getExperienceID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$e);
             return $id;
@@ -67,7 +66,7 @@ class FTravel
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDtravel",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDtravel",$id->getID());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDtravel",$id->getID());
             return $u;
@@ -101,10 +100,10 @@ class FTravel
         if(($result != null) && ($rows_number == 1)) {
             $imageList=FImage::load("IDtravel",$result["IDtravel"]);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
-            $r=self::lowerAndHigherDate();
+            $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];
             $finishDate=$r[1];
-            $travel = new ETravel($result['IDtravel'],$result['IDpost'],$result['Title'],$experienceList, $imageList,$startDate,$finishDate);
+            $travel = new ETravel($result['IDtravel'],$result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -112,10 +111,10 @@ class FTravel
                 for($i = 0; $i < count($result); $i++){
                     $imageList=FImage::load("IDtravel",$result[$i]["IDtravel"]);
                     $experienceList=FExperience::load("IDtravel",$result[$i]["IDtravel"]);
-                    $r=self::lowerAndHigherDate();
+                    $r=self::lowerAndHigherDate($experienceList);
                     $startDate=$r[0];
                     $finishDate=$r[1];
-                    $travel[] = new ETravel($result[$i]['IDtravel'],$result[$i]['IDpost'],$result[$i]['Title'],$experienceList, $imageList,$startDate,$finishDate);
+                    $travel[] = new ETravel($result[$i]['IDtravel'],$result[$i]['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
                 }
             }
         }

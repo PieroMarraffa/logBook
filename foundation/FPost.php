@@ -7,7 +7,7 @@ class FPost
 
     public static $table = "post";
 
-    public static $value = "(:IDpost,:IDuser,:Autor,:Title,:Date,:Deleted)";
+    public static $value = "(:IDpost,:IDuser,:Title,:Date,:Deleted)";
 
     public function __constructor()
     {
@@ -17,7 +17,6 @@ class FPost
     {
         $statement->bindValue(":IDpost", NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDuser", $post->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":Autor", $post->getAuthor(), PDO::PARAM_STR);
         $statement->bindValue(":Title", $post->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":Date", $post->getCreationDate(), PDO::PARAM_STR);
         $statement->bindValue(":Deleted", $post->getDeleted(), PDO::PARAM_BOOL);
@@ -380,8 +379,8 @@ class FPost
                         $mostLikedPost[3]= $allPosts[3];
                         if (self::getPostCount() > 4){
                             $sortable = array();
-                            for($i = 4; $i < $allPosts->size(); $i++ ){
-                                $sortable[$allPosts[i]] = self::getLikeCount($allPosts[$i]);
+                            for($i = 4; $i < count($allPosts); $i++ ){
+                                $sortable[$allPosts[$i]] = self::getLikeCount($allPosts[$i]);
                             }
                             arsort($sortable);
                             $sorted = array();

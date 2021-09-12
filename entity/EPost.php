@@ -5,7 +5,6 @@ use Cassandra\Date;
 
 class EPost
 {
-    private $author;
     private $title;
     private $commentList;
     private $likeList;
@@ -24,21 +23,26 @@ class EPost
      * @param $commentList
      * @param $likeList
      * @param $creationDate
-     * @param $experience
+     * @param $travel
      * @param $postID
+     * @param $deleted
      * @param $nLike
      * @param $nDisLike
+     * @param $userID
      */
-    public function __construct($idpost, $iduser, $autore, $titolo, $data, $deleted, $nLike, $nDisLike)
+    public function __construct($title, $commentList, $likeList, $creationDate, $travel, $postID, $deleted, $nLike, $nDisLike, $userID)
     {
-        $this->author = $autore;
-        $this->title = $titolo;
-        $this->creationDate = $data;
-        $this->postID = $idpost;
-        $this->deleted=$deleted;
-        $this->userID = $iduser;
-        $this->nLike=$nLike;
-        $this->nDisLike=$nDisLike;
+
+        $this->title = $title;
+        $this->commentList = $commentList;
+        $this->likeList = $likeList;
+        $this->creationDate = $creationDate;
+        $this->travel = $travel;
+        $this->postID = $postID;
+        $this->deleted = $deleted;
+        $this->nLike = $nLike;
+        $this->nDisLike = $nDisLike;
+        $this->userID = $userID;
     }
 
 
@@ -123,22 +127,6 @@ class EPost
     }
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param mixed $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
 
     /**
      * @return mixed
