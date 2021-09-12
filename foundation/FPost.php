@@ -16,7 +16,7 @@ class FPost
     public static function bind($statement, EPost $post)
     {
         $statement->bindValue(":IDpost", NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDuser", $post->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDuser", $post->getUserID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":Title", $post->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":Date", $post->getCreationDate(), PDO::PARAM_STR);
         $statement->bindValue(":Deleted", $post->getDeleted(), PDO::PARAM_BOOL);
@@ -57,8 +57,9 @@ class FPost
         if (!$exist) {
             $id = $database->storeInDB(self::getTable(), $post);
             return $id;
+        } else{
+            return null;
         }
-        return null;
     }
 
 
@@ -416,8 +417,8 @@ class FPost
         return $database->loadReportedPosts();
     }
 
-    static function newPost($idpost, $iduser, $autore, $titolo, $data, $deleted){
-        $post = new EPost($idpost, $iduser, $autore, $titolo, $data, $deleted);
+    static function newPost($idpost, $iduser, $titolo, $data, $deleted){
+        $post = new EPost($idpost, $iduser, $titolo, $data, $deleted, array(), array(), '', 0, 0 );
         self::store($post);
     }
 
