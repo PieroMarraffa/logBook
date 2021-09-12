@@ -37,7 +37,7 @@ class EPost
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = $creationDate;
-        $this->travel =new ETravel( $travel);
+        $this->travel = new ETravel( $travel->getPostID(), $travel->getExperienceList(), $travel->getImageList(), $travel->getStartDate(), $travel->getFinishDate());
         $this->deleted = $deleted;
         $this->nLike = $nLike;
         $this->nDisLike = $nDisLike;
