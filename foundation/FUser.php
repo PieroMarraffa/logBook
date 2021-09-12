@@ -41,7 +41,7 @@ class FUser extends FDataBase
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -53,7 +53,7 @@ class FUser extends FDataBase
      */
     public static function store(EUser $u){
         $database= FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDuser",$u->getUserID());
+        $exist= $database->existInDB(self::getTable(),"IDuser",$u->getUserID());
         if(!$exist){
             $id=$database->storeInDB(self::getTable(),$u);
             return $id;

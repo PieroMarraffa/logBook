@@ -1,6 +1,5 @@
 <?php
 
-
 class FPersistentManager
 {
 /** forse rimuovere il supreme admin dalle classi che supportano la store */

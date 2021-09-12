@@ -15,10 +15,10 @@ class FDataBase
     /** Istanza del PDO */
     private $database;
 
-    private function __construct()
+    public function __construct()
     {
         try{
-            $this->database=new PDO(/**Aggiungici la roba che ci manca**/);
+            $this->database=new PDO("mysql:dbname=logBook; host=127.0.0.1; charset=utf8;", 'root', 'pippo');
         }
         catch(PDOException $e){
            echo "ERROR". $e->getMessage();
@@ -48,12 +48,13 @@ class FDataBase
     /** Inserisce nel DB in all'interno della tabella selezionata
      * ($entity) l'oggetto passato in ingresso ($object)
      */
-    public function storeInDB($entity,$object){
+    public function storeInDB($foundation, $object){
         try{
+            echo $foundation::getValues();
             $this->database->beginTransaction();
-            $query="INSERT INTO " . $entity::getTable() . "VALUES " . $entity::getValues();
+            $query="INSERT INTO " . $foundation::getTable() . "VALUES " . $foundation::getValues();
             $statement= $this->database->prepare($query);
-            $entity::bind($statement,$object);
+            $foundation::bind($statement,$object);
             $statement->execute();
             $id=$this->database->lastInsertId();
             $this->database->commit();
@@ -81,9 +82,6 @@ class FDataBase
             $num=$statement->rowCount();
             if($num == 0){
                 $result=null;
-            }
-            elseif ($num ==1){
-                $result = $statement->fetch(PDO::FETCH_ASSOC);
             }else{
                 $result=array();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);

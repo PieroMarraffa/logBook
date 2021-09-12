@@ -248,4 +248,5 @@ class EUser
         $this->visitedPlaces = array_values($this->visitedPlaces);
     }
 
+
 }
