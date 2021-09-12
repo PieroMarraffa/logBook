@@ -15,10 +15,10 @@ class FDataBase
     /** Istanza del PDO */
     private $database;
 
-    public function __construct()
+    private function __construct()
     {
         try{
-            $this->database=new PDO("mysql:dbname=logBook; host=127.0.0.1; charset=utf8;", 'root', 'pippo');
+            $this->database=new PDO("mysql:dbname=logbook;host=localhost; charset=utf8;","root","pippo");
         }
         catch(PDOException $e){
            echo "ERROR". $e->getMessage();
@@ -33,7 +33,7 @@ class FDataBase
      */
     public static function getInstance(){
         if(self::$instance==null){
-            self::$instance==new FDataBase();
+            self::$instance=new FDataBase();
         }
         return self::$instance;
     }
@@ -48,13 +48,12 @@ class FDataBase
     /** Inserisce nel DB in all'interno della tabella selezionata
      * ($entity) l'oggetto passato in ingresso ($object)
      */
-    public function storeInDB($foundation, $object){
+    public function storeInDB($entity,$object){
         try{
-            echo $foundation::getValues();
             $this->database->beginTransaction();
-            $query="INSERT INTO " . $foundation::getTable() . "VALUES " . $foundation::getValues();
+            $query="INSERT INTO " . $entity::getTable() . "VALUES " . $entity::getValues();
             $statement= $this->database->prepare($query);
-            $foundation::bind($statement,$object);
+            $entity::bind($statement,$object);
             $statement->execute();
             $id=$this->database->lastInsertId();
             $this->database->commit();
@@ -76,12 +75,15 @@ class FDataBase
      */
     public function loadById($entity,$field,$id){
         try{
-            $query="SELECT * FROM " . $entity . " WHERE " . $field ." = '" . $id."';";
+            $query="SELECT * FROM " .$entity ." WHERE " . $field ." = '" . $id."';";
             $statement= $this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
             if($num == 0){
                 $result=null;
+            }
+            elseif ($num ==1){
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
             }else{
                 $result=array();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
@@ -630,6 +632,27 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
             return $result;
         }catch(PDOException $e){
             echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
+    /**   Metodo che restituisce il numero di righe ineteressate dalla query
+     * @param class classe interessata
+     *@param field campo usato per la ricerca
+     *@param id ,id usato per la ricerca
+     */
+    public function interestedRows ($class, $field, $id)
+    {
+        try {
+            $this->database->beginTransaction();
+            $query = "SELECT * FROM " . $class::getTable() . " WHERE " . $field . "='" . $id . "';";
+            $stmt = $this->database->prepare($query);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            $this->closeDbConnection();
+            return $num;
+        } catch (PDOException $e) {
+            echo "Attenzione errore: " . $e->getMessage();
             $this->database->rollBack();
             return null;
         }

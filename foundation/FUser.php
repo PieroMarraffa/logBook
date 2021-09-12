@@ -68,7 +68,7 @@ class FUser extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existDB(self::getTable(),"IDuser",$id->getId());
+        $exist= $database->existInDB(self::getTable(),"IDuser",$id->getId());
         if($exist){
             $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDuser",$id->getId());
             return $u;
