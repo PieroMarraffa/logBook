@@ -13,8 +13,8 @@ class FImage extends FDataBase
 
     public static function bind($statement,EImage $image){
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDtravel",$image->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":ImageFile",$image->getImageFile(), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
+        $statement->bindValue(":IDtravel",$image->getTravelID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":ImageFile",base64_encode($image->getImageFile()), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
         $statement->bindValue(":Width",$image->getWidth(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
         $statement->bindValue(":Height",$image->getHeight(), PDO::PARAM_INT);
 
@@ -39,7 +39,7 @@ class FImage extends FDataBase
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -50,12 +50,8 @@ class FImage extends FDataBase
      */
     public static function store(EImage $img){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDimage",$img->getImageID());
-        if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$img);
-            return $id;
-        }
-        return null;
+        $id=$database->storeInDB(self::getClass(),$img);
+        return $id;
     }
 
 
@@ -65,9 +61,9 @@ class FImage extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDimage",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDimage",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDimage",$id->getId());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDimage",$id);
             return $u;
         }
         return $u;
@@ -80,14 +76,14 @@ class FImage extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $image = new EImage( $result['ImageFile'],$result['IDtravel'],$result['Width'],$result['Height']);
+            $image = new EImage( base64_decode($result['ImageFile']),$result['IDtravel'],$result['Width'],$result['Height']);
             $image->setImageID($result['IDimage']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $image = array();
                 for($i = 0; $i < count($result); $i++){
-                    $image[]= new EImage( $result[$i]['ImageFile'],$result[$i]['IDtravel'],$result[$i]['Width'],$result[$i]['Height']);
+                    $image[]= new EImage( base64_decode($result[$i]['ImageFile']),$result[$i]['IDtravel'],$result[$i]['Width'],$result[$i]['Height']);
                     $image[$i]->setImageID($result[$i]['IDimage']);
                 }
             }

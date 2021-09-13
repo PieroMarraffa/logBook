@@ -25,30 +25,22 @@ class test
 {
     public static function trySelectReportedPosts(){
 
-<<<<<<< Updated upstream
+        //$i=new EImage("FFFFFFFFFFFFFFFFFFFFFFFFFF",1,200,200);
         //$e=new EUser("gigio","pippi","g","g","huh","gyg",0);
-        $s=new ELike("-1",1,1);
+        //$s=new EPlace("casaDiPippi",42,42,"luogo_bestemmia");
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
-        $d=FLike::update("Reaction","-1",1);
-        //$l=FUser::load("Password","Silvia");
-=======
-        /** $e=new EUser("gigio","pippi","g","g","huh","gyg",0);*/
-        /** $l=FUser::load('Email','giuliacancello@gmail.com'); */
+        //FLike::delete("IDreaction",1);
+        FImage::delete("IDimage",2);
 
-        /** FUser::store($e);*/
-        $l=FPlace::update('Category', 'Schifo', 2) ;
->>>>>>> Stashed changes
+        // $e=new EUser("gigio","pippi","g","g","huh","gyg",0);
+        //$l=FUser::load('Email','giuliacancello@gmail.com');
+
+        //$l=FPlace::store($s);
 
 
-         return $d;
     }
 }
 
-$e=test::trySelectReportedPosts();
-<<<<<<< Updated upstream
-echo $e;
-=======
+test::trySelectReportedPosts();
 
-echo var_dump($e);
->>>>>>> Stashed changes

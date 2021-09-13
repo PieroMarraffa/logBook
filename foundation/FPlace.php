@@ -51,12 +51,8 @@ class FPlace extends FDataBase
      */
     public static function store(EPlace $l){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDplace",$l->getPlaceId());
-        if(!$exist){
-            $id=$database->storeInDB(self::getClass(),$l);
-            return $id;
-        }
-        return null;
+        $id=$database->storeInDB(self::getClass(),$l);
+        return $id;
     }
 
 
