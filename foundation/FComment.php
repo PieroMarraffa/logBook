@@ -51,7 +51,7 @@ class FComment
         $database= FDataBase::getInstance();
         $exist= $database->existInDB(self::getTable(),"IDcomment",$comment->getCommentID());
         if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$comment);
+            $id=$database->storeInDB(self::getClass(),$comment);
             return $id;
         }
         return null;

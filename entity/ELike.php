@@ -5,7 +5,7 @@ class ELike
 {
     private $value;
 
-    private $author;
+    private $userID;
 
     private $likeID;
 
@@ -15,14 +15,14 @@ class ELike
     /**
      * ELike constructor.
      * @param $value
-     * @param $author
+     * @param $userID
      * @param $likeID
      */
 
-    public function __construct($value, $author,$postID)
+    public function __construct($value, $userID,$postID)
     {
         $this->value = $value;
-        $this->author = $author;
+        $this->userID = $userID;
         $this->postID=$postID;
     }
 
@@ -61,18 +61,19 @@ class ELike
     /**
      * @return mixed
      */
-    public function getAuthor()
+    public function getUserID()
     {
-        return $this->author;
+        return $this->userID;
     }
 
     /**
-     * @param mixed $author
+     * @param mixed $userID
      */
-    public function setAuthor($author): void
+    public function setUserID($userID): void
     {
-        $this->author = $author;
+        $this->userID = $userID;
     }
+
 
     /**
      * @return mixed

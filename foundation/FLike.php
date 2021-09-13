@@ -1,21 +1,21 @@
 <?php
 
 
-class FLike
+class FLike extends FDataBase
 {
     public static $class="FLike";
 
-    public static $table="like";
+    public static $table="reaction";
 
-    public static $value="(:IDlike,:IDpost,:IDuser,:Value)";
+    public static $value="(:IDreaction,:IDpost,:IDuser,:Reaction)";
 
     public function __constructor(){}
 
     public static function bind($statement,ELike $like){
-        $statement->bindValue(":IDlike",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDpost",$like->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDuser",$like->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":Value",$like->getValue(), PDO::PARAM_STR);
+        $statement->bindValue(":IDreaction",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":IDpost",$like->getPostID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDuser",$like->getUserID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":Reaction",$like->getValue(), PDO::PARAM_STR);
     }
 
     /**
@@ -37,7 +37,7 @@ class FLike
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -48,12 +48,9 @@ class FLike
      */
     public static function store(ELike $like){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDlike",$like->getLikeID());
-        if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$like);
-            return $id;
-        }
-        return null;
+        $a=$database->storeInDB(self::getClass(),$like);
+        return $a;
+
     }
 
 
@@ -63,9 +60,9 @@ class FLike
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDlike",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDreaction",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDimage",$id->getId());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDreaction",$id);
             return $u;
         }
         return $u;
@@ -74,22 +71,21 @@ class FLike
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
+        $like=null;
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $author=FUser::load("IDuser",$result['IDuser']);
-            $like = new ELike($result['Value'],$author,$result['IDpost']);
-            $like->setLikeID($result['IDlike']);
+            $like = new ELike($result['Reaction'],$result['IDuser'],$result['IDpost']);
+            $like->setLikeID($result['IDreaction']);
 
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
                 for($i = 0; $i < count($result); $i++){
-                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDpost']);
-                    $like[$i]->setLikeID($result[$i]['IDlike']);
+                    $like[] = new ELike($result[$i]['Reaction'],$result['IDuser'],$result[$i]['IDpost']);
+                    $like[$i]->setLikeID($result[$i]['IDreaction']);
                 }
             }
         }
@@ -123,17 +119,15 @@ class FLike
         $result=$database->getAllByTable(self::getTable());
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $author=FUser::load("IDuser",$result['IDuser']);
-            $like = new ELike($result['Value'],$author,$result['IDpost']);
-            $like->setLikeID($result['IDlike']);
+            $like = new ELike($result['Reaction'],$result['IDuser'],$result['IDpost']);
+            $like->setLikeID($result['IDreaction']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
                 for($i = 0; $i < count($result); $i++){
-                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDpost']);
-                    $like[$i]->setLikeID($result[$i]['IDlike']);
+                    $like[] = new ELike($result[$i]['Reaction'],$result['IDuser'],$result[$i]['IDpost']);
+                    $like[$i]->setLikeID($result[$i]['IDreaction']);
                 }
             }
         }

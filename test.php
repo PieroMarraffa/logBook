@@ -26,15 +26,16 @@ class test
     public static function trySelectReportedPosts(){
 
         //$e=new EUser("gigio","pippi","g","g","huh","gyg",0);
-        $l=FUser::load('Email','giuliacancello@gmail.com');
+        $s=new ELike("-1",1,1);
+        //$l=FUser::load('Email','giuliacancello@gmail.com');
 
-        //FUser::store($e);
+        $d=FLike::update("Reaction","-1",1);
         //$l=FUser::load("Password","Silvia");
 
 
-         return $l;
+         return $d;
     }
 }
 
 $e=test::trySelectReportedPosts();
-echo var_dump($e);
+echo $e;

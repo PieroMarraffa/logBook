@@ -139,14 +139,14 @@ class FDataBase
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         $this->closeDbConnection();
-        if (count($result) == 1) return 1;
-        else if (count($result) > 1) return count($result);
-        else{ return 0;}
+        if (count($result) == 1) return true;
+        else if (count($result) > 1) return true;
+        else{ return false;}
 
         }
         catch(PDOException $e){
             echo "ERROR" . $e->getMessage();
-            return null;
+            return false;
         }
     }
 
