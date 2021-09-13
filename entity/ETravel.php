@@ -14,9 +14,7 @@ class ETravel
 
     /**
      * EAdmin constructor.
-     * @param $travelID
      * @param $postID
-     * @param $title
      * @param $imageList
      * @param $experienceList
      * @param $startDate
@@ -85,7 +83,7 @@ class ETravel
     }
 
     /**
-     * @return array
+     * @return array $experienceList
      */
     public function getExperienceList(): array
     {

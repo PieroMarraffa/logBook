@@ -22,12 +22,12 @@ class EPost
      * @param $commentList
      * @param $likeList
      * @param $creationDate
-     * @param $travel
-     * @param $postID
+     * @param ETravel $travel
      * @param $deleted
      * @param $nLike
      * @param $nDisLike
      * @param $userID
+     * @throws Exception
      */
     public function __construct($title, $commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
     {

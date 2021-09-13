@@ -1,5 +1,19 @@
 <?php
 
+require 'FPlace.php';
+require 'FComment.php';
+require 'entity/EComment.php';
+require 'FLike.php';
+require 'FTravel.php';
+require 'FImage.php';
+require 'FExperience.php';
+require 'entity/EPlace.php';
+require 'entity/EExperience.php';
+
+
+
+
+
 
 class FUser extends FDataBase
 {
@@ -135,24 +149,25 @@ class FUser extends FDataBase
      */
     public static function storePlaceToUser($idUser,$idPLace){
         $database=FDataBase::getInstance();
+        echo FPlace::getTable();
         $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idUser);
         return $result;
     }
 
     public static function loadCommentReportedByUser($idUser){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"comment");
-        $rows_number = count($result);
+        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,FComment::getTable());
+        $rows_number = sizeof($result);
         if(($result != null) && ($rows_number == 1)) {
-            $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=FComment::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
-            $comment->setCommentID($result['IDcomment']);
+            $author=FUser::load("IDuser",$result[0]['IDuser']);
+            $reportedList=FComment::loadCommentReporter($result[0]['IDcomment']);
+            $comment = new EComment($result[0]['IDpost'],$author,$result[0]['Deleted'],$reportedList,$result[0]['Content']);
+            $comment->setCommentID($result[0]['IDcomment']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $comment = array();
-                for($i = 0; $i < count($result); $i++){
+                for($i = 0; $i < sizeof($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=FComment::loadCommentReporter($result[$i]['IDcomment']);
                     $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
@@ -161,29 +176,30 @@ class FUser extends FDataBase
             }
         }
         return $comment;
-
     }
 
+    /**
+     * @throws Exception
+     */
     public static function loadPostReportedByUser($idUser){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"post");
-        $rows_number = count($result);
+        $rows_number = sizeof($result);
         if(($result != null) && ($rows_number == 1)) {
-            $commentList=FComment::load("IDpost",$result['IDpost']);
-            $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
+            $commentList=FComment::load("IDpost",$result[0]['IDpost']);
+            $likeList=FLike::load("IDpost",$result[0]['IDpost']);
+            $travel=FTravel::load("IDpost",$result[0]['IDpost']);
             $nLike=0;
             $nDislike=0;
-            foreach ($Like as $l){
+            foreach ($likeList as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
-            $post->setPostID($result['IDpost']);
+            $post = new EPost( $result[0]['Title'],$commentList,$likeList,$result[0]['Date'],$travel,$result[0]['Deleted'],$nLike,$nDislike,$result[0]['IDuser']);
+            $post->setPostID($result[0]['IDpost']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
@@ -192,10 +208,9 @@ class FUser extends FDataBase
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
-                    foreach ($Like as $l){
+                    foreach ($likeList as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){

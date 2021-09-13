@@ -1,6 +1,7 @@
 <?php
 
 
+
 class FComment
 {
     public static $class="FComment";
@@ -75,9 +76,10 @@ class FComment
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
+        $comment =array();
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        $rows_number = count($result);
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=self::loadCommentReporter($result['IDcomment']);
@@ -87,7 +89,7 @@ class FComment
         else {
             if(($result != null) && ($rows_number > 1)){
                 $comment = array();
-                for($i = 0; $i < count($result); $i++){
+                for($i = 0; $i < sizeof($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
                     $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
@@ -137,8 +139,8 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
-        $reporter= new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
-        $reporter->setUserID($result['IDuser']);
+        $reporter= new EUser($result[0]['Email'],$result[0]['Password'],$result[0]['Name'],$result[0]['Description'],$result[0]['Image'],$result[0]['UserName'],$result[0]['Banned']);
+        $reporter->setUserID($result[0]['IDuser']);
         return $reporter;
     }
 
