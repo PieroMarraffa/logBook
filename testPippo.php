@@ -21,20 +21,7 @@ require '../logBook/entity/EPost.php';
 require '../logBook/entity/ETravel.php';
 require '../logBook/entity/EUser.php';
 
-class test
-{
-    public static function trySelectReportedPosts(){
 
-        //$e=new EUser("gigio","pippi","g","g","huh","gyg",0);
-        $l=FUser::load('Email','giuliacancello@gmail.com');
+class testPippo{
 
-        //FUser::store($e);
-        //$l=FUser::load("Password","Silvia");
-
-
-         return $l;
-    }
 }
-
-$e=test::trySelectReportedPosts();
-echo var_dump($e);
