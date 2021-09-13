@@ -55,7 +55,7 @@ class FPost
         $database = FDataBase::getInstance();
         $exist = $database->existInDB(self::getTable(), "IDpost", $post->getPostID());
         if (!$exist) {
-            $id = $database->storeInDB(self::getTable(), $post);
+            $id = $database->storeInDB(self::getClass(), $post);
             return $id;
         } else{
             return null;
@@ -89,17 +89,16 @@ class FPost
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
-            foreach ($Like as $l){
+            foreach ($likeList as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -109,17 +108,16 @@ class FPost
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
-                    foreach ($Like as $l){
+                    foreach ($likeList as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList, $result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -237,7 +235,7 @@ class FPost
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -257,7 +255,7 @@ class FPost
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -284,7 +282,7 @@ class FPost
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDpost']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -304,7 +302,7 @@ class FPost
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -338,7 +336,7 @@ class FPost
                     $nDislike++;
                 }
             }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -358,7 +356,7 @@ class FPost
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -430,7 +428,7 @@ class FPost
     }
 
     static function newPost( $iduser, $titolo, $data, $deleted){
-        $post = new EPost( $iduser, $titolo, $data, $deleted, array(), array(), '', 0, 0 );
+        $post = new EPost($titolo, array(), array(), $data, null, $deleted, 0, 0 , $iduser);
         self::store($post);
     }
 

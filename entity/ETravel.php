@@ -28,8 +28,8 @@ class ETravel
     public function __construct( $postID, $experienceList, $imageList, $startDate, $finishDate)
     {
         $this->postID = $postID;
-        $this->startDate = new DateTime($startDate);
-        $this->finishDate = new DateTime($finishDate);
+        $this->startDate = $startDate;
+        $this->finishDate = $finishDate;
         $this->experienceList = $experienceList;
         $this->imageList = $imageList;
     }
@@ -103,15 +103,15 @@ class ETravel
     /**
      * @return DateTime
      */
-    public function getStartDate(): DateTime
+    public function getStartDate()
     {
         return $this->startDate;
     }
 
     /**
-     * @param DateTime $startDate
+     * @param $startDate
      */
-    public function setStartDate(DateTime $startDate): void
+    public function setStartDate($startDate): void
     {
         $this->startDate = $startDate;
     }
@@ -119,15 +119,15 @@ class ETravel
     /**
      * @return DateTime
      */
-    public function getFinishDate(): DateTime
+    public function getFinishDate()
     {
         return $this->finishDate;
     }
 
     /**
-     * @param DateTime $finishDate
+     * @param $finishDate
      */
-    public function setFinishDate(DateTime $finishDate): void
+    public function setFinishDate($finishDate): void
     {
         $this->finishDate = $finishDate;
     }

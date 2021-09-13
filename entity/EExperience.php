@@ -29,8 +29,8 @@ class EExperience
     public function __construct($travelID, $startDay, $endDay, $title,$placeList, $description)
     {
         $this->travelID=$travelID;
-        $this->startDay = new Date($startDay);
-        $this->endDay = new Date($endDay);
+        $this->startDay = $startDay;
+        $this->endDay = $endDay;
         $this->title = $title;
         $this->placeList = $placeList;
         $this->description = $description;
@@ -38,6 +38,21 @@ class EExperience
 
     //--------------METODI GETTER E SETTER----------------------
 
+    /**
+     * @return mixed
+     */
+    public function getTravelID()
+    {
+        return $this->travelID;
+    }
+
+    /**
+     * @param mixed $travelID
+     */
+    public function setTravelID($travelID): void
+    {
+        $this->travelID = $travelID;
+    }
 
     /**
      * @return mixed

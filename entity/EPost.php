@@ -18,7 +18,6 @@ class EPost
 
     /**
      * EPost constructor.
-     * @param $author
      * @param $title
      * @param $commentList
      * @param $likeList
