@@ -295,6 +295,7 @@ class FDataBase
                     $statement->setFetchMode(PDO::FETCH_ASSOC);
                     while ($row = $statement->fetch())
                         $resID[]=$row;
+                    echo "CIAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
 
                     foreach ($resID as $r){
                         var_dump($r);
@@ -371,7 +372,7 @@ class FDataBase
                 $statement->execute();
                 $num=$statement->rowCount();
                 if($num == 0){
-                    $result=null;
+                    $resID=null;
                 }
                 elseif ($num ==1){
                     $resID = $statement->fetch(PDO::FETCH_ASSOC);
@@ -382,10 +383,7 @@ class FDataBase
                     if($number == 0){
                         $result=null;
                     }
-                    elseif ($number==1){
-                        $result=array();
-                        $r=$stmt->fetch(PDO::FETCH_ASSOC);
-                        $result[] = $r;}
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
                     else{
                         $result=array();
                         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -406,10 +404,7 @@ class FDataBase
                         if($number == 0){
                             $result=null;
                         }
-                        elseif ($number==1){
-                            $result=array();
-                            $r=$stmt->fetch(PDO::FETCH_ASSOC);
-                            $result[] = $r;}
+                        elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
                         else{
                             $result=array();
                             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -424,7 +419,7 @@ class FDataBase
                 echo "ERROR " . $e->getMessage();
                 return null;
             }}
-        elseif($firstClass=="user" && ($secondClass=="comment" || $secondClass=="post")){
+        elseif($firstClass="place" && ($secondClass=="comment" || $secondClass=="post")){
             try{
                 $query="SELECT * FROM " . $secondClass . "_reported_by_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
@@ -442,10 +437,7 @@ class FDataBase
                     if($number == 0){
                         $result=null;
                     }
-                    elseif ($number==1){
-                        $result=array();
-                        $r=$stmt->fetch(PDO::FETCH_ASSOC);
-                        $result[] = $r;}
+                    elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
                     else{
                         $result=array();
                         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -466,10 +458,7 @@ class FDataBase
                         if($number == 0){
                             $result=null;
                         }
-                        elseif ($number==1){
-                            $result=array();
-                            $r=$stmt->fetch(PDO::FETCH_ASSOC);
-                            $result[] = $r;}
+                        elseif ($number==1){$result=$stmt->fetch(PDO::FETCH_ASSOC);}
                         else{
                             $result=array();
                             $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -492,12 +481,9 @@ class FDataBase
 /** metodi per aggiungere elementi alle classi intermedie del database */
 
 public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
-    echo $firstClass;
-    if($firstClass=="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
-        echo $firstClass;
+    if($firstClass="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
         try{
             $this->database->beginTransaction();
-            echo $firstClass;
             $id=$this->database->query("INSERT INTO " .$firstClass. "_to_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
             $this->database->commit();
             $this->closeDbConnection();
@@ -530,7 +516,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
 
 
     public function storeEntityReportedByEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
-        if($secondClass=="user" && ($firstClass=="comment" || $firstClass=="post")){
+        if($secondClass="user" && ($firstClass=="comment" || $firstClass=="post")){
             try{
                 $this->database->beginTransaction();
                 $id=$this->database->query("INSERT INTO " .$firstClass. "_reported_by_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
@@ -565,7 +551,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
 
 
     public function updateEntityToEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
-        if($firstClass=="place" && ($firstClass=="comment" || $firstClass=="post")){
+        if($firstClass="place" && ($firstClass=="comment" || $firstClass=="post")){
             try{
                 $this->database->beginTransaction();
                 $id=$this->database->query(" UPDATE " .$firstClass. "_to_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
@@ -601,7 +587,7 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
 
 
     public function updateEntityReportedByEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
-        if($firstClass=="user" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
+        if($firstClass="user" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
             try{
                 $this->database->beginTransaction();
                 $id=$this->database->query(" UPDATE " .$firstClass. "_reported_by_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );

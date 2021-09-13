@@ -74,7 +74,6 @@ class FLike
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
-        $like=array();
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
@@ -86,6 +85,7 @@ class FLike
         }
         else {
             if(($result != null) && ($rows_number > 1)){
+                $like = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $like[] = new ELike($result[$i]['Value'],$author,$result[$i]['IDpost']);

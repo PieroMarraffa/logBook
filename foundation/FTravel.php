@@ -101,6 +101,8 @@ class FTravel
             $imageList=FImage::load("IDtravel",$result["IDtravel"]);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
+            echo ' GUARDA QUI SCEMOOO ';
+            echo var_dump($r);
             $startDate=$r[0];
             $finishDate=$r[1];
             $travel = new ETravel($result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
