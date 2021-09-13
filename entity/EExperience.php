@@ -10,7 +10,7 @@ class EExperience
     private $startDay;
     private $endDay;
     private $title;
-    private $placeList;
+    private $place;
     private $description;
 
 
@@ -26,13 +26,13 @@ class EExperience
      * @param $description
      */
 
-    public function __construct($travelID, $startDay, $endDay, $title,$placeList, $description)
+    public function __construct($travelID, $startDay, $endDay, $title,$place, $description)
     {
         $this->travelID=$travelID;
         $this->startDay = $startDay;
         $this->endDay = $endDay;
         $this->title = $title;
-        $this->placeList = $placeList;
+        $this->place = $place;
         $this->description = $description;
     }
 
@@ -121,17 +121,17 @@ class EExperience
     /**
      * @return mixed
      */
-    public function getPlaceList()
+    public function getPlace()
     {
-        return $this->placeList;
+        return $this->place;
     }
 
     /**
-     * @param mixed $placeList
+     * @param mixed $place
      */
-    public function setPlaceList($placeList): void
+    public function setPlace($place): void
     {
-        $this->placeList = $placeList;
+        $this->place = $place;
     }
 
     /**
@@ -156,12 +156,12 @@ class EExperience
     //--------------METODI ADD TO LIST----------------------
 
     public function addPlace(EPlace $place){
-        array_push($this->placeList, $place);
+        array_push($this->place, $place);
     }
 
     public function removePlace($pos){
-        unset($this->placeList[$pos]);
-        $this->placeList = array_values($this->placeList);
+        unset($this->place[$pos]);
+        $this->place = array_values($this->place);
     }
 
 
