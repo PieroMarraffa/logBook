@@ -14,6 +14,7 @@ class FExperience extends FDataBase
     public static function bind($statement,EExperience $experience){
         $statement->bindValue(":IDexperience",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDtravel",$experience->getTravelID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDtravel",$experience->getPlaceID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
         $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
         $statement->bindValue(":Title",$experience->getTitle(), PDO::PARAM_STR);

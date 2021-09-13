@@ -13,8 +13,8 @@ class FComment
 
     public static function bind($statement,EComment $comment){
         $statement->bindValue(":IDcomment",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDuser",$comment->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDpost",$comment->g, PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDuser",$comment->getAuthor(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDpost",$comment->getIdPost(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":Deleted",$comment->getDeleted(), PDO::PARAM_BOOL);
         $statement->bindValue(":Content",$comment->getContent(), PDO::PARAM_STR);
     }
@@ -38,7 +38,7 @@ class FComment
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -49,12 +49,8 @@ class FComment
      */
     public static function store(EComment $comment){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDcomment",$comment->getCommentID());
-        if(!$exist){
-            $id=$database->storeInDB(self::getClass(),$comment);
-            return $id;
-        }
-        return null;
+        $id=$database->storeInDB(self::getClass(),$comment);
+        return $id;
     }
 
 
@@ -64,9 +60,9 @@ class FComment
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDcomment",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDcomment",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDcomment",$id->getId());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDcomment",$id);
             return $u;
         }
         return $u;
@@ -77,7 +73,8 @@ class FComment
     public static function load($field,$id){
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
-        $rows_number = count($result);
+        $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        echo var_dump($result);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=self::loadCommentReporter($result['IDcomment']);

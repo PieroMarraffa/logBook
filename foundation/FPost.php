@@ -84,7 +84,14 @@ class FPost
     {
         $database = FDataBase::getInstance();
         $result = $database->loadById(self::getTable(), $field, $id);
+        echo $field;
+        echo '....';
+        echo $id;
+        echo '....';
+        echo static::getClass();
+        echo '....';
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
+        echo $rows_number;
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
@@ -99,6 +106,8 @@ class FPost
                 }
             }
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+
+            echo var_dump($post);
             $post->setPostID($result['IDpost']);
         }
         else {

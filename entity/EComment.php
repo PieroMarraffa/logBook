@@ -11,8 +11,9 @@ class EComment{
     /**
      * EComment constructor.
      * @param $commentID
+     * @param $idPost
      * @param $author
-     * @param $eliminated
+     * @param $deleted
      * @param $signaledList
      * @param $content
      */
@@ -29,6 +30,22 @@ class EComment{
         $this->deleted = $deleted;
         $this->signaledList = $signaledList;
         $this->content = $content;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPost()
+    {
+        return $this->idPost;
+    }
+
+    /**
+     * @param mixed $idPost
+     */
+    public function setIdPost($idPost): void
+    {
+        $this->idPost = $idPost;
     }
 
 
@@ -53,11 +70,19 @@ class EComment{
     }
 
     /**
-     * @return mixed
-     */
+ * @return mixed
+ */
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorID()
+    {
+        return $this->author->getUserID();
     }
 
     /**
@@ -77,7 +102,7 @@ class EComment{
     }
 
     /**
-     * @param mixed $eliminated
+     * @param mixed $deleted
      */
     public function setDeleted($deleted): void
     {

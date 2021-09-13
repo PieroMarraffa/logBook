@@ -19,14 +19,15 @@ class EExperience
 
     /**
      * EExperience constructor.
-     * @param $experienceID
+     * @param $travelID
      * @param $startDay
      * @param $endDay
      * @param $title
+     * @param $place
      * @param $description
      */
 
-    public function __construct($travelID, $startDay, $endDay, $title,$place, $description)
+    public function __construct($travelID, $startDay, $endDay, $title, EPlace $place, $description)
     {
         $this->travelID=$travelID;
         $this->startDay = $startDay;
@@ -164,7 +165,9 @@ class EExperience
         $this->place = array_values($this->place);
     }
 
-
+    public function getPlaceID(){
+        return $this->place->getPlaceID();
+    }
 
 
 
