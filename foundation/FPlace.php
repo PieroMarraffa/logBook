@@ -39,7 +39,7 @@ class FPlace extends FDataBase
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -53,7 +53,7 @@ class FPlace extends FDataBase
         $database= FDataBase::getInstance();
         $exist= $database->existInDB(self::getTable(),"IDplace",$l->getPlaceId());
         if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$l);
+            $id=$database->storeInDB(self::getClass(),$l);
             return $id;
         }
         return null;
@@ -66,9 +66,9 @@ class FPlace extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDplace",$id->getId());
+        $exist= $database->existInDB(self::getTable(),"IDplace", $id );
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDplace",$id->getId());
+            $u=$database->updateInDB(self::getClass(), $field ,$newValue,"IDplace",$id );
             return $u;
         }
         return $u;
