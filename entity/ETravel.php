@@ -20,9 +20,7 @@ class ETravel
      * @param $imageList
      * @param $experienceList
      * @param $startDate
-     * fornire una stringa in formato yyyy-mm-dd
      * @param $finishDate
-     * bisogna fornire una stringa in formato yyyy-mm-dd
      * @throws Exception
      */
     public function __construct( $postID, $experienceList, $imageList, $startDate, $finishDate)
@@ -101,7 +99,7 @@ class ETravel
     }
 
     /**
-     * @return DateTime
+     * @return $startDate
      */
     public function getStartDate()
     {
@@ -117,7 +115,7 @@ class ETravel
     }
 
     /**
-     * @return DateTime
+     * @return $finishDate
      */
     public function getFinishDate()
     {

@@ -24,9 +24,10 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        return FLike::load('IDpost', '1');
+        return FTravel::load('IDtravel', '5');
     }
 }
 
 $e = testPippo::test();
+
 echo var_dump($e);

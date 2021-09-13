@@ -75,17 +75,30 @@ class FTravel
     }
 
     public static function lowerAndHigherDate($experienceList){
-        $lower=new DateTime("2100-12-31");
-        $higher=new DateTime("0000-00-00");
+        $controllo1="21001231";
+        $controllo2="00000000";
+        $dateArray = array();
         foreach ($experienceList as $ex){
-            if($ex->getStartDay()<$lower){
-                $lower=$ex->getStartDay();
-            }
-            if($ex->getEndDay()>$higher){
-                $higher=$ex->getEndDay();
+            $data1 = $ex->getStartDay();
+            $data2 = $ex->getEndDay();
+            $d1 = explode('-', $data1);
+            $d2 = explode('-', $data2);
+            $d1 = $d1[0] . $d1[1] . $d1[2];
+            $d2 = $d2[0] . $d2[1] . $d2[2];
+            $dateArray[$d1] = $data1;
+            $dateArray[$d2] = $data2;
+        }
+        foreach ($dateArray as $d =>$data){
+            if ($controllo1 > $d){
+                $controllo1 = $data;
             }
         }
-        $return=array($lower,$higher);
+        foreach ($dateArray as $d =>$data){
+            if ($controllo2 < $d){
+                $controllo2 = $data;
+            }
+        }
+        $return=array($controllo1,$controllo2);
         return $return;
     }
 
@@ -101,8 +114,6 @@ class FTravel
             $imageList=FImage::load("IDtravel",$result["IDtravel"]);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
-            echo ' GUARDA QUI SCEMOOO ';
-            echo var_dump($r);
             $startDate=$r[0];
             $finishDate=$r[1];
             $travel = new ETravel($result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
