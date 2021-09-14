@@ -31,16 +31,18 @@ class test
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //FLike::delete("IDreaction",1);
-        FImage::delete("IDimage",2);
+        $l=FPost::load("IDpost",2);
 
         // $e=new EUser("gigio","pippi","g","g","huh","gyg",0);
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //$l=FPlace::store($s);
+        return $l;
 
 
     }
 }
 
-test::trySelectReportedPosts();
+$l=test::trySelectReportedPosts();
+echo $l->getPostID();
 

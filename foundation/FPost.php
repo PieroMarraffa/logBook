@@ -79,17 +79,16 @@ class FPost
     }
 
 
-    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
+    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id
+     * @throws Exception
+     */
     public static function load($field, $id)
     {
         $database = FDataBase::getInstance();
         $result = $database->loadById(self::getTable(), $field, $id);
         echo $field;
-        echo '....';
         echo $id;
-        echo '....';
         echo static::getClass();
-        echo '....';
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         echo $rows_number;
         if(($result != null) && ($rows_number == 1)) {
@@ -98,16 +97,15 @@ class FPost
             $travel=FTravel::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if ($likeList!=null){
             foreach ($likeList as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
+            }}
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
-
-            echo var_dump($post);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -119,13 +117,14 @@ class FPost
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
+                    if ($likeList!=null){
                     foreach ($likeList as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
-                    }
+                    }}
                     $post[] = new EPost($result[$i]['Title'],$commentList,$likeList, $result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
@@ -237,13 +236,14 @@ class FPost
             $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if ($likeList!=null){
             foreach ($Like as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
+            }}
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
@@ -257,13 +257,14 @@ class FPost
                     $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
+                    if ($likeList!=null){
                     foreach ($Like as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
-                    }
+                    }}
                     $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
@@ -284,13 +285,14 @@ class FPost
             $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if ($likeList!=null){
             foreach ($Like as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
+            }}
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDpost']);
             $post->setPostID($result['IDpost']);
         }
@@ -304,13 +306,14 @@ class FPost
                     $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
+                    if ($likeList!=null){
                     foreach ($Like as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
-                    }
+                    }}
                     $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
@@ -338,13 +341,14 @@ class FPost
             $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if ($likeList!=null){
             foreach ($Like as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
+            }}
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
@@ -358,13 +362,14 @@ class FPost
                     $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
+                    if ($likeList!=null){
                     foreach ($Like as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
-                    }
+                    }}
                     $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }

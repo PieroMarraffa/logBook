@@ -112,6 +112,10 @@ class FTravel
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $imageList=FImage::load("IDtravel",$result["IDtravel"]);
+            if($imageList==null){
+                $imageList=array();
+            }
+            echo var_dump($imageList);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];
@@ -125,6 +129,11 @@ class FTravel
                 $travel = array();
                 for($i = 0; $i < count($result); $i++){
                     $imageList=FImage::load("IDtravel",$result[$i]["IDtravel"]);
+                    if($imageList==null){
+                        $imageList=array();
+                    }elseif (gettype($imageList)==EImage::class){
+                        $imageList[]=$imageList;
+                    }
                     $experienceList=FExperience::load("IDtravel",$result[$i]["IDtravel"]);
                     $r=self::lowerAndHigherDate($experienceList);
                     $startDate=$r[0];

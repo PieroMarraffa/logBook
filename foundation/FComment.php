@@ -133,9 +133,11 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
+        if ($result!=false){
         $reporter= new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
         $reporter->setUserID($result['IDuser']);
-        return $reporter;
+        return $reporter;}
+        return false;
     }
 
     /** visualizza tutti i commenti che possono essere visualizzati */

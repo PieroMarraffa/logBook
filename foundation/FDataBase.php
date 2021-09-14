@@ -358,6 +358,8 @@ class FDataBase
         }
     }
 
+
+
     /** Prende in ingresso il nome di due tabelle e l'id da cercare
      *va a cercare nella classe entity1_to_entity2 e restituisce l'id associato,
      * utilizzando quel/quegli ID va a cercare nella tabella entity2  gli elementi
@@ -374,8 +376,7 @@ class FDataBase
                 $statement->execute();
                 $num=$statement->rowCount();
                 if($num == 0){
-                    $resID=null;
-                }
+                    $result= false;}
                 elseif ($num ==1){
                     $resID = $statement->fetch(PDO::FETCH_ASSOC);
                     $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $resID["ID".$secondClass] ."';";
@@ -421,7 +422,7 @@ class FDataBase
                 echo "ERROR " . $e->getMessage();
                 return null;
             }}
-        elseif($firstClass="place" && ($secondClass=="comment" || $secondClass=="post")){
+        elseif($firstClass="user" && ($secondClass=="comment" || $secondClass=="post")){
             try{
                 $query="SELECT * FROM " . $secondClass . "_reported_by_" . $firstClass . " WHERE ". "ID".$firstClass . "='". $idFirstClass . "';" ;
                 $statement=$this->database->prepare($query);
