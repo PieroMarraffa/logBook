@@ -7,14 +7,14 @@ class FExperience extends FDataBase
 
     private static $table="experience";
 
-    private static $value="(:IDexperience,:IDtravel,:StartDay,:EndDay,:Title,:Description)";
+    private static $value="(:IDexperience,:IDtravel,:IDplace,:StartDay,:EndDay,:Title,:Description)";
 
     public function __constructor(){}
 
     public static function bind($statement,EExperience $experience){
         $statement->bindValue(":IDexperience",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDtravel",$experience->getTravelID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":IDtravel",$experience->getPlaceID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDplace",$experience->getPlaceID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
         $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
         $statement->bindValue(":Title",$experience->getTitle(), PDO::PARAM_STR);
@@ -40,7 +40,7 @@ class FExperience extends FDataBase
     /**
      * @return string
      */
-    public static function getValue()
+    public static function getValues()
     {
         return self::$value;
     }
@@ -53,7 +53,7 @@ class FExperience extends FDataBase
         $database= FDataBase::getInstance();
         $exist= $database->existInDB(self::getTable(),"IDexperience",$e->getExperienceID());
         if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$e);
+            $id=$database->storeInDB(self::getClass(),$e);
             return $id;
         }
         return null;

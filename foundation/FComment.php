@@ -7,13 +7,13 @@ class FComment
 
     public static $table="comment";
 
-    public static $value="(:IDcoment,:IDuser,:IDpost,:Deleted,:Content)";
+    public static $value="(:IDcomment,:IDuser,:IDpost,:Deleted,:Content)";
 
     public function __constructor(){}
 
     public static function bind($statement,EComment $comment){
         $statement->bindValue(":IDcomment",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDuser",$comment->getAuthor(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDuser",$comment->getAuthorID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":IDpost",$comment->getIdPost(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":Deleted",$comment->getDeleted(), PDO::PARAM_BOOL);
         $statement->bindValue(":Content",$comment->getContent(), PDO::PARAM_STR);
@@ -38,8 +38,7 @@ class FComment
     /**
      * @return string
      */
-    public static function getValues()
-    {
+    public static function getValues(){
         return self::$value;
     }
 
@@ -49,7 +48,7 @@ class FComment
      */
     public static function store(EComment $comment){
         $database= FDataBase::getInstance();
-        $id=$database->storeInDB(self::getClass(),$comment);
+        $id = $database->storeInDB(self::getClass(),$comment);
         return $id;
     }
 
@@ -88,7 +87,7 @@ class FComment
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
                     $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
                     $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
-                    $comment[$i]->setCommentID($result[$i]['IDcommment']);
+                    $comment[$i]->setCommentID($result[$i]['IDcomment']);
                 }
             }
         }
