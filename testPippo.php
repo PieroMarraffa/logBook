@@ -24,12 +24,7 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $e = array();
-       $user = FUser::load('IDuser', '6');
-       $commento = new EComment(4, $user, 0, $e, 'non vedo la ora di fare questo viaggio');
-        //$pl = FPlace::load('IDplace', '10');
-        //$exp = new EExperience(8, '2021-12-24', '2021-12-27', 'Natale a Giulianova', $pl, 'davvero divertente');
-        return FComment::exist('IDcomment', 7);
+        echo var_dump(FComment::load('IDcomment', 4));
     }
 }
 

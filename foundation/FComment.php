@@ -116,16 +116,17 @@ class FComment
         $database=FDataBase::getInstance();
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
-    /** il commento non viene più visualizzato perchè il campo deleted è posto a true */
-    public static function deleteComment($id){
-        $database=FDataBase::getInstance();
-        $database->deleteFromDB(self::getTable(),'IDcomment',$id);
-    }
 
     /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
     public static function restoreComment($id){
         $database=FDataBase::getInstance();
-        $database->updateInDB(self::getTable(),"Deleted",false,"IDComment",$id);
+        $database->updateInDB(self::getClass(),"Deleted",false,"IDComment",$id);
+    }
+
+    /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
+    public static function reportComment($id){
+        $database=FDataBase::getInstance();
+        $database->updateInDB(self::getClass(),"Deleted",true,"IDComment",$id);
     }
 
 

@@ -56,7 +56,6 @@ class FDataBase
             $query="INSERT INTO " . $entity::getTable() . " VALUES " . $entity::getValues();
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
-            echo var_dump($statement);
             $statement->execute();
             $this->database->commit();
             $this->closeDbConnection();
@@ -163,7 +162,6 @@ class FDataBase
             $query = "UPDATE " . $class::getTable() . " SET " . $field . "='" . $newvalue . "' WHERE " . $pk . "='" . $id . "';";
             $stmt = $this->database->prepare($query);
             $stmt->execute();
-            echo var_dump($stmt);
             $this->database->commit();
             $this->closeDbConnection();
             return true;
