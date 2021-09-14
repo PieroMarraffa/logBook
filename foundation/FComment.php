@@ -73,7 +73,6 @@ class FComment
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
-        echo var_dump($result);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=self::loadCommentReporter($result['IDcomment']);
@@ -120,13 +119,13 @@ class FComment
     /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
     public static function restoreComment($id){
         $database=FDataBase::getInstance();
-        $database->updateInDB(self::getClass(),"Deleted",false,"IDComment",$id);
+        $database->updateInDB(self::getClass(),"Deleted",0,"IDComment",$id);
     }
 
     /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
     public static function reportComment($id){
         $database=FDataBase::getInstance();
-        $database->updateInDB(self::getClass(),"Deleted",true,"IDComment",$id);
+        $database->updateInDB(self::getClass(),"Deleted",1,"IDComment",$id);
     }
 
 
@@ -144,8 +143,9 @@ class FComment
     /** visualizza tutti i commenti che possono essere visualizzati */
     public static function loadAllVisibleComment()
     {
-        $result = self::load("Deleted", "false");
-        $rows_number = count($result);
+        $database=FDataBase::getInstance();
+        $result = self::load("Deleted", "0");
+        $rows_number = $database->interestedRows(static::getClass(), "Deleted", "0");
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=self::loadCommentReporter($result['IDcomment']);

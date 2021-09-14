@@ -24,7 +24,7 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        echo var_dump(FComment::load('IDcomment', 4));
+        return FComment::loadAllVisibleComment();
     }
 }
 
