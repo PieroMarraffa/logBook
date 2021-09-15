@@ -34,13 +34,22 @@ class test
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //FLike::delete("IDreaction",1);
-        FPost::storePlaceAssociatedToPost(1,2);
+        //FPost::storePlaceAssociatedToPost(1,2);
 
 
         // $e=new EUser("gigio","pippi","g","g","huh","gyg",0);
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //$l=FPlace::store($s);
+        //$l=FComment::load("IDcomment",1);
+        //$l->setCommentID("");
+        $l=FPost::load("IDpost",1);
+        $l->setPostID("");
+        FPost::store($l);
+
+
+        echo var_dump($l);
+
 
 
 

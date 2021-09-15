@@ -53,8 +53,8 @@ class FPost
     public static function store(EPost $post)
     {
         $database = FDataBase::getInstance();
-        $database->storeInDB(self::getClass(), $post);
-
+        $id=$database->storeInDB(self::getClass(),$post);
+        return $id;
     }
 
     /** aggiorna il valore specificato nel campo $field
@@ -64,9 +64,9 @@ class FPost
     {
         $u = false;
         $database = FDataBase::getInstance();
-        $exist = $database->existInDB(self::getTable(), "IDpost", $id->getID());
+        $exist = $database->existInDB(self::getTable(), "IDpost", $id);
         if ($exist) {
-            $u = $database->updateInDB(self::getTable(), $field, $newValue, "IDpost", $id->getId());
+            $u = $database->updateInDB(self::getClass(), $field, $newValue, "IDpost", $id);
             return $u;
         }
         return $u;
@@ -167,8 +167,8 @@ class FPost
     public static function loadPlaceByPost($idPost)
     {
         $database = FDataBase::getInstance();
-        $result = $database->loadEntityToEntity(self::getTable(), $idPost, "place");
-        $rows_number = count($result);
+        $result = $database->loadPlaceToPost($idPost);
+        $rows_number = $database->interestedRowsInTable("place_to_post","IDpost",$idPost);
         if(($result != null) && ($rows_number == 1)) {
             $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
             $place->setPlaceID($result['IDplace']);
@@ -188,7 +188,7 @@ class FPost
 
     /** restituisce la persona o le persone che hanno reportato quel post */
     public static function loadPostReporter($idPost)
-    {
+    {   $user=null;
         $database = FDataBase::getInstance();
         $result = $database->loadPostReporter($idPost);
         $rows_number = $database->interestedRowsInTable("post_reported_by_user","IDpost",$idPost);
@@ -200,7 +200,7 @@ class FPost
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+                    $user[] = new EUser($result[$i]['UserName'],$result[$i]['Name'],$result[$i]['Password'],$result[$i]['Email'],$result[$i]['Image'],$result[$i]['Description'],$result[$i]['Banned']);
                     $user[$i]->setUserID($result[$i]['IDuser']);
                 }
             }
@@ -213,49 +213,7 @@ class FPost
     public static function loadAllVisiblePost()
     {
         $result = self::load("Deleted", "false");
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $commentList=FComment::load("IDpost",$result['IDpost']);
-            $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
-            $nLike=0;
-            $nDislike=0;
-            if ($likeList!=null){
-            foreach ($Like as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
-                }
-            }}
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
-            $post->setPostID($result['IDpost']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $post = array();
-                for($i = 0; $i < count($result); $i++){
-                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
-                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
-                    $nLike=0;
-                    $nDislike=0;
-                    if ($likeList!=null){
-                    foreach ($Like as $l){
-                        if($l->getValue()==1){
-                            $nLike ++;
-                        }elseif ($l->getValue()==-1){
-                            $nDislike++;
-                        }
-                    }}
-                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result['IDuser']);
-                    $post[$i]->setPostID($result[$i]['IDpost']);
-                }
-            }
-        }
-        return $post;
+        return $result;
     }
 
     /** visualizza tutti i post che possono essere visualizzati */
@@ -310,7 +268,7 @@ class FPost
 
     public static function updatePlaceAssociatedToPost($idPost,$idPlace){
         $database=FDataBase::getInstance();
-        $result=$database->updateEntityToEntity(self::getTable(),$idPost,"place",$idPlace);
+        $result=$database->updatePlaceToPost($idPost,$idPlace,2);
         return $result;
 
     }

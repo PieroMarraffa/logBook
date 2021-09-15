@@ -327,6 +327,64 @@ class FDataBase
         }
     }
 
+    public function loadPostToPlace($idPlace){
+        try{
+            $query="SELECT * FROM place_to_post WHERE IDpost ='". $idPlace . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num==0){
+                $result=false;
+            }elseif ($num==1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                $result=$this->loadById("post","IDpost",$x['IDpost']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("post","IDpost",$r['IDpost']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+    public function loadPlaceToPost($idPost){
+        try{
+            $query="SELECT * FROM place_to_post WHERE IDpost ='". $idPost . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num==0){
+                $result=false;
+            }elseif ($num==1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                $result=$this->loadById("place","IDplace",$x['IDplace']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("place","IDplace",$r['IDplace']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+
+
     /** seleziona tutti gli id dei post segnalati senza doppioni
      */
     public function loadReportedPosts(){
@@ -364,11 +422,10 @@ class FDataBase
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num=$statement->rowCount();
-        if($num=0){
+        if($num==0){
             $result=false;
-        }elseif ($num=1){
+        }elseif ($num==1){
             $x=$statement->fetch(PDO::FETCH_ASSOC);
-            echo var_dump($x);
             $result=$this->loadById("post","IDpost",$x['IDpost']);
         }elseif($num>1){
             $resID=array();
@@ -394,9 +451,9 @@ class FDataBase
             $statement=$this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
-            if($num=0){
+            if($num==0){
                 $result=false;
-            }elseif ($num=1){
+            }elseif ($num==1){
                 $x=$statement->fetch(PDO::FETCH_ASSOC);
                 echo var_dump($x);
                 $result=$this->loadById("comment","IDcomment",$x['IDcomment']);
@@ -424,9 +481,9 @@ class FDataBase
             $statement=$this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
-            if($num=0){
+            if($num==0){
                 $result=false;
-            }elseif ($num=1){
+            }elseif ($num==1){
                 $x=$statement->fetch(PDO::FETCH_ASSOC);
                 $result=$this->loadById("user","IDuser",$x['IDuser']);
             }elseif($num>1){
@@ -452,17 +509,20 @@ class FDataBase
             $statement=$this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();
-            if($num=0){
+            if($num==0){
                 $result=false;
-            }elseif ($num=1){
+            }elseif ($num==1){
                 $x=$statement->fetch(PDO::FETCH_ASSOC);
                 $result=$this->loadById("user","IDuser",$x['IDuser']);
+                echo "CIAOOOOOOOOO";
             }elseif($num>1){
+
                 $resID=array();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);
                 while ($row = $statement->fetch()) $resID[] = $row;
                 $result=array();
                 foreach ($resID as $r){
+
                     $result[]=$this->loadById("user","IDuser",$r['IDuser']);
                 }
             }
@@ -671,11 +731,16 @@ class FDataBase
      */
     public function updatePlaceToPost($idPlace,$idPost,$valoreDaModificare){
         try{
-            $this->database->beginTransaction();
             if($valoreDaModificare==1){
-            $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDpost = ". $idPost .";" );}
+                $exist=self::existInDB("place_to_post","IDpost",$idPost);
+                if($exist){
+                    $this->database->beginTransaction();
+            $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDpost = ". $idPost .";" );}}
             elseif($valoreDaModificare==2){
-            $id=$this->database->query(" UPDATE place_to_post SET IDpost = ". $idPost. " WHERE IDplace = ". $idPlace .";" );}
+                $exist=self::existInDB("place_to_post","IDplace",$idPlace);
+                if($exist){
+                    $this->database->beginTransaction();
+            $id=$this->database->query(" UPDATE place_to_post SET IDpost = ". $idPost. " WHERE IDplace = ". $idPlace .";" );}}
             else{return null;}
             $this->database->commit();
             $this->closeDbConnection();
@@ -695,11 +760,17 @@ class FDataBase
      */
     public function updatePlaceToUser($idPlace,$idUser,$valoreDaModificare){
         try{
-            $this->database->beginTransaction();
+
             if($valoreDaModificare==1){
-                $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDuser = ". $idUser .";" );}
+                $exist=self::existInDB("place_to_user","IDuser",$idUser);
+                if($exist){
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDuser = ". $idUser .";" );}}
             elseif($valoreDaModificare==2){
-                $id=$this->database->query(" UPDATE place_to_post SET IDuser = ". $idUser. " WHERE IDplace = ". $idPlace .";" );}
+                $exist=self::existInDB("place_to_user","IDplace",$idPlace);
+                if($exist){
+                $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE place_to_post SET IDuser = ". $idUser. " WHERE IDplace = ". $idPlace .";" );}}
             else{return null;}
             $this->database->commit();
             $this->closeDbConnection();
@@ -716,12 +787,19 @@ class FDataBase
 
     public function updateCommentReportedByUser($idComment,$idUser,$valoreDaModificare){
         try{
-            $this->database->beginTransaction();
+
             if($valoreDaModificare==1){
-                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDcomment= ". $idComment. " WHERE IDuser = ". $idUser .";" );}
+                $exist=self::existInDB("comment_reported_by_user","IDuser",$idUser);
+                if($exist){
+                    $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDcomment= ". $idComment. " WHERE IDuser = ". $idUser .";" );}}
             elseif($valoreDaModificare==2){
-                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDuser = ". $idUser. " WHERE IDcomment = ". $idComment .";" );}
-            else{return null;}            $this->database->commit();
+                $exist=self::existInDB("comment_reported_by_user","IDcomment",$idComment);
+                if($exist){
+                    $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDuser = ". $idUser. " WHERE IDcomment = ". $idComment .";" );}}
+            else{return null;}
+            $this->database->commit();
             $this->closeDbConnection();
             return true;
         }catch(PDOException $e){
@@ -733,12 +811,18 @@ class FDataBase
 
     public function updatePostReportedByUser($idPost,$idUser,$valoreDaModificare){
         try{
-            $this->database->beginTransaction();
+
             if($valoreDaModificare==1){
-                $id=$this->database->query(" UPDATE post_reported_by_user SET IDpost= ". $idPost. " WHERE IDuser = ". $idUser .";" );}
+                $exist=self::existInDB("post_reported_by_user","IDuser",$idUser);
+                if($exist){
+                    $this->database->beginTransaction();
+                $id=$this->database->query(" UPDATE post_reported_by_user SET IDpost= ". $idPost. " WHERE IDuser = ". $idUser .";" );}}
             elseif($valoreDaModificare==2){
-                $id=$this->database->query(" UPDATE post_reported_by_user SET IDuser = ". $idUser. " WHERE IDpost = ". $idPost .";" );}
-            else{return null;}            $this->database->commit();
+                $exist=self::existInDB("post_reported_by_user","IDpost",$idPost);
+                if($exist){
+                    $this->database->beginTransaction();
+                    $this->database->query(" UPDATE post_reported_by_user SET IDuser = ". $idUser. " WHERE IDpost = ". $idPost .";" );}}
+            else{return null;}
             $this->database->commit();
             $this->closeDbConnection();
             return true;
@@ -764,7 +848,8 @@ class FDataBase
             if($num == 0){
                 $result=null;
             } elseif ($num ==1){
-                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $result=array();
+                $result[] = $statement->fetch(PDO::FETCH_ASSOC);
             }else{
                 $result=array();
                 $statement->setFetchMode(PDO::FETCH_ASSOC);

@@ -269,7 +269,7 @@ class FUser extends FDataBase
         } else return true;
     }
 
-    public static function loadReportedUsers(){
+    public static function loadBannedUsers(){
         $result = self::load("Banned", "true");
         return $result;
     }

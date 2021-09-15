@@ -15,6 +15,7 @@ class FTravel
 
     public static function bind($statement,ETravel $travel){
         $statement->bindValue(":IDtravel",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":Title",$travel->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":IDpost",$travel->getPostID(), PDO::PARAM_INT);//DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
 
     }
@@ -40,7 +41,7 @@ class FTravel
     /**
      * @return string
      */
-    public static function getValue(): string
+    public static function getValues(): string
     {
         return self::$value;
     }
@@ -49,14 +50,9 @@ class FTravel
      *se non è presente lo aggiunge e ritorna il relativo ID
      *altirmenti ritorna null
      */
-    public static function store(EExperience $e){
+    public static function store(ETravel $e){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDexperience",$e->getExperienceID());
-        if(!$exist){
-            $id=$database->storeInDB(self::getTable(),$e);
-            return $id;
-        }
-        return null;
+        $database->storeInDB(self::getClass(),$e);
     }
 
 
@@ -66,9 +62,9 @@ class FTravel
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDtravel",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDtravel",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDtravel",$id->getID());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDtravel",$id);
             return $u;
         }
         return $u;
@@ -107,19 +103,17 @@ class FTravel
      * @throws Exception
      */
     public static function load($field,$id){
+        $travel=null;
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $imageList=FImage::load("IDtravel",$result["IDtravel"]);
-            if($imageList==null){
-                $imageList=array();
-            }
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];
             $finishDate=$r[1];
-            $travel = new ETravel($result['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+            $travel = new ETravel($result['IDpost'],$result['Title'],$experienceList, $imageList,$startDate,$finishDate);
             $travel->setTravelID($result['IDtravel']);
 
         }
@@ -137,7 +131,7 @@ class FTravel
                     $r=self::lowerAndHigherDate($experienceList);
                     $startDate=$r[0];
                     $finishDate=$r[1];
-                    $travel[] = new ETravel($result[$i]['IDpost'],$experienceList, $imageList,$startDate,$finishDate);
+                    $travel[] = new ETravel($result[$i]['IDpost'],$result[$i]['Title'],$experienceList, $imageList,$startDate,$finishDate);
                     $travel[$i]->setTravelID($result[$i]['IDtravel']);
                 }
             }

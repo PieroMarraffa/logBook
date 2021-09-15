@@ -119,14 +119,14 @@ class FLike extends FDataBase
         $result=$database->getAllByTable(self::getTable());
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $like = new ELike($result['Reaction'],$result['IDuser'],$result['IDpost']);
-            $like->setLikeID($result['IDreaction']);
+            $like = new ELike($result[0]['Reaction'],$result[0]['IDuser'],$result[0]['IDpost']);
+            $like->setLikeID($result[0]['IDreaction']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
-                for($i = 0; $i < count($result); $i++){
-                    $like[] = new ELike($result[$i]['Reaction'],$result['IDuser'],$result[$i]['IDpost']);
+                for($i = 0; $i < $rows_number; $i++){
+                    $like[] = new ELike($result[$i]['Reaction'],$result[$i]['IDuser'],$result[$i]['IDpost']);
                     $like[$i]->setLikeID($result[$i]['IDreaction']);
                 }
             }

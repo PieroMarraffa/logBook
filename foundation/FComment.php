@@ -123,8 +123,10 @@ class FComment
         $database->updateInDB(self::getClass(),"Deleted",0,"IDComment",$id);
     }
 
-    /** il commento torna a essere visualizzato perchè il campo deleted è messo a false */
-    public static function reportComment($id){
+    /** il commento non viene più visualizzato perchè il campo deleted è messo a true
+     *questo avviene quando l'utente viene bannato
+     */
+    public static function sospendComment($id){
         $database=FDataBase::getInstance();
         $database->updateInDB(self::getClass(),"Deleted",1,"IDComment",$id);
     }
@@ -134,62 +136,23 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadCommentReporter($idComment);
-        if ($result!=false){
-            $reporter = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
-            $reporter->setUserID($result['IDuser']);
-            return $reporter;
-        }
-        return false;
+        return $result;
     }
 
     /** visualizza tutti i commenti che possono essere visualizzati */
     public static function loadAllVisibleComment()
     {
         $database=FDataBase::getInstance();
-        $result = self::load("Deleted", "0");
-        $rows_number = $database->interestedRows(static::getClass(), "Deleted", "0");
-        if(($result != null) && ($rows_number == 1)) {
-            $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=self::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
-            $comment->setCommentID($result['IDcomment']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $comment = array();
-                for($i = 0; $i < count($result); $i++){
-                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
-                    $comment[$i]->setCommentID($result[$i]['IDcomment']);
-                }
-            }
-        }
-        return $comment;
+        $result = self::load("Deleted", 0);
+        //$rows_number = $database->interestedRows(static::getClass(), "Deleted", "0");
+        return $result;
     }
 
     /** visualizza tutti i post che non possono essere visualizzati */
     public static function loadReportedComments()
     {
-        $result = self::load("Deleted", "true");
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=self::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
-            $comment->setCommentID($result['IDcomment']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $comment = array();
-                for($i = 0; $i < count($result); $i++){
-                    $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDpost'], $author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
-                    $comment[$i]->setCommentID($result[$i]['IDcomment']);
-                }
-            }
-        }
-        return $comment;
+        $database=FDataBase::getInstance();
+        $result = self::load("Deleted", 1);
+        return $result;
     }
 }

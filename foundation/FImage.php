@@ -72,17 +72,16 @@ class FImage extends FDataBase
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
-        $image=null;
+        $image=array();
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $image = new EImage( base64_decode($result['ImageFile']),$result['IDtravel'],$result['Width'],$result['Height']);
-            $image->setImageID($result['IDimage']);
+            $image[] = new EImage( base64_decode($result['ImageFile']),$result['IDtravel'],$result['Width'],$result['Height']);
+            $image[0]->setImageID($result['IDimage']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $image = array();
                 for($i = 0; $i < count($result); $i++){
                     $image[]= new EImage( base64_decode($result[$i]['ImageFile']),$result[$i]['IDtravel'],$result[$i]['Width'],$result[$i]['Height']);
                     $image[$i]->setImageID($result[$i]['IDimage']);

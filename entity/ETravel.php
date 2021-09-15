@@ -5,6 +5,7 @@ class ETravel
 {
     private $travelID;
     private $postID;
+    private $title;
     private $imageList;
     private $experienceList;
     private $startDate;
@@ -23,13 +24,30 @@ class ETravel
      * @param $finishDate
      * @throws Exception
      */
-    public function __construct( $postID, $experienceList, $imageList, $startDate, $finishDate)
+    public function __construct( $postID,$title, $experienceList, $imageList, $startDate, $finishDate)
     {
         $this->postID = $postID;
+        $this->title=$title;
         $this->startDate = $startDate;
         $this->finishDate = $finishDate;
         $this->experienceList = $experienceList;
         $this->imageList = $imageList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title): void
+    {
+        $this->title = $title;
     }
 
     //--------------METODI GETTER E SETTER----------------------
@@ -45,7 +63,7 @@ class ETravel
     /**
      * @param mixed $travelID
      */
-    public function setTravelID($travelID): void
+    public function setTravelID($travelID)
     {
         $this->travelID = $travelID;
     }

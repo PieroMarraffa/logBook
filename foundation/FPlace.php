@@ -12,7 +12,7 @@ class FPlace extends FDataBase
     public function __constructor(){}
 
     public static function bind($statement,EPlace $place){
-        $statement->bindValue(":IDPlace",NULL, PDO::PARAM_INT);
+        $statement->bindValue(":IDplace",NULL, PDO::PARAM_INT);
         $statement->bindValue(":Latitude",$place->getLatitude(), PDO::PARAM_INT);
         $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_INT);
         $statement->bindValue(":Category",$place->getCategory(), PDO::PARAM_STR);
@@ -113,65 +113,28 @@ class FPlace extends FDataBase
     }
 
 
-    /** Restituisce tutti i luoghi relativi a quella nazione */
-    public static function loadByNation($nation){
-        $database= FDataBase::getInstance();
-        $result=$database->loadById(self::getTable(),"Nation", $nation);
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-            $place->setPlaceID($result['IDplace']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
-                    $place[$i]->setPlaceID($result[$i]['IDplace']);
-                }
-            }
-        }
-        return $place;
-    }
 
     /** ritorna tutte le esperienze associate a quel determinato luogo passato in ingresso */
     public static function loadExperienceByPlace($idPLace){
-        $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"experience");
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $placeList=$database->loadEntityToEntity("experience",$result['IDexperience'],"place");
-            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
-            $experience->setExperienceID($result['IDexperience']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $experience = array();
-                for($i = 0; $i < count($result); $i++){
-                    $placeList=$database->loadEntityToEntity("experience",$result[$i]['IDexperience'],"place");
-                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
-                    $experience[$i]->setExperienceID($result[$i]['IDexperience']);
-                }
-            }
-        }
-        return $experience;
+        $result=FExperience::load("IDplace",$idPLace);
+        return $result;
     }
 
     /** ritorna tutte i post associati a quel determinato luogo passato in ingresso
      * @throws Exception
      */
     public static function loadPostByPlace($idPLace){
+        $post=null;
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"post");
-        $rows_number = count($result);
+        $result=$database->loadPostToPlace($idPLace);
+        $rows_number = $database->interestedRowsInTable("place_to_post","IDplace",$idPLace);
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
-            foreach ($Like as $l){
+            foreach ($likeList as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
@@ -198,7 +161,7 @@ class FPlace extends FDataBase
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost( $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -230,50 +193,19 @@ class FPlace extends FDataBase
 
     /** ritorna tutti gli elementi della categoria associata */
     public static function loadByCategory($idCategory){
-        $database=FDataBase::getInstance();
-        $result=$database->loadById(self::getTable(),"Category",$idCategory);
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-            $place->setPlaceID($result['IDplace']);
-
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
-                    $place[$i]->setPlaceID($result[$i]['IDplace']);
-                }
-            }
-        }
-        return $place;
+        $result=self::load("Category",$idCategory);
+        return $result;
     }
 
 
-    /** ritorna tutti gli elementi della categgoria inferiore a quella associata */
+    /** ritorna tutti gli elementi della categgoria inferiore a quella associata
+     non funziona perchè le categorie non sono numeri come dovrebbero essere*/
     public static function loadLowerCategory($idCategory){
         $result=array();
         for($i=$idCategory;$i>0;$i--){
             array_push($result,self::loadByCategory($i));
         }
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-            $place->setPlaceID($result['IDplace']);
-
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
-                    $place[$i]->setPlaceID($result[$i]['IDplace']);
-
-                }
-            }
-        }
-        return $place;
+        return $result;
     }
 
 

@@ -54,7 +54,7 @@ class FExperience extends FDataBase
             $id=$database->storeInDB(self::getClass(),$e);
             return $id;
         }
-        
+
 
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
@@ -62,9 +62,9 @@ class FExperience extends FDataBase
     public static function update($field,$newValue,$id){
         $u=false;
         $database=FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDexperience",$id->getID());
+        $exist= $database->existInDB(self::getTable(),"IDexperience",$id);
         if($exist){
-            $u=$database->updateInDB(self::getTable(),$field,$newValue,"IDexperience",$id->getID());
+            $u=$database->updateInDB(self::getClass(),$field,$newValue,"IDexperience",$id);
             return $u;
         }
         return $u;
@@ -73,17 +73,18 @@ class FExperience extends FDataBase
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
+        $experience = array();
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $place = FPlace::load('IDplace', $result['IDplace']);
-            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
-            $experience->setExperienceID($result['IDexperience']);
+            $place = FPlace::load('IDplace', $result[0]['IDplace']);
+            $experience []= new EExperience($result[0]['IDtravel'], $result[0]['StartDay'], $result[0]['EndDay'],$result[0]['Title'],$place, $result[0]['Description']);
+            $experience[0]->setExperienceID($result[0]['IDexperience']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
-                $experience = array();
+
                 for($i = 0; $i < count($result); $i++){
                     $place = FPlace::load('IDplace', $result[$i]['IDplace']);
                     $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
@@ -153,10 +154,10 @@ class FExperience extends FDataBase
         $database->deleteFromDB(self::getTable(),$field,$id);
     }
 
-    /** Restituisce tutti i valori di place associati a quell'esperienza */
-    public static function loadPlaceByExperience(EExperience $experience){
+    /** Restituisce tutti i valori di place associati a quell'esperienza*/
+    public static function loadPlaceByExperience($experience){
         $database=FDataBase::getInstance();
-        $result = $database->loadById(FPlace::getTable(), 'IDplace', $experience->getPlaceID());
+        $result = $database->loadById(FPlace::getTable(), 'IDplace', $experience);
         $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
         $place->setPlaceID($result['IDplace']);
         return $place;
