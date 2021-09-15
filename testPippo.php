@@ -24,7 +24,8 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        return FComment::loadAllVisibleComment();
+        $e = FExperience::load('IDexperience', 9);
+        return FExperience::loadPlaceByExperience($e);
     }
 }
 

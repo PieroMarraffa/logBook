@@ -133,10 +133,12 @@ class FComment
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
         $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
+        //echo var_dump($result);
         if ($result!=false){
-        $reporter= new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
-        $reporter->setUserID($result['IDuser']);
-        return $reporter;}
+            $reporter = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+            $reporter->setUserID($result['IDuser']);
+            return $reporter;
+        }
         return false;
     }
 

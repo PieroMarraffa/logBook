@@ -5,7 +5,7 @@ class EComment{
     private $idPost;
     private $author;
     private $deleted;
-    private $signaledList;
+    private $reportedList;
     private $content;
 
     /**
@@ -14,7 +14,7 @@ class EComment{
      * @param $idPost
      * @param $author
      * @param $deleted
-     * @param $signaledList
+     * @param $reportedList
      * @param $content
      */
 
@@ -28,7 +28,7 @@ class EComment{
         $this->idPost=$idPost;
         $this->author = $author;
         $this->deleted = $deleted;
-        $this->signaledList = $signaledList;
+        $this->reportedList = $signaledList;
         $this->content = $content;
     }
 
@@ -112,17 +112,17 @@ class EComment{
     /**
      * @return mixed
      */
-    public function getSignaledList()
+    public function getReportedList()
     {
-        return $this->signaledList;
+        return $this->reportedList;
     }
 
     /**
-     * @param mixed $signaledList
+     * @param mixed $reportedList
      */
-    public function setSignaledList($signaledList): void
+    public function setReportedList($reportedList): void
     {
-        $this->signaledList = $signaledList;
+        $this->reportedList = $reportedList;
     }
 
     /**
@@ -144,12 +144,12 @@ class EComment{
     //--------------METODI ADD TO LIST----------------------
 
     public function addSignalator(EUser $signalator){
-        array_push($this->signaledList, $signalator);
+        array_push($this->reportedList, $signalator);
     }
 
     public function removeSignalator($pos){
-        unset($this->signaledList[$pos]);
-        $this->signaledList = array_values($this->signaledList);
+        unset($this->reportedList[$pos]);
+        $this->reportedList = array_values($this->reportedList);
     }
 
     }

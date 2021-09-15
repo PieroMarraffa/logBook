@@ -295,7 +295,6 @@ class FDataBase
                     $statement->setFetchMode(PDO::FETCH_ASSOC);
                     while ($row = $statement->fetch())
                         $resID[]=$row;
-                    echo "CIAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
 
                     foreach ($resID as $r){
                         var_dump($r);
@@ -396,7 +395,7 @@ class FDataBase
                     $resID=array();
                     $statement->setFetchMode(PDO::FETCH_ASSOC);
                     while ($row = $statement->fetch())
-                        $resID[] = $row;
+                    $resID[] = $row;
                     foreach ($resID as $r){
                         $query="SELECT * FROM " . $secondClass . " WHERE " . "ID".$secondClass . "='". $r["ID".$secondClass] ."';";
                         $stmt=$this->database->prepare($query);

@@ -158,23 +158,12 @@ class FExperience extends FDataBase
     }
 
     /** Restituisce tutti i valori di place associati a quell'esperienza */
-    public static function loadPlaceByExperience($idExperience){
+    public static function loadPlaceByExperience(EExperience $experience){
         $database=FDataBase::getInstance();
-        //$result = $database->loadById(FPlace::getTable(), '')
-        $result=$database->loadEntityToEntity(self::getTable(),$idExperience,"place");
+        $result = $database->loadById(FPlace::getTable(), 'IDplace', $experience->getPlaceID());
         $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
         $place->setPlaceID($result['IDplace']);
         return $place;
-    }
-
-
-    /** Inserisce nella tabella place to experience l'associazione tra l'experience associata a idExperience e
-     *il posto associato a $idPlace
-     */
-    public static function storePlaceToExperience($idExperience,$idPLace){
-        $database=FDataBase::getInstance();
-        $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idExperience);
-        return $result;
     }
 
     public static function updateExperienceAssociatedToTravel($idExperience,$idTravel){
