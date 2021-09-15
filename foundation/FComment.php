@@ -70,6 +70,7 @@ class FComment
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
+        $comment=null;
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
@@ -132,8 +133,7 @@ class FComment
     /** restituisce la persona che ha reportato il commento */
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityReportedByEntity(self::getTable(),$idComment,"user");
-        //echo var_dump($result);
+        $result=$database->loadCommentReporter($idComment);
         if ($result!=false){
             $reporter = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
             $reporter->setUserID($result['IDuser']);

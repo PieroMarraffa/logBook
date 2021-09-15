@@ -51,14 +51,10 @@ class FExperience extends FDataBase
      */
     public static function store(EExperience $e){
         $database= FDataBase::getInstance();
-        $exist= $database->existInDB(self::getTable(),"IDexperience",$e->getExperienceID());
-        if(!$exist){
             $id=$database->storeInDB(self::getClass(),$e);
             return $id;
         }
-        return null;
-    }
-
+        
 
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
@@ -166,10 +162,5 @@ class FExperience extends FDataBase
         return $place;
     }
 
-    public static function updateExperienceAssociatedToTravel($idExperience,$idTravel){
-        $database=FDataBase::getInstance();
-        $result=$database->updateEntityToEntity(self::getTable(),$idExperience,"travel",$idTravel);
-        return $result;
-    }
 
 }

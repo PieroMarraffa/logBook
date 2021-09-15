@@ -85,7 +85,7 @@ class ETravel
     /**
      * @return array
      */
-    public function getExperienceList(): array
+    public function getExperienceList()
     {
         return $this->experienceList;
     }

@@ -115,7 +115,6 @@ class FTravel
             if($imageList==null){
                 $imageList=array();
             }
-            echo var_dump($imageList);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];

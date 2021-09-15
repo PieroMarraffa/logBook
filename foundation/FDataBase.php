@@ -58,8 +58,9 @@ class FDataBase
             $entity::bind($statement,$object);
             $statement->execute();
             $this->database->commit();
+            $id = $this->database->lastInsertId();
             $this->closeDbConnection();
-            return true;
+            return $id;
         }catch(PDOException $e){
             echo "ERROR" . $e->getMessage();
             $this->database->rollBack();
@@ -199,6 +200,8 @@ class FDataBase
     }
 
 
+
+//----------------------LOAD DA TABELLE CONTENITORE INTERMEDIE--------------------
 
     /** Prende in ingresso il nome di due tabelle e l'id da cercare
      *va a cercare nella classe entity1_to_entity2 e restituisce l'id associato,
@@ -355,6 +358,123 @@ class FDataBase
         }
     }
 
+    public function loadPostReportedbyUser($idUser){
+        try{
+        $query="SELECT * FROM post_reported_by_user WHERE IDuser ='". $idUser . "';";
+        $statement=$this->database->prepare($query);
+        $statement->execute();
+        $num=$statement->rowCount();
+        if($num=0){
+            $result=false;
+        }elseif ($num=1){
+            $x=$statement->fetch(PDO::FETCH_ASSOC);
+            echo var_dump($x);
+            $result=$this->loadById("post","IDpost",$x['IDpost']);
+        }elseif($num>1){
+            $resID=array();
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+            while ($row = $statement->fetch()) $resID[] = $row;
+            $result=array();
+            foreach ($resID as $r){
+                $result[]=$this->loadById("post","IDpost",$r['IDpost']);
+            }
+        }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+
+    public function loadCommentReportedbyUser($idUser){
+        try{
+            $query="SELECT * FROM comment_reported_by_user WHERE IDuser ='". $idUser . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num=0){
+                $result=false;
+            }elseif ($num=1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                echo var_dump($x);
+                $result=$this->loadById("comment","IDcomment",$x['IDcomment']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("comment","IDcomment",$r['IDcomment']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+
+    public function loadPostReporter($idPost){
+        try{
+            $query="SELECT * FROM post_reported_by_user WHERE IDpost ='". $idPost . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num=0){
+                $result=false;
+            }elseif ($num=1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                $result=$this->loadById("user","IDuser",$x['IDuser']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("user","IDuser",$r['IDuser']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+    public function loadCommentReporter($idComment){
+        try{
+            $query="SELECT * FROM comment_reported_by_user WHERE IDcomment ='". $idComment . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num=0){
+                $result=false;
+            }elseif ($num=1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                $result=$this->loadById("user","IDuser",$x['IDuser']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("user","IDuser",$r['IDuser']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+
 
 
     /** Prende in ingresso il nome di due tabelle e l'id da cercare
@@ -364,7 +484,7 @@ class FDataBase
      * N.B. le combinazioni ammesse sono
      * entity1= comment => entity2=user
      * entity1= post => entity2=user
-     */
+
     public function loadEntityReportedByEntity($firstClass,$idFirstClass,$secondClass){
         if($secondClass=="user" && ($firstClass=="comment" || $firstClass=="post")){
             try{
@@ -475,150 +595,165 @@ class FDataBase
             }
 
         }
-    }
+    }*/
+
+
+//---------------------STORE IN TABELLE CONTENITORE INTERMEDIE--------------------
 
 
 /** metodi per aggiungere elementi alle classi intermedie del database */
 
-public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
-    if($firstClass="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
+    public function storePlaceToPost($idPlace,$idPost){
         try{
             $this->database->beginTransaction();
-            $id=$this->database->query("INSERT INTO " .$firstClass. "_to_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
+            $this->database->query("INSERT INTO place_to_post (IDplace,IDpost) VALUES(" . $idPlace . ",". $idPost.");" );
             $this->database->commit();
             $this->closeDbConnection();
-            return $id;
+            return true;
         }catch(PDOException $e){
             echo "ERROR " . $e->getMessage();
             $this->database->rollBack();
-            return null;
+            return false;
         }
     }
-    elseif($secondClass=="place" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
+
+    public function storePlaceToUser($idPlace,$idUser){
         try{
             $this->database->beginTransaction();
-            $id=$this->database->query("INSERT INTO " .$secondClass. "_to_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .");" );
+            $this->database->query("INSERT INTO place_to_user (IDplace,IDuser) VALUES(" . $idPlace . ",". $idUser.");" );
             $this->database->commit();
             $this->closeDbConnection();
-            return $id;
+            return true;
         }catch(PDOException $e){
             echo "ERROR " . $e->getMessage();
             $this->database->rollBack();
-            return null;
-        }
-    }
-    else{
-        echo "LA CLASSE INSERITA NON E' VALIDA " ;
-        return null;
-
-    }
-}
-
-
-    public function storeEntityReportedByEntity($firstClass,$idFirstClass,$secondClass,$idSecondClass){
-        if($secondClass="user" && ($firstClass=="comment" || $firstClass=="post")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query("INSERT INTO " .$firstClass. "_reported_by_". $secondClass . "(ID". $firstClass .",ID". $secondClass. ") VALUES(" . $idFirstClass . ",". $idSecondClass .");" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
-        }
-        elseif($firstClass=="user" && ($secondClass=="comment" || $secondClass=="post")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query("INSERT INTO " .$secondClass. "_reported_by_". $firstClass . "(ID". $secondClass  .",ID". $firstClass. ") VALUES(" . $idSecondClass . ",". $idFirstClass .");" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
-        }
-        else{
-            echo "LA CLASSE INSERITA NON E' VALIDA " ;
-            return null;
-
+            return false;
         }
     }
 
 
-    public function updateEntityToEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
-        if($firstClass="place" && ($firstClass=="comment" || $firstClass=="post")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE " .$firstClass. "_to_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
+    public function storeCommentReportedByUser($idComment,$idUser){
+        try{
+            $this->database->beginTransaction();
+            $this->database->query("INSERT INTO comment_reported_by_user (IDcomment,IDuser) VALUES(" . $idComment . ",". $idUser.");" );
+            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
         }
-        elseif($secondClass=="place" && ($firstClass=="comment" || $firstClass=="post")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE " .$secondClass. "_to_". $firstClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
-        }
-        else{
-            echo "LA CLASSE INSERITA NON E' VALIDA " ;
-            return null;
+    }
 
+    public function storePostReportedByUser($idPost,$idUser){
+        try{
+            $this->database->beginTransaction();
+            $this->database->query("INSERT INTO post_reported_by_user (IDpost,IDuser) VALUES(" . $idPost . ",". $idUser.");" );
+            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
+        }
+    }
+
+
+//---------------------UPDATE IN TABELLE CONTENITORE INTERMEDIE--------------------
+
+    /**
+     * @param $idPlace
+     * @param $idPost
+     * @param $valoreDaModificare 1 se vuoi modificare il primo 2 se vuoi modificare il secondo
+     * @return bool
+     */
+    public function updatePlaceToPost($idPlace,$idPost,$valoreDaModificare){
+        try{
+            $this->database->beginTransaction();
+            if($valoreDaModificare==1){
+            $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDpost = ". $idPost .";" );}
+            elseif($valoreDaModificare==2){
+            $id=$this->database->query(" UPDATE place_to_post SET IDpost = ". $idPost. " WHERE IDplace = ". $idPlace .";" );}
+            else{return null;}
+            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
+        }
+    }
+
+    /**
+     * @param $idPlace
+     * @param $idUser
+     * @param $valoreDaModificare
+     * @return bool|null
+     */
+    public function updatePlaceToUser($idPlace,$idUser,$valoreDaModificare){
+        try{
+            $this->database->beginTransaction();
+            if($valoreDaModificare==1){
+                $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDuser = ". $idUser .";" );}
+            elseif($valoreDaModificare==2){
+                $id=$this->database->query(" UPDATE place_to_post SET IDuser = ". $idUser. " WHERE IDplace = ". $idPlace .";" );}
+            else{return null;}
+            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
         }
     }
 
 
 
-    public function updateEntityReportedByEntity($firstClass,$idDaMantenere,$secondClass,$idDaModificare){
-        if($firstClass="user" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE " .$firstClass. "_reported_by_". $secondClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
-        }
-        elseif($secondClass=="user" && ($firstClass=="experience" || $firstClass=="post" || $firstClass=="user")){
-            try{
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE " .$secondClass. "_reported_by_". $firstClass . " SET ID". $secondClass ."= '". $idDaModificare. " WHERE ID" . $firstClass . " = '". $idDaMantenere ."';" );
-                $this->database->commit();
-                $this->closeDbConnection();
-                return $id;
-            }catch(PDOException $e){
-                echo "ERROR " . $e->getMessage();
-                $this->database->rollBack();
-                return null;
-            }
-        }
-        else{
-            echo "LA CLASSE INSERITA NON E' VALIDA " ;
-            return null;
 
+    public function updateCommentReportedByUser($idComment,$idUser,$valoreDaModificare){
+        try{
+            $this->database->beginTransaction();
+            if($valoreDaModificare==1){
+                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDcomment= ". $idComment. " WHERE IDuser = ". $idUser .";" );}
+            elseif($valoreDaModificare==2){
+                $id=$this->database->query(" UPDATE comment_reported_by_user SET IDuser = ". $idUser. " WHERE IDcomment = ". $idComment .";" );}
+            else{return null;}            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
         }
     }
+
+    public function updatePostReportedByUser($idPost,$idUser,$valoreDaModificare){
+        try{
+            $this->database->beginTransaction();
+            if($valoreDaModificare==1){
+                $id=$this->database->query(" UPDATE post_reported_by_user SET IDpost= ". $idPost. " WHERE IDuser = ". $idUser .";" );}
+            elseif($valoreDaModificare==2){
+                $id=$this->database->query(" UPDATE post_reported_by_user SET IDuser = ". $idUser. " WHERE IDpost = ". $idPost .";" );}
+            else{return null;}            $this->database->commit();
+            $this->database->commit();
+            $this->closeDbConnection();
+            return true;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            $this->database->rollBack();
+            return false;
+        }
+    }
+
+
+
+
+
+
 
     public function getAllByTable($table){
         try {
@@ -644,6 +779,8 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
             return null;
         }
     }
+
+    //----------------RIGHE INTERESSATE DA UNA QUERY------------------
     /**   Metodo che restituisce il numero di righe ineteressate dalla query
      * @param class classe interessata
      *@param field campo usato per la ricerca
@@ -654,6 +791,23 @@ public function storeEntityToEntity($firstClass,$idFirstClass,$secondClass,$idSe
         try {
             $this->database->beginTransaction();
             $query = "SELECT * FROM " . $class::getTable() . " WHERE " . $field . "='" . $id . "';";
+            $stmt = $this->database->prepare($query);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            $this->closeDbConnection();
+            return $num;
+        } catch (PDOException $e) {
+            echo "Attenzione errore: " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
+
+    public function interestedRowsInTable ($class, $field, $id)
+    {
+        try {
+            $this->database->beginTransaction();
+            $query = "SELECT * FROM " . $class . " WHERE " . $field . "='" . $id . "';";
             $stmt = $this->database->prepare($query);
             $stmt->execute();
             $num = $stmt->rowCount();

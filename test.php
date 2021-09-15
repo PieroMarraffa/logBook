@@ -23,6 +23,9 @@ require '../logBook/entity/EUser.php';
 
 class test
 {
+    /**
+     * @throws Exception
+     */
     public static function trySelectReportedPosts(){
 
         //$i=new EImage("FFFFFFFFFFFFFFFFFFFFFFFFFF",1,200,200);
@@ -31,18 +34,19 @@ class test
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //FLike::delete("IDreaction",1);
-        $l=FPost::load("IDpost",2);
+        FPost::storePlaceAssociatedToPost(1,2);
+
 
         // $e=new EUser("gigio","pippi","g","g","huh","gyg",0);
         //$l=FUser::load('Email','giuliacancello@gmail.com');
 
         //$l=FPlace::store($s);
-        return $l;
+
 
 
     }
 }
 
-$l=test::trySelectReportedPosts();
-echo $l->getPostID();
+test::trySelectReportedPosts();
+//echo var_dump($l);
 

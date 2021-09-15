@@ -134,16 +134,15 @@ class FUser extends FDataBase
     /** Inserisce nella tabella place_to_user l'associazione tra l'utente associata a idUser e
      *il posto associato a $idPlace
      */
-    public static function storePlaceToUser($idUser,$idPLace){
+    public static function storePlaceAssociatedToUser($idPLace,$idUser){
         $database=FDataBase::getInstance();
-        $result =$database->storeEntityToEntity("place",$idPLace,self::getTable(),$idUser);
-        return $result;
+        $database->storePlaceToUser($idPLace,$idUser);
     }
 
-    public static function loadCommentReportedByUser($idUser){
+    public static function loadCommentReportedFromUser($idUser){
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"comment");
-        $rows_number = count($result);
+        $result=$database->loadCommentReportedbyUser($idUser);
+        $rows_number = $database->interestedRowsInTable("comment_reported_by_user","IDuser",$idUser);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
             $reportedList=FComment::loadCommentReporter($result['IDcomment']);
@@ -162,13 +161,16 @@ class FUser extends FDataBase
             }
         }
         return $comment;
-
     }
 
-    public static function loadPostReportedByUser($idUser){
+    /**
+     * @throws Exception
+     */
+    public static function loadPostReportedFromUser($idUser){
+        $post=null;
         $database=FDataBase::getInstance();
-        $result=$database->loadEntityReportedByEntity(self::getTable(),$idUser,"post");
-        $rows_number = count($result);
+        $result=$database->loadPostReportedbyUser($idUser);
+        $rows_number = $database->interestedRowsInTable("post_reported_by_user","IDuser",$idUser);
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
@@ -176,14 +178,15 @@ class FUser extends FDataBase
             $Like=Flike::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if($Like!=null){
             foreach ($Like as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
-            $post = new EPost($result['Author'], $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike);
+            }}
+            $post = new EPost( $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -203,7 +206,7 @@ class FUser extends FDataBase
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost($result[$i]['Author'], $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike);
+                    $post[] = new EPost( $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser'],);
                     $post[$i]->setPostID($result[$i]['IDpost']);
 
                 }
@@ -214,13 +217,25 @@ class FUser extends FDataBase
 
     public static function storeCommentReporter($idUser,$idComment){
         $database=FDataBase::getInstance();
-        $result=$database->storeEntityReportedByEntity("comment",$idComment,self::getTable(),$idUser);
-        return $result;
+        $database->storeCommentReportedByUser($idComment,$idUser);
+
     }
 
     public static function storePostReporter($idUser,$idPost){
         $database=FDataBase::getInstance();
-        $result=$database->storeEntityReportedByEntity("post",$idPost,self::getTable(),$idUser);
+        $result=$database->storePostReportedByUser($idPost,$idUser);
+        return $result;
+    }
+
+    public static function updatePostReporter($idUser,$idPost){
+        $database=FDataBase::getInstance();
+        $result=$database->updatePostReportedByUser($idPost,$idUser,1);
+        return $result;
+    }
+
+    public static function updateCommentReporter($idUser,$idComment){
+        $database=FDataBase::getInstance();
+        $result=$database->updatePostReportedByUser($idComment,$idUser,1);
         return $result;
     }
 

@@ -53,15 +53,9 @@ class FPost
     public static function store(EPost $post)
     {
         $database = FDataBase::getInstance();
-        $exist = $database->existInDB(self::getTable(), "IDpost", $post->getPostID());
-        if (!$exist) {
-            $id = $database->storeInDB(self::getClass(), $post);
-            return $id;
-        } else{
-            return null;
-        }
-    }
+        $database->storeInDB(self::getClass(), $post);
 
+    }
 
     /** aggiorna il valore specificato nel campo $field
      * corrsipondente alla chiave $id immessa
@@ -191,22 +185,13 @@ class FPost
         return $place;
     }
 
-    /** Inserisce nella tabella place_to_post l'associazione tra il post associata a idPost e
-     *il posto associato a $idPlace
-     */
-    public static function storePlaceToPost($idPost, $idPLace)
-    {
-        $database = FDataBase::getInstance();
-        $result = $database->storeEntityToEntity("place", $idPLace, self::getTable(), $idPost);
-        return $result;
-    }
 
     /** restituisce la persona o le persone che hanno reportato quel post */
     public static function loadPostReporter($idPost)
     {
         $database = FDataBase::getInstance();
-        $result = $database->loadEntityReportedByEntity(self::getTable(), $idPost, "user");
-        $rows_number = count($result);
+        $result = $database->loadPostReporter($idPost);
+        $rows_number = $database->interestedRowsInTable("post_reported_by_user","IDpost",$idPost);
         if(($result != null) && ($rows_number == 1)) {
             $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
             $user->setUserID($result['IDuser']);
@@ -446,7 +431,9 @@ class FPost
         self::store($post);
     }
 
-    public static function reportPost($reportedPostId){
-        self::update('Deleted', true, $reportedPostId);
+   static function storePlaceAssociatedToPost($idPlace,$idPost){
+        $database=FDataBase::getInstance();
+        $database->storePlaceToPost($idPlace,$idPost);
+
     }
 }

@@ -28,6 +28,7 @@ class EPost
      * @param $nLike
      * @param $nDisLike
      * @param $userID
+     * @throws Exception
      */
     public function __construct($title, $commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
     {
