@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Blog Post - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <script>
+        function ready(){
+            if (!navigator.cookieEnabled) {
+                alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
+            }
+        }
+        document.addEventListener("DOMContentLoaded", ready);
+    </script>
+    <script src="../js/crea_post.js"></script>
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/logBook/"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+    </div>
+</nav>
+<section>
+    <form method="post" id="form_create_post" action="/logBook/CreatePost/createPost">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+
+                        <div class="row-cols-5">
+                            <div class="col-md-11 py-4">
+
+                                <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+
+                                <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="container py-3" id="container">
+                                </div>
+                                <div class="col-md-4">
+                                    <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+                                </div>
+
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" >
+            <div class="row">
+                <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+            </div>
+                <div id="container2" class="containerpy-3">
+            </div>
+
+        </div>
+    </div>
+    </form>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

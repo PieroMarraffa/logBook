@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{assign var='userlogged' value=$userlogged|default:'nouser'}
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,7 +25,11 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="home.html"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
-        <a class="btn btn-primary" href="profile.html">{$profile}</a>
+        {if $userlogged!='nouser'}
+            <a class="btn btn-primary" href="login.html">Sign Up</a>
+        {else}
+            <a class="btn btn-primary" href="profile.html">{$username}</a>
+        {/if}
     </div>
 </nav>
 <!-- Page content-->
@@ -44,16 +49,19 @@
                 <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    {foreach}
+                    {if $arrayExperience}
+                    {foreach $arrayExperience as $experience}
                     <div class="card">
                         <div class="card-header">
-                            {$Title_experience}
-                            {$StartDate}{$EndDate}
+                            {$experience->getTitle()}
+                            {$experience->getStartDate()}{$experience->getEndDate()}
                         </div>
                         <div class="card-body">
-                            {$Description}
+                            {$experience->getDescription()}
                         </div>
                     </div>
+                    {/foreach}
+                    {/$if}
                 </section>
             </article>
             <!-- Comments section-->
@@ -61,10 +69,13 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         <!-- Comment form-->
-                        <form class="mb-4">
-                            <textarea class="form-control" rows="3" placeholder="Leave a comment!"></textarea>
+                        <form method="post" action="/logBook/Post/writeComment" class="mb-4">
+                            <textarea class="form-control"  id="comment" rows="3" placeholder="Leave a comment!"></textarea>
                         </form>
-                        <!-- Comment with nested comments-->
+                        <!-- Comment -->
+                        {$if $arrayComment}
+                        {$if isset($arrayComment)}
+                        {foreach $arrayComment as $c}
                         <div class="d-flex mb-4">
                             <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
@@ -73,6 +84,9 @@
                                 {$comment_content}
                             </div>
                         </div>
+                        {/foreach}
+                        {/if}
+                        {/if}
                     </div>
                 </div>
             </section>
@@ -81,7 +95,7 @@
         <div class="col-lg-4">
             <!-- Search widget-->
             <div class="card mb-4">
-                <div class="card-header">Search</div>
+                <div class="card-header">Map</div>
                 <div class="card-body">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />

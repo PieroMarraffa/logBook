@@ -7,7 +7,7 @@ class FUser extends FDataBase
 
     public static $table="user";
 
-    public static $value="(:IDuser,:Email,:Password,:Name,:Description,:Image,:UserName,:Banned)";
+    public static $value="(:IDuser,:Email,:Password,:Name,:Description,:IDimage,:UserName,:Banned)";
 
     public function __constructor(){}
 
@@ -84,14 +84,14 @@ class FUser extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['Email'],$result['Password'],$result['Name'],$result['Description'],$result['Image'],$result['UserName'], $result['Banned']);
+            $user = new EUser($result['Email'],$result['Password'],$result['Name'],$result['Description'],$result['IDimage'],$result['UserName'], $result['Banned']);
             $user->setUserID($result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result[$i]['Email'],$result[$i]['Password'],$result[$i]['Name'],$result[$i]['Description'],$result[$i]['Image'], $result[$i]['UserName'],$result[$i]['Banned']);
+                    $user[] = new EUser($result[$i]['Email'],$result[$i]['Password'],$result[$i]['Name'],$result[$i]['Description'],$result[$i]['IDimage'], $result[$i]['UserName'],$result[$i]['Banned']);
                     $user[$i]->setUserID($result[$i]['IDuser']);
                 }
             }
@@ -274,8 +274,8 @@ class FUser extends FDataBase
         return $result;
     }
 
-    public static function newUserToDB( $email, $password, $name, $description, $image, $username, $banned){
-        $user = new EUser( $email, $password, $name, $description, $image, $username, $banned);
+    public static function newUserToDB( $email, $password, $name, $description, $idImage, $username, $banned){
+        $user = new EUser( $email, $password, $name, $description, $idImage, $username, $banned);
         self::store($user);
     }
 

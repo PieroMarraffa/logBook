@@ -175,14 +175,14 @@ class FPlace extends FDataBase
         $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"user");
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['IDimage'],$result['Description'],$result['Banned']);
             $user->setUserID($result['IDuser']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $user= array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['Image'],$result['Description'],$result['Banned']);
+                    $user[] = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['IDimage'],$result['Description'],$result['Banned']);
                     $user[$i]->setUserID($result[$i]['IDuser']);
 
                 }

@@ -28,11 +28,11 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="home.html"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="#"><img src="../immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
         {if $userlogged!='nouser'}
-        <a class="btn btn-primary" href="login.html">Sign Up</a>
+        <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
         {else}
-        <a class="btn btn-primary" href="profile.html">{$username}</a>
+        <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
         {/if}
     </div>
 </nav>
@@ -44,12 +44,12 @@
                 <div class="text-center text-white">
                     <!-- Page heading-->
                     <h1 class="mb-5 text-dark" ><b>Go wherever you want...</b></h1>
-                    <form method="get" action="/logBook/Research/find">
+                    <form method="get" id="form_research" action="/logBook/Research/find">
                         <!--PER ORA GLI HO MESSO UN NOME A CASO RICORDIAMOCI DI CAMBIARLO A SECONDA DEL METODO-->
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                                <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                             </div>
                         </div>
                     </form>
@@ -60,9 +60,9 @@
 </header>
 <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        {if $array}
-        {if is_array($array)}
-        {foreach $array as $post}
+        {if $array_post_home}
+        {if is_array($array_post_home)}
+        {foreach $array_post_home as $post}
         <div class="col mb-5">
             <div class="card h-100">
                 <!-- Profile image-->

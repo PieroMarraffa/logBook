@@ -43,7 +43,6 @@ class test
         //$l=FPlace::store($s);
         //$l=FComment::load("IDcomment",1);
         //$l->setCommentID("");
-        FPost::storePlaceAssociatedToPost(1,3);
 
 
 

@@ -52,7 +52,7 @@
     <div class="row">
       <div class="card mb-10">
         <div class="card-header">
-          {$arrayUser->getUsername()}
+          <b><a href="/logBook/Research/postDetail/{$arrayUser[$j]->getUserID()}">{$arrayUser[$j]->getUsername()}</a></b>
         </div>
           <div class="card-body">
             <div class="row">
@@ -64,10 +64,10 @@
                 <!-- INSERIRE IMMAGINI CHE SCORRONO-->
                 <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
                 <div class="card-body">
-                  <div class="small text-muted">{$userPostList[i]->getDate()}</div>
-                  <h2 class="card-title h4">{$userPostList[i]->getTitle()}</h2>
-                  <p class="card-text">{$userPostList[i]->getAuthor()}</p>
-                  <a class="btn btn-primary" href="/logBook/Research/postDetail/{$userPostList[i]->getID()}">Go to the Post →</a>
+                  <div class="small text-muted">{$userPostList[$i]->getDate()}</div>
+                  <h2 class="card-title h4">{$userPostList[$i]->getTitle()}</h2>
+                  <p class="card-text">{$userPostList[$i]->getAuthor()}</p>
+                  <a class="btn btn-primary" href="/logBook/Research/postDetail/{$userPostList[$i]->getPostID()}">Go to the Post →</a>
                 </div>
               </div>
             </div>
