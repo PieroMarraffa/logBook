@@ -78,9 +78,9 @@ class FExperience extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $place = FPlace::load('IDplace', $result[0]['IDplace']);
-            $experience []= new EExperience($result[0]['IDtravel'], $result[0]['StartDay'], $result[0]['EndDay'],$result[0]['Title'],$place, $result[0]['Description']);
-            $experience[0]->setExperienceID($result[0]['IDexperience']);
+            $place = FPlace::load('IDplace', $result['IDplace']);
+            $experience []= new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
+            $experience[0]->setExperienceID($result['IDexperience']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){

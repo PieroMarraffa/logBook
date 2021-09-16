@@ -43,12 +43,12 @@ class test
         //$l=FPlace::store($s);
         //$l=FComment::load("IDcomment",1);
         //$l->setCommentID("");
-        $l=FPost::load("IDpost",1);
-        $l->setPostID("");
-        FPost::store($l);
+        FPost::storePlaceAssociatedToPost(1,3);
 
 
-        echo var_dump($l);
+
+
+        //echo var_dump($l);
 
 
 

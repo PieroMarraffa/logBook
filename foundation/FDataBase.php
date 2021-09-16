@@ -878,6 +878,7 @@ class FDataBase
             $query = "SELECT * FROM " . $class::getTable() . " WHERE " . $field . "='" . $id . "';";
             $stmt = $this->database->prepare($query);
             $stmt->execute();
+            $this->database->commit();
             $num = $stmt->rowCount();
             $this->closeDbConnection();
             return $num;

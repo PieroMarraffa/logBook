@@ -99,7 +99,7 @@ class FPost
                     $nDislike++;
                 }
             }}
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel[0],$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -165,7 +165,7 @@ class FPost
 
     /** Restituisce tutti i valori di place associati a quel post */
     public static function loadPlaceByPost($idPost)
-    {
+    {   $place=null;
         $database = FDataBase::getInstance();
         $result = $database->loadPlaceToPost($idPost);
         $rows_number = $database->interestedRowsInTable("place_to_post","IDpost",$idPost);
@@ -216,11 +216,15 @@ class FPost
         return $result;
     }
 
-    /** visualizza tutti i post che possono essere visualizzati */
+    /** visualizza tutti i post che possono essere visualizzati
+     * @throws Exception
+     */
     public static function loadDeletedPosts()
-    {
-        $result = self::load("Deleted", "true");
-        $rows_number = count($result);
+    {   $post=null;
+        $database=FDataBase::getInstance();
+        $result = self::load("Deleted", true);
+        $rows_number = $database->interestedRows(self::getClass(),"Deleted",true);
+        $database->closeDbConnection();
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
@@ -243,10 +247,10 @@ class FPost
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
-                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
-                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
+                    $commentList=FComment::load("IDpost",$result[$i]->getPostID());
+                    $likeList=FLike::load("IDpost",$result[$i]->getPostID());
+                    $travel=FTravel::load("IDpost",$result[$i]->getPostID());
+                    $Like=Flike::load("IDpost",$result[$i]->getPostID());
                     $nLike=0;
                     $nDislike=0;
                     if ($likeList!=null){
@@ -257,8 +261,8 @@ class FPost
                             $nDislike++;
                         }
                     }}
-                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
-                    $post[$i]->setPostID($result[$i]['IDpost']);
+                    $post[] = new EPost($result[$i]->getTitle(),$commentList,$likeList,$result[$i]->getCreationDate(),$travel,$result[$i]->getDeleted(),$nLike,$nDislike, $result[$i]->getUserID());
+                    $post[$i]->setPostID($result[$i]->getPostID());
                 }
             }
         }
@@ -273,6 +277,9 @@ class FPost
 
     }
 
+    /**
+     * @throws Exception
+     */
     public static function loadAll(){
         $database = FDataBase::getInstance();
         $result=$database->getAllByTable(self::getTable());
@@ -299,6 +306,7 @@ class FPost
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
+                    echo var_dump($result[$i]);
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
@@ -384,7 +392,10 @@ class FPost
         return $database->loadReportedPosts();
     }
 
-    static function newPost( $iduser, $titolo, $data, $deleted){
+    /**
+     * @throws Exception
+     */
+    static function newPost($iduser, $titolo, $data, $deleted){
         $post = new EPost($titolo, array(), array(), $data, null, $deleted, 0, 0 , $iduser);
         self::store($post);
     }
