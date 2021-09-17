@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 13, 2021 alle 19:17
+-- Creato il: Set 17, 2021 alle 19:06
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -276,7 +276,7 @@ INSERT INTO `post_reported_by_user` (`IDpost`, `IDuser`) VALUES
 CREATE TABLE `reaction` (
   `IDreaction` int(10) NOT NULL,
   `IDpost` int(11) NOT NULL,
-  `IDprofile` int(11) NOT NULL,
+  `IDuser` int(11) NOT NULL,
   `Reaction` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -284,7 +284,7 @@ CREATE TABLE `reaction` (
 -- Dump dei dati per la tabella `reaction`
 --
 
-INSERT INTO `reaction` (`IDreaction`, `IDpost`, `IDprofile`, `Reaction`) VALUES
+INSERT INTO `reaction` (`IDreaction`, `IDpost`, `IDuser`, `Reaction`) VALUES
 (1, 1, 5, '1'),
 (2, 1, 1, '-1');
 
@@ -421,7 +421,7 @@ ALTER TABLE `post_reported_by_user`
 ALTER TABLE `reaction`
   ADD PRIMARY KEY (`IDreaction`),
   ADD KEY `IDPost` (`IDpost`),
-  ADD KEY `like_ibfk_2` (`IDprofile`);
+  ADD KEY `like_ibfk_2` (`IDuser`);
 
 --
 -- Indici per le tabelle `travel`
@@ -506,13 +506,6 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`);
 
 --
--- Limiti per la tabella `comment_reported_by_user`
---
-ALTER TABLE `comment_reported_by_user`
-  ADD CONSTRAINT `comment_reported_by_user_ibfk_1` FOREIGN KEY (`IDcomment`) REFERENCES `comment` (`IDcomment`),
-  ADD CONSTRAINT `comment_reported_by_user_ibfk_2` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`);
-
---
 -- Limiti per la tabella `experience`
 --
 ALTER TABLE `experience`
@@ -525,38 +518,17 @@ ALTER TABLE `image`
   ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`IDtravel`) REFERENCES `travel` (`IDtravel`);
 
 --
--- Limiti per la tabella `place_to_post`
---
-ALTER TABLE `place_to_post`
-  ADD CONSTRAINT `place_to_post_ibfk_1` FOREIGN KEY (`IDplace`) REFERENCES `place` (`IDplace`),
-  ADD CONSTRAINT `place_to_post_ibfk_2` FOREIGN KEY (`IDpost`) REFERENCES `post` (`IDpost`);
-
---
--- Limiti per la tabella `place_to_user`
---
-ALTER TABLE `place_to_user`
-  ADD CONSTRAINT `place_to_user_ibfk_1` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`),
-  ADD CONSTRAINT `place_to_user_ibfk_2` FOREIGN KEY (`IDplace`) REFERENCES `place` (`IDplace`);
-
---
 -- Limiti per la tabella `post`
 --
 ALTER TABLE `post`
   ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`);
 
 --
--- Limiti per la tabella `post_reported_by_user`
---
-ALTER TABLE `post_reported_by_user`
-  ADD CONSTRAINT `post_reported_by_user_ibfk_1` FOREIGN KEY (`IDpost`) REFERENCES `post` (`IDpost`),
-  ADD CONSTRAINT `post_reported_by_user_ibfk_2` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`);
-
---
 -- Limiti per la tabella `reaction`
 --
 ALTER TABLE `reaction`
   ADD CONSTRAINT `reaction_ibfk_1` FOREIGN KEY (`IDpost`) REFERENCES `post` (`IDpost`),
-  ADD CONSTRAINT `reaction_ibfk_2` FOREIGN KEY (`IDprofile`) REFERENCES `user` (`IDuser`);
+  ADD CONSTRAINT `reaction_ibfk_2` FOREIGN KEY (`IDuser`) REFERENCES `user` (`IDuser`);
 
 --
 -- Limiti per la tabella `travel`
