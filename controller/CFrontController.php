@@ -45,11 +45,13 @@ class CFrontController
                                 header('Location: '); /** dobbiamo vede che metterci */
                             else {
                                 //$smarty = StartSmarty::configuration();
-                                CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                                //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                                header('Location: ');
                             }
                         } else {
                             //$smarty = StartSmarty::configuration();
-                            CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                            //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                            header('Location: ');
                         }
                     }
                 } else {
@@ -61,11 +63,13 @@ class CFrontController
                             header('Location: '); /** dobbiamo vede che metterci */
                         else {
                             //$smarty = StartSmarty::configuration();
-                            CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                            //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                            header('Location: ');
                         }
                     } else {
                         //$smarty = StartSmarty::configuration();
-                        CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        header('Location: ');
                     }
                 }
             } else {
@@ -77,11 +81,13 @@ class CFrontController
                         header('Location: '); /** dobbiamo vede che metterci */
                     else {
                         //$smarty = StartSmarty::configuration();
-                        CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                        header('Location: ');
                     }
                 } else {
                     //$smarty = StartSmarty::configuration();
-                    CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                    //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+                    header('Location: ');
                 }
             }
         }
