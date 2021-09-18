@@ -41,49 +41,19 @@ class FPersistentManager
         return $ris;
     }
 
-    public static function loadExperienceByFather($id){
+
+    public static function loadExperienceByTravel($idTravel){
         $result=null;
-        $result=FExperience::loadExperienceChild($id);
-        return $result;
-    }
-
-    public static function loadExperienceByPost($idPost){
-        $result=null;
-        $result=FExperience::loadByPost($idPost);
-        return $result;
-    }
-
-    public static function loadByNation($nation){
-        $result=null;
-        $result=FPlace::loadByNation($nation);
-        return $result;
-    }
-
-    public static function loadAdmin($entity,$id){
-        $result=FAdmin::loadAdmin($entity,$id);
-        return $result;
-    }
-
-    public static function isAdmin($id){
-        $result=FUser::isAdmin($id);
-        return $result;
-    }
-
-    public static function loadPlaceByExperience($idExperience){
-        $result=FExperience::loadPlaceByExperience($idExperience);
-        return $result;
-    }
-
-    public static function storePlaceToExperience($idExperience,$idPLace){
-        $result=FExperience::storePlaceToExperience($idExperience,$idPLace);
+        $result=FExperience::load("IDtravel",$idTravel);
         return $result;
     }
 
 
-    public static function loadExperienceByPlace($id){
-        $result= FPlace::loadExperienceByPlace($id);
+    public static function loadAdmin($field,$id){
+        $result=FAdmin::loadAdmin($field,$id);
         return $result;
     }
+
 
     public static function loadAllPost(){
         $result = FPost::loadAll();
@@ -101,13 +71,11 @@ class FPersistentManager
     }
 
     public static function storePlaceToPost($idPost,$idPlace){
-        $result=FPost::storePlaceToPost($idPost,$idPlace);
-        return $result;
+        FPost::storePlaceAssociatedToPost($idPlace,$idPost);
     }
 
     public static function storePlaceToUser($idUser,$idPlace){
-        $result=FUser::storePlaceToUser($idUser,$idPlace);
-        return $result;
+        User::storePlaceAssociatedToUser($idPlace,$idUser);
     }
 
     public static function loadPlaceByPost($idPost){
@@ -121,24 +89,22 @@ class FPersistentManager
     }
 
     public static function loadCommentReportedByUser($idUser){
-        $result=FUser::loadCommentReportedByUser($idUser);
+        $result=FUser::loadCommentReportedFromUser($idUser);
         return $result;
 
     }
 
     public static function loadPostReportedByUser($idUser){
-        $result=FUser::loadPostReportedByUser($idUser);
+        $result=FUser::loadPostReportedFromUser($idUser);
         return $result;
     }
 
     public static function storeCommentReporter($idUser,$idComment){
-        $result=FUser::storeCommentReporter($idUser,$idComment);
-        return $result;
+        FUser::storeCommentReporter($idUser,$idComment);
     }
 
     public static function storePostReporter($idUser,$idPost){
-        $result=FUser::storePostReporter($idUser,$idPost);
-        return $result;
+        FUser::storePostReporter($idUser,$idPost);
     }
 
     public static function loadCommentReporter($idComment){

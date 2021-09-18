@@ -7,6 +7,97 @@ require 'utility/UServer.php';
 class CUser
 {
 
+    static function login (){
+        //se nell'url viene immesso il pattern /User/login
+        if($_SERVER['REQUEST_METHOD']=="GET"){
+            if(static::isLogged()) {
+                $pm = new FPersistentManager();
+                $view = new VUser();
+                $result = $pm->loadPostHomePage();//Carica i post che devono stare nella schermata di home
+                $view->loginOk($result);
+            }
+            else{
+                $view=new VUser();
+                $view->showFormLogin();
+            }
+        }
+        //se viene richiamato il metodo login attraverso una richiesta POST
+        //Vuol dire che si sta cercando di accedere all'account premendo sul pulsante di login dopo aver inserito le credenziali
+        elseif ($_SERVER['REQUEST_METHOD']=="POST")
+            static::checkLogin();
+    }
+
+
+    /**
+     * @throws SmartyException
+     */
+    static function checkLogin(){
+        $view = new VUser();
+        $pm = new FPersistentManager();
+        $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
+        $admin=$pm->loadAdmin("IDadmin",1);
+        $adminEmail=$admin->getMail();
+        $adminPassword=$admin->getPassword();
+        if($exist==true){
+            $user=$pm->load("Email",$_POST['email'],"FUser");
+        if ($user != null && $user->getDelete() != true) {
+            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                USession::getInstance();
+                $salvare = serialize($user);
+                USession::setElement('user',$salvare);
+
+                if (isset($_COOKIE['']) && $_COOKIE[''] != $_POST['email']){
+                                                            //Se vogliamo mettere dei cookie vanno qui
+                }
+                else {
+                        header('Location: /logBook/');
+                }
+
+            }
+        }
+        }
+        elseif ($adminEmail==$_POST['email']&& $adminPassword==$_POST['password']){
+            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                USession::getInstance();
+                $salvare = serialize($admin);
+                USession::setElement('user',$salvare);
+                if(isset($_COOKIE[''])){
+                                                                //Se vogliamo mettere dei cookie vanno qui
+                }
+                else
+                header('Location: /FillSpaceWEB/Admin/homepage');
+            }
+
+        }
+        else {
+            $view->loginError();
+        }
+    }
+
+
+    /**
+     * @throws SmartyException
+     */
+    static function profile(){
+        $view = new VUser();
+        $pm = new FPersistentManager();
+        if($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                USession::getInstance();
+                $user=unserialize(USession::getElement('user'));
+                $img=$pm->load("IDimage",$user->getImageID(),'FImage');
+                $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
+                $view->profile($user,$img,$arrayPost);
+                }
+            } else
+                header('Location: /logBook/User/login');
+        }
+
+
+
+//----------------------------DA RIVEDERE----------------------------------
+
+
     /**QUESTA E' LA FUNZIONE CHE RIMANDA ALLA FORM DI LOGIN
      * CONTROLLO SE HO GIA' UNA SESSIONE APERTA
         * SE LA SESSIONE E' APERTA E ATTIVA CONTROLLO SE HO GIA' SETTATO LO USERNAME,
@@ -15,7 +106,7 @@ class CUser
             * ALTRIMENTI RIMANDO ALLA PAGINA DI LOGIN
         * SE LA SESSIONE E' ACCESA MA NON ATTIVA o E' SPENTA, LA ATTIVO E RIMANDO ALLA PAGINA DI LOGIN
      */
-    static function login(){
+    static function login2(){
 
         $view = new VUser();
         $session = USession()::_instance();

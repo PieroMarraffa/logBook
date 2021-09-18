@@ -44,17 +44,17 @@ class USession{
     }
 
     /** RESTITUISCE LO STATO DELLA SESSIONE COME INTERO */
-    function getSessionStatus(){
+    static function getSessionStatus(){
         return session_status();
     }
 
     /** AGGIUNGERE METODI DESTROY -  UNSET ECC... */
-    function destroySession(){
+    static function destroySession(){
         session_destroy();
     }
 
     /** fa l'unset di tutti gli elementi dell'array session */
-    function unsetSession(){
+    static function unsetSession(){
         session_unset();
     }
 
@@ -70,7 +70,7 @@ class USession{
     }
 
     /** BISOGNA USARE QUESTA PER SCRIVERE ALL'INTERNO DI _SESSION */
-    function setElement($index,$object){
+    static function setElement($index,$object){
         $_SESSION[$index]=$object;
     }
 

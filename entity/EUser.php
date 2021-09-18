@@ -8,7 +8,7 @@ class EUser
     private $name;
     private $password;
     private $mail;
-    private $imgPathFile;
+    private $IDimage;
     private $description;
     private $likedPosts;
     private $personalPosts;
@@ -26,13 +26,13 @@ class EUser
      * @param $description
      * @param $banned
      */
-    public function __construct( $email, $password, $name, $description, $image, $username, $banned)
+    public function __construct( $email, $password, $name, $description, $IDimage, $username, $banned)
     {
         $this->userName = $username;
         $this->name = $name;
         $this->password = $password;
         $this->mail = $email;
-        $this->imgPathFile = $image;
+        $this->IDimage = $IDimage;
         $this->description = $description;
         $this->likedPosts = array();
         $this->personalPosts = array();
@@ -124,17 +124,17 @@ class EUser
     /**
      * @return mixed
      */
-    public function getImgPathFile()
+    public function getImageID()
     {
-        return $this->imgPathFile;
+        return $this->IDimage;
     }
 
     /**
      * @param mixed $imgPathFile
      */
-    public function setImgPathFile($imgPathFile): void
+    public function setImageID($IDimage): void
     {
-        $this->imgPathFile = $imgPathFile;
+        $this->IDimage = $IDimage;
     }
 
     /**

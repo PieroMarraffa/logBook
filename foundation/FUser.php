@@ -17,7 +17,7 @@ class FUser extends FDataBase
         $statement->bindValue(":Password",$user->getPassword(), PDO::PARAM_STR);
         $statement->bindValue(":Name",$user->getName(), PDO::PARAM_STR);
         $statement->bindValue(":Description",$user->getDescription(),PDO::PARAM_STR);
-        $statement->bindValue(":Image",$user->getImgPathFile(),PDO::PARAM_STR);
+        $statement->bindValue(":Image",$user->getImageID(),PDO::PARAM_STR);
         $statement->bindValue("UserName",$user->getUserName(),PDO::PARAM_STR);
         $statement->bindValue(":Banned",$user->isBanned(),PDO::PARAM_BOOL);
     }
