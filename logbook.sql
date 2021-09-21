@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 17, 2021 alle 19:06
+-- Creato il: Set 21, 2021 alle 17:54
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -128,10 +128,10 @@ INSERT INTO `experience` (`IDexperience`, `IDtravel`, `IDplace`, `StartDay`, `En
 
 CREATE TABLE `image` (
   `IDimage` int(10) NOT NULL,
-  `IDtravel` int(10) NOT NULL,
-  `ImageFile` blob NOT NULL,
-  `Width` int(10) NOT NULL,
-  `Height` int(10) NOT NULL
+  `IDtravel` int(10) DEFAULT NULL COMMENT 'se è null,vuol dire che è un immagine di profilo',
+  `ImageFile` mediumblob NOT NULL,
+  `Size` int(12) NOT NULL,
+  `Type` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -462,7 +462,7 @@ ALTER TABLE `experience`
 -- AUTO_INCREMENT per la tabella `image`
 --
 ALTER TABLE `image`
-  MODIFY `IDimage` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDimage` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `place`

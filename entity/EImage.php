@@ -9,22 +9,22 @@ class EImage
 
     private $travelID;
 
-    private $width;
+    private $size;
 
-    private $height;
+    private $type;
 
     /**
      * EImage constructor.
      * @param $imageID
      * @param $url
      */
-    public function __construct( $imageFile,$travelID,$width,$height)
+    public function __construct($imageFile, $travelID, $size, $type)
     {
 
         $this->imageFile = $imageFile;
         $this->travelID=$travelID;
-        $this->width=$width;
-        $this->height=$height;
+        $this->size=$size;
+        $this->type=$type;
 
     }
 
@@ -47,33 +47,33 @@ class EImage
     /**
      * @return mixed
      */
-    public function getWidth()
+    public function getSize()
     {
-        return $this->width;
+        return $this->size;
     }
 
     /**
-     * @param mixed $width
+     * @param mixed $size
      */
-    public function setWidth($width): void
+    public function setSize($size): void
     {
-        $this->width = $width;
+        $this->size = $size;
     }
 
     /**
      * @return mixed
      */
-    public function getHeight()
+    public function getType()
     {
-        return $this->height;
+        return $this->type;
     }
 
     /**
-     * @param mixed $height
+     * @param mixed $type
      */
-    public function setHeight($height): void
+    public function setType($type): void
     {
-        $this->height = $height;
+        $this->type = $type;
     }
 
     /**

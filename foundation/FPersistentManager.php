@@ -7,7 +7,8 @@ class FPersistentManager
         $Eclass=get_class($object);
         $Fclass=$Eclass;
         $Fclass[0]="F";
-        $Fclass::store($object);
+        $id=$Fclass::store($object);
+        return $id;
     }
 
     public static function delete($field,$val,$Fclass){
@@ -98,6 +99,7 @@ class FPersistentManager
         $result=FUser::loadPostReportedFromUser($idUser);
         return $result;
     }
+
 
     public static function storeCommentReporter($idUser,$idComment){
         FUser::storeCommentReporter($idUser,$idComment);

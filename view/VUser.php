@@ -27,11 +27,11 @@ class VUser
     /**
      * Funzione che indirizza alla pagina con il form di login.
      */
-    public function loginForm(){
+    public function showFormLogin(){
         $this->smarty->display('login.tpl');
     }
 
-    public function signupForm(){
+    public function registration_form(){
         $this->smarty->display('registration.tpl');
     }
 
@@ -63,5 +63,34 @@ class VUser
     public function loginError() {
         $this->smarty->assign('error',"errore");
         $this->smarty->display('login.tpl');
+    }
+
+    /**
+     * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
+     * @throws SmartyException
+     */
+    public function loginOk($array,$user) {
+        $this->smarty->assign('userlogged',"loggato");
+        $this->smarty->assign('array_post_home', $array);
+        $this->smarty->assign('username',$user->getUserName());
+        $this->smarty->display('home.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function registrationError ($error) {
+        switch ($error) {
+            case "email":
+                $this->smarty->assign('errorEmail',"errore");
+                break;
+            case "typeimg" :
+                $this->smarty->assign('errorType',"errore");
+                break;
+            case "size" :
+                $this->smarty->assign('errorSize',"errore");
+                break;
+        }
+        $this->smarty->display('registration.tpl');
     }
 }

@@ -35,7 +35,7 @@
         nuovo_elemento.setAttribute("class","quadrato");
         nuovo_elemento.innerHTML=
             "<form method='post' action='/logBook/CreatePost/create'><div class='card'>" +
-            "<input class='btn btn-primary my-1' type='file' id='image' accept='image/png, image/jpeg'>"+
+            "<input class='btn btn-primary my-1' type='file' id='image' accept='image/png, image/jpeg'></div>"+
             "</form>";
         document.getElementById("container2").appendChild(nuovo_elemento);
         obj=eval("document.getElementById(\"quadro"+parseInt(document.getElementById("container2").childNodes.length)+"\")");

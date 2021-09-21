@@ -7,7 +7,7 @@ class FImage extends FDataBase
 
     public static $table="image";
 
-    public static $value="(:IDimage,:IDtravel,:ImageFile,:Width,:Height)";
+    public static $value="(:IDimage,:IDtravel,:ImageFile,:Size,:Type)";
 
     public function __constructor(){}
 
@@ -15,8 +15,8 @@ class FImage extends FDataBase
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDtravel",$image->getTravelID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":ImageFile",base64_encode($image->getImageFile()), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
-        $statement->bindValue(":Width",$image->getWidth(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
-        $statement->bindValue(":Height",$image->getHeight(), PDO::PARAM_INT);
+        $statement->bindValue(":Size",$image->getSize(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
+        $statement->bindValue(":Type",$image->getType(), PDO::PARAM_INT);
 
     }
 

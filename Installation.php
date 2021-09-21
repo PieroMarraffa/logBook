@@ -59,10 +59,8 @@ class Installation{
 
         $db = new PDO("mysql:dbname=logbook;host=127.0.0.1; charset=utf8;", $_POST['nomeutente'], $_POST['password']);
         $db->beginTransaction();$query = 'DROP DATABASE IF EXISTS ' .$_POST['nomedb']. '; CREATE DATABASE ' . $_POST['nomedb'] . ' ; USE ' . $_POST['nomedb'] . ';' . 'SET GLOBAL max_allowed_packet=16777216;';
-
         try
         {
-
             $query = $query . file_get_contents('logbook.sql');
             $db->exec($query);
             $file = fopen('config.inc.php', 'c+');

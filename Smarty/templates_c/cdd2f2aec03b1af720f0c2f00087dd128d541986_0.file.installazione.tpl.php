@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-16 17:32:16
+/* Smarty version 3.1.33, created on 2021-09-21 11:15:15
   from 'C:\xampp\htdocs\logBook\Smarty\templates\installazione.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61436380210639_95961885',
+  'unifunc' => 'content_6149a2a3714d80_36403128',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cdd2f2aec03b1af720f0c2f00087dd128d541986' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\installazione.tpl',
-      1 => 1631806294,
+      1 => 1631898245,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61436380210639_95961885 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6149a2a3714d80_36403128 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -46,7 +46,7 @@ function content_61436380210639_95961885 (Smarty_Internal_Template $_smarty_tpl)
     <header class="masthead mb-auto">
         <div class="inner">
             <div class="row">
-                <h1 class="cover-heading mt-5 mr-4">Installazione FillSpace</h1>
+                <h1 class="cover-heading mt-5 mr-4">Installazione LogBook</h1>
                 <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="190" height="160">
             </div>
         </div>
@@ -57,16 +57,16 @@ function content_61436380210639_95961885 (Smarty_Internal_Template $_smarty_tpl)
         <h3 class="pb-3">Profilo Database</h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
-                <label>Nome del database</label>
+                <label>Database name</label>
                 <input class="form-control" name="nomedb"> </div>
             <div class="form-group">
-                <label>Nome Utente</label>
+                <label>Username</label>
                 <input type="text" class="form-control" name="nomeutente"> </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
-                <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Installa</button>
+                <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
     </main>
 
     <footer class="mastfoot mt-auto">

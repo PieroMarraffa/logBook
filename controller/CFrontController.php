@@ -4,9 +4,12 @@ require_once 'StartSmarty.php';
 
 class CFrontController
 {
-    public function run($path){
+    public function run($path)
+    {
 
-        $res=explode("/",$path);
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        $res = explode("/", $path);
 
         array_shift($res);
         array_shift($res);
@@ -40,54 +43,54 @@ class CFrontController
                         if (CUser::isLogged()) {
 
                             $utente = unserialize(USession::getElement('utente'));
-                            $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                            $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
                             if (isset($adm))
-                                header('Location: '); /** dobbiamo vede che metterci */
+                                header('Location: /logBook/User/login'); /** dobbiamo vede che metterci */
                             else {
                                 //$smarty = StartSmarty::configuration();
                                 //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                                header('Location: ');
+                                header('Location: /logBook/User/login');
                             }
                         } else {
                             //$smarty = StartSmarty::configuration();
                             //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                            header('Location: ');
+                            header('Location: /logBook/User/login');
                         }
                     }
                 } else {
                     if (CUser::isLogged()) {
 
                         $utente = unserialize(USession::getElement('utente'));
-                        $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                        $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
                         if (isset($adm))
-                            header('Location: '); /** dobbiamo vede che metterci */
+                            header('Location: /logBook/User/registration'); /** dobbiamo vede che metterci */
                         else {
                             //$smarty = StartSmarty::configuration();
                             //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                            header('Location: ');
+                            header('Location: /logBook/User/registration');
                         }
                     } else {
                         //$smarty = StartSmarty::configuration();
                         //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                        header('Location: ');
+                        header('Location: /logBook/User/registration');
                     }
                 }
             } else {
                 if (CUser::isLogged()) {
 
                     $utente = unserialize(USession::getElement('utente'));
-                    $adm=FPersistentManager::loadAdmin("Email",$utente->getEmail());
+                    $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
                     if (isset($adm))
-                        header('Location: '); /** dobbiamo vede che metterci */
+                        header('Location: /logBook/User/registration'); /** dobbiamo vede che metterci */
                     else {
                         //$smarty = StartSmarty::configuration();
                         //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                        header('Location: ');
+                        header('Location: /logBook/User/registration');
                     }
                 } else {
                     //$smarty = StartSmarty::configuration();
                     //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                    header('Location: ');
+                    header('Location: /logBook/User/registration');
                 }
             }
         }
