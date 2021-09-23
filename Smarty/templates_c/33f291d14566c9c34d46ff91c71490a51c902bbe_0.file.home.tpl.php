@@ -1,5 +1,28 @@
-<!DOCTYPE html>
-{assign var='userlogged' value=$userlogged|default:'nouser'}
+<?php
+/* Smarty version 3.1.33, created on 2021-09-22 22:44:24
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_614b95a82494d3_77496560',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
+      1 => 1632343461,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_614b95a82494d3_77496560 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,14 +39,16 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet"  type="text/css"/>
 
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
 
     <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -32,11 +57,12 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="#"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
-        {if $userlogged!='nouser'}
-            <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
-        {else}
+        <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+</a>
+        <?php } else { ?>
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
-        {/if}
+        <?php }?>
     </div>
 </nav>
 <!-- Masthead-->
@@ -63,31 +89,43 @@
 </header>
 <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        {if $array_post_home}
-        {if is_array($array_post_home)}
-        {foreach $array_post_home as $post}
+        <?php if ($_smarty_tpl->tpl_vars['array_post_home']->value) {?>
+        <?php if (is_array($_smarty_tpl->tpl_vars['array_post_home']->value)) {?>
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_post_home']->value, 'post');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
+?>
         <div class="col mb-5">
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="card-img-top" src="data:{$type};base64,{$post->getImage()}" alt="..." />
+                <img class="card-img-top" src="data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['post']->value->getImage();?>
+" alt="..." />
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
                         <!-- Product name-->
-                        <h5 class="fw-bolder">{$post->getTitle()}</h5>
+                        <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
+</h5>
                         <!-- Product price-->
-                        <h6 class="text-muted ">{$post->getAuthor()}</h6>
+                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value->getAuthor();?>
+</h6>
                     </div>
                 </div>
                 <!-- Product actions-->
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-primary" href="/logBook/Research/postDetail/{$post->getID()}">Go to the post -></a></div>
+                    <div class="text-center"><a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['post']->value->getID();?>
+">Go to the post -></a></div>
                 </div>
             </div>
         </div>
-        {/foreach}
-        {/if}
-        {/if}
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+        <?php }?>
+        <?php }?>
     </div>
 </div>
 <!-- Footer-->
@@ -95,13 +133,20 @@
 
 </footer>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.startbootstrap.com/sb-forms-latest.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
+</html><?php }
+}

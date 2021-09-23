@@ -9,7 +9,7 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <script>
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -24,7 +24,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
     </div>
 </nav>
 <section>

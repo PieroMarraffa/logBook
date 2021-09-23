@@ -77,13 +77,13 @@ class FImage extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $image[] = new EImage( base64_decode($result['ImageFile']),$result['IDtravel'],$result['Width'],$result['Height']);
+            $image[] = new EImage( $result['ImageFile'],$result['IDtravel'],$result['Size'],$result['Type']);
             $image[0]->setImageID($result['IDimage']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 for($i = 0; $i < count($result); $i++){
-                    $image[]= new EImage( base64_decode($result[$i]['ImageFile']),$result[$i]['IDtravel'],$result[$i]['Width'],$result[$i]['Height']);
+                    $image[]= new EImage( base64_encode($result[$i]['ImageFile']),$result[$i]['IDtravel'],$result[$i]['Size'],$result[$i]['Type']);
                     $image[$i]->setImageID($result[$i]['IDimage']);
                 }
             }

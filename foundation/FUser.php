@@ -17,7 +17,7 @@ class FUser extends FDataBase
         $statement->bindValue(":Password",$user->getPassword(), PDO::PARAM_STR);
         $statement->bindValue(":Name",$user->getName(), PDO::PARAM_STR);
         $statement->bindValue(":Description",$user->getDescription(),PDO::PARAM_STR);
-        $statement->bindValue(":Image",$user->getImageID(),PDO::PARAM_STR);
+        $statement->bindValue(":IDimage",$user->getImageID(),PDO::PARAM_INT);
         $statement->bindValue("UserName",$user->getUserName(),PDO::PARAM_STR);
         $statement->bindValue(":Banned",$user->isBanned(),PDO::PARAM_BOOL);
     }
@@ -84,7 +84,7 @@ class FUser extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['Email'],$result['Password'],$result['Name'],$result['Description'],$result['IDimage'],$result['UserName'], $result['Banned']);
+            $user = new EUser($result['Email'],$result['Password'],$result['Name'],$result['Description'],$result['Image'],$result['UserName'], $result['Banned']);
             $user->setUserID($result['IDuser']);
         }
         else {

@@ -48,13 +48,16 @@ class FAdmin
         return self::$value;
     }
 
-    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
+    /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id
+     * @throws Exception
+     */
     public static function loadAdmin($field,$id){
+        $admin=null;
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $deletedPost=FUser::load("Deleted",true);
+            $deletedPost=FPost::load("Deleted",true);
             $deletedComment=FComment::load("Deleted",true);
             $admin = new EAdmin($result['Username'], $result['Password'],$result['Email'],$deletedPost,$deletedComment);
         }

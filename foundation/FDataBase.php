@@ -883,7 +883,7 @@ class FDataBase
             $this->closeDbConnection();
             return $num;
         } catch (PDOException $e) {
-            echo "Attenzione errore: " . $e->getMessage();
+            echo "Attenzione erroreee: " . $e->getMessage();
             $this->database->rollBack();
             return null;
         }

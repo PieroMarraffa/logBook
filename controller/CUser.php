@@ -8,6 +8,40 @@ require 'utility/UServer.php';
 
 class CUser
 {
+    /**
+     * @throws SmartyException
+     */
+    static function home(){
+        $pm = new FPersistentManager();
+        $view = new VUser();
+        $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
+        $result[] = $pm->load("IDpost",1,FPost::getClass());
+        $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
+        $result[] = $pm->load("IDpost",3,FPost::getClass());
+        $result[] = $pm->load("IDpost",4,FPost::getClass());
+        $view->home($result);
+    }
+
+
+    /**
+     * Metodo che verifica se l'utente è loggato
+     */
+    static function isLogged() {
+        $identificato = false;
+        if (UCookie::getIsSet('PHPSESSID')) {
+            if (session_status() == PHP_SESSION_NONE) {
+                //header('Cache-Control: no cache'); //no cache
+                //session_cache_limiter('private_no_expire'); // works
+                //session_cache_limiter('public'); // works too
+                USession::getInstance();
+            }
+        }
+        if (USession::getIsSet('user')) {
+            $identificato = true;
+        }
+        return $identificato;
+    }
+
 
     /**
      * @throws SmartyException
@@ -17,11 +51,15 @@ class CUser
         if($_SERVER['REQUEST_METHOD']=="GET"){   //Serve a controllare quello che viene scritto all'interno della url, se viene scritto nell'url può essere solo un reindirizzamento ad un'altra pagina
             if(static::isLogged()) {
                 USession::getInstance();
-                $user=unserialize(USession::getElement('user'));
+                //$user=unserialize(USession::getElement('user'));
                 $pm = new FPersistentManager();
                 $view = new VUser();
-                $result = $pm->loadPostHomePage();//Carica i post che devono stare nella schermata di home
-                $view->loginOk($result,$user);
+                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
+                $result[] = $pm->load("IDpost",1,FPost::getClass());
+                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
+                $result[] = $pm->load("IDpost",3,FPost::getClass());
+                $result[] = $pm->load("IDpost",4,FPost::getClass());
+                $view->loginOk($result);
             }
             else{
                 $view=new VUser();
@@ -47,19 +85,23 @@ class CUser
         $adminPassword=$admin->getPassword();
         if($exist==true){
             $user=$pm->load("Email",$_POST['email'],"FUser");
-        if ($user != null && $user->getDelete() != true) {
+        if ($user != null && $user->isBanned() != true) {
             if (USession::getSessionStatus() == PHP_SESSION_NONE) {
                 USession::getInstance();
                 $salvare = serialize($user);
                 USession::setElement('user',$salvare);
-
+                /**
                 if (isset($_COOKIE['']) && $_COOKIE[''] != $_POST['email']){
                                                             //Se vogliamo mettere dei cookie vanno qui
                 }
-                else {
-                        header('Location: /logBook/');
-                }
-
+                else */
+                        //header('Location: /logBook/');
+                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
+                $result[] = $pm->load("IDpost",1,FPost::getClass());
+                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
+                $result[] = $pm->load("IDpost",3,FPost::getClass());
+                $result[] = $pm->load("IDpost",4,FPost::getClass());
+                $view->home($result);
             }
         }
         }
@@ -68,10 +110,10 @@ class CUser
                 USession::getInstance();
                 $salvare = serialize($admin);
                 USession::setElement('user',$salvare);
-                if(isset($_COOKIE[''])){
+                /**if(isset($_COOKIE[''])){
                                                                 //Se vogliamo mettere dei cookie vanno qui
                 }
-                else
+                else*/
                 header('Location: /FillSpaceWEB/Admin/homepage');
             }
 
@@ -93,6 +135,7 @@ class CUser
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
+                var_dump($img);
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
                 $view->profile($user,$img,$arrayPost);
                 }
@@ -111,8 +154,12 @@ class CUser
             if (static::isLogged()) {
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
-                $array_post = $pm->loadPostHomePage();      //Carica i post che devono stare nella schermata di home
-                $view->loginOk($array_post,$user);
+                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
+                $result[] = $pm->load("IDpost",1,FPost::getClass());
+                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
+                $result[] = $pm->load("IDpost",3,FPost::getClass());
+                $result[] = $pm->load("IDpost",4,FPost::getClass());
+                $view->loginOk($result);
             }
             else {
                 $view->registration_form();             //Reindirizza alla schermata di registrazione
@@ -132,17 +179,18 @@ class CUser
             if ($verifiemail){
                 $view->registrationError("email");}
             else{
-                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", 0,$_POST['username'],false);
+                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", null,$_POST['username'],false);
                 if ($user != null) {
-                    if (isset($_FILES['profileImage'])) {
-                        $nome_file = 'profileImage';
+                    var_dump($_FILES);
+                    if (isset($_FILES['file'])) {
+                        $nome_file = 'file';
                         $img = static::upload($user,$nome_file);
                         switch ($img) {
                             case "size":
                                 $view->registrationError("size");
                                 break;
                             case "type":
-                                $view->registrationError("typeimg");
+                                $view->registrationError("type");
                                 break;
                             case "ok":
                                 header('Location: /logBook/User/login');
@@ -177,7 +225,7 @@ class CUser
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
                 $immagine = addslashes ($immagine);
-                $profile_image= new EImage($immagine,0,$size,$type);
+                $profile_image= new EImage($immagine,null,$size,$type);
                 $id=$pm->store($profile_image);
                 $user->setImageID($id);
                 $pm->store($user);
@@ -190,6 +238,16 @@ class CUser
             }
         }
         return $ris;
+    }
+
+    /**
+     * Funzione che provvede alla rimozione delle variabili di sessione, alla sua distruzione e a rinviare alla homepage
+     */
+    static function logout(){
+        USession::getInstance();
+        USession::unsetSession();
+        USession::destroySession();
+        header('Location: /logBook/User/login');
     }
 
 
@@ -210,7 +268,7 @@ class CUser
     static function login2(){
 
         $view = new VUser();
-        $session = USession()::_instance();
+        $session = USession::_instance();
         $logged = $session->getElement("logged");
 
         if ($logged){
@@ -226,24 +284,7 @@ class CUser
 
     }
 
-    /**
-     * Metodo che verifica se l'utente è loggato
-     */
-    static function isLogged() {
-        $identificato = false;
-        if (UCookie::getIsSet('PHPSESSID')) {
-            if (session_status() == PHP_SESSION_NONE) {
-                //header('Cache-Control: no cache'); //no cache
-                //session_cache_limiter('private_no_expire'); // works
-                //session_cache_limiter('public'); // works too
-                USession::getInstance();
-            }
-        }
-        if (USession::getIsSet('utente')) {
-            $identificato = true;
-        }
-        return $identificato;
-    }
+
 
 
     /** QUESTA FUNZIONE VERIFICA SE LE CREDENZIALI IMMESSE NELLA FORM DI LOGIN CORRISPONDONO A QUELLE DI UN UTENTE ESISTENTE.
@@ -324,23 +365,4 @@ class CUser
 
     }
 
-    /** QUESTA E' LA FUNZIONE CHE CARICA LA PAGINA DI DETTAGLIO DEL POST CLICCATO SULLA HOME PAGE
-     */
-    static function clickedPost(){
-
-        $view = new VUser();
-        $session = new USession();
-
-        if ($session->getElement('logged')){
-
-            $id = $session->getElement("IDpost");
-            $view->detailPostLogged($id);
-
-        } else{
-
-            $id = $session->getElement("IDpost");
-            $view->detailPost($id);
-
-        }
-    }
 }

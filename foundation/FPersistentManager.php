@@ -27,8 +27,7 @@ class FPersistentManager
     }
 
     public static function load($field, $val,$Fclass) {
-        $ris = null;
-        $ris = $Fclass::loadByField($field,$val);
+        $ris = $Fclass::load($field,$val);
         return $ris;
     }
 
@@ -214,15 +213,15 @@ class FPersistentManager
         return FPost::loadDeletedPosts();
     }
 
-    public static function newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned){
-        FUser::newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned);
+    public static function newUserToDB($IDuser, $email, $password, $name, $description, $IDimage, $username, $banned){
+        FUser::newUserToDB( $email, $password, $name, $description, $IDimage, $username, $banned);
     }
 
     public static function newPost($idpost, $iduser, $autore, $titolo, $data, $deleted){
-        FPost::newPost($idpost, $iduser, $autore, $titolo, $data, $deleted);
+        FPost::newPost( $iduser, $titolo, $data, $deleted);
     }
 
     public static function reportPost($reportedPostId){
-        FPost::reportPost($reportedPostId);
+        FPost::loadReportedPost($reportedPostId);
     }
 }

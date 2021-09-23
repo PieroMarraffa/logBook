@@ -42,6 +42,8 @@
         obj.style.height="70px";
         obj.style.width="300px";
     }
+
+
     function selectPlace(){
         var place= window.prompt("Insert place here");
         var array = new Array()

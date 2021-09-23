@@ -12,7 +12,7 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <script>
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -26,7 +26,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
         <form method="get" action="/logBook/Research/find">
             <div class="row">
                 <div class="input-group">
@@ -53,7 +53,7 @@
         <!-- Blog entries-->
         {if $arrayUser}
         {if isset($arrayUser)}
-        {for($j = 0; $j<= count($arrayUser);$j++)}
+        {for $j = 0; $j<= count($arrayUser);$j++ }
         <div class="row">
             <div class="card mb-10">
                 <div class="card-header">
@@ -62,7 +62,7 @@
                 <div class="card-body">
                     <div class="row">
                         {$userPostList =$arrayUser->getPostList()}
-                        {for($i = 0; $i<= 3;$i++)}
+                        {for $i = 0; $i<= 3;$i++ }
                             <!-- Blog post-->
                             <div class="col-md-4">
                                 <div class="card mb-4">

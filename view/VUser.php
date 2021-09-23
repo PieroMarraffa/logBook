@@ -16,22 +16,30 @@ class VUser
     }
 
     /**
-     * Funzione che reindirizza alla home da loggati.
+     * @throws SmartyException
      */
-    public function loggedHome($array, $username){
-        $this->smarty->assign('array', $array);
-        $this->smarty->assign('username', $username);
-        $this->smarty->display('home_logged.tpl');
-    }
+    public function home($result){
+        if(CUser::isLogged()){
+            $this->smarty->assign('userlogged',"loggato");
+            $u=USession::getElement('user');
+            $user=unserialize($u);
+            $this->smarty->assign('username',$user->getUserName());}
+        else
+            $this->smarty->assign('userlogged','nouser');
+
+        $this->smarty->assign('array_post_home',$result);
+        $this->smarty->display('home.tpl');}
 
     /**
      * Funzione che indirizza alla pagina con il form di login.
+     * @throws SmartyException
      */
     public function showFormLogin(){
         $this->smarty->display('login.tpl');
     }
 
     public function registration_form(){
+
         $this->smarty->display('registration.tpl');
     }
 
@@ -49,9 +57,9 @@ class VUser
      * @throws SmartyException
      */
     public function profile($user, $image, $arrayPost){
-        $this->smarty->assign();                                /** VEDI COME GESTIRE LE IMMAGINI */
-        $this->smarty->assign('username',$user->getUserName());
-        $this->smarty->assign('email',$user->getEmail());
+        $this->smarty->assign('image',$image);    /** VEDI COME GESTIRE LE IMMAGINI */
+        $this->smarty->assign('user',$user);
+        $this->smarty->assign('email',$user->getMail());
         $this->smarty->assign('array_post',$arrayPost);
         $this->smarty->display('profile.tpl');
     }
@@ -69,10 +77,13 @@ class VUser
      * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
      * @throws SmartyException
      */
-    public function loginOk($array,$user) {
-        $this->smarty->assign('userlogged',"loggato");
-        $this->smarty->assign('array_post_home', $array);
+    public function loginOk($array) {
+        if(CUser::isLogged())
+            $this->smarty->assign('userlogged',"loggato");
+        $u=USession::getElement('user');
+        $user=unserialize($u);
         $this->smarty->assign('username',$user->getUserName());
+        $this->smarty->assign('array_post_home',$array);
         $this->smarty->display('home.tpl');
     }
 

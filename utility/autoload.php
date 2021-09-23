@@ -33,4 +33,3 @@ function my_autoloader($className) {
 
 spl_autoload_register('my_autoloader');
 
-?>

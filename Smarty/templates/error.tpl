@@ -14,7 +14,7 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <script>
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -28,7 +28,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/"><img src="../immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
         {if $userlogged!='nouser'}
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
         {else}

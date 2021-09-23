@@ -84,7 +84,7 @@ class FLike extends FDataBase
             if(($result != null) && ($rows_number > 1)){
                 $like = array();
                 for($i = 0; $i < count($result); $i++){
-                    $like[] = new ELike($result[$i]['Reaction'],$result['IDuser'],$result[$i]['IDpost']);
+                    $like[] = new ELike($result[$i]['Reaction'],$result[$i]['IDuser'],$result[$i]['IDpost']);
                     $like[$i]->setLikeID($result[$i]['IDreaction']);
                 }
             }

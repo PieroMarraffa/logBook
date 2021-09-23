@@ -4,15 +4,18 @@ require_once 'StartSmarty.php';
 
 class CFrontController
 {
+    /**
+     * @throws SmartyException
+     */
     public function run($path)
     {
-
         $method = $_SERVER['REQUEST_METHOD'];
 
         $res = explode("/", $path);
 
         array_shift($res);
         array_shift($res);
+
 
         if ($res[0] != 'api') {
 
@@ -21,14 +24,15 @@ class CFrontController
             $eledir = scandir($dir);
 
             if (in_array($controller . ".php", $eledir)) {
-                if (isset($resource[1])) {
-                    $function = $resource[1];
+
+                if (isset($res[1])) {
+                    $function = $res[1];
                     if (method_exists($controller, $function)) {
 
                         $param = array();
-                        for ($i = 2; $i < count($resource); $i++) {
-                            $param[] = $resource[$i];
-                            $a = $i - 2;
+                        for ($i = 2; $i < count($res); $i++) {
+                            $param[] = $res[$i];
+                            //$a = $i - 2;
                         }
                         $num = (count($param));
                         if ($num == 0) $controller::$function();
@@ -42,55 +46,52 @@ class CFrontController
                     } else {
                         if (CUser::isLogged()) {
 
-                            $utente = unserialize(USession::getElement('utente'));
-                            $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
+                            $utente = unserialize(USession::getElement('user'));
+                            $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                             if (isset($adm))
-                                header('Location: /logBook/User/login'); /** dobbiamo vede che metterci */
+                                CUser::home(); /** dobbiamo vede che metterci */
                             else {
                                 //$smarty = StartSmarty::configuration();
                                 //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                                header('Location: /logBook/User/login');
-                            }
+                                CUser::home();                            }
                         } else {
                             //$smarty = StartSmarty::configuration();
                             //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                            header('Location: /logBook/User/login');
-                        }
+                            CUser::home();                        }
                     }
                 } else {
                     if (CUser::isLogged()) {
 
-                        $utente = unserialize(USession::getElement('utente'));
-                        $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
+                        $utente = unserialize(USession::getElement('user'));
+                        $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                         if (isset($adm))
-                            header('Location: /logBook/User/registration'); /** dobbiamo vede che metterci */
+                            CUser::home();
                         else {
                             //$smarty = StartSmarty::configuration();
                             //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                            header('Location: /logBook/User/registration');
-                        }
+                            CUser::home();                        }
                     } else {
                         //$smarty = StartSmarty::configuration();
                         //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                        header('Location: /logBook/User/registration');
+                        CUser::home();
                     }
                 }
             } else {
                 if (CUser::isLogged()) {
 
-                    $utente = unserialize(USession::getElement('utente'));
-                    $adm = FPersistentManager::loadAdmin("Email", $utente->getEmail());
+                    $utente = unserialize(USession::getElement('user'));
+                    $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                     if (isset($adm))
-                        header('Location: /logBook/User/registration'); /** dobbiamo vede che metterci */
+                        CUser::home();
                     else {
                         //$smarty = StartSmarty::configuration();
                         //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                        header('Location: /logBook/User/registration');
+                        CUser::home();
                     }
                 } else {
                     //$smarty = StartSmarty::configuration();
                     //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
-                    header('Location: /logBook/User/registration');
+                    CUser::home();
                 }
             }
         }

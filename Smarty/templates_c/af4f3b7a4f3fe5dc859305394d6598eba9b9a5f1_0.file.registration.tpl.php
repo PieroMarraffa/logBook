@@ -1,7 +1,30 @@
-<!DOCTYPE html>
-{assign var='errorSize' value=$errorSize|default:'ok'}
-{assign var='errorType' value=$errorType|default:'ok'}
-{assign var='errorEmail' value=$errorEmail|default:'ok'}
+<?php
+/* Smarty version 3.1.33, created on 2021-09-23 18:13:31
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\registration.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_614ca7ab900698_84615137',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'af4f3b7a4f3fe5dc859305394d6598eba9b9a5f1' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\registration.tpl',
+      1 => 1632413408,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_614ca7ab900698_84615137 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<?php $_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorEmail', (($tmp = @$_smarty_tpl->tpl_vars['errorEmail']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,19 +36,27 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/login.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
 </head>
 <body>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="../js/registration.js"></script>
+<?php echo '<script'; ?>
+ src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="../js/registration.js"><?php echo '</script'; ?>
+>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
@@ -48,24 +79,25 @@
             <input type="file" name="file" size="40" >
             <input type="submit" class="fadeIn fourth" form="form_registration" value="Register">
         </form>
-        {if $errorSize!='ok'}
+        <?php if ($_smarty_tpl->tpl_vars['errorSize']->value != 'ok') {?>
             <div style="color: red;">
                 <p align="center">Attenzione! Formato immagine troppo grande!  </p>
             </div>
-        {/if}
-        {if $errorType!='ok'}
+        <?php }?>
+        <?php if ($_smarty_tpl->tpl_vars['errorType']->value != 'ok') {?>
             <div style="color: red;">
                 <p align="center">Attenzione! Formato immagine non supportato (provare con .png o .jpg)!  </p>
             </div>
-        {/if}
-        {if $errorEmail!='ok'}
+        <?php }?>
+        <?php if ($_smarty_tpl->tpl_vars['errorEmail']->value != 'ok') {?>
             <div style="color: red;">
                 <p align="center">Attenzione! Email già esistente!  </p>
             </div>
-        {/if}
+        <?php }?>
 
 
     </div>
 </div>
 </body>
-</html>
+</html><?php }
+}

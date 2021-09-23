@@ -78,6 +78,7 @@ class FPost
      */
     public static function load($field, $id)
     {
+        $post=null;
         $database = FDataBase::getInstance();
         $result = $database->loadById(self::getTable(), $field, $id);
         echo $field;
@@ -99,7 +100,7 @@ class FPost
                     $nDislike++;
                 }
             }}
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel[0],$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -339,11 +340,14 @@ class FPost
         return $post->getNLike();
     }
 
+
+    /** NON FUNZIONA VAFAMMOC A PIERO */
     public static function loadPostHomePage()
     {
         $allPosts = self::loadAllVisiblePost();
         $mostLikedPost = array();
         $toReturn = array();
+        $sortable = array();
 
         if (self::getPostCount() > 0){
             $mostLikedPost[0]= $allPosts[0];
@@ -354,7 +358,6 @@ class FPost
                     if (self::getPostCount() > 3){
                         $mostLikedPost[3]= $allPosts[3];
                         if (self::getPostCount() > 4){
-                            $sortable = array();
                             for($i = 4; $i < count($allPosts); $i++ ){
                                 $sortable[$allPosts[$i]] = self::getLikeCount($allPosts[$i]);
                             }
