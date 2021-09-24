@@ -135,7 +135,6 @@ class CUser
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
-                var_dump($img);
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
                 $view->profile($user,$img,$arrayPost);
                 }
@@ -181,7 +180,6 @@ class CUser
             else{
                 $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", null,$_POST['username'],false);
                 if ($user != null) {
-                    var_dump($_FILES);
                     if (isset($_FILES['file'])) {
                         $nome_file = 'file';
                         $img = static::upload($user,$nome_file);
@@ -204,8 +202,6 @@ class CUser
 
     static function upload($user,$nome_file) {
         $pm = new FPersistentManager();
-        $ris = null;
-        $nome = '';
         $max_size = 600000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
         if (!$result) {
@@ -220,7 +216,7 @@ class CUser
                 //Il file è troppo grande
                 $ris = "size";
             }
-            elseif ($type == 'image/jpeg' || $type == 'image/png' || $type == 'image/jpg') {
+            elseif ($type == 'image/jpeg' || $type == 'image/jpg') {
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
@@ -251,118 +247,177 @@ class CUser
     }
 
 
-
-
-
-//----------------------------DA RIVEDERE----------------------------------
-
-
-    /**QUESTA E' LA FUNZIONE CHE RIMANDA ALLA FORM DI LOGIN
-     * CONTROLLO SE HO GIA' UNA SESSIONE APERTA
-        * SE LA SESSIONE E' APERTA E ATTIVA CONTROLLO SE HO GIA' SETTATO LO USERNAME,
-        * CIOE' SE HO GIA'  FATTO L'ACCESSO
-            * SE HO FATTO GIA' L'ACCESSO RIMANDO ALLA HOMEPAGE LOGGATO CON L'ARRAY DI POST DA MOSTRARE
-            * ALTRIMENTI RIMANDO ALLA PAGINA DI LOGIN
-        * SE LA SESSIONE E' ACCESA MA NON ATTIVA o E' SPENTA, LA ATTIVO E RIMANDO ALLA PAGINA DI LOGIN
+    /**
+     * @throws SmartyException
      */
-    static function login2(){
-
+    static function changeCredential(){
+        $pm = new FPersistentManager();
         $view = new VUser();
-        $session = USession::_instance();
-        $logged = $session->getElement("logged");
-
-        if ($logged){
-
-            $result = FPersistentManager::loadPostHomePage();
-            $view->loggedHome($result, "username");
-
-        } else{
-
-            $view->loginForm();
-
+        USession::getInstance();
+        $user = unserialize(USession::getElement('user'));
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $img=$pm->load("IDimage",$user->getImageID(),'FImage');
+                $view->changeCredentialForm($user,$img);
+            } else
+                header('Location: /logBook/User/login');
         }
+        elseif ($_SERVER['REQUEST_METHOD']=="POST"){
+            if(isset($_POST['email'])){
+                $id=$user->getUserID();
+                $pm->update('Email',$_POST['email'],$id,FUser::getClass());
+                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $salvare = serialize($u);
+                USession::setElement('user',$salvare);
+                header('Location: /logBook/User/profile');
 
-    }
-
-
-
-
-    /** QUESTA FUNZIONE VERIFICA SE LE CREDENZIALI IMMESSE NELLA FORM DI LOGIN CORRISPONDONO A QUELLE DI UN UTENTE ESISTENTE.
-     *  VIENE RICHIAMATA DAL BOTTONE DI LOG IN QUINDI HO LA CERTEZZA CHE UNA SESSIONE E' GIA' APERTA.
-     *  LA FUNZIONE RICHIAMA LA FUNZIONE DI FDataBase IN CUI SI PRELEVA L'UTENTE CON MAIL E PASSWORD ASSEGNATI
-    * SE L'UTENTE RISULTA ESISTENTE VIENE REINDIRIZZATO ALLA HOME LOGGED
-    * ALTRIMENTI VIENE RIMANDATO ALLA FORM DI LOGIN
-    */
-    static function verificaCredenziali(){
-
-        $view = new VUser();
-        $logged = FPersistentManager::checkUserCredentials("email", "password");
-
-        if ($logged){
-
-            $result = FPersistentManager::loadPostHomePage();
-            $view->loggedHome($result, "username");
-
-        } else{
-
-            $view->loginForm();
-
-        }
-    }
-
-
-    /** QUESTA E' LA FUNZIONE CHE RIMANDA ALLA FORM DI SIGNUP
-     * CONTROLLA CHE NON SIA RICHIAMATA DA UN UTENTE GIA' LOGGATO
-     * RIMANDA ALLA FORM DI REGISTRAZIONE
-     */
-    static function registrazione(){
-
-        $view = new VUser();
-        $session = new USession();
-        $logged = $session->getElement("logged");
-
-        if ($logged){
-
-            $result = FPersistentManager::loadPostHomePage();
-            $view->loggedHome($result, "username");
-
-        } else{
-
-            $view->signupForm();
-
+            }
+            elseif (isset($_POST['new_password'])){
+                $id=$user->getUserID();
+                $pm->update('Password',$_POST['new_password'],$id,FUser::getClass());
+                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $salvare = serialize($u);
+                USession::setElement('user',$salvare);
+                header('Location: /logBook/User/profile');
+            }
+            elseif (isset($_POST['username'])){
+                $id=$user->getUserID();
+                $pm->update('Username',$_POST['username'],$id,FUser::getClass());
+                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $salvare = serialize($u);
+                USession::setElement('user',$salvare);
+                header('Location: /logBook/User/profile');
+            }
+            elseif (isset($_FILES['file'])){
+                $id=$user->getUserID();
+                $array_immagini=$pm->load("IDtravel",null,FImage::getClass());
+                foreach ($array_immagini as $a){
+                    if($a['IDuser']==$id){
+                        $pm->delete("IDimage",$a->getImageID(),FImage::getClass());
+                    }
+                }
+                    $nome_file = 'file';
+                    $img = static::updateImage($user,$nome_file);
+                    switch ($img) {
+                        case "size":
+                            $view->registrationError("size");
+                            break;
+                        case "type":
+                            $view->registrationError("type");
+                            break;
+                        case "ok":
+                            header('Location: /logBook/User/profile');
+                            break;
+                    }
+            }
+            elseif (isset($_POST['description'])){
+                $id=$user->getUserID();
+                $pm->update('Description',$_POST['description'],$id,FUser::getClass());
+                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $salvare = serialize($u);
+                USession::setElement('user',$salvare);
+                header('Location: /logBook/User/profile');
+            }
+            else echo $_FILES['file'];
         }
     }
 
-    /** QUESTA E' LA FUNZIONE CHE VERIFICA SE LE CREDENZIALI INSERITE NELLA REGISTRAZIONE APPARTENGONO GIA' AD UN ALTRO USER
-     * CONTROLLA CHE NON SIA RICHIAMATA DA UN UTENTE GIA' ESISTENTE
-     * RIMANDA ALLA HOME PAGE LOGGED
-     */
-    static function accountEsistente(){
-
-        $view = new VUser();
-        $session = new USession();
-        $email = $session->getElement("email");
-
-        if (FPersistentManager::checkExistingUser($email)){
-
-            $view->loginForm();
-
-        } else{
-
-            $IDuser = $session->getElement("IDuser");
-            $email = $session->getElement("email");
-            $password = $session->getElement("password");
-            $name = $session->getElement("name");
-            $description = $session->getElement("description");
-            $image = $session->getElement("image");
-            $username = $session->getElement("username");
-            $banned = $session->getElement("banned");
-
-            FPersistentManager::newUserToDB($IDuser, $email, $password, $name, $description, $image, $username, $banned);
-            $view->loggedHome();
-
+    static function changePassword(){
+        $view=new VUser();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $view->changePassword();
+            }else
+                header('Location: /FillSpaceWEB/Utente/login');
         }
+    }
 
+    /**
+     * @throws SmartyException
+     */
+    static function changeEmail(){
+        $view=new VUser();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $view->changeEmail();
+            }else
+                header('Location: /FillSpaceWEB/Utente/login');
+        }
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    static function changeUsername(){
+        $view=new VUser();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $view->changeUsername();
+            }else
+                header('Location: /FillSpaceWEB/Utente/login');
+        }
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    static function changeImage(){
+        $view=new VUser();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $view->changeImage();
+            }else
+                header('Location: /FillSpaceWEB/Utente/login');
+        }
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    static function changeDescription(){
+        $view=new VUser();
+        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+            if (CUser::isLogged()) {
+                $view->changeDescription();
+            }else
+                header('Location: /FillSpaceWEB/Utente/login');
+        }
+    }
+
+    static function updateImage($user,$nome_file) {
+        $pm = new FPersistentManager();
+        $ris = null;
+        $nome = '';
+        $max_size = 600000;
+        $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
+        if (!$result) {
+            //no immagine
+            $ris = "ok";
+
+        } else {
+            $size = $_FILES[$nome_file]['size'];
+            $type = $_FILES[$nome_file]['type'];
+            if ($size > $max_size) {
+                //Il file è troppo grande
+                $ris = "size";
+            }
+            elseif ($type == 'image/jpeg' || $type == 'image/jpg') {
+                $size = $_FILES[$nome_file]['size'];
+                $type = $_FILES[$nome_file]['type'];
+                $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
+                $immagine = addslashes ($immagine);
+                $profile_image= new EImage($immagine,null,$size,$type);
+                $id=$pm->store($profile_image);
+                /** PROBLEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
+                $pm->update("Image",$id,$user->getUserID(),FUser::getClass()); /** INVECE DI METTEREM L'ID GIUSTO ASSOCIATO ALLO USER METTE 0 */
+                $ris = "ok";
+            }
+            else {
+                //formato diverso
+                $ris = "type";
+            }
+        }
+        return $ris;
     }
 
 }

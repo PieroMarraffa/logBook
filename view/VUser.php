@@ -57,7 +57,17 @@ class VUser
      * @throws SmartyException
      */
     public function profile($user, $image, $arrayPost){
-        $this->smarty->assign('image',$image);    /** VEDI COME GESTIRE LE IMMAGINI */
+        if(isset($image[0])){
+        $this->smarty->assign('type', $image[0]->getType());
+        $this->smarty->assign('pic64', $image[0]->getImageFile());}
+        else{
+            $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+            $pic64= base64_encode($data);
+            $type = "image/png";
+            $this->smarty->assign('type', $type);
+            $this->smarty->assign('pic64', $pic64);
+        }
+        //$this->smarty->assign('image',$image);
         $this->smarty->assign('user',$user);
         $this->smarty->assign('email',$user->getMail());
         $this->smarty->assign('array_post',$arrayPost);
@@ -103,5 +113,65 @@ class VUser
                 break;
         }
         $this->smarty->display('registration.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changeCredentialForm($user, $image){
+        if(isset($image[0])){
+            $this->smarty->assign('type', $image[0]->getType());
+            $this->smarty->assign('pic64', $image[0]->getImageFile());}
+        else{
+            $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+            $pic64= base64_encode($data);
+            $type = "image/png";
+            $this->smarty->assign('type', $type);
+            $this->smarty->assign('pic64', $pic64);
+        }
+        //$this->smarty->assign('image',$image);
+        $this->smarty->assign('user',$user);
+        $this->smarty->assign('email',$user->getMail());
+        $this->smarty->display('change_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changePassword(){
+        $this->smarty->assign('change', 'password');
+        $this->smarty->display('change_single_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changeEmail(){
+        $this->smarty->assign('change', 'email');
+        $this->smarty->display('change_single_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changeUsername(){
+        $this->smarty->assign('change', 'username');
+        $this->smarty->display('change_single_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changeImage(){
+        $this->smarty->assign('change', 'image');
+        $this->smarty->display('change_single_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function changeDescription(){
+        $this->smarty->assign('change', 'description');
+        $this->smarty->display('change_single_credential.tpl');
     }
 }

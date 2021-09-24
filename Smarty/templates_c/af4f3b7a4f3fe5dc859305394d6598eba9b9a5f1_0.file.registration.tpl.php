@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-23 18:13:31
+/* Smarty version 3.1.33, created on 2021-09-24 12:22:59
   from 'C:\xampp\htdocs\logBook\Smarty\templates\registration.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614ca7ab900698_84615137',
+  'unifunc' => 'content_614da703dc8004_94301890',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'af4f3b7a4f3fe5dc859305394d6598eba9b9a5f1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\registration.tpl',
-      1 => 1632413408,
+      1 => 1632478968,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614ca7ab900698_84615137 (Smarty_Internal_Template $_smarty_tpl) {
+function content_614da703dc8004_94301890 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
@@ -86,7 +86,7 @@ $_smarty_tpl->_assignInScope('errorEmail', (($tmp = @$_smarty_tpl->tpl_vars['err
         <?php }?>
         <?php if ($_smarty_tpl->tpl_vars['errorType']->value != 'ok') {?>
             <div style="color: red;">
-                <p align="center">Attenzione! Formato immagine non supportato (provare con .png o .jpg)!  </p>
+                <p align="center">Attenzione! Formato immagine non supportato (provare con .jpg)!  </p>
             </div>
         <?php }?>
         <?php if ($_smarty_tpl->tpl_vars['errorEmail']->value != 'ok') {?>

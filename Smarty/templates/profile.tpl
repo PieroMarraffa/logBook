@@ -25,7 +25,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/User/logout"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
+        <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
@@ -41,16 +41,20 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src="data:{$image->getType()};base64,{$image->getImageFile()}" width="150" height="150" alt="...">
+            <img class="rounded-circle" src="data:{$type};base64,{$pic64}" width="150" height="150" alt="...">
         </div>
-        <div class="col-md-2">
-            <h1><b>{$user->getUsername()}</b></h1>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-primary" href="#createPost">Create Post</a>
+        <div class="col-md-6">
+
+            <h2><b>{$user->getUsername()}</b></h2>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary">Logout</button>
+            <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-primary" href="  ">+ Post</a>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-primary" href="/logBook/User/logout">Logout</a>
         </div>
     </div>
 </div>
@@ -59,6 +63,7 @@
 <div class="container my-5">
     <div class="row">
         <!-- Blog entries-->
+        {if $user->getPostList()}
         {if isset($user->getPostList())}
             {foreach $user->getPostList() as $p}
 
@@ -77,6 +82,7 @@
                     </div>
                 </div>
             {/foreach}
+        {/if}
         {/if}
     </div>
 </div>

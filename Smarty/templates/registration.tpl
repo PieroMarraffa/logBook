@@ -25,7 +25,7 @@
 <body>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="../js/registration.js"></script>
+<script src="/logBook/Smarty/js/registration.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="wrapper fadeInDown">
@@ -55,7 +55,7 @@
         {/if}
         {if $errorType!='ok'}
             <div style="color: red;">
-                <p align="center">Attenzione! Formato immagine non supportato (provare con .png o .jpg)!  </p>
+                <p align="center">Attenzione! Formato immagine non supportato (provare con .jpg)!  </p>
             </div>
         {/if}
         {if $errorEmail!='ok'}

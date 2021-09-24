@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-23 16:19:50
+/* Smarty version 3.1.33, created on 2021-09-24 17:03:18
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614c8d06e27214_82619987',
+  'unifunc' => 'content_614de8b64c8062_05414302',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632406788,
+      1 => 1632495794,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614c8d06e27214_82619987 (Smarty_Internal_Template $_smarty_tpl) {
+function content_614de8b64c8062_05414302 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +52,7 @@ function content_614c8d06e27214_82619987 (Smarty_Internal_Template $_smarty_tpl)
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/User/logout"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
+        <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
@@ -70,19 +70,23 @@ function content_614c8d06e27214_82619987 (Smarty_Internal_Template $_smarty_tpl)
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src="data:<?php echo $_smarty_tpl->tpl_vars['image']->value->getType();?>
-;base64,<?php echo $_smarty_tpl->tpl_vars['image']->value->getImageFile();?>
+            <img class="rounded-circle" src="data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value;?>
 " width="150" height="150" alt="...">
         </div>
-        <div class="col-md-2">
-            <h1><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
-</b></h1>
-        </div>
-        <div class="col-md-2">
-            <a class="btn btn-primary" href="#createPost">Create Post</a>
+        <div class="col-md-6">
+
+            <h2><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
+</b></h2>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-primary">Logout</button>
+            <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-primary" href="  ">+ Post</a>
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-primary" href="/logBook/User/logout">Logout</a>
         </div>
     </div>
 </div>
@@ -91,6 +95,7 @@ function content_614c8d06e27214_82619987 (Smarty_Internal_Template $_smarty_tpl)
 <div class="container my-5">
     <div class="row">
         <!-- Blog entries-->
+        <?php if ($_smarty_tpl->tpl_vars['user']->value->getPostList()) {?>
         <?php if ((($_smarty_tpl->tpl_vars['user']->value->getPostList() !== null ))) {?>
             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['user']->value->getPostList(), 'p');
@@ -120,6 +125,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+        <?php }?>
         <?php }?>
     </div>
 </div>

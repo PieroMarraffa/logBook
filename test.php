@@ -38,7 +38,7 @@ class test
 
 
         // $e=new EUser("gigio","pippi","g","g","huh","gyg",0);
-        //$l=FUser::load('Email','giuliacancello@gmail.com');
+        $l=FImage::load('IDimage',1);
 
         //$l=FPlace::store($s);
         //$l=FComment::load("IDcomment",1);
@@ -47,7 +47,7 @@ class test
 
 
 
-        //echo var_dump($l);
+        echo var_dump($l);
 
 
 
