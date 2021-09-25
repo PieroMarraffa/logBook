@@ -49,7 +49,11 @@
             {elseif $change=='image'}
                 <input type="file" name="file" >
             {elseif $change=='description'}
-                <input type="text" id="description" class="fadeIn second" name="description" placeholder="insert here your profile's description" required>
+                <div class="col-md-5">
+                    <label for="description">
+                        <textarea type="text" id="description" maxlength='100' cols="50" rows='3' class="fadeIn second" name="description" placeholder="insert here your profile's description" required></textarea>
+                    </label>
+                </div>
             {/if}
             <input type="submit" class="fadeIn fourth" value="Submit">
 

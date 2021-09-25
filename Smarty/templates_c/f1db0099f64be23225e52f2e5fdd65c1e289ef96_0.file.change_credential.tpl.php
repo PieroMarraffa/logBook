@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-24 17:05:51
+/* Smarty version 3.1.33, created on 2021-09-25 20:16:20
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614de94f8bed95_46335366',
+  'unifunc' => 'content_614f6774493fd5_22090548',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f1db0099f64be23225e52f2e5fdd65c1e289ef96' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_credential.tpl',
-      1 => 1632495753,
+      1 => 1632593776,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614de94f8bed95_46335366 (Smarty_Internal_Template $_smarty_tpl) {
+function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +35,7 @@ function content_614de94f8bed95_46335366 (Smarty_Internal_Template $_smarty_tpl)
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
     <?php echo '<script'; ?>
- type="text/javascript" src="../js/profile_map.js"><?php echo '</script'; ?>
+ type="text/javascript" src="/logBook/Smarty/js/profile_map.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
 >
@@ -70,32 +70,76 @@ function content_614de94f8bed95_46335366 (Smarty_Internal_Template $_smarty_tpl)
     <div align="center" class="col-md my-5">
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header">Change email</div>
-                <div class="body"><a class="btn btn-primary" href="/logBook/User/changeEmail">Change email -> </a></div>
+                <div class="card-header"><b>Change email</b></div>
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-md-6">
+                        <p> Here u can change your email address</p>
+                    </div>
+                    <div class="col-md-6">
+                        <img  src="/logBook/Smarty/immagini/email.jpg" width="150" height="150">
+                    </div>
+                    </div>
+                    <a class="btn btn-primary my-3" href="/logBook/User/changeEmail">Change email -> </a></div>
             </div>
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header">Change Password</div>
-                <div class="body"><a class="btn btn-primary" href="/logBook/User/changePassword">Change Password -> </a></div>
+                <div class="card-header"><b>Change Password</b></div>
+                <div class="card-body">
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <p> Here u can change your email address</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img  src="/logBook/Smarty/immagini/password.png" width="150" height="150">
+                        </div>
+                    </div>
+                    <a class="btn btn-primary my-3" href="/logBook/User/changePassword">Change Password -> </a></div>
             </div>
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header">Change Username</div>
-                <div class="body"><a class="btn btn-primary" href="/logBook/User/changeUsername">Change Username -> </a></div>
+                <div class="card-header"><b>Change Username</b></div>
+                <div class="body">
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <p> Here u can change your email address</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                        </div>
+                    </div>
+                    <a class="btn btn-primary my-3" href="/logBook/User/changeUsername">Change Username -> </a></div>
             </div>
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header">Change profile image</div>
-                <div class="body"><a class="btn btn-primary" href="/logBook/User/changeImage">Change Image -> </a></div>
+                <div class="card-header"><b>Change profile image</b></div>
+                <div class="body">
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <p> Here u can change your email address</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img  src="/logBook/Smarty/immagini/profileImage.jpg" width="150" height="150">
+                        </div>
+                    </div>
+                    <a class="btn btn-primary my-3" href="/logBook/User/changeImage">Change Image -> </a></div>
             </div>
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header">Change Description</div>
-                <div class="body"><a class="btn btn-primary" href="/logBook/User/changeDescription">Change Description -> </a></div>
+                <div class="card-header"><b>Change Description</b></div>
+                <div class="body">
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <p> Here u can change your email address</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                        </div>
+                    </div><a class="btn btn-primary my-3" href="/logBook/User/changeDescription">Change Description -> </a></div>
             </div>
         </div>
     </div>

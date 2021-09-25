@@ -46,6 +46,7 @@
         <div class="col-md-6">
 
             <h2><b>{$user->getUsername()}</b></h2>
+            <h5>{$user->getDescription()}</h5>
         </div>
         <div class="col-md-1">
             <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>

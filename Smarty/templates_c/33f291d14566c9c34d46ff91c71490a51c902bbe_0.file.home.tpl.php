@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-22 22:44:24
+/* Smarty version 3.1.33, created on 2021-09-25 19:07:30
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614b95a82494d3_77496560',
+  'unifunc' => 'content_614f5752545498_01781226',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1632343461,
+      1 => 1632589633,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614b95a82494d3_77496560 (Smarty_Internal_Template $_smarty_tpl) {
+function content_614f5752545498_01781226 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -32,10 +32,6 @@ function content_614b95a82494d3_77496560 (Smarty_Internal_Template $_smarty_tpl)
     <title>Landing Page - Start Bootstrap Theme</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />-->
-    <!-- Google fonts-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />-->
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet"  type="text/css"/>
 
@@ -74,7 +70,6 @@ function content_614b95a82494d3_77496560 (Smarty_Internal_Template $_smarty_tpl)
                     <!-- Page heading-->
                     <h1 class="mb-5 text-dark" ><b>Go wherever you want...</b></h1>
                     <form method="get" id="form_research" action="/logBook/Research/find">
-                        <!--PER ORA GLI HO MESSO UN NOME A CASO RICORDIAMOCI DI CAMBIARLO A SECONDA DEL METODO-->
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />

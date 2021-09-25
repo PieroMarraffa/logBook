@@ -57,8 +57,8 @@ class FDataBase
             $statement= $this->database->prepare($query);
             $entity::bind($statement,$object);
             $statement->execute();
-            $this->database->commit();
             $id = $this->database->lastInsertId();
+            $this->database->commit();
             $this->closeDbConnection();
             return $id;
         }catch(PDOException $e){

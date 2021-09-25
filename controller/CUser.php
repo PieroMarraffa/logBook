@@ -312,13 +312,13 @@ class CUser
             }
             elseif (isset($_POST['description'])){
                 $id=$user->getUserID();
+                echo $_POST['description'];
                 $pm->update('Description',$_POST['description'],$id,FUser::getClass());
                 $u=$pm->load('IDuser',$id,FUser::getClass());
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
                 header('Location: /logBook/User/profile');
             }
-            else echo $_FILES['file'];
         }
     }
 

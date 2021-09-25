@@ -10,32 +10,16 @@ class USession{
 
     private static $instance=null;
 
-
-
-
-    public static function _instance()
-    {
-        // Start a session if not already started
-        session_start();
-
-        if ( false == isset( $_SESSION[ self::$_singleton_class ] ) )
-        {
-            $class = self::$_singleton_class;
-            $_SESSION[ self::$_singleton_class ] = new $class;
-        }
-
-        return $_SESSION[ self::$_singleton_class ];
-    }
-
     static function getInstance(){
 
-        session_start();
+
 
         if (USession::$instance == null){
             if (isset($_SESSION['single'])) {
                 USession::$instance = $_SESSION['single'];
             }
             else {
+                session_start();
                 USession::$instance = new USession();
                 $_SESSION['single'] = USession::$instance;
             }

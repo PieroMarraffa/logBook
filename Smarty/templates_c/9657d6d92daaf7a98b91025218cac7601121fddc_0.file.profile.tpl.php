@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-24 17:03:18
+/* Smarty version 3.1.33, created on 2021-09-25 18:38:52
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614de8b64c8062_05414302',
+  'unifunc' => 'content_614f509c869dc5_37239666',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632495794,
+      1 => 1632587927,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614de8b64c8062_05414302 (Smarty_Internal_Template $_smarty_tpl) {
+function content_614f509c869dc5_37239666 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,6 +78,8 @@ function content_614de8b64c8062_05414302 (Smarty_Internal_Template $_smarty_tpl)
 
             <h2><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
 </b></h2>
+            <h5><?php echo $_smarty_tpl->tpl_vars['user']->value->getDescription();?>
+</h5>
         </div>
         <div class="col-md-1">
             <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
