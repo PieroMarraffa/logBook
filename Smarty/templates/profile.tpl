@@ -41,7 +41,7 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src="data:{$type};base64,{$pic64}" width="150" height="150" alt="...">
+            <img class="rounded-circle" src='data:{$type};charset=utf-8;base64,{$pic64}' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
 

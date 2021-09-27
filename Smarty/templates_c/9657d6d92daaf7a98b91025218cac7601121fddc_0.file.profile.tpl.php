@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-25 18:38:52
+/* Smarty version 3.1.33, created on 2021-09-27 10:17:38
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614f509c869dc5_37239666',
+  'unifunc' => 'content_61517e22b3e695_77858039',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632587927,
+      1 => 1632730635,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614f509c869dc5_37239666 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61517e22b3e695_77858039 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,9 +70,9 @@ function content_614f509c869dc5_37239666 (Smarty_Internal_Template $_smarty_tpl)
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src="data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
-;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value;?>
-" width="150" height="150" alt="...">
+            <img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value;?>
+' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
 

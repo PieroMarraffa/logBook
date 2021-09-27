@@ -11,13 +11,17 @@ class FImage extends FDataBase
 
     public function __constructor(){}
 
-    public static function bind($statement,EImage $image){
+    public static function bind($statement,EImage $image,$nome_file){
+
+        $path = $_FILES[$nome_file]['tmp_name'];
+        $file=fopen($path,'rb') or die ("Attenzione! Impossibile da aprire!");
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDtravel",$image->getTravelID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":ImageFile",base64_encode($image->getImageFile()), PDO::PARAM_STR);//NON SONO SICURO SIA PARAM_STRING
+        $statement->bindValue(":ImageFile",fread($file,filesize($path)), PDO::PARAM_LOB);
         $statement->bindValue(":Size",$image->getSize(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
-        $statement->bindValue(":Type",$image->getType(), PDO::PARAM_INT);
-
+        $statement->bindValue(":Type",$image->getType(), PDO::PARAM_STR);
+        unset($file);
+        unlink($path);
     }
 
     /**
@@ -48,9 +52,9 @@ class FImage extends FDataBase
      *se non è presente lo aggiunge e ritorna il relativo ID
      *altirmenti ritorna null
      */
-    public static function store(EImage $img){
+    public static function store(EImage $img, $nome_file){
         $database= FDataBase::getInstance();
-        $id=$database->storeInDB(self::getClass(),$img);
+        $id=$database->storeMediaInDB(self::getClass(),$img,$nome_file);
         return $id;
     }
 

@@ -2,7 +2,8 @@
 {assign var='error' value=$error|default:'ok'}
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <!--meta charset="utf-8" /-->
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -51,7 +52,7 @@
             {elseif $change=='description'}
                 <div class="col-md-5">
                     <label for="description">
-                        <textarea type="text" id="description" maxlength='100' cols="50" rows='3' class="fadeIn second" name="description" placeholder="insert here your profile's description" required></textarea>
+                        <textarea id="description" maxlength='100' cols="50" rows='3' class="fadeIn second" name="description" placeholder="insert here your profile's description" required></textarea>
                     </label>
                 </div>
             {/if}

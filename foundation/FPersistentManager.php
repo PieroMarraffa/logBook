@@ -11,6 +11,11 @@ class FPersistentManager
         return $id;
     }
 
+    public static function storeMedia(EImage $image,$nome_file){
+        $id=FImage::store($image,$nome_file);
+        return $id;
+    }
+
     public static function delete($field,$val,$Fclass){
         $Fclass::delete($field,$val);
         if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
@@ -75,7 +80,7 @@ class FPersistentManager
     }
 
     public static function storePlaceToUser($idUser,$idPlace){
-        User::storePlaceAssociatedToUser($idPlace,$idUser);
+        FUser::storePlaceAssociatedToUser($idPlace,$idUser);
     }
 
     public static function loadPlaceByPost($idPost){

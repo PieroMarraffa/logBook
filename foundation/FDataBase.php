@@ -883,7 +883,7 @@ class FDataBase
             $this->closeDbConnection();
             return $num;
         } catch (PDOException $e) {
-            echo "Attenzione erroreee: " . $e->getMessage();
+            echo "ERRORE: " . $e->getMessage();
             $this->database->rollBack();
             return null;
         }
@@ -900,7 +900,26 @@ class FDataBase
             $this->closeDbConnection();
             return $num;
         } catch (PDOException $e) {
-            echo "Attenzione errore: " . $e->getMessage();
+            echo "ERRORE: " . $e->getMessage();
+            $this->database->rollBack();
+            return null;
+        }
+    }
+
+    public function storeMediaInDB ($class , $obj,$nome_file) {
+        try {
+            $this->database->beginTransaction();
+            $query = "INSERT INTO ".$class::getTable()." VALUES ".$class::getValues();
+            $stmt = $this->database->prepare($query);
+            $class::bind($stmt,$obj,$nome_file);
+            $stmt->execute();
+            $id=$this->database->lastInsertId();
+            $this->database->commit();
+            $this->closeDbConnection();
+            return $id;
+        }
+        catch(PDOException $e) {
+            echo "ERRORE: ".$e->getMessage();
             $this->database->rollBack();
             return null;
         }

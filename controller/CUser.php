@@ -216,13 +216,13 @@ class CUser
                 //Il file è troppo grande
                 $ris = "size";
             }
-            elseif ($type == 'image/jpeg' || $type == 'image/jpg') {
+            elseif ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
                 $immagine = addslashes ($immagine);
                 $profile_image= new EImage($immagine,null,$size,$type);
-                $id=$pm->store($profile_image);
+                $id=$pm->storeMedia($profile_image,$nome_file);
                 $user->setImageID($id);
                 $pm->store($user);
                 //L'inserimento è adnato a buon fine, l'immagine e il nuovo user sono stati inseriti correttamente
@@ -300,10 +300,10 @@ class CUser
                     $img = static::updateImage($user,$nome_file);
                     switch ($img) {
                         case "size":
-                            $view->registrationError("size");
+                            $view->updateError("size");
                             break;
                         case "type":
-                            $view->registrationError("type");
+                            $view->updateError("type");
                             break;
                         case "ok":
                             header('Location: /logBook/User/profile');
@@ -401,15 +401,14 @@ class CUser
                 //Il file è troppo grande
                 $ris = "size";
             }
-            elseif ($type == 'image/jpeg' || $type == 'image/jpg') {
+            elseif ($type == 'image/jpeg' || $type == 'image/jpg'|| $type == 'image/png' ) {
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
                 $immagine = addslashes ($immagine);
                 $profile_image= new EImage($immagine,null,$size,$type);
-                $id=$pm->store($profile_image);
-                /** PROBLEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA */
-                $pm->update("Image",$id,$user->getUserID(),FUser::getClass()); /** INVECE DI METTEREM L'ID GIUSTO ASSOCIATO ALLO USER METTE 0 */
+                $id=$pm->storeMedia($profile_image,$nome_file);
+                $pm->update("Image",$id,$user->getUserID(),FUser::getClass());
                 $ris = "ok";
             }
             else {

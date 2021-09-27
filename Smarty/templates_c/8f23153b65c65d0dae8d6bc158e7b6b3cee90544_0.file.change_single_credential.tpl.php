@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-25 19:19:54
+/* Smarty version 3.1.33, created on 2021-09-27 10:31:02
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_single_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614f5a3a418267_72427407',
+  'unifunc' => 'content_61518146c2f429_00971911',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8f23153b65c65d0dae8d6bc158e7b6b3cee90544' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_single_credential.tpl',
-      1 => 1632590388,
+      1 => 1632731451,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614f5a3a418267_72427407 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61518146c2f429_00971911 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <!--meta charset="utf-8" /-->
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -81,7 +82,9 @@ function content_614f5a3a418267_72427407 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="file" name="file" >
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'description') {?>
                 <div class="col-md-5">
-                    <textarea type="text" id="description" maxlength='100' cols="50" rows='3' class="fadeIn second" name="description" placeholder="insert here your profile's description" required></textarea>
+                    <label for="description">
+                        <textarea id="description" maxlength='100' cols="50" rows='3' class="fadeIn second" name="description" placeholder="insert here your profile's description" required></textarea>
+                    </label>
                 </div>
             <?php }?>
             <input type="submit" class="fadeIn fourth" value="Submit">
