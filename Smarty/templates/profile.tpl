@@ -11,7 +11,6 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
-    <script type="text/javascript" src="../js/profile_map.js"></script>
     <script>
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -20,6 +19,15 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+    <style type="text/css">
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 600px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -30,10 +38,54 @@
 </nav>
 <!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
-
     <div id="map"></div>
-    <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWjZKrvCUmkvwtggiIfQkbtQJYFzeELRc&callback=initMap">
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
+
+    <script>
+
+
+        function initialize() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2.5,
+                center: new google.maps.LatLng(30,0),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var locations = [];
+            {if isset($array_place)}
+            {foreach $array_place as $a}
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng({$a->getLatitude()},{$a->getLongitude()}),
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
+            });
+            {/foreach}
+            {/if}
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            var iconBase = 'http://maps.google.com/mapfiles/ms/micons/';
+            var icons = [iconBase + 'red-dot.png',
+                iconBase + 'purple-pushpin.png',
+                iconBase + 'purple-pushpin.png'];
+
+
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    icon: icons[i]
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
     </script>
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->
 </header>

@@ -56,7 +56,7 @@ class VUser
     /**
      * @throws SmartyException
      */
-    public function profile($user, $image, $arrayPost){
+    public function profile($user, $image, $arrayPost,$arrayPlace){
         if(isset($image[0])){
         $this->smarty->assign('type', $image[0]->getType());
         $this->smarty->assign('pic64', base64_encode($image[0]->getImageFile()));}
@@ -68,6 +68,7 @@ class VUser
             $this->smarty->assign('pic64', $pic64);
         }
         //$this->smarty->assign('image',$image);
+        $this->smarty->assign('array_place',$arrayPlace);
         $this->smarty->assign('user',$user);
         $this->smarty->assign('email',$user->getMail());
         $this->smarty->assign('array_post',$arrayPost);

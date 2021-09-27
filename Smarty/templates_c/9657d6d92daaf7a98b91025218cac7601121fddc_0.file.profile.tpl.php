@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-27 17:44:01
+/* Smarty version 3.1.33, created on 2021-09-28 00:38:13
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6151e6c1483317_83597547',
+  'unifunc' => 'content_615247d53dc4c0_36120100',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632757425,
+      1 => 1632782291,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6151e6c1483317_83597547 (Smarty_Internal_Template $_smarty_tpl) {
+function content_615247d53dc4c0_36120100 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +35,6 @@ function content_6151e6c1483317_83597547 (Smarty_Internal_Template $_smarty_tpl)
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
     <?php echo '<script'; ?>
- type="text/javascript" src="../js/profile_map.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
 >
         function ready(){
             if (!navigator.cookieEnabled) {
@@ -47,6 +44,15 @@ function content_6151e6c1483317_83597547 (Smarty_Internal_Template $_smarty_tpl)
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
+    <style type="text/css">
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 600px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -57,11 +63,66 @@ function content_6151e6c1483317_83597547 (Smarty_Internal_Template $_smarty_tpl)
 </nav>
 <!-- Page header with logo and tagline-->
 <header class="py-5 bg-light border-bottom mb-4">
-
     <div id="map"></div>
+
     <?php echo '<script'; ?>
- async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWjZKrvCUmkvwtggiIfQkbtQJYFzeELRc&callback=initMap">
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+>
+
+    <?php echo '<script'; ?>
+>
+
+
+        function initialize() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2.5,
+                center: new google.maps.LatLng(30,0),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var locations = [];
+            <?php if (isset($_smarty_tpl->tpl_vars['array_place']->value)) {?>
+            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_place']->value, 'a');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+?>
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['a']->value->getLatitude();?>
+,<?php echo $_smarty_tpl->tpl_vars['a']->value->getLongitude();?>
+),
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
+            });
+            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            <?php }?>
+            var infowindow = new google.maps.InfoWindow();
+
+            var marker, i;
+
+            var iconBase = 'http://maps.google.com/mapfiles/ms/micons/';
+            var icons = [iconBase + 'red-dot.png',
+                iconBase + 'purple-pushpin.png',
+                iconBase + 'purple-pushpin.png'];
+
+
+            for (i = 0; i < locations.length; i++) {
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                    map: map,
+                    icon: icons[i]
+                });
+
+                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
+        }
     <?php echo '</script'; ?>
 >
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->

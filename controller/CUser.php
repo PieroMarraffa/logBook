@@ -136,7 +136,8 @@ class CUser
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-                $view->profile($user,$img,$arrayPost);
+                $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) */
+                $view->profile($user,$img,$arrayPost,$arrayPlace);
                 }
             } else
                 header('Location: /logBook/User/login');
