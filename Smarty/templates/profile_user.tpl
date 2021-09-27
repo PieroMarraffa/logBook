@@ -7,7 +7,7 @@
     <meta name="author" content="" />
     <title>Blog Home - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />

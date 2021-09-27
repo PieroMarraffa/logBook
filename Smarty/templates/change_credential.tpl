@@ -7,7 +7,7 @@
     <meta name="author" content="" />
     <title>Blog Home - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/password.png" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/password.jpg" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changePassword">Change Password -> </a></div>
@@ -76,7 +76,7 @@
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changeUsername">Change Username -> </a></div>
@@ -106,7 +106,7 @@
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
                         </div>
                     </div><a class="btn btn-primary my-3" href="/logBook/User/changeDescription">Change Description -> </a></div>
             </div>

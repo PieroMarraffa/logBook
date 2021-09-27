@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-25 17:52:55
+/* Smarty version 3.1.33, created on 2021-09-27 17:50:29
   from 'C:\xampp\htdocs\logBook\Smarty\templates\registration.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614f45d700d056_56896913',
+  'unifunc' => 'content_6151e845710ed2_89871888',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'af4f3b7a4f3fe5dc859305394d6598eba9b9a5f1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\registration.tpl',
-      1 => 1632500480,
+      1 => 1632757425,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614f45d700d056_56896913 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6151e845710ed2_89871888 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
@@ -33,7 +33,7 @@ $_smarty_tpl->_assignInScope('errorEmail', (($tmp = @$_smarty_tpl->tpl_vars['err
     <meta name="author" content="" />
     <title>Blog Post - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/login.css" rel="stylesheet" />
     <?php echo '<script'; ?>

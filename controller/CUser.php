@@ -209,7 +209,8 @@ class CUser
                 $pm->store($user);
                 $ris = "ok";
 
-        } else {
+        }
+        else {
             $size = $_FILES[$nome_file]['size'];
             $type = $_FILES[$nome_file]['type'];
             if ($size > $max_size) {
@@ -312,7 +313,6 @@ class CUser
             }
             elseif (isset($_POST['description'])){
                 $id=$user->getUserID();
-                echo $_POST['description'];
                 $pm->update('Description',$_POST['description'],$id,FUser::getClass());
                 $u=$pm->load('IDuser',$id,FUser::getClass());
                 $salvare = serialize($u);
@@ -409,6 +409,9 @@ class CUser
                 $profile_image= new EImage($immagine,null,$size,$type);
                 $id=$pm->storeMedia($profile_image,$nome_file);
                 $pm->update("Image",$id,$user->getUserID(),FUser::getClass());
+                $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
+                $salvare = serialize($u);
+                USession::setElement('user',$salvare);
                 $ris = "ok";
             }
             else {

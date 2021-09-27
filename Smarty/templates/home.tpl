@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Landing Page - Start Bootstrap Theme</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" /><link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet"  type="text/css"/>
 
@@ -22,6 +22,11 @@
     </script>
 
     <link rel="stylesheet" href="../css/styles.css">
+    <style type="text/css">
+        .bgimg {
+            background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -36,17 +41,21 @@
     </div>
 </nav>
 <!-- Masthead-->
-<header class="masthead" >
+<header class="masthead bgimg">
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-6">
-                <div class="text-center text-white">
+                <div class="text-center text-white" >
                     <!-- Page heading-->
-                    <h1 class="mb-5 text-dark" ><b>Go wherever you want...</b></h1>
+                    <h1 class="mb-5 text-light" ><b>Go wherever you want...</b></h1>
                     <form method="get" id="form_research" action="/logBook/Research/find">
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <select class="btn btn-primary" name="search">
+                                    <option value="1">Search for user</option>
+                                    <option value="2">Search for place</option>
+                                </select>
                                 <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                             </div>
                         </div>

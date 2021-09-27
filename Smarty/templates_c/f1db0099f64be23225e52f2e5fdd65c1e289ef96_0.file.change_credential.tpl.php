@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-25 20:16:20
+/* Smarty version 3.1.33, created on 2021-09-27 17:41:14
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614f6774493fd5_22090548',
+  'unifunc' => 'content_6151e61acec073_30195187',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f1db0099f64be23225e52f2e5fdd65c1e289ef96' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_credential.tpl',
-      1 => 1632593776,
+      1 => 1632757236,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6151e61acec073_30195187 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@ function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="" />
     <title>Blog Home - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
@@ -92,7 +92,7 @@ function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl)
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/password.png" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/password.jpg" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changePassword">Change Password -> </a></div>
@@ -107,7 +107,7 @@ function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl)
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changeUsername">Change Username -> </a></div>
@@ -137,7 +137,7 @@ function content_614f6774493fd5_22090548 (Smarty_Internal_Template $_smarty_tpl)
                             <p> Here u can change your email address</p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/user.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
                         </div>
                     </div><a class="btn btn-primary my-3" href="/logBook/User/changeDescription">Change Description -> </a></div>
             </div>

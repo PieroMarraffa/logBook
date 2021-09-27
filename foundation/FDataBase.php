@@ -514,7 +514,6 @@ class FDataBase
             }elseif ($num==1){
                 $x=$statement->fetch(PDO::FETCH_ASSOC);
                 $result=$this->loadById("user","IDuser",$x['IDuser']);
-                echo "CIAOOOOOOOOO";
             }elseif($num>1){
 
                 $resID=array();

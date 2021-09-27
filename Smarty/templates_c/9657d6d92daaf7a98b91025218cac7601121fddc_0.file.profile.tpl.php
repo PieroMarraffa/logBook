@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-27 10:17:38
+/* Smarty version 3.1.33, created on 2021-09-27 17:44:01
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61517e22b3e695_77858039',
+  'unifunc' => 'content_6151e6c1483317_83597547',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632730635,
+      1 => 1632757425,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61517e22b3e695_77858039 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6151e6c1483317_83597547 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +30,7 @@ function content_61517e22b3e695_77858039 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="" />
     <title>Blog Home - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-25 19:07:30
+/* Smarty version 3.1.33, created on 2021-09-27 18:50:53
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614f5752545498_01781226',
+  'unifunc' => 'content_6151f66d3a8c20_84734653',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1632589633,
+      1 => 1632761449,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614f5752545498_01781226 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6151f66d3a8c20_84734653 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -31,7 +31,7 @@ function content_614f5752545498_01781226 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="" />
     <title>Landing Page - Start Bootstrap Theme</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" /><link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet"  type="text/css"/>
 
@@ -47,6 +47,11 @@ function content_614f5752545498_01781226 (Smarty_Internal_Template $_smarty_tpl)
 >
 
     <link rel="stylesheet" href="../css/styles.css">
+    <style type="text/css">
+        .bgimg {
+            background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -62,17 +67,21 @@ function content_614f5752545498_01781226 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Masthead-->
-<header class="masthead" >
+<header class="masthead bgimg">
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-6">
-                <div class="text-center text-white">
+                <div class="text-center text-white" >
                     <!-- Page heading-->
-                    <h1 class="mb-5 text-dark" ><b>Go wherever you want...</b></h1>
+                    <h1 class="mb-5 text-light" ><b>Go wherever you want...</b></h1>
                     <form method="get" id="form_research" action="/logBook/Research/find">
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <select class="btn btn-primary" name="search">
+                                    <option value="1">Search for user</option>
+                                    <option value="2">Search for place</option>
+                                </select>
                                 <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                             </div>
                         </div>

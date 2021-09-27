@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-23 11:30:33
+/* Smarty version 3.1.33, created on 2021-09-27 17:45:11
   from 'C:\xampp\htdocs\logBook\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_614c4939ab05c4_41562640',
+  'unifunc' => 'content_6151e70789a1a8_21782282',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '340384769c41982828dc9359ec6afab1c1376dee' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\login.tpl',
-      1 => 1632389430,
+      1 => 1632757425,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_614c4939ab05c4_41562640 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6151e70789a1a8_21782282 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
@@ -31,7 +31,7 @@ function content_614c4939ab05c4_41562640 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="" />
     <title>Blog Post - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/login.css" rel="stylesheet" />
     <?php echo '<script'; ?>
