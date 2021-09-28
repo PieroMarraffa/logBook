@@ -13,7 +13,10 @@ class EUser
     private $likedPosts;
     private $personalPosts;
     private $visitedPlaces;
+    private $reported;
     private $banned;
+
+
 
     /**
      * EUser constructor.
@@ -26,7 +29,7 @@ class EUser
      * @param $description
      * @param $banned
      */
-    public function __construct( $email, $password, $name, $description, $IDimage, $username, $banned)
+    public function __construct( $email, $password, $name, $description, $IDimage, $username,$reported, $banned)
     {
         $this->userName = $username;
         $this->name = $name;
@@ -37,9 +40,42 @@ class EUser
         $this->likedPosts = array();
         $this->personalPosts = array();
         $this->visitedPlaces = array();
+        $this->reported=$reported;
         $this->banned = $banned;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getIDimage()
+    {
+        return $this->IDimage;
+    }
+
+    /**
+     * @param mixed $IDimage
+     */
+    public function setIDimage($IDimage): void
+    {
+        $this->IDimage = $IDimage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReported()
+    {
+        return $this->reported;
+    }
+
+    /**
+     * @param mixed $reported
+     */
+    public function setReported($reported): void
+    {
+        $this->reported = $reported;
+    }
 
     /**
      * @return mixed

@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2021-09-28 20:13:47
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_user.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_61535b5b13caa9_40405183',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '45d00cef41b4872df28c2d01f2d54c0b210b18f2' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_user.tpl',
+      1 => 1632852822,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_61535b5b13caa9_40405183 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,14 +35,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
 </head>
 <body>
 <!-- Navigation-->
@@ -36,45 +61,68 @@
 <!-- Section-->
 <section class="  py-5">
 
-    {if $userReported}
-        {foreach $userReported as $u}
+    <?php if ($_smarty_tpl->tpl_vars['userReported']->value) {?>
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['userReported']->value, 'u');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['u']->value) {
+?>
             <div class="col-md-3">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                     <div class="card-header">
                         <div class="flex-shrink-0"><img class="rounded-circle" width="100" height="100" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                         <div class="ms-3">
-                            <div class="fw-bold">{$user->getName()}<br><button onclick="remove()" id="bann" class="btn btn-primary">
+                            <div class="fw-bold"><?php echo $_smarty_tpl->tpl_vars['user']->value->getName();?>
+<br><button onclick="remove()" id="bann" class="btn btn-primary">
                                     Bann</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$a->getID()}">Go to the Profile → </a>
+                            <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['a']->value->getID();?>
+">Go to the Profile → </a>
                         </div>
                     </div>
                 </div>
             </div>
-        {/foreach}
-    {/if}
-    {if $userBanned}
-        {foreach $userBanned as $u}
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+    <?php }?>
+    <?php if ($_smarty_tpl->tpl_vars['userBanned']->value) {?>
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['userBanned']->value, 'u');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['u']->value) {
+?>
             <div class="col-md-3">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                     <div class="card-header">
                         <div class="flex-shrink-0"><img class="rounded-circle" width="100" height="100" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                         <div class="ms-3">
-                            <div class="fw-bold">{$u->getName()}<br><button onclick="remove()" id="bann" class="btn btn-primary">
+                            <div class="fw-bold"><?php echo $_smarty_tpl->tpl_vars['u']->value->getName();?>
+<br><button onclick="remove()" id="bann" class="btn btn-primary">
                                     Bann</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$u->getID()}">Go to the Profile → </a>
+                            <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['u']->value->getID();?>
+">Go to the Profile → </a>
                         </div>
                     </div>
                 </div>
             </div>
-        {/foreach}
-    {/if}
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+    <?php }?>
 
 </section>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
+</html><?php }
+}
