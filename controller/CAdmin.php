@@ -13,6 +13,9 @@ class CAdmin
         return $identificato;
     }
 
+    /**
+     * @throws SmartyException
+     */
     static function adminHome(){
         $pm=new FPersistentManager();
         $view=new VAdmin();

@@ -13,11 +13,8 @@ class CUser
     static function home(){
         $pm = new FPersistentManager();
         $view = new VUser();
-        if(CAdmin::isAdminLogged()){
-            CAdmin::adminHome();
-        }
-        $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-        $result[] = $pm->load("IDpost",1,FPost::getClass());
+        $result=array();
+        $result[] = $pm->load("IDpost",1,FPost::getClass());       /** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
         $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
         $result[] = $pm->load("IDpost",3,FPost::getClass());
         $result[] = $pm->load("IDpost",4,FPost::getClass());
@@ -80,7 +77,6 @@ class CUser
      */
     static function checkLogin(){
         $view = new VUser();
-        $viewAdmin=new VAdmin();
         $pm = new FPersistentManager();
         $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
         $admin=$pm->loadAdmin("IDadmin",1);
@@ -113,12 +109,11 @@ class CUser
                 USession::getInstance();
                 $salvare = serialize($admin);
                 USession::setElement('user',$salvare);
-                USession::setElement('admin',true);
                 /**if(isset($_COOKIE[''])){
                                                                 //Se vogliamo mettere dei cookie vanno qui
                 }
                 else*/
-                CAdmin::adminHome();
+                header('Location: /logBook/Admin/adminHome');
             }
 
         }

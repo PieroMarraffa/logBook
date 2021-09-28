@@ -92,7 +92,7 @@ class FUser extends FDataBase
             if(($result != null) && ($rows_number > 1)){
                 $user = array();
                 for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result[$i]['Email'],$result[$i]['Password'],$result[$i]['Name'],$result[$i]['Description'],$result[$i]['IDimage'], $result[$i]['UserName'],$result[$i]['Reported'],$result[$i]['Banned']);
+                    $user[] = new EUser($result[$i]['Email'],$result[$i]['Password'],$result[$i]['Name'],$result[$i]['Description'],$result[$i]['Image'], $result[$i]['UserName'],$result[$i]['Reported'],$result[$i]['Banned']);
                     $user[$i]->setUserID($result[$i]['IDuser']);
                 }
             }
