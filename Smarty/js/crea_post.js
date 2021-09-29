@@ -4,7 +4,7 @@
     nuovo_elemento.setAttribute("id","quadro"+parseInt(document.getElementById("container").childNodes.length+1));
     nuovo_elemento.setAttribute("class","quadrato");
     nuovo_elemento.innerHTML=
-        "<form method='post' action='/logBook/CreatePost/create'><div class='card'>" +
+        "<form method='post' action='/logBook/Post/create_post'><div class='card'>" +
         "<div class='card-header'>" +
         "<textarea class='form-control' name='titleExperience' rows='1' maxlength='49' placeholder='Insert title here'> </textarea>" +
         "<div class='row py-2'>" +
