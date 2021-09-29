@@ -49,8 +49,10 @@ class CUser
         //se nell'url viene immesso il pattern /User/login
         if($_SERVER['REQUEST_METHOD']=="GET"){   //Serve a controllare quello che viene scritto all'interno della url, se viene scritto nell'url può essere solo un reindirizzamento ad un'altra pagina
             if(static::isLogged()) {
-                USession::getInstance();
-                //$user=unserialize(USession::getElement('user'));
+                $utente = unserialize(USession::getElement('user'));
+                $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
+                if (isset($adm))
+                    header('Location: /logBook/Admin/adminHome');
                 $pm = new FPersistentManager();
                 $view = new VUser();
                 $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */

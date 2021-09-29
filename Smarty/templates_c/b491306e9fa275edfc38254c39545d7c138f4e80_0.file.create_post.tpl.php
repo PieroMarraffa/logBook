@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2021-09-29 12:13:36
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_61543c500138e8_29502846',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'b491306e9fa275edfc38254c39545d7c138f4e80' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
+      1 => 1632910414,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_61543c500138e8_29502846 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8" />
@@ -10,15 +33,19 @@
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
-    <script src="/logBook/Smarty/js/crea_post.js"></script>
+    <?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/logBook/Smarty/js/crea_post.js"><?php echo '</script'; ?>
+>
 </head>
 <body>
 <!-- Navigation-->
@@ -73,7 +100,10 @@
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
 </footer>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 
 </body>
-</html>
+</html><?php }
+}

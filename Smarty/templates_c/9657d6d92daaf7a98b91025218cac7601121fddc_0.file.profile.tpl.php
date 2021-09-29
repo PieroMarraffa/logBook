@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 01:08:49
+/* Smarty version 3.1.33, created on 2021-09-29 12:00:42
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61524f01f32275_80913997',
+  'unifunc' => 'content_6154394ad4a836_44457047',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632784126,
+      1 => 1632909555,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61524f01f32275_80913997 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6154394ad4a836_44457047 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,7 +146,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
         </div>
         <div class="col-md-1">
-            <a class="btn btn-primary" href="  ">+ Post</a>
+            <a class="btn btn-primary" href="/logBook/Post/create_post">+ Post</a>
         </div>
         <div class="col-md-1">
             <a class="btn btn-primary" href="/logBook/User/logout">Logout</a>

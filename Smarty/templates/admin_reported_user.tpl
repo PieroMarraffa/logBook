@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{assign var='immagine' value=$immagine|default:'ok'}
+{assign var='immagine_1' value=$immagine_1|default:'ok'}
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -26,7 +28,7 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <div class="col-md-4">
-        <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></div>
+        <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
         <div class="col-md-2">
         <a href="/logBook/Admin/reported_comment">Reported comments</a></div>
         <div class="col-md-2">
@@ -38,43 +40,58 @@
     </div>
 </nav>
 <!-- Section-->
-<section class=" py-5">
-<div align="center">
+<section>
+<div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Reported User</h4></p></div>
+<div class="row" align="center">
     {if $userReported}
-    {if is_array($userReported)}
-        {foreach $userReported as $u}
+        {if is_array($userReported)}
+            {for $i=0 to count($userReported)-1}
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                     <div class="card-header">
-                        <div class="flex-shrink-0"><img class="rounded-circle" width="100" height="100" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                        {if $immagine_1 == 'ok'}
+                            <img class="rounded-circle ml-3" width="100" height="100" src="data:{$typeR[$i]};base64,{$pic64R[$i]}"  alt="profile picture" />
+                        {else}
+                            <img class=" ml-3" width="100" height="100" src="/logBook/Smarty/immagini/user.png"  alt="profile picture" />
+                        {/if}
                         <div class="ms-3">
-                            <div class="fw-bold">{$u->getUsername()}<br><button onclick="remove()" id="bann" class="btn btn-primary mx-3">
-                                     Bann</button><button onclick="remove()" id="ignore" class="btn btn-primary mx-3"> Ignore</button>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$u->getUserID()}"> Go to the Profile → </a></div>
+                            <div class="fw-bold"><h4>{$userReported[$i]->getUsername()}</h4><br><a href="/logBook/Admin/banUser/{$userReported[$i]->getUserID()}" id="bann" class="btn btn-primary mx-3">
+                                     Bann</a><a href="/logBook/Admin/ignoreUser/{$userReported[$i]->getUserID()}" id="ignore" class="btn btn-primary mx-3"> Ignore</a>
+                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$userReported[$i]->getUserID()}"> Go to the Profile → </a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        {/foreach}
+            {/for}
         {/if}
     {/if}
+    </div>
+    <div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Banned User</h4></p></div>
+
+    <div class="row" align="center">
     {if $userBanned}
-        {foreach $userBanned as $u}
-            <div class="col-md-4">
+        {if is_array($userBanned)}
+            {for $i=0 to count($userBanned)-1}
+            <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                     <div class="card-header">
-                        <div class="flex-shrink-0"><img class="rounded-circle" width="100" height="100" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                        <div class="ms-3">
-                            <div class="fw-bold">{$u->getName()}<br><button onclick="remove()" id="bann" class="btn btn-primary">
-                                    Bann</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$u->getID()}">Go to the Profile → </a>
+                        {if $immagine_1 == 'ok'}
+                            <img class="rounded-circle ml-3" width="100" height="100" src="data:{$typeB[$i]};base64,{$pic64B[$i]}"  alt="profile picture" />
+                        {else}
+                            <img class=" ml-3" width="100" height="100" src="/logBook/Smarty/immagini/user.png"  alt="profile picture" />
+                        {/if}
+                            <div class="ms-3">
+                                <div class="fw-bold"><h4>{$userBanned[$i]->getUsername()}</h4><br><a href="/logBook/Admin/restoreUser/{$userBanned[$i]->getUserID()}" id="restore" class="btn btn-primary mx-3">
+                                Restore User</a>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {/foreach}
+            {/for}
+        {/if}
     {/if}
 </div>
 </section>

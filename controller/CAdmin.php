@@ -19,9 +19,34 @@ class CAdmin
     static function adminHome(){
         $pm=new FPersistentManager();
         $view=new VAdmin();
+        $image_reported=array();
+        $image_banned=array();
         $array_banned=$pm->load("Banned",true,FUser::getClass());
+        if(is_object($array_banned)){
+            $array_b=array();
+            $array_b[]=$array_banned;
+        }else{
+            $array_b=$array_banned;
+        }
         $array_reported=$pm->load("Reported",true,FUser::getClass());
-        $view->adminHomePage($array_banned,$array_reported);
+        if(is_object($array_reported)){
+            $array_r=array();
+            $array_r[]=$array_reported;
+        }else{
+            $array_r=$array_reported;
+        }
+        foreach ($array_r as $a){
+            $id=$a->getImageID();
+            $img=$pm->load("IDimage",$id,FImage::getClass());
+            $image_reported[]=$img;
+        }
+        if(isset($array_b[0])){
+        foreach ($array_b as $a){
+            $id=$a->getImageID();
+            $img=$pm->load("IDimage",$id,FImage::getClass());
+            $image_banned[]=$img;
+        }}else $array_b=array();
+        $view->adminHomePage($array_b,$array_r,$image_reported,$image_banned);
     }
 
     static function adminLogout(){
@@ -30,85 +55,34 @@ class CAdmin
         session_destroy();
         header('Location: /logBook/User/login');
     }
+
+
     /**
-     *
+     * @throws SmartyException
      */
-    static function verificaCredenziali() {
-
-        $session = new USession();
-        $view = new VAdmin();
-        $email = $session->getElement('email');
-        $pw = $session->getElement('password');
-        $logged = FPersistentManager::checkAdminCredentials($email, $pw);
-
-        if ($logged){
-
-           self::getReportedPost();
-
-        }else{
-
-            $view->loginForm();
-
-        }
+    static function banUser($userID){
+        $pm=new FPersistentManager();
+        $pm->update("Reported",0,$userID,FUser::getClass());
+        $pm->update("Banned",1,$userID,FUser::getClass());
+        header('Location: /logBook/Admin/adminHome');
     }
 
-    static function getReportedPost(){
-        $view = new VAdmin();
-        $reportedPosts = FPersistentManager::loadReportedPosts();
-        $view->toAdminHomepage($reportedPosts);
+    /**
+     * @throws SmartyException
+     */
+    static function ignoreUser($userID){
+        $pm=new FPersistentManager();
+        $pm->update("Reported",0,$userID,FUser::getClass());
+        header('Location: /logBook/Admin/adminHome');
     }
 
-    static function deletePost(){
-        $session = new USession();
-        $postID = $session->getElement('IDpost');
-        FPersistentManager::deletePost($postID);
-        self::getReportedPost();
+    static function restoreUser($userID){
+        $pm=new FPersistentManager();
+        $pm->update("Banned",0,$userID,FUser::getClass());
+        header('Location: /logBook/Admin/adminHome');
     }
 
-    static function restorePost(){
-        $session = new USession();
-        $postID = $session->getElement('IDpost');
-        FPersistentManager::restorePost($postID);
-        self::getReportedPost();
-    }
 
-    static function getReportedComments(){
-        $view = new VAdmin();
-        $reportedComments = FPersistentManager::loadReportedComments();
-        $view->toReportedComments($reportedComments);
-    }
 
-    static function deleteComment(){
-        $session = new USession();
-        $commentID = $session->getElement('IDcomment');
-        FPersistentManager::deleteComment($commentID);
-        self::getReportedComments();
-    }
 
-    static function restoreComment(){
-        $session = new USession();
-        $commentID = $session->getElement('IDcomment');
-        FPersistentManager::restoreComment($commentID);
-        self::getReportedComments();
-    }
-
-    static function getReportedUsers(){
-        $view = new VAdmin();
-        $reportedUsers = FPersistentManager::loadReportedUsers();
-        $view->toReportedUsers($reportedUsers);
-    }
-
-    static function deleteUsers(){
-        $session = new USession();
-        $userID = $session->getElement('IDuser');
-        FPersistentManager::deleteUser($userID);
-        self::getReportedUsers();
-    }
-
-    static function restoreUser(){
-        $session = new USession();
-        $userID = $session->getElement('IDuser');
-        FPersistentManager::restoreUser($userID);
-        self::getReportedUsers();
-    }
 }
