@@ -18,7 +18,7 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
-    <script src="../js/crea_post.js"></script>
+    <script src="/logBook/Smarty/js/crea_post.js"></script>
 </head>
 <body>
 <!-- Navigation-->
@@ -28,7 +28,7 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/CreatePost/createPost">
+    <form method="post" id="form_create_post" action="/logBook/Post/create_post">
     <div class="row">
         <div class="col-md-9">
             <div class="card">

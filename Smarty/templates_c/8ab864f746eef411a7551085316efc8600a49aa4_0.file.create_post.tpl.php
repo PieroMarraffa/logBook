@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 16:20:24
+/* Smarty version 3.1.33, created on 2021-09-29 12:04:51
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_615324a8285e38_88743591',
+  'unifunc' => 'content_61543a43220fe6_40985030',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1632778010,
+      1 => 1632909888,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_615324a8285e38_88743591 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61543a43220fe6_40985030 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -44,7 +44,7 @@ function content_615324a8285e38_88743591 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="../js/crea_post.js"><?php echo '</script'; ?>
+ src="/logBook/Smarty/js/crea_post.js"><?php echo '</script'; ?>
 >
 </head>
 <body>
@@ -55,7 +55,7 @@ function content_615324a8285e38_88743591 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/CreatePost/createPost">
+    <form method="post" id="form_create_post" action="/logBook/Post/create_post">
     <div class="row">
         <div class="col-md-9">
             <div class="card">

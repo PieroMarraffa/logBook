@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 15:59:26
+/* Smarty version 3.1.33, created on 2021-09-29 12:00:18
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61531fbe37e403_46185419',
+  'unifunc' => 'content_61543932337735_07877369',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
-      1 => 1632837566,
+      1 => 1632909509,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61531fbe37e403_46185419 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61543932337735_07877369 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +62,7 @@ function content_61531fbe37e403_46185419 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
-<header class="py-5 bg-light border-bottom mb-4">
+<header class="bg-light border-bottom mb-4">
     <div id="map"></div>
 
     <?php echo '<script'; ?>
