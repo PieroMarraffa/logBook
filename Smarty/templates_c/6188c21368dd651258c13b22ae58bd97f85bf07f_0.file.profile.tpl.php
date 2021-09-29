@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.33, created on 2021-09-28 15:59:26
+  from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_61531fbe37e403_46185419',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
+    array (
+      0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
+      1 => 1632837566,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_61531fbe37e403_46185419 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,14 +34,16 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
     <style type="text/css">
         /* Set the size of the div element that contains the map */
         #map {
@@ -40,9 +65,12 @@
 <header class="py-5 bg-light border-bottom mb-4">
     <div id="map"></div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
+    <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+>
 
-    <script>
+    <?php echo '<script'; ?>
+>
 
 
         function initialize() {
@@ -52,15 +80,24 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var locations = [];
-            {if isset($array_place)}
-            {foreach $array_place as $a}
+            <?php if (isset($_smarty_tpl->tpl_vars['array_place']->value)) {?>
+            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_place']->value, 'a');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+?>
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng({$a->getLatitude()},{$a->getLongitude()}),
+                position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['a']->value->getLatitude();?>
+,<?php echo $_smarty_tpl->tpl_vars['a']->value->getLongitude();?>
+),
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
             });
-            {/foreach}
-            {/if}
+            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            <?php }?>
             var infowindow = new google.maps.InfoWindow();
 
             var marker, i;
@@ -86,19 +123,24 @@
                 })(marker, i));
             }
         }
-    </script>
+    <?php echo '</script'; ?>
+>
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->
 </header>
 <!-- Page content-->
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src='data:{$type};charset=utf-8;base64,{$pic64}' width="150" height="150" alt="...">
+            <img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value;?>
+' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
 
-            <h2><b>{$user->getUsername()}</b></h2>
-            <h5>{$user->getDescription()}</h5>
+            <h2><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
+</b></h2>
+            <h5><?php echo $_smarty_tpl->tpl_vars['user']->value->getDescription();?>
+</h5>
         </div>
         <div class="col-md-1">
             <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
@@ -116,9 +158,13 @@
 <div class="container my-5">
     <div class="row">
         <!-- Blog entries-->
-        {if $user->getPostList()}
-        {if isset($user->getPostList())}
-            {foreach $user->getPostList() as $p}
+        <?php if ($_smarty_tpl->tpl_vars['user']->value->getPostList()) {?>
+        <?php if ((($_smarty_tpl->tpl_vars['user']->value->getPostList() !== null ))) {?>
+            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['user']->value->getPostList(), 'p');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
+?>
 
                 <div class="row">
                     <!-- Blog post-->
@@ -126,17 +172,24 @@
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
                             <div class="card-body">
-                                <div class="small text-muted">{$p->getDate()}</div>
-                                <h2 class="card-title h4">{$p->getPostTitle()}</h2>
-                                <p class="card-text">{$p->getDescription()}</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$p->getID()}">Go to the Post →</a>
+                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDate();?>
+</div>
+                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getPostTitle();?>
+</h2>
+                                <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDescription();?>
+</p>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getID();?>
+">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            {/foreach}
-        {/if}
-        {/if}
+            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+        <?php }?>
+        <?php }?>
     </div>
 </div>
 <!-- Footer-->
@@ -144,8 +197,13 @@
     <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
 </footer>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
+</html><?php }
+}

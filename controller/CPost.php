@@ -12,11 +12,11 @@ class CPost{
         $view->salvaPost($title, $img, $description);
     }
 
-    public static function creaPost(){
+    public static function create_post(){
         $view = new VPost();
-        $creatorId = USession::getElement('IDuser');
-        $creatorUsername = USession::getElement('username');
-        $view->creaPost($creatorId,$creatorUsername);
+        //$creatorId = USession::getElement('IDuser');
+        //$creatorUsername = USession::getElement('username');
+        $view->create_post();
     }
 
     public static function deletePost(){

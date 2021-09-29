@@ -22,9 +22,12 @@ class VPost
         $this->smarty->display('home_logged.tpl');
     }
 
-    public function creaPost($creatorId,$creatorUsername){
-        $this->smarty->assign('creatorID', $creatorId);
-        $this->smarty->assign('creatoUsername',$creatorUsername);
-        $this->smarty->display('create_post.html');
+    /**
+     * @throws SmartyException
+     */
+    public function create_post(){
+        //$this->smarty->assign('creatorID', $creatorId);
+        //$this->smarty->assign('creatoUsername',$creatorUsername);
+        $this->smarty->display('create_post.tpl');
     }
 }
