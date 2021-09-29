@@ -45,10 +45,13 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var locations = [];
-
-            {if $array_place}
+            {if isset($array_place)}
             {foreach $array_place as $a}
-            locations.push(['<span style="font-weight: bold"></span>, {$a->getName()}',undefined{$a->getLatitude()}, {$a->getLongitude()}]);
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng({$a->getLatitude()},{$a->getLongitude()}),
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
+            });
             {/foreach}
             {/if}
             var infowindow = new google.maps.InfoWindow();
@@ -83,12 +86,15 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-2">
-            <img class="rounded-circle" src="data:{$type};base64,{$user->getProfileImage()}" width="150" height="150">
+            <img class="rounded-circle" src='data:{$type};charset=utf-8;base64,{$pic64}' width="150" height="150" alt="...">
+        </div>
+        <div class="col-md-6">
+
+            <h2><b>{$user->getUsername()}</b></h2>
+            <h5>{$user->getDescription()}</h5>
         </div>
         <div class="col-md-2">
-            <h1><b>{$user->getUsername()}</b></h1>
-        </div>
-        <div class="col-md-5">
+            <div class="btn btn-danger align-content-center" ><a class="navbar-brand" href="/logBook/Ricerca/report"><img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt=""></a></div>
         </div>
     </div>
 </div>

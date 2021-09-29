@@ -17,9 +17,13 @@ class VAdmin
     }
 
 
-    public function toAdminHomepage($array){
-        $this->smarty->assign('reportedPosts', $array);
-        $this->smarty->display('admin_reported_posts.tpl');
+    /**
+     * @throws SmartyException
+     */
+    public function adminHomepage( $array_banned,$array_reported){
+        $this->smarty->assign('userReported', $array_reported);
+        $this->smarty->assign('userBanned', $array_banned);
+        $this->smarty->display('admin_reported_user.tpl');
     }
 
     public function loginForm(){

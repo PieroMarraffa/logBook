@@ -23,6 +23,9 @@ class VUser
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
             $user=unserialize($u);
+            $adm = FPersistentManager::loadAdmin("Email", $user->getMail());
+            if (isset($adm))
+                header('Location: /logBook/Admin/adminHome');
             $this->smarty->assign('username',$user->getUserName());}
         else
             $this->smarty->assign('userlogged','nouser');

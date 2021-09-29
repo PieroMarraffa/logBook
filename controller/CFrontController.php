@@ -45,11 +45,10 @@ class CFrontController
 
                     } else {
                         if (CUser::isLogged()) {
-
                             $utente = unserialize(USession::getElement('user'));
                             $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                             if (isset($adm))
-                                CUser::home(); /** dobbiamo vede che metterci */
+                                header('Location: /logBook/Admin/adminHome'); /** dobbiamo vede che metterci */
                             else {
                                 //$smarty = StartSmarty::configuration();
                                 //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
@@ -65,7 +64,7 @@ class CFrontController
                         $utente = unserialize(USession::getElement('user'));
                         $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                         if (isset($adm))
-                            CUser::home();
+                            header('Location: /logBook/Admin/adminHome');
                         else {
                             //$smarty = StartSmarty::configuration();
                             //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
@@ -82,7 +81,7 @@ class CFrontController
                     $utente = unserialize(USession::getElement('user'));
                     $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                     if (isset($adm))
-                        CUser::home();
+                        header('Location: /logBook/Admin/adminHome');
                     else {
                         //$smarty = StartSmarty::configuration();
                         //CRicerca::trasportiHome();/** dobbiamo vede che metterci */

@@ -3,6 +3,33 @@
 
 class CAdmin
 {
+
+
+    static function isAdminLogged(){
+        $identificato = false;
+        if(USession::getIsSet('admin')){
+                $identificato = true;
+        }
+        return $identificato;
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    static function adminHome(){
+        $pm=new FPersistentManager();
+        $view=new VAdmin();
+        $array_banned=$pm->load("Banned",true,FUser::getClass());
+        $array_reported=$pm->load("Reported",true,FUser::getClass());
+        $view->adminHomePage($array_banned,$array_reported);
+    }
+
+    static function adminLogout(){
+        session_start();
+        session_unset();
+        session_destroy();
+        header('Location: /logBook/User/login');
+    }
     /**
      *
      */

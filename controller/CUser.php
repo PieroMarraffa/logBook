@@ -4,7 +4,6 @@ require 'utility/UCookie.php';
 require 'utility/USession.php';
 require 'utility/UServer.php';
 
-/** FARE IL METODO PER AGGIUNGERE LA DESCRIPTION AL PROFILO */
 
 class CUser
 {
@@ -14,8 +13,8 @@ class CUser
     static function home(){
         $pm = new FPersistentManager();
         $view = new VUser();
-        $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-        $result[] = $pm->load("IDpost",1,FPost::getClass());
+        $result=array();
+        $result[] = $pm->load("IDpost",1,FPost::getClass());       /** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
         $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
         $result[] = $pm->load("IDpost",3,FPost::getClass());
         $result[] = $pm->load("IDpost",4,FPost::getClass());
@@ -114,7 +113,7 @@ class CUser
                                                                 //Se vogliamo mettere dei cookie vanno qui
                 }
                 else*/
-                header('Location: /FillSpaceWEB/Admin/homepage');
+                header('Location: /logBook/Admin/adminHome');
             }
 
         }
@@ -179,7 +178,7 @@ class CUser
             if ($verifiemail){
                 $view->registrationError("email");}
             else{
-                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", null,$_POST['username'],false);
+                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", null,$_POST['username'],false,false);
                 if ($user != null) {
                     if (isset($_FILES['file'])) {
                         $nome_file = 'file';

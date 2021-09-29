@@ -37,7 +37,7 @@
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
-<header class="py-5 bg-light border-bottom mb-4">
+<header class="bg-light border-bottom mb-4">
     <div id="map"></div>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
