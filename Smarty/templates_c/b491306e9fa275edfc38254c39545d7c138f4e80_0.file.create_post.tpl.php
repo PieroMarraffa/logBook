@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-29 12:13:36
+/* Smarty version 3.1.33, created on 2021-09-30 14:26:07
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61543c500138e8_29502846',
+  'unifunc' => 'content_6155acdf277f98_53151298',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1632910414,
+      1 => 1633004763,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61543c500138e8_29502846 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6155acdf277f98_53151298 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -83,10 +83,10 @@ function content_61543c500138e8_29502846 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-3" >
             <div class="row">
-                <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+                <button type="button" class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
             </div>
             <div class="row">
-                <button class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
                 <div id="container2" class="containerpy-3">
             </div>

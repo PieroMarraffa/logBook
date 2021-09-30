@@ -56,10 +56,10 @@
         </div>
         <div class="col-md-3" >
             <div class="row">
-                <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+                <button type="button" class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
             </div>
             <div class="row">
-                <button class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
                 <div id="container2" class="containerpy-3">
             </div>
