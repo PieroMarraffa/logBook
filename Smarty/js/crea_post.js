@@ -31,13 +31,13 @@
 
     function creaImage(){
         nuovo_elemento = document.createElement("div");
-        nuovo_elemento.setAttribute("id","quadro"+parseInt(document.getElementById("container2").childNodes.length+1));
+        nuovo_elemento.setAttribute("id","quadretto"+parseInt(document.getElementById("container2").childNodes.length+1));
         nuovo_elemento.setAttribute("class","quadrato");
         nuovo_elemento.innerHTML=
             "<div class='card'>" +
             "<input class='btn btn-primary my-1' type='file' id='image' accept='image/png, image/jpeg'></div>";
         document.getElementById("container2").appendChild(nuovo_elemento);
-        obj=eval("document.getElementById(\"quadro"+parseInt(document.getElementById("container2").childNodes.length)+"\")");
+        obj=eval("document.getElementById(\"quadretto"+parseInt(document.getElementById("container2").childNodes.length)+"\")");
         obj.style.height="70px";
         obj.style.width="300px";
     }

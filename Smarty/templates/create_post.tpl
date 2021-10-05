@@ -32,36 +32,35 @@
     <div class="row">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-body">
 
-                        <div class="row-cols-5">
-                            <div class="col-md-11 py-4">
+                        <div class="col-md-11 py-4">
 
-                                <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
-                                <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                            <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                        </div>
+                        <a name="experiences"></a>
+                        <div class="col-md-8">
+
+                            <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-8">
-                                <div class="container py-3" id="container">
-                                </div>
-                                <div class="col-md-4">
-                                    <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
-                                </div>
-
+                            <div class="col-md-4">
+                                <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
                             </div>
+
                         </div>
 
-                </div>
             </div>
         </div>
         <div class="col-md-3" >
             <div class="row">
-                <button type="button" class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+                <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-                <div id="container2" class="containerpy-3">
+
+                <div id="container2" class="col">
             </div>
 
         </div>

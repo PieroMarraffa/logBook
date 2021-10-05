@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-30 14:26:07
+/* Smarty version 3.1.33, created on 2021-10-05 17:32:00
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6155acdf277f98_53151298',
+  'unifunc' => 'content_615c6ff0730cd2_27834496',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1633004763,
+      1 => 1633447918,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6155acdf277f98_53151298 (Smarty_Internal_Template $_smarty_tpl) {
+function content_615c6ff0730cd2_27834496 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -59,36 +59,35 @@ function content_6155acdf277f98_53151298 (Smarty_Internal_Template $_smarty_tpl)
     <div class="row">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-body">
 
-                        <div class="row-cols-5">
-                            <div class="col-md-11 py-4">
+                        <div class="col-md-11 py-4">
 
-                                <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
-                                <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                            <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                        </div>
+                        <a name="experiences"></a>
+                        <div class="col-md-8">
+
+                            <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-8">
-                                <div class="container py-3" id="container">
-                                </div>
-                                <div class="col-md-4">
-                                    <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
-                                </div>
-
+                            <div class="col-md-4">
+                                <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
                             </div>
+
                         </div>
 
-                </div>
             </div>
         </div>
         <div class="col-md-3" >
             <div class="row">
-                <button type="button" class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+                <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-                <div id="container2" class="containerpy-3">
+
+                <div id="container2" class="col">
             </div>
 
         </div>
