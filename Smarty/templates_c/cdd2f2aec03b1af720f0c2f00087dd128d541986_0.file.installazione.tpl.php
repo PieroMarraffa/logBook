@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-21 11:15:15
+/* Smarty version 3.1.33, created on 2021-10-05 17:43:37
   from 'C:\xampp\htdocs\logBook\Smarty\templates\installazione.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6149a2a3714d80_36403128',
+  'unifunc' => 'content_615c72a952b702_95214990',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cdd2f2aec03b1af720f0c2f00087dd128d541986' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\installazione.tpl',
-      1 => 1631898245,
+      1 => 1632757425,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6149a2a3714d80_36403128 (Smarty_Internal_Template $_smarty_tpl) {
+function content_615c72a952b702_95214990 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -30,6 +30,8 @@ function content_6149a2a3714d80_36403128 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="">
 
     <title>Installazione</title>
+
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/cover/">
 
