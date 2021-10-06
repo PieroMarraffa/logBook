@@ -65,6 +65,9 @@ class FPersistentManager
         return $result;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function loadPostByPlace($id){
         $result = FPlace::loadPostByPlace($id);
         return $result;

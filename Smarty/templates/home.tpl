@@ -21,7 +21,7 @@
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="logBook/Smarty/css/styles.css">
     <style type="text/css">
         .bgimg {
             background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
@@ -48,14 +48,16 @@
                 <div class="text-center text-white" >
                     <!-- Page heading-->
                     <h1 class="mb-5 text-light" ><b>Go wherever you want...</b></h1>
-                    <form method="get" id="form_research" action="/logBook/Research/find">
+                    <form method="post" id="form_research" action="/logBook/Research/find">
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <select class="btn btn-primary" name="search">
-                                    <option value="1">Search for user</option>
-                                    <option value="2">Search for place</option>
-                                </select>
+                                <label>
+                                    <select class="btn btn-primary" name="search">
+                                        <option value="1" id="1" >Search for user</option>
+                                        <option value="2" id="2" >Search for place</option>
+                                    </select>
+                                </label>
                                 <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                             </div>
                         </div>

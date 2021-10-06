@@ -26,24 +26,32 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
-        <form method="get" action="/logBook/Research/find">
-            <div class="row">
-                <div class="input-group">
-                    <input class="form-control" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                    <select class="btn btn-primary" name="search">
-                        <option value="1">Search for user</option>
-                        <option value="2">Search for place</option>
-                    </select>
-                    <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+        <div class="col-md-3">
+            <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        </div>
+        <div class="col-md-6 py-3">
+            <form method="post" id="form_research" action="/logBook/Research/find">
+                <div class="row">
+                    <div class="input-group">
+                        <input class="form-control" name="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                        <label>
+                            <select class="btn btn-primary" name="search">
+                                <option value="1">Search for user</option>
+                                <option value="2">Search for place</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="col-auto">
         {if $userlogged!='nouser'}
-            <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
-        {else}
             <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
+        {else}
+            <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
         {/if}
+        </div>
     </div>
 </nav>
 <!-- Section-->
@@ -53,30 +61,32 @@
         <!-- Blog entries-->
         {if $arrayUser}
         {if isset($arrayUser)}
-        {for $j = 0; $j<= count($arrayUser);$j++ }
-        <div class="row">
-            <div class="card mb-10">
+        {for $i=0;$i<=count($arrayUser)-1;$i++}
+        <div class="row py-3">
+            <div class="card">
                 <div class="card-header">
-                    <b><a href="/logBook/Research/postDetail/{$arrayUser[$j]->getUserID()}">{$arrayUser[$j]->getUsername()}</a></b>
+                    <h4><a href="/logBook/Research/postDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        {$userPostList =$arrayUser->getPostList()}
-                        {for $i = 0; $i<= 3;$i++ }
-                            <!-- Blog post-->
-                            <div class="col-md-4">
-                                <div class="card mb-4">
-                                    <!-- INSERIRE IMMAGINI CHE SCORRONO-->
-                                    <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
-                                    <div class="card-body">
-                                        <div class="small text-muted">{$userPostList[$i]->getDate()}</div>
-                                        <h2 class="card-title h4">{$userPostList[$i]->getTitle()}</h2>
-                                        <p class="card-text">{$userPostList[$i]->getAuthor()}</p>
-                                        <a class="btn btn-primary" href="/logBook/Research/postDetail/{$userPostList[$i]->getPostID()}">Go to the Post →</a>
+                        {if $post[$i]}
+                            {if $post[$i]!=null}
+                                {for $j=0; $j<count($post[$i]) && $j<=2; $j++}
+                                    <div class="col-md-4">
+                                        <div class="card mb-4">
+                                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                                            <div class="card-body">
+                                                <div class="small text-muted">{$post[$i][$j]->getCreationDate()}</div>
+                                                <h2 class="card-title h4">{$post[$i][$j]->getTitle()}</h2>
+                                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$post[$i][$j]->getPostID()}">Go to the Post →</a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        {/for}
+                                {/for}
+                            {/if}
+                        {else}
+                            <p align="center">This user has no post</p>
+                        {/if}
                     </div>
                 </div>
             </div>
@@ -88,10 +98,6 @@
     </div>
 
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

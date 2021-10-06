@@ -27,7 +27,7 @@ class CPost{
     }
 
     public static function reportPost(){
-        $view = new VRicerca();
+        $view = new VResearch();
         $reportedPostId = USession::getElement('IDpost');
         FPersistentManager::reportPost($reportedPostId);
         $view->search_result();

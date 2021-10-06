@@ -32,7 +32,6 @@ class CFrontController
                         $param = array();
                         for ($i = 2; $i < count($res); $i++) {
                             $param[] = $res[$i];
-                            //$a = $i - 2;
                         }
                         $num = (count($param));
                         if ($num == 0) $controller::$function();
@@ -50,12 +49,9 @@ class CFrontController
                             if (isset($adm))
                                 header('Location: /logBook/Admin/adminHome'); /** dobbiamo vede che metterci */
                             else {
-                                //$smarty = StartSmarty::configuration();
-                                //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
                                 CUser::home();                            }
                         } else {
-                            //$smarty = StartSmarty::configuration();
-                            //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+
                             CUser::home();                        }
                     }
                 } else {
@@ -66,12 +62,9 @@ class CFrontController
                         if (isset($adm))
                             header('Location: /logBook/Admin/adminHome');
                         else {
-                            //$smarty = StartSmarty::configuration();
-                            //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
+
                             CUser::home();                        }
                     } else {
-                        //$smarty = StartSmarty::configuration();
-                        //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
                         CUser::home();
                     }
                 }
@@ -83,13 +76,9 @@ class CFrontController
                     if (isset($adm))
                         header('Location: /logBook/Admin/adminHome');
                     else {
-                        //$smarty = StartSmarty::configuration();
-                        //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
                         CUser::home();
                     }
                 } else {
-                    //$smarty = StartSmarty::configuration();
-                    //CRicerca::trasportiHome();/** dobbiamo vede che metterci */
                     CUser::home();
                 }
             }

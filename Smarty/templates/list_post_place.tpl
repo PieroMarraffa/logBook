@@ -40,9 +40,9 @@
             </div>
         </form>
         {if $userlogged!='nouser'}
-            <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
-        {else}
             <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
+        {else}
+            <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
         {/if}
     </div>
 </nav>
@@ -71,7 +71,7 @@
         <!-- Blog entries-->
         {if $arrayPostPlace}
         {if isset($arrayPostPlace)}
-        {for($i = 0; $i<= count($arrayPostPlace);$i=$i+2)}
+        {for $i = 0; $i<= count($arrayPostPlace);$i=$i+2 }
             <div class="row">
                 <!-- Blog post-->
                 {foreach $arrayPostPlace as $post}
