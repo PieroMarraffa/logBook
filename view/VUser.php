@@ -74,7 +74,7 @@ class VUser
         $this->smarty->assign('array_place',$arrayPlace);
         $this->smarty->assign('user',$user);
         $this->smarty->assign('email',$user->getMail());
-        $this->smarty->assign('array_post',$arrayPost);
+        $this->smarty->assign('postList',$arrayPost);
         $this->smarty->display('profile.tpl');
     }
 

@@ -116,24 +116,20 @@
 <div class="container my-5">
     <div class="row">
         <!-- Blog entries-->
-        {if $user->getPostList()}
-        {if isset($user->getPostList())}
-            {foreach $user->getPostList() as $p}
-
-                <div class="row">
+        {if $postList}
+        {if isset($postList)}
+            {foreach $postList as $p}
                     <!-- Blog post-->
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
                             <div class="card-body">
-                                <div class="small text-muted">{$p->getDate()}</div>
-                                <h2 class="card-title h4">{$p->getPostTitle()}</h2>
-                                <p class="card-text">{$p->getDescription()}</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$p->getID()}">Go to the Post →</a>
+                                <div class="small text-muted">{$p->getCreationDate()}</div>
+                                <h2 class="card-title h4">{$p->getTitle()}</h2>
+                                <a class="btn btn-primary" href="">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
-                </div>
             {/foreach}
         {/if}
         {/if}

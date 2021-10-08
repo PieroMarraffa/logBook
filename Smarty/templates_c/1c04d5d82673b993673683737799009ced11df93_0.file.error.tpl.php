@@ -1,5 +1,28 @@
-<!DOCTYPE html>
-{assign var='userlogged' value=$userlogged|default:'nouser'}
+<?php
+/* Smarty version 3.1.33, created on 2021-10-08 19:11:57
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\error.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_61607bdd0ac1b8_95279836',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '1c04d5d82673b993673683737799009ced11df93' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\error.tpl',
+      1 => 1633713113,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_61607bdd0ac1b8_95279836 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,14 +38,16 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
 </head>
 <body>
 <!-- Navigation-->
@@ -48,11 +73,12 @@
             </form>
         </div>
         <div class="col-auto">
-            {if $userlogged!='nouser'}
-                <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
-            {else}
+            <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+</a>
+            <?php } else { ?>
                 <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
-            {/if}
+            <?php }?>
         </div>
     </div>
 </nav>
@@ -61,21 +87,29 @@
     <div class="col py-5 px-5 mx-5">
         <div class="card border-4 border-secondary">
             <div class="card-body">
-                {if $research}
-                <p align="center" class="dimension_title testo2">Error, your research of <B>{$research}</B> doesn't produce any results</p>
-                {/if}
+                <?php if ($_smarty_tpl->tpl_vars['research']->value) {?>
+                <p align="center" class="dimension_title testo2">Error, your research of <B><?php echo $_smarty_tpl->tpl_vars['research']->value;?>
+</B> doesn't produce any results</p>
+                <?php }?>
             </div>
         </div>
     </div>
 </section>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <!-- * *                               SB Forms JS                               * *-->
 <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.startbootstrap.com/sb-forms-latest.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
+</html><?php }
+}

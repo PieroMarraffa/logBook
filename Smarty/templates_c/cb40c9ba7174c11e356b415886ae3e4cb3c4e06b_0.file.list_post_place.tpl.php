@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-08 12:35:11
+/* Smarty version 3.1.33, created on 2021-10-08 19:06:33
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61601edfea8d61_58404260',
+  'unifunc' => 'content_61607a99ce1468_49806026',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1633689308,
+      1 => 1633712788,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61601edfea8d61_58404260 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61607a99ce1468_49806026 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -83,11 +83,11 @@ function content_61601edfea8d61_58404260 (Smarty_Internal_Template $_smarty_tpl)
 <!-- Header-->
 <header class="bg-primary py-5">
     <div class="row">
-        <div class = "col-md-5">
-            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="600" height="500" class=" mt-5 ml-5" alt="relative image">
+        <div class = "col-md-6">
+            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="750" height="600" class=" mt-5 ml-5" alt="relative image">
 
         </div>
-        <div class="col-md-7 justify-content-end my-5 py-5">
+        <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
                 <p class="text-white align-content-start dimension_title testo1"><b><?php echo $_smarty_tpl->tpl_vars['TitlePlace']->value;?>
  </b></p>

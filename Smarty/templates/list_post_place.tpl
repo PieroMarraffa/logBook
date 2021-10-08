@@ -57,11 +57,11 @@
 <!-- Header-->
 <header class="bg-primary py-5">
     <div class="row">
-        <div class = "col-md-5">
-            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="600" height="500" class=" mt-5 ml-5" alt="relative image">
+        <div class = "col-md-6">
+            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="750" height="600" class=" mt-5 ml-5" alt="relative image">
 
         </div>
-        <div class="col-md-7 justify-content-end my-5 py-5">
+        <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
                 <p class="text-white align-content-start dimension_title testo1"><b>{$TitlePlace} </b></p>
             </div>

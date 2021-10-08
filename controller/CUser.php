@@ -91,12 +91,6 @@ class CUser
                 USession::getInstance();
                 $salvare = serialize($user);
                 USession::setElement('user',$salvare);
-                /**
-                if (isset($_COOKIE['']) && $_COOKIE[''] != $_POST['email']){
-                                                            //Se vogliamo mettere dei cookie vanno qui
-                }
-                else */
-                        //header('Location: /logBook/');
                 $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
                 $result[] = $pm->load("IDpost",1,FPost::getClass());
                 $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
@@ -111,10 +105,7 @@ class CUser
                 USession::getInstance();
                 $salvare = serialize($admin);
                 USession::setElement('user',$salvare);
-                /**if(isset($_COOKIE[''])){
-                                                                //Se vogliamo mettere dei cookie vanno qui
-                }
-                else*/
+
                 header('Location: /logBook/Admin/adminHome');
             }
 
@@ -137,7 +128,7 @@ class CUser
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-                $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) */
+                $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
                 $view->profile($user,$img,$arrayPost,$arrayPlace);
                 }
             } else

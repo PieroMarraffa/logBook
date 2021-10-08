@@ -62,4 +62,17 @@ class VResearch
         $this->smarty->display('list_post_place.tpl');
     }
 
+    /**
+     * @throws SmartyException
+     */
+    public function search_error($research){
+        if(CUser::isLogged()){
+            $this->smarty->assign('userlogged',"loggato");
+            $u=USession::getElement('user');
+            $user=unserialize($u);
+            $this->smarty->assign('username',$user->getUserName());}
+        $this->smarty->assign('research',$research);
+        $this->smarty->display('error.tpl');
+    }
+
 }

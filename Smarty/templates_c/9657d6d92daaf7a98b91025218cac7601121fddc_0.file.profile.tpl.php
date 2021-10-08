@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-29 12:00:42
+/* Smarty version 3.1.33, created on 2021-10-08 19:24:32
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6154394ad4a836_44457047',
+  'unifunc' => 'content_61607ed06a50d2_66291069',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1632909555,
+      1 => 1633713870,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6154394ad4a836_44457047 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61607ed06a50d2_66291069 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,32 +158,26 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <div class="container my-5">
     <div class="row">
         <!-- Blog entries-->
-        <?php if ($_smarty_tpl->tpl_vars['user']->value->getPostList()) {?>
-        <?php if ((($_smarty_tpl->tpl_vars['user']->value->getPostList() !== null ))) {?>
+        <?php if ($_smarty_tpl->tpl_vars['postList']->value) {?>
+        <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
             <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['user']->value->getPostList(), 'p');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['postList']->value, 'p');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 ?>
-
-                <div class="row">
                     <!-- Blog post-->
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
                             <div class="card-body">
-                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDate();?>
+                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['p']->value->getCreationDate();?>
 </div>
-                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getPostTitle();?>
+                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getTitle();?>
 </h2>
-                                <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDescription();?>
-</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getID();?>
-">Go to the Post →</a>
+                                <a class="btn btn-primary" href="">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
-                </div>
             <?php
 }
 }
