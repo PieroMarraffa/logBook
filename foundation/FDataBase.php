@@ -329,7 +329,7 @@ class FDataBase
 
     public function loadPostToPlace($idPlace){
         try{
-            $query="SELECT * FROM place_to_post WHERE IDpost ='". $idPlace . "';";
+            $query="SELECT * FROM place_to_post WHERE IDplace ='". $idPlace . "';";
             $statement=$this->database->prepare($query);
             $statement->execute();
             $num=$statement->rowCount();

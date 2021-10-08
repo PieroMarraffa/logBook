@@ -15,6 +15,7 @@ class CResearch
         if($_POST['search']==1){
             if($_POST['research']!=""){
                 $array_user=$pm->load("Username",$_POST['research'],FUser::getClass());
+                if($array_user!=1){
                 if(!is_array($array_user)){
                     $array_u=array();
                     $array_u[]=$array_user;
@@ -26,14 +27,15 @@ class CResearch
                     $array_p[]=$post;
                 }else $array_p=$post;
                 $post1[]=$array_p;}
-                $view->search_user($array_user,$post1);
+                $view->search_user($array_user,$post1);}
             }else header("Location: /logBook/User/home");
         }
         elseif($_POST['search']==2){
             if($_POST['research']!=""){
                 $place=$pm->load("Name",$_POST['research'],FPlace::getClass());
+                if($place!=null){
                 $post=$pm->loadPostByPlace($place->getPlaceID());
-                $view->search_place($place,$post);
+                $view->search_place($place,$post);}
             }else header("Location: /logBook/User/home");
         }
     }

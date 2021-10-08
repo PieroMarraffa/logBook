@@ -81,11 +81,7 @@ class FPost
         $post=null;
         $database = FDataBase::getInstance();
         $result = $database->loadById(self::getTable(), $field, $id);
-        echo $field;
-        echo $id;
-        echo static::getClass();
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
-        echo $rows_number;
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);

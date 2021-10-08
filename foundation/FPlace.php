@@ -73,6 +73,7 @@ class FPlace extends FDataBase
 
     /** Restituisce l'oggetto o gli oggetti in cui il campo $field==$id */
     public static function load($field,$id){
+        $place=null;
         $database=FDataBase::getInstance();
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
@@ -128,19 +129,21 @@ class FPlace extends FDataBase
         $database=FDataBase::getInstance();
         $result=$database->loadPostToPlace($idPLace);
         $rows_number = $database->interestedRowsInTable("place_to_post","IDplace",$idPLace);
+        echo $rows_number;
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
             $nLike=0;
             $nDislike=0;
+            if(is_array($likeList)){
             foreach ($likeList as $l){
                 if($l->getValue()==1){
                     $nLike ++;
                 }elseif ($l->getValue()==-1){
                     $nDislike++;
                 }
-            }
+            }}else $likeList=array();
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
@@ -154,13 +157,14 @@ class FPlace extends FDataBase
                     $Like=Flike::load("IDpost",$result[$i]['IDpost']);
                     $nLike=0;
                     $nDislike=0;
+                    if ($likeList!=null){
                     foreach ($Like as $l){
                         if($l->getValue()==1){
                             $nLike ++;
                         }elseif ($l->getValue()==-1){
                             $nDislike++;
                         }
-                    }
+                    }}
                     $post[] = new EPost( $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }

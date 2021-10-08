@@ -19,11 +19,11 @@ class VResearch
      * @throws SmartyException
      */
     public function search_user($array_user,$post){
-        if(CUser::isLogged())
+        if(CUser::isLogged()){
           $this->smarty->assign('userlogged',"loggato");
         $u=USession::getElement('user');
         $user=unserialize($u);
-        $this->smarty->assign('username',$user->getUserName());
+        $this->smarty->assign('username',$user->getUserName());}
         if(!is_array($array_user)){
             $array_u=array();
             $array_u[]=$array_user;
@@ -43,12 +43,22 @@ class VResearch
      * @throws SmartyException
      */
     public function search_place($place,$array_post){
-        if(CUser::isLogged())
+
+        if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
         $u=USession::getElement('user');
         $user=unserialize($u);
-        $this->smarty->assign('username',$user->getUserName());
+        $this->smarty->assign('username',$user->getUserName());}
         $this->smarty->assign('arrayPostPlace',$place);
+        $this->smarty->assign('TitlePlace',$place->getName());
+        $this->smarty->assign('Category',$place->getCategory());
+        if(is_object($array_post)){
+            $array_p=array();
+            $array_p[]=$array_post;
+        }
+        elseif(is_array($array_post)) $array_p=$array_post;
+        else $array_p=null;
+        $this->smarty->assign('arrayPostPlace',$array_p);
         $this->smarty->display('list_post_place.tpl');
     }
 
