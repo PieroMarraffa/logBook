@@ -23,6 +23,11 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+    <style type="text/css">
+        .bgimg {
+            background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -57,9 +62,9 @@
     </div>
 </nav>
 <!-- Masthead-->
-<section>
+<header class="masthead bgimg">
     <div class="col py-5 px-5 mx-5">
-        <div class="card border-4 border-secondary">
+        <div class="card border-dark">
             <div class="card-body">
                 {if $research}
                 <p align="center" class="dimension_title testo2">Error, your research of <B>{$research}</B> doesn't produce any results</p>
@@ -67,7 +72,7 @@
             </div>
         </div>
     </div>
-</section>
+</header>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

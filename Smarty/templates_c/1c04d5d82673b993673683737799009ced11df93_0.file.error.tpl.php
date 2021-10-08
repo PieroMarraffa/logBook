@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-08 19:11:57
+/* Smarty version 3.1.33, created on 2021-10-08 19:36:38
   from 'C:\xampp\htdocs\logBook\Smarty\templates\error.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61607bdd0ac1b8_95279836',
+  'unifunc' => 'content_616081a66c61f4_83329183',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1c04d5d82673b993673683737799009ced11df93' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\error.tpl',
-      1 => 1633713113,
+      1 => 1633714595,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61607bdd0ac1b8_95279836 (Smarty_Internal_Template $_smarty_tpl) {
+function content_616081a66c61f4_83329183 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -83,9 +83,9 @@ function content_61607bdd0ac1b8_95279836 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Masthead-->
-<section>
+<header class="masthead bgimg">
     <div class="col py-5 px-5 mx-5">
-        <div class="card border-4 border-secondary">
+        <div class="card border-dark">
             <div class="card-body">
                 <?php if ($_smarty_tpl->tpl_vars['research']->value) {?>
                 <p align="center" class="dimension_title testo2">Error, your research of <B><?php echo $_smarty_tpl->tpl_vars['research']->value;?>
@@ -94,7 +94,7 @@ function content_61607bdd0ac1b8_95279836 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
     </div>
-</section>
+</header>
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
