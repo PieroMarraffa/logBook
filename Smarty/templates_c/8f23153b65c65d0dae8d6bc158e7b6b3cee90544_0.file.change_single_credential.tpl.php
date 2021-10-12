@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-27 10:31:02
+/* Smarty version 3.1.33, created on 2021-10-12 10:30:05
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_single_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61518146c2f429_00971911',
+  'unifunc' => 'content_6165478d4b7b33_31180917',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8f23153b65c65d0dae8d6bc158e7b6b3cee90544' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_single_credential.tpl',
-      1 => 1632731451,
+      1 => 1632757425,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61518146c2f429_00971911 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6165478d4b7b33_31180917 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
@@ -32,7 +32,7 @@ function content_61518146c2f429_00971911 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="author" content="" />
     <title>Blog Post - Start Bootstrap Template</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/login.css" rel="stylesheet" />
     <?php echo '<script'; ?>

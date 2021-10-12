@@ -63,6 +63,28 @@ class CAdmin
     static function banUser($userID){
         $pm=new FPersistentManager();
         $pm->update("Reported",0,$userID,FUser::getClass());
+        $resultPost=$pm->load("IDuser",$userID,FPost::getClass());
+        if($resultPost!=null) {
+            if (!is_array($resultPost)) {
+                $post = array();
+                $post[] = $resultPost;
+            } else $post = $resultPost;
+            foreach ($post as $p) {
+                $id = $p->getPostID();
+                $pm->update("Deleted", 1, $id, FPost::getClass());
+            }
+        }
+        $resultComment=$pm->load("IDuser",$userID,FComment::getClass());
+        if($resultComment!=null) {
+            if (!is_array($resultComment)) {
+                $comment = array();
+                $comment[] = $resultComment;
+            } else $comment = $resultComment;
+            foreach ($comment as $c) {
+                $id = $c->getCommentID();
+                $pm->update("Deleted", 1, $id, FComment::getClass());
+            }
+        }
         $pm->update("Banned",1,$userID,FUser::getClass());
         header('Location: /logBook/Admin/adminHome');
     }
@@ -78,6 +100,29 @@ class CAdmin
 
     static function restoreUser($userID){
         $pm=new FPersistentManager();
+        $pm->update("Reported",0,$userID,FUser::getClass());
+        $resultPost=$pm->load("IDuser",$userID,FPost::getClass());
+        if($resultPost!=null){
+        if(!is_array($resultPost)){
+            $post=array();
+            $post[]=$resultPost;
+        }else $post=$resultPost;
+        foreach($post as $p){
+            $id=$p->getPostID();
+            $pm->update("Deleted",0,$id,FPost::getClass());
+            }
+        }
+        $resultComment=$pm->load("IDuser",$userID,FComment::getClass());
+        if($resultComment!=null){
+        if(!is_array($resultComment)){
+            $comment=array();
+            $comment[]=$resultComment;
+        }else $comment=$resultComment;
+        foreach($comment as $c){
+            $id=$c->getCommentID();
+            $pm->update("Deleted",0,$id,FComment::getClass());
+            }
+        }
         $pm->update("Banned",0,$userID,FUser::getClass());
         header('Location: /logBook/Admin/adminHome');
     }

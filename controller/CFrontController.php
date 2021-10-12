@@ -47,7 +47,7 @@ class CFrontController
                             $utente = unserialize(USession::getElement('user'));
                             $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
                             if (isset($adm))
-                                header('Location: /logBook/Admin/adminHome'); /** dobbiamo vede che metterci */
+                                header('Location: /logBook/Admin/adminHome');
                             else {
                                 CUser::home();                            }
                         } else {
