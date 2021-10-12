@@ -88,6 +88,14 @@ class VUser
     }
 
     /**
+     * @throws SmartyException
+     */
+    public function loginBann() {
+        $this->smarty->assign('bann',"true");
+        $this->smarty->display('login.tpl');
+    }
+
+    /**
      * Funzione che si occupa di gestire la visualizzazione della homepage dopo il login ( se è andato a buon fine)
      * @throws SmartyException
      */

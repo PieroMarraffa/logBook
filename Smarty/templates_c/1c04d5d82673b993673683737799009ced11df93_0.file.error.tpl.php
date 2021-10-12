@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-08 19:36:38
+/* Smarty version 3.1.33, created on 2021-10-11 11:44:58
   from 'C:\xampp\htdocs\logBook\Smarty\templates\error.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_616081a66c61f4_83329183',
+  'unifunc' => 'content_6164079abd7282_45174163',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1c04d5d82673b993673683737799009ced11df93' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\error.tpl',
-      1 => 1633714595,
+      1 => 1633714713,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_616081a66c61f4_83329183 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6164079abd7282_45174163 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -48,6 +48,11 @@ function content_616081a66c61f4_83329183 (Smarty_Internal_Template $_smarty_tpl)
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
+    <style type="text/css">
+        .bgimg {
+            background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->

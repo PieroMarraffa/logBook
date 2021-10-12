@@ -9,6 +9,8 @@ class Installation{
      * PHP version 7 o maggiore
      * Cookie abilitati
      * JavaScript abilitato
+     *
+     * @throws SmartyException
      */
     static function begin(){
         $smarty = StartSmarty::configuration();
@@ -77,6 +79,7 @@ class Installation{
             die;
         }
     }
+
 
     /**
      * Funzione che verifica la presenza del cookie di installazione; quindi se l'installazione è stata effettuata

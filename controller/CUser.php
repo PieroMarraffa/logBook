@@ -98,6 +98,8 @@ class CUser
                 $result[] = $pm->load("IDpost",4,FPost::getClass());
                 $view->home($result);
             }
+        }elseif($user->isBanned() == true){
+            $view->loginBann();
         }
         }
         elseif ($adminEmail==$_POST['email']&& $adminPassword==$_POST['password']){

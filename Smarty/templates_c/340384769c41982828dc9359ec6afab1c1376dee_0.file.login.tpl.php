@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-27 17:45:11
+/* Smarty version 3.1.33, created on 2021-10-09 10:22:15
   from 'C:\xampp\htdocs\logBook\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6151e70789a1a8_21782282',
+  'unifunc' => 'content_61615137c34cb5_96470522',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '340384769c41982828dc9359ec6afab1c1376dee' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\login.tpl',
-      1 => 1632757425,
+      1 => 1633767730,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6151e70789a1a8_21782282 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61615137c34cb5_96470522 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
-<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
+<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('bann', (($tmp = @$_smarty_tpl->tpl_vars['bann']->value)===null||$tmp==='' ? 'false' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -73,6 +74,11 @@ function content_6151e70789a1a8_21782282 (Smarty_Internal_Template $_smarty_tpl)
             <?php if ($_smarty_tpl->tpl_vars['error']->value != 'ok') {?>
                 <div style="color: red;">
                     <p align="center">Error! Username or password is wrong! </p>
+                </div>
+            <?php }?>
+            <?php if ($_smarty_tpl->tpl_vars['bann']->value != 'false') {?>
+                <div style="color: red;">
+                    <p align="center">This profile is banned </p>
                 </div>
             <?php }?>
             <input type="submit" id="form_login" class="fadeIn fourth" value="Log In">

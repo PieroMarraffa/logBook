@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {assign var='error' value=$error|default:'ok'}
+{assign var='bann' value=$bann|default:'false'}
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -42,6 +43,11 @@
             {if $error!='ok'}
                 <div style="color: red;">
                     <p align="center">Error! Username or password is wrong! </p>
+                </div>
+            {/if}
+            {if $bann!='false'}
+                <div style="color: red;">
+                    <p align="center">This profile is banned </p>
                 </div>
             {/if}
             <input type="submit" id="form_login" class="fadeIn fourth" value="Log In">
