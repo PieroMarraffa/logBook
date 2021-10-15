@@ -303,7 +303,6 @@ class FPost
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
-                    echo var_dump($result[$i]);
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
                     $travel=FTravel::load("IDpost",$result[$i]['IDpost']);

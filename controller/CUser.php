@@ -24,6 +24,7 @@ class CUser
 
     /**
      * Metodo che verifica se l'utente è loggato
+     * @throws SmartyException
      */
     static function isLogged() {
         $identificato = false;
@@ -37,8 +38,25 @@ class CUser
         }
         if (USession::getIsSet('user')) {
             $identificato = true;
+            self::isBanned();
         }
         return $identificato;
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    static function isBanned(){
+        $user = unserialize(USession::getElement('user'));
+        $pm=new FPersistentManager();
+        $view=new VUser();
+        $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
+        if($u->isBanned()==true){
+            USession::unsetSession();
+            USession::destroySession();
+            $view->loginBann();
+
+        }
     }
 
 

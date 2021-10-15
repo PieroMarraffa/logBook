@@ -39,11 +39,11 @@
     <div align="center" class="col-md my-5">
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change email</b></div>
+                <div class="card-header"><h5>Change email</h5></div>
                 <div class="card-body">
                     <div class="row">
                     <div class="col-md-6">
-                        <p> Here u can change your email address</p>
+                        <p><b> Here you can change your email address</b></p>
                     </div>
                     <div class="col-md-6">
                         <img  src="/logBook/Smarty/immagini/email.jpg" width="150" height="150">
@@ -54,14 +54,14 @@
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Password</b></div>
+                <div class="card-header"><h5>Change Password</h5></div>
                 <div class="card-body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p><b> Here you can change your Password</b></p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/password.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/password.png" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changePassword">Change Password -> </a></div>
@@ -69,11 +69,11 @@
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Username</b></div>
+                <div class="card-header"><h5>Change Username</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b> Here you can change your username</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
@@ -84,11 +84,11 @@
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change profile image</b></div>
+                <div class="card-header"><h5>Change profile image</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b> Here you can change your profile image</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/profileImage.jpg" width="150" height="150">
@@ -99,11 +99,11 @@
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Description</b></div>
+                <div class="card-header"><h5>Change Description</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b>Here you can change your profile description</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
