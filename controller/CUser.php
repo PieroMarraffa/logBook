@@ -132,10 +132,10 @@ class CUser
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
                 $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
                 $view->profile($user,$img,$arrayPost,$arrayPlace);
-                }
-            } else
+            }
+        } else
                 header('Location: /logBook/User/login');
-        }
+    }
 
 
     /**

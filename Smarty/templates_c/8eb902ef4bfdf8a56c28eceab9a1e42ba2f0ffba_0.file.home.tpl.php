@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 15:36:03
+/* Smarty version 3.1.33, created on 2021-10-15 02:50:26
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61531a43eac816_55932611',
+  'unifunc' => 'content_6168d052eb0281_98949666',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8eb902ef4bfdf8a56c28eceab9a1e42ba2f0ffba' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl',
-      1 => 1632827591,
+      1 => 1634210245,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61531a43eac816_55932611 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6168d052eb0281_98949666 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -46,7 +46,7 @@ function content_61531a43eac816_55932611 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '</script'; ?>
 >
 
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="logBook/Smarty/css/styles.css">
     <style type="text/css">
         .bgimg {
             background-image: url('/logBook/Smarty/immagini/ala_aereo.jpeg');
@@ -74,14 +74,16 @@ function content_61531a43eac816_55932611 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="text-center text-white" >
                     <!-- Page heading-->
                     <h1 class="mb-5 text-light" ><b>Go wherever you want...</b></h1>
-                    <form method="get" id="form_research" action="/logBook/Research/find">
+                    <form method="post" id="form_research" action="/logBook/Research/find">
                         <div class="row">
                             <div class="input-group">
                                 <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <select class="btn btn-primary" name="search">
-                                    <option value="1">Search for user</option>
-                                    <option value="2">Search for place</option>
-                                </select>
+                                <label>
+                                    <select class="btn btn-primary" name="search">
+                                        <option value="1" id="1" >Search for user</option>
+                                        <option value="2" id="2" >Search for place</option>
+                                    </select>
+                                </label>
                                 <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                             </div>
                         </div>

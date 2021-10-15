@@ -2,14 +2,25 @@
 
 
 class CPost{
-    public static function salvaPost(){
+    public static function savePost(){
+        //USession::getInstance();
+        //$user = unserialize(USession::getElement('user'));
         $view = new VPost();
-        $session = USession()::_instance();
-        $title = USession::getElement('title');
-        $img = USession::getElement('image');
-        $description = USession::getElement('description');
-        FPersistentManager::newPost('idpost', 'iduser', 'autore', 'titolo', 'data', 'deleted');
-        $view->salvaPost($title, $img, $description);
+        $pm = new FPersistentManager();
+        $title = $_POST['titleExperience2'];
+        $date = date("Y-m-d h:i:s" );
+        $deleted = 0;
+        $userID = 1;
+        $startDate = $_POST['startDate2'];
+        $finishDate = $_POST['endDate2'];
+        $travel = new ETravel(9, $title, array(), array(), $startDate, $finishDate);
+        $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+        //$img = $_FILES['file'];
+        $cosa = $_POST['titleExperience2'];
+        echo var_dump($post);
+        $pm->store($post);
+        $pm->store($travel);
+        //$view->savePost($cosa);
     }
 
     public static function create_post(){

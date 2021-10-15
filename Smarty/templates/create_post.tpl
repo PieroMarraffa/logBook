@@ -28,14 +28,14 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/create_post">
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
 
                         <div class="col-md-11 py-4">
 
-                            <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
                             <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                         </div>

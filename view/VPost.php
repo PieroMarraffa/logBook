@@ -15,11 +15,8 @@ class VPost
         $this->smarty = StartSmarty::configuration();
     }
 
-    public function salvaPost($title, $img, $description){
-        $this->smarty->assign('title', $title);
-        $this->smarty->assign('image', $img);
-        $this->smarty->assign('description', $description);
-        $this->smarty->display('home_logged.tpl');
+    public function savePost($c){
+        $this->smarty->display('home.tpl');
     }
 
     /**

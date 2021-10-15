@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-29 12:04:51
+/* Smarty version 3.1.33, created on 2021-10-15 03:04:19
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61543a43220fe6_40985030',
+  'unifunc' => 'content_6168d3933cb0b8_11185721',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1632909888,
+      1 => 1634259855,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61543a43220fe6_40985030 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6168d3933cb0b8_11185721 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,40 +55,39 @@ function content_61543a43220fe6_40985030 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/create_post">
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-body">
 
-                        <div class="row-cols-5">
-                            <div class="col-md-11 py-4">
+                        <div class="col-md-11 py-4">
 
-                                <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
-                                <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                            <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                        </div>
+                        <a name="experiences"></a>
+                        <div class="col-md-8">
+
+                            <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-8">
-                                <div class="container py-3" id="container">
-                                </div>
-                                <div class="col-md-4">
-                                    <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
-                                </div>
-
+                            <div class="col-md-4">
+                                <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
                             </div>
+
                         </div>
 
-                </div>
             </div>
         </div>
         <div class="col-md-3" >
             <div class="row">
-                <button class="btn btn-primary " onclick="creaExperience()" >+ Add Experience</button>
+                <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
-                <button class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-                <div id="container2" class="containerpy-3">
+
+                <div id="container2" class="col">
             </div>
 
         </div>
@@ -103,10 +102,7 @@ function content_61543a43220fe6_40985030 (Smarty_Internal_Template $_smarty_tpl)
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
-<!-- Core theme JS-->
-<?php echo '<script'; ?>
- src="js/scripts.js"><?php echo '</script'; ?>
->
+
 </body>
 </html><?php }
 }
