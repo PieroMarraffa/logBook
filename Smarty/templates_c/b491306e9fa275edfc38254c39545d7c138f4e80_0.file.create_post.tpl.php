@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-05 17:32:00
+/* Smarty version 3.1.33, created on 2021-10-17 10:53:32
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_615c6ff0730cd2_27834496',
+  'unifunc' => 'content_616be48c295c75_90707327',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1633447918,
+      1 => 1634460809,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_615c6ff0730cd2_27834496 (Smarty_Internal_Template $_smarty_tpl) {
+function content_616be48c295c75_90707327 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,14 +55,14 @@ function content_615c6ff0730cd2_27834496 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/create_post">
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
 
                         <div class="col-md-11 py-4">
 
-                            <input type="text" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
                             <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                         </div>
@@ -79,25 +79,22 @@ function content_615c6ff0730cd2_27834496 (Smarty_Internal_Template $_smarty_tpl)
 
             </div>
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3 fisso" >
+            <div class="card">
             <div class="row">
                 <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-
                 <div id="container2" class="col">
             </div>
-
+            </div>
         </div>
     </div>
     </form>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
+
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>

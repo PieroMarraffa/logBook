@@ -169,6 +169,11 @@ abbr[data-bs-original-title] {
 
 .testo2 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 200%; color: #000000}
 
+.fisso{
+  position:fixed;
+  right:0;
+}
+
 address {
   margin-bottom: 1rem;
   font-style: normal;

@@ -52,25 +52,22 @@
 
             </div>
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3 fisso" >
+            <div class="card">
             <div class="row">
                 <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-
                 <div id="container2" class="col">
             </div>
-
+            </div>
         </div>
     </div>
     </form>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
+
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 
