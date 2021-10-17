@@ -1,16 +1,27 @@
 <?php
 
+require 'utility/UCookie.php';
+require 'utility/USession.php';
+require 'utility/UServer.php';
 
 class CPost{
     public static function savePost(){
-        //USession::getInstance();
-        //$user = unserialize(USession::getElement('user'));
+        /*
+         * N1 per quale cazzo di motivo non funziona la session?
+         * N2 come faccio a mettere un counter sul click di new exp ed usare quel numero in php?
+         * N3 stessa cosa con IMG
+         *
+         */
+
+        USession::getInstance();
+        $user = unserialize(USession::getElement('user'));
         $view = new VPost();
         $pm = new FPersistentManager();
         $title = $_POST['titleExperience2'];
         $date = date("Y-m-d h:i:s" );
         $deleted = 0;
-        $userID = 1;
+        $userID = $user->getUserID();
+
         $startDate = $_POST['startDate2'];
         $finishDate = $_POST['endDate2'];
         $travel = new ETravel(9, $title, array(), array(), $startDate, $finishDate);
