@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-15 19:50:26
+/* Smarty version 3.1.33, created on 2021-10-27 18:27:22
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6169bf62be9ac4_46480415',
+  'unifunc' => 'content_61797dea4a7645_64917567',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f1db0099f64be23225e52f2e5fdd65c1e289ef96' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_credential.tpl',
-      1 => 1634320218,
+      1 => 1635343625,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6169bf62be9ac4_46480415 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61797dea4a7645_64917567 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ function content_6169bf62be9ac4_46480415 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>Change Credential</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->

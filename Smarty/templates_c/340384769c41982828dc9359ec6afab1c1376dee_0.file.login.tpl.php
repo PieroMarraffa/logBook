@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-09 10:22:15
+/* Smarty version 3.1.33, created on 2021-10-27 18:27:55
   from 'C:\xampp\htdocs\logBook\Smarty\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61615137c34cb5_96470522',
+  'unifunc' => 'content_61797e0b97af78_40293185',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '340384769c41982828dc9359ec6afab1c1376dee' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\login.tpl',
-      1 => 1633767730,
+      1 => 1635343625,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61615137c34cb5_96470522 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61797e0b97af78_40293185 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('bann', (($tmp = @$_smarty_tpl->tpl_vars['bann']->value)===null||$tmp==='' ? 'false' : $tmp));?>
@@ -30,7 +30,7 @@ $_smarty_tpl->_assignInScope('bann', (($tmp = @$_smarty_tpl->tpl_vars['bann']->v
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Login</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->

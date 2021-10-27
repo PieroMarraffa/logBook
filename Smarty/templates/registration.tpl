@@ -45,7 +45,7 @@
 
             <label for="password"><input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required></label>
             <label for="confirm_password"><input type="password" id="confirm_password" class="fadeIn third" name="password2" placeholder="Confirm Password" required></label>
-            <input type="file" name="file" size="40" >
+            <label for="file-upload" ><input class="fadeIn third" type="file" name="file" size="40"/></label>
             <input type="submit" class="fadeIn fourth" form="form_registration" value="Register">
         </form>
         {if $errorSize!='ok'}
@@ -63,7 +63,6 @@
                 <p align="center">Attenzione! Email già esistente!  </p>
             </div>
         {/if}
-
 
     </div>
 </div>

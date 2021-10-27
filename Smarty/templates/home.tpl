@@ -83,11 +83,8 @@
                         <h5 class="fw-bolder">{$post->getTitle()}</h5>
                         <!-- Product price-->
                         <h6 class="text-muted ">{$post->getCreationDate()}</h6>
+                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$post->getPostID()}">Go to the Post →</a>
                     </div>
-                </div>
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-primary" href="/logBook/Research/postDetail/{$post->getID()}">Go to the post -></a></div>
                 </div>
             </div>
         </div>
@@ -96,10 +93,6 @@
         {/if}
     </div>
 </div>
-<!-- Footer-->
-<footer class="footer bg-light">
-
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
