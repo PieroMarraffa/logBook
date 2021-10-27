@@ -19,6 +19,7 @@ class VResearch
      * @throws SmartyException
      */
     public function search_user($array_user,$post){
+        $pm = new FPersistentManager();
         if(CUser::isLogged()){
           $this->smarty->assign('userlogged',"loggato");
         $u=USession::getElement('user');
@@ -33,6 +34,24 @@ class VResearch
             $array_p[]=$post;
         }elseif(is_array($post)) $array_p=$post;
         else $array_p=null;
+        $type=array();
+        $pic64=array();
+        $img=array();
+        foreach($array_u as $u){
+            $img[]=$pm->load("IDimage",$u->getImageID(),'FImage');
+        }
+        foreach($img as $i){
+            if(isset($i[0])){
+                $type[]=$i[0]->getType();
+                $pic64[]=base64_encode($i[0]->getImageFile());}
+            else{
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+                $pic64[]= base64_encode($data);
+                $type[]= "image/png";
+            }
+        }
+        $this->smarty->assign('type', $type);
+        $this->smarty->assign('pic64', $pic64);
         $this->smarty->assign('arrayUser',$array_u);
         $this->smarty->assign('post',$array_p);
         $this->smarty->display('list_post_user.tpl');
@@ -49,7 +68,7 @@ class VResearch
         $u=USession::getElement('user');
         $user=unserialize($u);
         $this->smarty->assign('username',$user->getUserName());}
-        $this->smarty->assign('arrayPostPlace',$place);
+        $this->smarty->assign('Place',$place);
         $this->smarty->assign('TitlePlace',$place->getName());
         $this->smarty->assign('Category',$place->getCategory());
         if(is_object($array_post)){

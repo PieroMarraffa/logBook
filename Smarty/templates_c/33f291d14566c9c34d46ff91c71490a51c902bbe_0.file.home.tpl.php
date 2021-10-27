@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-05 20:02:40
+/* Smarty version 3.1.33, created on 2021-10-27 17:52:17
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_615c934041c250_33675001',
+  'unifunc' => 'content_617975b177b914_35403822',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1633456956,
+      1 => 1635349933,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_615c934041c250_33675001 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617975b177b914_35403822 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -29,7 +29,7 @@ function content_615c934041c250_33675001 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Home</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" /><link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -105,9 +105,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
         <div class="col mb-5">
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="card-img-top" src="data:<?php echo $_smarty_tpl->tpl_vars['type']->value;?>
-;base64,<?php echo $_smarty_tpl->tpl_vars['post']->value->getImage();?>
-" alt="..." />
+                <img class="card-img-top" src="" alt="..." />
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
@@ -115,7 +113,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
                         <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
 </h5>
                         <!-- Product price-->
-                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value->getAuthor();?>
+                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
 </h6>
                     </div>
                 </div>

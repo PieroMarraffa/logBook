@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Research</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" /><link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -65,7 +65,8 @@
         <div class="row py-3">
             <div class="card">
                 <div class="card-header">
-                    <h4><a href="/logBook/Research/postDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></h4>
+                    <img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="...">
+                    <B><a href="/logBook/Research/postDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></B>
                 </div>
                 <div class="card-body">
                     <div class="row">

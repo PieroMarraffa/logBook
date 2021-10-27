@@ -148,7 +148,7 @@ class CUser
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
                 $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-                $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
+                $arrayPlace=$pm->load("Category",'città',FPlace::getClass());  /** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
                 $view->profile($user,$img,$arrayPost,$arrayPlace);
             }
         } else

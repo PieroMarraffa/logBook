@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-08 19:06:33
+/* Smarty version 3.1.33, created on 2021-10-27 18:15:28
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61607a99ce1468_49806026',
+  'unifunc' => 'content_61797b2014dad0_84208788',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1633712788,
+      1 => 1635351324,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61607a99ce1468_49806026 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61797b2014dad0_84208788 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -29,7 +29,7 @@ function content_61607a99ce1468_49806026 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Research</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Bootstrap icons-->
@@ -46,6 +46,13 @@ function content_61607a99ce1468_49806026 (Smarty_Internal_Template $_smarty_tpl)
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
+    <style type="text/css">
+        #map {
+            height: 600px;
+            width: 100%;
+
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -84,16 +91,67 @@ function content_61607a99ce1468_49806026 (Smarty_Internal_Template $_smarty_tpl)
 <header class="bg-primary py-5">
     <div class="row">
         <div class = "col-md-6">
-            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="750" height="600" class=" mt-5 ml-5" alt="relative image">
+            <div id="map"></div>
 
+            <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+>
+
+            <?php echo '<script'; ?>
+>
+
+                function initialize() {
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        <?php if ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "città") {?>
+                        zoom: 13,
+                        <?php } elseif ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "meta turistica") {?>
+                        zoom: 15,
+                        <?php } elseif ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "nazione") {?>
+                        zoom: 6,
+                        <?php } else { ?>
+                        zoom:10,
+                        <?php }?>
+                        center: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLatitude();?>
+,<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLongitude();?>
+),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+                    <?php if (isset($_smarty_tpl->tpl_vars['Place']->value)) {?>
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLatitude();?>
+,<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLongitude();?>
+),
+                        map: map,
+                        icon: 'https://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
+                    });
+                    <?php }?>
+                    var infowindow = new google.maps.InfoWindow();
+
+                    var marker, i;
+
+                    var iconBase = 'https://maps.google.com/mapfiles/ms/micons/';
+                    var icons = [iconBase + 'red-dot.png',
+                        iconBase + 'purple-pushpin.png',
+                        iconBase + 'purple-pushpin.png'];
+
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        icon: icons[i]
+                    });
+
+                }
+            <?php echo '</script'; ?>
+>
         </div>
         <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start dimension_title testo1"><b><?php echo $_smarty_tpl->tpl_vars['TitlePlace']->value;?>
+                <p class="text-white align-content-start dimension_title testo1"><b><?php echo $_smarty_tpl->tpl_vars['Place']->value->getName();?>
  </b></p>
             </div>
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start testo2"><?php echo $_smarty_tpl->tpl_vars['Category']->value;?>
+                <p class="text-white align-content-start testo2"><?php echo $_smarty_tpl->tpl_vars['Place']->value->getCategory();?>
 </p>
             </div>
         </div>

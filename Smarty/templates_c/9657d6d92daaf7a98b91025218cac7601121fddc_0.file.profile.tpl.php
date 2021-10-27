@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-08 19:32:13
+/* Smarty version 3.1.33, created on 2021-10-27 17:47:39
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6160809d831f91_19172940',
+  'unifunc' => 'content_6179749bc12b55_95286832',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1633714305,
+      1 => 1635349328,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6160809d831f91_19172940 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6179749bc12b55_95286832 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,8 @@ function content_6160809d831f91_19172940 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
+</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -45,12 +46,9 @@ function content_6160809d831f91_19172940 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '</script'; ?>
 >
     <style type="text/css">
-        /* Set the size of the div element that contains the map */
         #map {
             height: 600px;
-            /* The height is 400 pixels */
             width: 100%;
-            /* The width is the width of the web page */
         }
     </style>
 </head>
@@ -71,8 +69,6 @@ function content_6160809d831f91_19172940 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
-
-
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
@@ -136,7 +132,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
-
             <h2><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
 </b></h2>
             <h5><?php echo $_smarty_tpl->tpl_vars['user']->value->getDescription();?>

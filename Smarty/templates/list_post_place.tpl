@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Research</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Bootstrap icons-->
@@ -21,6 +21,13 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+    <style type="text/css">
+        #map {
+            height: 600px;
+            width: 100%;
+
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
@@ -58,15 +65,58 @@
 <header class="bg-primary py-5">
     <div class="row">
         <div class = "col-md-6">
-            <img src="https://dummyimage.com/600x500/dee2e6/6c757d.jpg" width="750" height="600" class=" mt-5 ml-5" alt="relative image">
+            <div id="map"></div>
 
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
+
+            <script>
+
+                function initialize() {
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        {if $Place->getCategory()=="città"}
+                        zoom: 13,
+                        {elseif $Place->getCategory()=="meta turistica"}
+                        zoom: 15,
+                        {elseif $Place->getCategory()=="nazione"}
+                        zoom: 6,
+                        {else}
+                        zoom:10,
+                        {/if}
+                        center: new google.maps.LatLng({$Place->getLatitude()},{$Place->getLongitude()}),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+                    {if isset($Place)}
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng({$Place->getLatitude()},{$Place->getLongitude()}),
+                        map: map,
+                        icon: 'https://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
+                    });
+                    {/if}
+                    var infowindow = new google.maps.InfoWindow();
+
+                    var marker, i;
+
+                    var iconBase = 'https://maps.google.com/mapfiles/ms/micons/';
+                    var icons = [iconBase + 'red-dot.png',
+                        iconBase + 'purple-pushpin.png',
+                        iconBase + 'purple-pushpin.png'];
+
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                        map: map,
+                        icon: icons[i]
+                    });
+
+                }
+            </script>
         </div>
         <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start dimension_title testo1"><b>{$TitlePlace} </b></p>
+                <p class="text-white align-content-start dimension_title testo1"><b>{$Place->getName()} </b></p>
             </div>
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start testo2">{$Category}</p>
+                <p class="text-white align-content-start testo2">{$Place->getCategory()}</p>
             </div>
         </div>
     </div>

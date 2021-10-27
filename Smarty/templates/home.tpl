@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Home</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" /><link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -75,14 +75,14 @@
         <div class="col mb-5">
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="card-img-top" src="data:{$type};base64,{$post->getImage()}" alt="..." />
+                <img class="card-img-top" src="" alt="..." />
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
                         <!-- Product name-->
                         <h5 class="fw-bolder">{$post->getTitle()}</h5>
                         <!-- Product price-->
-                        <h6 class="text-muted ">{$post->getAuthor()}</h6>
+                        <h6 class="text-muted ">{$post->getCreationDate()}</h6>
                     </div>
                 </div>
                 <!-- Product actions-->

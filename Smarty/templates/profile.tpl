@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>{$user->getUsername()}</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -20,12 +20,9 @@
         document.addEventListener("DOMContentLoaded", ready);
     </script>
     <style type="text/css">
-        /* Set the size of the div element that contains the map */
         #map {
             height: 600px;
-            /* The height is 400 pixels */
             width: 100%;
-            /* The width is the width of the web page */
         }
     </style>
 </head>
@@ -43,8 +40,6 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
 
     <script>
-
-
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
@@ -96,7 +91,6 @@
             <img class="rounded-circle" src='data:{$type};charset=utf-8;base64,{$pic64}' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
-
             <h2><b>{$user->getUsername()}</b></h2>
             <h5>{$user->getDescription()}</h5>
         </div>

@@ -129,7 +129,6 @@ class FPlace extends FDataBase
         $database=FDataBase::getInstance();
         $result=$database->loadPostToPlace($idPLace);
         $rows_number = $database->interestedRowsInTable("place_to_post","IDplace",$idPLace);
-        echo $rows_number;
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-11 11:44:58
+/* Smarty version 3.1.33, created on 2021-10-27 17:53:12
   from 'C:\xampp\htdocs\logBook\Smarty\templates\error.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6164079abd7282_45174163',
+  'unifunc' => 'content_617975e8310546_23598955',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1c04d5d82673b993673683737799009ced11df93' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\error.tpl',
-      1 => 1633714713,
+      1 => 1635343625,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6164079abd7282_45174163 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617975e8310546_23598955 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -29,7 +29,7 @@ function content_6164079abd7282_45174163 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Error</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Bootstrap icons-->
