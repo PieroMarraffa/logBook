@@ -31,7 +31,7 @@ class FPersistentManager
         return $result;
     }
 
-    public static function load($field, $val,$Fclass) {
+    public static function load($field, $val, $Fclass) {
         $ris = $Fclass::load($field,$val);
         return $ris;
     }
@@ -86,6 +86,14 @@ class FPersistentManager
     public static function loadUserByPlace($id){
         $result =FPlace::loadUserByPlace($id);
         return $result;
+    }
+
+    public static function existAssociationPostPlace($idPost,$idPlace){
+        FPost::storePlaceAssociatedToPost($idPlace,$idPost);
+    }
+
+    public static function existAssociationUserPlace($idUser,$idPlace){
+        FPost::storePlaceAssociatedToPost($idPlace,$idUser);
     }
 
     public static function storePlaceToPost($idPost,$idPlace){

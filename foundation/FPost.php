@@ -398,9 +398,27 @@ class FPost
         self::store($post);
     }
 
-   static function storePlaceAssociatedToPost($idPlace,$idPost){
+
+    static function storePlaceAssociatedToPost($idPlace,$idPost){
         $database=FDataBase::getInstance();
         $database->storePlaceToPost($idPlace,$idPost);
+    }
 
+    static function existRelations($idPost, $idPlace){
+        $result = self::loadPlaceByPost($idPost);
+        if ($result == null) {return false;}
+        elseif (count($result) == 1){
+            if ($result->getPlaceID() == $idPlace){
+                return true;
+            }
+        }
+        elseif (count($result) > 1){
+            foreach ($result as $res){
+                if ($res->getPlaceID() == $idPlace){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

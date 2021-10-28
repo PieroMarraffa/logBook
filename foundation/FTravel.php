@@ -52,7 +52,8 @@ class FTravel
      */
     public static function store(ETravel $e){
         $database= FDataBase::getInstance();
-        $database->storeInDB(self::getClass(),$e);
+        $id=$database->storeInDB(self::getClass(),$e);
+        return $id;
     }
 
 

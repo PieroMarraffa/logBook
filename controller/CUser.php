@@ -205,7 +205,6 @@ class CUser
                     }
                 }
             }
-
     }
 
     static function upload($user,$nome_file) {

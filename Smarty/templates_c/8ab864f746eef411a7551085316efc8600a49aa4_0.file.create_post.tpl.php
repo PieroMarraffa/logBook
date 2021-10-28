@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-15 03:04:19
+/* Smarty version 3.1.33, created on 2021-10-17 11:03:07
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6168d3933cb0b8_11185721',
+  'unifunc' => 'content_616be6cbbb9dc0_21013994',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1634259855,
+      1 => 1634461320,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6168d3933cb0b8_11185721 (Smarty_Internal_Template $_smarty_tpl) {
+function content_616be6cbbb9dc0_21013994 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -79,25 +79,22 @@ function content_6168d3933cb0b8_11185721 (Smarty_Internal_Template $_smarty_tpl)
 
             </div>
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3 fisso" >
+            <div class="card">
             <div class="row">
                 <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
             </div>
-
                 <div id="container2" class="col">
             </div>
-
+            </div>
         </div>
     </div>
     </form>
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
+
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
