@@ -49,7 +49,7 @@
 
         {if $errorSize!='ok'}
             <div style="color: red;">
-                <p class="fadeIn third" align="center">Attention! Image's is too big. </p>
+                <p class="fadeIn third" align="center">Attention! Inserted image is too big. </p>
             </div>
         {/if}
         {if $errorType!='ok'}

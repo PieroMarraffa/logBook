@@ -289,12 +289,17 @@ class CUser
                 header('Location: /logBook/User/profile');
             }
             elseif (isset($_POST['username'])){
+                $exist=$pm->exist("Username",$_POST['username'],FUser::getClass());
+                if(!$exist){
                 $id=$user->getUserID();
                 $pm->update('Username',$_POST['username'],$id,FUser::getClass());
                 $u=$pm->load('IDuser',$id,FUser::getClass());
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
-                header('Location: /logBook/User/profile');
+                header('Location: /logBook/User/profile');}
+                else{
+                    $view->updateUserNameError();
+                }
             }
             elseif (isset($_FILES['file'])){
                 $id=$user->getUserID();
@@ -308,10 +313,10 @@ class CUser
                     $img = static::updateImage($user,$nome_file);
                     switch ($img) {
                         case "size":
-                            $view->updateError("size");
+                            $view->updateImageError("size");
                             break;
                         case "type":
-                            $view->updateError("type");
+                            $view->updateImageError("type");
                             break;
                         case "ok":
                             header('Location: /logBook/User/profile');
@@ -393,8 +398,6 @@ class CUser
 
     static function updateImage($user,$nome_file) {
         $pm = new FPersistentManager();
-        $ris = null;
-        $nome = '';
         $max_size = 600000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
         if (!$result) {
@@ -412,7 +415,7 @@ class CUser
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
-                $immagine = addslashes ($immagine);
+                $immagine = addslashes($immagine);
                 $profile_image= new EImage($immagine,null,$size,$type);
                 $id=$pm->storeMedia($profile_image,$nome_file);
                 $pm->update("Image",$id,$user->getUserID(),FUser::getClass());

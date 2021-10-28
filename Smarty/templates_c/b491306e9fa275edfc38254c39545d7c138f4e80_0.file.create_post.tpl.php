@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-27 17:56:13
+/* Smarty version 3.1.33, created on 2021-10-28 22:57:47
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6179769d85db49_78359926',
+  'unifunc' => 'content_617b0ecb5c65a4_20367238',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1635343625,
+      1 => 1635454651,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6179769d85db49_78359926 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617b0ecb5c65a4_20367238 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -62,9 +62,9 @@ function content_6179769d85db49_78359926 (Smarty_Internal_Template $_smarty_tpl)
 
                         <div class="col-md-11 py-4">
 
-                            <input type="text" name="title" id="title" class='form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
-                            <img class="my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                            <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                         </div>
                         <a name="experiences"></a>
                         <div class="col-md-8">

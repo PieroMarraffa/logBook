@@ -114,6 +114,7 @@
         {if isset($postList)}
             {foreach $postList as $p}
                     <!-- Blog post-->
+                {if isset($p)}
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
@@ -124,6 +125,7 @@
                             </div>
                         </div>
                     </div>
+                {/if}
             {/foreach}
         {/if}
         {/if}

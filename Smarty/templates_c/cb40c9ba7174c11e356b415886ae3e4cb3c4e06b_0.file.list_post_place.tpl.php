@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-27 18:15:28
+/* Smarty version 3.1.33, created on 2021-10-28 20:21:00
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61797b2014dad0_84208788',
+  'unifunc' => 'content_617aea0c9663a4_53735180',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1635351324,
+      1 => 1635445250,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61797b2014dad0_84208788 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617aea0c9663a4_53735180 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -179,7 +179,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
 </div>
                                 <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
 </h2>
-                                <a class="btn btn-primary" href="">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+">Go to the Post →</a>
                             </div>
                         </div>
                     </div>

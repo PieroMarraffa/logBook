@@ -94,4 +94,51 @@ class VResearch
         $this->smarty->display('error.tpl');
     }
 
+    /**
+     * @throws SmartyException
+     */
+    public function post($post, $author,$array_p){
+        $pm = new FPersistentManager();
+        if(CUser::isLogged()){
+            $this->smarty->assign('userlogged',"loggato");
+            $u=USession::getElement('user');
+            $user=unserialize($u);
+            $this->smarty->assign('username',$user->getUserName());}
+        $travel = $post->getTravel();
+        $experience=$travel->getExperienceList();
+        $array_c=$post->getCommentList();
+        $like=$post->getLikeList();
+        $type=array();
+        $pic64=array();
+        $img=array();
+        if(!is_array($array_c)){
+            $comment=array();
+            $comment[]=$array_c;
+        }else $comment=$array_c;
+        foreach($comment as $u){
+            if($u!=null) {
+                $img[] = $pm->load("IDimage", $u->getAuthor()->getImageID(), 'FImage');
+            }
+        }
+        foreach($img as $i){
+            if(isset($i[0])){
+                $type[]=$i[0]->getType();
+                $pic64[]=base64_encode($i[0]->getImageFile());}
+            else{
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+                $pic64[]= base64_encode($data);
+                $type[]= "image/png";
+            }
+        }
+        $this->smarty->assign('array_place', $array_p);
+        $this->smarty->assign('type', $type);
+        $this->smarty->assign('pic64', $pic64);
+        $this->smarty->assign('Title',$post->getTitle());
+        $this->smarty->assign('author',$author->getUserName());
+        $this->smarty->assign('date',$post->getCreationDate());
+        $this->smarty->assign('arrayExperience',$experience);
+        $this->smarty->assign('arrayComment',$comment);
+        $this->smarty->display('post_detail.tpl');
+
+    }
 }

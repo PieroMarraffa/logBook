@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-12 10:30:05
+/* Smarty version 3.1.33, created on 2021-10-28 19:38:51
   from 'C:\xampp\htdocs\logBook\Smarty\templates\change_single_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6165478d4b7b33_31180917',
+  'unifunc' => 'content_617ae02b144614_82579418',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8f23153b65c65d0dae8d6bc158e7b6b3cee90544' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\change_single_credential.tpl',
-      1 => 1632757425,
+      1 => 1635442645,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6165478d4b7b33_31180917 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ae02b144614_82579418 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
-<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
+<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorUsername', (($tmp = @$_smarty_tpl->tpl_vars['errorUsername']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
 <head>
     <!--meta charset="utf-8" /-->
@@ -30,7 +33,7 @@ function content_6165478d4b7b33_31180917 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Change Credential</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -77,9 +80,24 @@ function content_6165478d4b7b33_31180917 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="text" id="new_password" class="fadeIn second" name="new_password" placeholder="new password" required>
                 <input type="text" id="confirm_password" class="fadeIn second" name="confirm_password" placeholder="confirm new password" required>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'username') {?>
-                <input type="text" id="username" class="fadeIn second" name="username" placeholder="new username" required>
+                <label><input type="text" id="username" class="fadeIn second" name="username" placeholder="new username" required></label>
+                <?php if ($_smarty_tpl->tpl_vars['errorUsername']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p  class="fadeIn third" align="center">Attention! This username is alredy used!  </p>
+                    </div>
+                <?php }?>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'image') {?>
                 <input type="file" name="file" >
+                <?php if ($_smarty_tpl->tpl_vars['errorSize']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p class="fadeIn third" align="center">Attention! Inserted image is too big. </p>
+                    </div>
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['errorType']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p  class="fadeIn third" align="center">Attention! This image's type is not allowed. </p>
+                    </div>
+                <?php }?>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'description') {?>
                 <div class="col-md-5">
                     <label for="description">

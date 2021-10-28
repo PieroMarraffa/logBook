@@ -70,11 +70,14 @@ class VUser
             $this->smarty->assign('type', $type);
             $this->smarty->assign('pic64', $pic64);
         }
-        //$this->smarty->assign('image',$image);
         $this->smarty->assign('array_place',$arrayPlace);
         $this->smarty->assign('user',$user);
         $this->smarty->assign('email',$user->getMail());
-        $this->smarty->assign('postList',$arrayPost);
+        if(!is_array($arrayPost)){
+            $array_p=array();
+            $array_p[]=$arrayPost;
+        }else $array_p=$arrayPost;
+        $this->smarty->assign('postList',$array_p);
         $this->smarty->display('profile.tpl');
     }
 
@@ -191,12 +194,9 @@ class VUser
     /**
      * @throws SmartyException
      */
-    public function updateError($error)
+    public function updateImageError($error)
     {
         switch ($error) {
-            case "email":
-                $this->smarty->assign('errorEmail',"errore");
-                break;
             case "typeimg" :
                 $this->smarty->assign('errorType',"errore");
                 break;
@@ -204,6 +204,16 @@ class VUser
                 $this->smarty->assign('errorSize',"errore");
                 break;
         }
-        $this->smarty->display('changeImage.tpl');
+        $this->smarty->assign('change', 'image');
+        $this->smarty->display('change_single_credential.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function updateUserNameError(){
+        $this->smarty->assign('errorUsername',"errore");
+        $this->smarty->assign('change', 'username');
+        $this->smarty->display('change_single_credential.tpl');
     }
 }

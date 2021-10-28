@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-27 17:47:39
+/* Smarty version 3.1.33, created on 2021-10-28 23:36:54
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6179749bc12b55_95286832',
+  'unifunc' => 'content_617b17f608e124_47143287',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1635349328,
+      1 => 1635457009,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6179749bc12b55_95286832 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617b17f608e124_47143287 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,6 +161,7 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 ?>
                     <!-- Blog post-->
+                <?php if (isset($_smarty_tpl->tpl_vars['p']->value)) {?>
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
@@ -173,6 +174,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
                             </div>
                         </div>
                     </div>
+                <?php }?>
             <?php
 }
 }

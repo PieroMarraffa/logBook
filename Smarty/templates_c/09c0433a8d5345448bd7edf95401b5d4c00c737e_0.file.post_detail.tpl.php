@@ -1,5 +1,28 @@
-<!DOCTYPE html>
-{assign var='userlogged' value=$userlogged|default:'nouser'}
+<?php
+/* Smarty version 3.1.33, created on 2021-10-28 23:34:29
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.33',
+  'unifunc' => 'content_617b1765572256_70656190',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
+      1 => 1635456866,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_617b1765572256_70656190 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
+<?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,14 +34,16 @@
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
-    <script>
+    <?php echo '<script'; ?>
+>
         function ready(){
             if (!navigator.cookieEnabled) {
                 alert('Attenzione! Attivare i cookie per proseguire correttamente la navigazione');
             }
         }
         document.addEventListener("DOMContentLoaded", ready);
-    </script>
+    <?php echo '</script'; ?>
+>
     <style type="text/css">
         #map {
             height: 400px;
@@ -31,11 +56,12 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
-        {if $userlogged!='nouser'}
-            <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
-        {else}
+        <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+</a>
+        <?php } else { ?>
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
-        {/if}
+        <?php }?>
     </div>
 </nav>
 <!-- Page content-->
@@ -47,28 +73,42 @@
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{$Title}</h1>
+                    <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
+</h1>
                     <!-- Post meta content-->
-                    <h4 class="fw-bolder mb-1">{$author}</h4>
-                    <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
+                    <h4 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
+</h4>
+                    <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+</div>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                 <!-- Post content-->
                 <section class="mb-5">
-                    {if $arrayExperience}
-                    {foreach $arrayExperience as $experience}
+                    <?php if ($_smarty_tpl->tpl_vars['arrayExperience']->value) {?>
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayExperience']->value, 'experience');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
+?>
                     <div class="card my-3">
                         <div class="card-header">
-                            <h4>{$experience->getTitle()}</h4>
-                            <div  class="text-muted fst-italic mb-2">From: {$experience->getStartDay()}   To: {$experience->getEndDay()}</div>
+                            <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
+</h4>
+                            <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
+   To: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getEndDay();?>
+</div>
                         </div>
                         <div class="card-body">
-                            {$experience->getDescription()}
+                            <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
+
                         </div>
                     </div>
-                    {/foreach}
-                    {/if}
+                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php }?>
                 </section>
             </article>
             <!-- Comments section-->
@@ -83,22 +123,33 @@
                             </div>
                         </form>
                         <!-- Comment -->
-                        {if $arrayComment}
-                            {if isset($arrayComment)}
-                                {for $i=0;$i<=count($arrayComment)-1;$i++}
+                        <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value) {?>
+                            <?php if (isset($_smarty_tpl->tpl_vars['arrayComment']->value)) {?>
+                                <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayComment']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayComment']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
+?>
                                 <div class="d-flex mb-4">
                                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
-                                    {if isset($arrayComment[$i])}
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="..."></div>
+                                    <?php if (isset($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' width="65" height="65" alt="..."></div>
                                             <div class="ms-3">
-                                            <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
-                                            <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
-                                        {/if}
+                                            <div class="h5"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName();?>
+</div>
+                                            <div class="text-muted mb-2"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getContent();?>
+</div>
+                                        <?php }?>
                                     </div>
                                 </div>
-                                {/for}
-                            {/if}
-                        {/if}
+                                <?php }
+}
+?>
+                            <?php }?>
+                        <?php }?>
                     </div>
                 </div>
             </section>
@@ -112,9 +163,12 @@
                 <div class="card-body">
                     <div id="map"></div>
 
-                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
+                    <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+>
 
-                    <script>
+                    <?php echo '<script'; ?>
+>
                         function initialize() {
                             var map = new google.maps.Map(document.getElementById('map'), {
                                 zoom: 2,
@@ -122,15 +176,24 @@
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             });
                             var locations = [];
-                            {if isset($array_place)}
-                            {foreach $array_place as $a}
+                            <?php if (isset($_smarty_tpl->tpl_vars['array_place']->value)) {?>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_place']->value, 'a');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+?>
                             marker = new google.maps.Marker({
-                                position: new google.maps.LatLng({$a->getLatitude()},{$a->getLongitude()}),
+                                position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['a']->value->getLatitude();?>
+,<?php echo $_smarty_tpl->tpl_vars['a']->value->getLongitude();?>
+),
                                 map: map,
                                 icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
                             });
-                            {/foreach}
-                            {/if}
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            <?php }?>
                             var infowindow = new google.maps.InfoWindow();
 
                             var marker, i;
@@ -156,7 +219,8 @@
                                 })(marker, i));
                             }
                         }
-                    </script>
+                    <?php echo '</script'; ?>
+>
                 </div>
             </div>
 
@@ -164,8 +228,13 @@
     </div>
 </div>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
 </body>
-</html>
+</html><?php }
+}

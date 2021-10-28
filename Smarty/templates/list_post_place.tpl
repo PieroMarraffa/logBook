@@ -137,7 +137,7 @@
                             <div class="card-body">
                                 <div class="small text-muted">{$post->getCreationDate()}</div>
                                 <h2 class="card-title h4">{$post->getTitle()}</h2>
-                                <a class="btn btn-primary" href="">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$post->getPostID()}">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
