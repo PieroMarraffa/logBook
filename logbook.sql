@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 29, 2021 alle 17:11
+-- Creato il: Ott 28, 2021 alle 15:07
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -61,7 +61,7 @@ CREATE TABLE `comment` (
 
 INSERT INTO `comment` (`IDcomment`, `IDuser`, `IDpost`, `Deleted`, `Content`) VALUES
 (1, 1, 1, 0, 'Che bel poooost'),
-(2, 2, 2, 0, 'Che bel poooost'),
+(2, 2, 2, 1, 'Che bel poooost'),
 (3, 3, 2, 0, 'Sei Brutto'),
 (4, 3, 1, 1, 'Fai skf'),
 (5, 5, 8, 0, 'Tanto lo so cosa avete fatto... :)'),
@@ -168,9 +168,9 @@ CREATE TABLE `place` (
 --
 
 INSERT INTO `place` (`IDplace`, `Latitude`, `Longitude`, `Category`, `Name`) VALUES
-(1, 47, 12, 'città', 'Parigi'),
+(1, 48.85, 2.35, 'città', 'Parigi'),
 (2, 42, 13, 'città', 'L\'Aquila'),
-(3, 1, 53, 'città', 'Londra'),
+(3, 51.5089, -0.12859417952683974, 'città', 'Londra'),
 (4, 31, 41, 'meta turistica', 'Colosseo'),
 (5, 55, 12, 'città', 'Roma'),
 (6, 50, 10, 'nazione', 'Irlanda'),
@@ -258,14 +258,14 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`IDpost`, `IDuser`, `Title`, `Date`, `Deleted`) VALUES
-(1, 2, 'viaggio a roma', '2021-09-12 01:30:16', 0),
+(1, 2, 'viaggio a roma', '2021-09-12 01:30:16', 1),
 (2, 1, 'viaggio in Irlanda', '2021-09-12 01:33:15', 0),
 (3, 5, 'viaggio a Barcellona', '2021-09-12 01:33:44', 0),
-(4, 5, 'viaggio a Perugia', '2021-09-12 01:34:35', 1),
+(4, 5, 'viaggio a Perugia', '2021-09-12 01:34:35', 0),
 (5, 3, 'road trip in Puglia', '2021-09-12 01:34:58', 0),
 (6, 4, 'dritti a frasassi', '2021-09-12 01:35:34', 0),
 (7, 4, 'viaggio a Parigi', '2021-09-12 01:36:25', 0),
-(8, 4, 'notte a Giulianova', '2021-09-12 01:36:51', 1);
+(8, 4, 'notte a Giulianova', '2021-09-12 01:36:51', 0);
 
 -- --------------------------------------------------------
 
@@ -356,9 +356,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`IDuser`, `Email`, `Password`, `Name`, `Description`, `Image`, `UserName`, `Reported`, `Banned`) VALUES
-(1, 'pieromarraffa@gmail.com', 'Pippo', 'Piero', 'Davvero una bella persona', 28, 'marphino99', 0, 1),
-(2, 'gabrielegiusti@gmail.com', 'Gabriele', 'Gabriele', 'Davvero una persona cattiva', 1, 'SuperG', 1, 0),
-(3, 'silviamastracci@gmail.com', 'Silvia', 'Silvia', 'Davvero una persona bellina bellina', 3, 'Sissipessa', 1, 0),
+(1, 'pieromarraffa@gmail.com', 'Pippo', 'Piero', 'Davvero una bella persona', 28, 'marphino99', 0, 0),
+(2, 'gabrielegiusti@gmail.com', 'Gabriele', 'Gabriele', 'Davvero una persona cattiva', 1, 'SuperG', 0, 1),
+(3, 'silviamastracci@gmail.com', 'Silvia', 'Silvia', 'Davvero una persona bellina bellina', 3, 'Sissipessa', 0, 0),
 (4, 'federicoraschiatore@gmail.com', 'Federico', 'Federico', 'Davvero una persona che lascia indietro gli amici... kattiv', 1, 'MaurizioCostanzo00', 0, 0),
 (5, 'giuliacancello@gmail.com', 'Giulia', 'Giulia', 'davvero una persona che non sa fare una carbonara all\'altezza', 1, 'Zuly99', 0, 0),
 (6, 'fede99raschia@gmail.com', 'f', 'Federico Raschiatore', '', 1, 'fedeciccio', 1, 0),

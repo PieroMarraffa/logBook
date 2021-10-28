@@ -42,12 +42,12 @@
 
             {if $error!='ok'}
                 <div style="color: red;">
-                    <p align="center">Error! Username or password is wrong! </p>
+                    <p class="fadeIn third" align="center">Error! Username or password is wrong! </p>
                 </div>
             {/if}
             {if $bann!='false'}
                 <div style="color: red;">
-                    <p align="center">This profile is banned </p>
+                    <p class="fadeIn third" align="center">This profile is banned </p>
                 </div>
             {/if}
             <input type="submit" id="form_login" class="fadeIn fourth" value="Log In">

@@ -109,12 +109,7 @@ class CUser
                 USession::getInstance();
                 $salvare = serialize($user);
                 USession::setElement('user',$salvare);
-                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-                $result[] = $pm->load("IDpost",1,FPost::getClass());
-                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
-                $result[] = $pm->load("IDpost",3,FPost::getClass());
-                $result[] = $pm->load("IDpost",4,FPost::getClass());
-                $view->home($result);
+                header('Location: /logBook/User/home');
             }
         }elseif($user->isBanned() == true){
             $view->loginBann();
@@ -217,11 +212,11 @@ class CUser
         $pm = new FPersistentManager();
         $max_size = 600000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
+        echo $result;
         if (!$result) {
             //no immagine
-                $pm->store($user);
-                $ris = "ok";
-
+            $pm->store($user);
+            $ris = "ok";
         }
         else {
             $size = $_FILES[$nome_file]['size'];
@@ -234,7 +229,7 @@ class CUser
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
-                $immagine = addslashes ($immagine);
+                $immagine = addslashes($immagine);
                 $profile_image= new EImage($immagine,null,$size,$type);
                 $id=$pm->storeMedia($profile_image,$nome_file);
                 $user->setImageID($id);
