@@ -3,7 +3,7 @@
 
 use Cassandra\Date;
 
-class EPost
+class EPost implements Countable
 {
     private $title;
     private $commentList;
@@ -228,5 +228,10 @@ class EPost
     public function removeLike($position) {
         unset($this->likeList[$position]);
         $this->LikeList=array_values($this->likeList);
+    }
+
+    public function count()
+    {
+        return 1;
     }
 }

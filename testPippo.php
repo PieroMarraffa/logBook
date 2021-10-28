@@ -24,7 +24,7 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $result = FPost::existRelations(7, 2);
+        $result = FPersistentManager::existAssociationUserPlace(8, 3);
         return $result;
     }
 }

@@ -89,11 +89,11 @@ class FPersistentManager
     }
 
     public static function existAssociationPostPlace($idPost,$idPlace){
-        FPost::storePlaceAssociatedToPost($idPlace,$idPost);
+        return FPost::existAssociationPostPlace($idPost, $idPlace);
     }
 
     public static function existAssociationUserPlace($idUser,$idPlace){
-        FPost::storePlaceAssociatedToPost($idPlace,$idUser);
+        return FUser::existAssociationUserPlace($idUser, $idPlace);
     }
 
     public static function storePlaceToPost($idPost,$idPlace){

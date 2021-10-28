@@ -386,6 +386,33 @@ class FDataBase
     }
 
 
+    public function loadPlaceToUser($idUser){
+        try{
+            $query="SELECT * FROM place_to_user WHERE IDuser ='". $idUser . "';";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num==0){
+                $result=false;
+            }elseif ($num==1){
+                $x=$statement->fetch(PDO::FETCH_ASSOC);
+                $result=$this->loadById("place","IDplace",$x['IDplace']);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$this->loadById("place","IDplace",$r['IDplace']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
 
     /** seleziona tutti gli id dei post segnalati senza doppioni
      */

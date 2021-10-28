@@ -404,12 +404,15 @@ class FPost
         $database->storePlaceToPost($idPlace,$idPost);
     }
 
-    static function existRelations($idPost, $idPlace){
+    static function existAssociationPostPlace($idPost, $idPlace){
         $result = self::loadPlaceByPost($idPost);
         if ($result == null) {return false;}
         elseif (count($result) == 1){
             if ($result->getPlaceID() == $idPlace){
                 return true;
+            }
+            else{
+                return false;
             }
         }
         elseif (count($result) > 1){

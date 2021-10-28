@@ -125,10 +125,23 @@ class FUser extends FDataBase
 
     /** Restituisce tutti i valori di place associati a quell'utente */   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
     public static function loadPlaceByUser($idUser){
-        $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity(self::getTable(),$idUser,"place");
-        $place= new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-        $place->setPlaceID($result['IDplace']);
+        $place=null;
+        $database = FDataBase::getInstance();
+        $result = $database->loadPlaceToUser($idUser);
+        $rows_number = $database->interestedRowsInTable("place_to_user","IDuser",$idUser);
+        if(($result != null) && ($rows_number == 1)) {
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $place = array();
+                for($i = 0; $i < count($result); $i++){
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+                }
+            }
+        }
         return $place;
     }
 
@@ -282,4 +295,25 @@ class FUser extends FDataBase
 
     /** FAI IL METODO DI RIPRISTINO DEI COMMENTI E DEI POST  */
     /** FAI IL METODO PER LA RICERCA DEGLI UTENTI IN BASE ALLA STRINGA INSERITA */
+
+    static function existAssociationUserPlace($idUser, $idPlace){
+        $result = self::loadPlaceByUser($idUser);
+        if ($result == null) {return false;}
+        elseif (count($result) == 1){
+            if ($result->getPlaceID() == $idPlace){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        elseif (count($result) > 1){
+            foreach ($result as $res){
+                if ($res->getPlaceID() == $idPlace){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 }

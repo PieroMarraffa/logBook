@@ -1,7 +1,7 @@
 <?php
 
 
-class EPlace
+class EPlace implements Countable
 {
     private $name;
     private $latitude;
@@ -108,6 +108,8 @@ class EPlace
     }
 
 
-
-
+    public function count()
+    {
+        return 1;
+    }
 }
