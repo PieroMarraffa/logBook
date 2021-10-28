@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 23:36:54
+/* Smarty version 3.1.33, created on 2021-10-28 23:52:39
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617b17f608e124_47143287',
+  'unifunc' => 'content_617b1ba7d6f7c4_80655759',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1635457009,
+      1 => 1635457955,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617b17f608e124_47143287 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617b1ba7d6f7c4_80655759 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -170,7 +170,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 </div>
                                 <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getTitle();?>
 </h2>
-                                <a class="btn btn-primary" href="">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getPostID();?>
+">Go to the Post →</a>
                             </div>
                         </div>
                     </div>

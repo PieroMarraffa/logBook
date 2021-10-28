@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 23:34:29
+/* Smarty version 3.1.33, created on 2021-10-29 00:02:41
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617b1765572256_70656190',
+  'unifunc' => 'content_617b1e01a5d9e2_83729989',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635456866,
+      1 => 1635458559,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617b1765572256_70656190 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617b1e01a5d9e2_83729989 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -138,12 +138,12 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' width="65" height="65" alt="..."></div>
                                             <div class="ms-3">
-                                            <div class="h5"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName();?>
+                                                <div class="h5"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName();?>
 </div>
-                                            <div class="text-muted mb-2"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getContent();?>
+                                                <div class="text-muted mb-2"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getContent();?>
 </div>
+                                            </div>
                                         <?php }?>
-                                    </div>
                                 </div>
                                 <?php }
 }
@@ -153,6 +153,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     </div>
                 </div>
             </section>
+        </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
             <!-- Search widget-->
@@ -211,12 +212,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     icon: icons[i]
                                 });
 
-                                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                                    return function() {
-                                        infowindow.setContent(locations[i][0]);
-                                        infowindow.open(map, marker);
-                                    }
-                                })(marker, i));
                             }
                         }
                     <?php echo '</script'; ?>

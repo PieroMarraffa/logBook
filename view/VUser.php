@@ -140,7 +140,7 @@ class VUser
         }
         else{
             $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
-            $pic64= base64_decode($data);
+            $pic64= base64_encode($data);
             $type = "image/png";
             $this->smarty->assign('type', $type);
             $this->smarty->assign('pic64', $pic64);

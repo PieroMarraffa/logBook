@@ -91,10 +91,10 @@
                                     {if isset($arrayComment[$i])}
                                             <div class="flex-shrink-0"><img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="..."></div>
                                             <div class="ms-3">
-                                            <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
-                                            <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
+                                                <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
+                                                <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
+                                            </div>
                                         {/if}
-                                    </div>
                                 </div>
                                 {/for}
                             {/if}
@@ -102,6 +102,7 @@
                     </div>
                 </div>
             </section>
+        </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
             <!-- Search widget-->
@@ -148,12 +149,6 @@
                                     icon: icons[i]
                                 });
 
-                                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                                    return function() {
-                                        infowindow.setContent(locations[i][0]);
-                                        infowindow.open(map, marker);
-                                    }
-                                })(marker, i));
                             }
                         }
                     </script>
