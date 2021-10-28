@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 15:56:05
+/* Smarty version 3.1.33, created on 2021-10-28 19:10:37
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61531ef53c4bb8_48805637',
+  'unifunc' => 'content_617ad98daef9e6_99936118',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'bf4de369c36820110eca69c4d3e3e95ca440e6dc' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/login.tpl',
-      1 => 1632778010,
+      1 => 1635431464,
       2 => 'file',
     ),
   ),
@@ -20,16 +20,17 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61531ef53c4bb8_48805637 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ad98daef9e6_99936118 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
-<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
+<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('bann', (($tmp = @$_smarty_tpl->tpl_vars['bann']->value)===null||$tmp==='' ? 'false' : $tmp));?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Login</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -72,7 +73,12 @@ function content_61531ef53c4bb8_48805637 (Smarty_Internal_Template $_smarty_tpl)
 
             <?php if ($_smarty_tpl->tpl_vars['error']->value != 'ok') {?>
                 <div style="color: red;">
-                    <p align="center">Error! Username or password is wrong! </p>
+                    <p class="fadeIn third" align="center">Error! Username or password is wrong! </p>
+                </div>
+            <?php }?>
+            <?php if ($_smarty_tpl->tpl_vars['bann']->value != 'false') {?>
+                <div style="color: red;">
+                    <p class="fadeIn third" align="center">This profile is banned </p>
                 </div>
             <?php }?>
             <input type="submit" id="form_login" class="fadeIn fourth" value="Log In">

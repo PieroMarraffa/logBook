@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-28 15:47:43
+/* Smarty version 3.1.33, created on 2021-10-28 19:06:03
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/change_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61531cffdadb43_43693503',
+  'unifunc' => 'content_617ad87b94c209_69368150',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'aa16be259864bec54d50763f65183d85b1595bfd' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/change_credential.tpl',
-      1 => 1632778010,
+      1 => 1635431464,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ad87b94c209_69368150 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,7 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>Change Credential</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -70,11 +70,11 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
     <div align="center" class="col-md my-5">
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change email</b></div>
+                <div class="card-header"><h5>Change email</h5></div>
                 <div class="card-body">
                     <div class="row">
                     <div class="col-md-6">
-                        <p> Here u can change your email address</p>
+                        <p><b> Here you can change your email address</b></p>
                     </div>
                     <div class="col-md-6">
                         <img  src="/logBook/Smarty/immagini/email.jpg" width="150" height="150">
@@ -85,14 +85,14 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Password</b></div>
+                <div class="card-header"><h5>Change Password</h5></div>
                 <div class="card-body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p><b> Here you can change your Password</b></p>
                         </div>
                         <div class="col-md-6">
-                            <img  src="/logBook/Smarty/immagini/password.jpg" width="150" height="150">
+                            <img  src="/logBook/Smarty/immagini/password.png" width="150" height="150">
                         </div>
                     </div>
                     <a class="btn btn-primary my-3" href="/logBook/User/changePassword">Change Password -> </a></div>
@@ -100,11 +100,11 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Username</b></div>
+                <div class="card-header"><h5>Change Username</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b> Here you can change your username</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">
@@ -115,11 +115,11 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change profile image</b></div>
+                <div class="card-header"><h5>Change profile image</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b> Here you can change your profile image</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/profileImage.jpg" width="150" height="150">
@@ -130,11 +130,11 @@ function content_61531cffdadb43_43693503 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-5 my-4">
             <div class="card">
-                <div class="card-header"><b>Change Description</b></div>
+                <div class="card-header"><h5>Change Description</h5></div>
                 <div class="body">
                     <div class="row my-2">
                         <div class="col-md-6">
-                            <p> Here u can change your email address</p>
+                            <p> <b>Here you can change your profile description</b></p>
                         </div>
                         <div class="col-md-6">
                             <img  src="/logBook/Smarty/immagini/user.png" width="150" height="150">

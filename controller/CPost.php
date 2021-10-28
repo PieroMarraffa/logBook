@@ -14,28 +14,27 @@ class CPost{
         USession::getInstance();
 
         $num = 2;
+        $view = new VPost();
+        $pm = new FPersistentManager();
+        $user = unserialize(USession::getElement('user'));
         $ExpList = array();
         while (isset($_POST['titleExperience' . $num])) {
-            $user = unserialize(USession::getElement('user'));
-            $view = new VPost();
-            $pm = new FPersistentManager();
-            $title = $_POST['title'];
             $Etitle = $_POST['titleExperience' . $num];
-            $date = date("Y-m-d h:i:s");
-            $deleted = 0;
-            $userID = $user->getUserID();
             $startDate = $_POST['startDate' . $num];
             $finishDate = $_POST['endDate' . $num];
             $descriprion = $_POST['description' . $num];
             $place = $pm->load("Name", "Roma", FPlace::getClass());
             $ExpList[] = new EExperience(0, $startDate, $finishDate, $Etitle, $place, $descriprion);
-            //$view->savePost($cosa);
             $num++;
         }
+        $title = $_POST['title'];
         $TravelDays = FTravel::lowerAndHigherDate($ExpList);
         $DayOne = $TravelDays[0];
         $LastDay = $TravelDays[1];
         $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
+        $date = date("Y-m-d h:i:s");
+        $userID = $user->getUserID();
+        $deleted = 0;
         $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
         $postID = $pm->store($post);
         $travel->setPostID($postID);
@@ -45,13 +44,16 @@ class CPost{
             $pm->store($exp);
         }
 
-        $pm->storePlaceToPost($postID, $place->getPlaceID());
-        $pm->storePlaceToUser($userID, $place->getPlaceID());
+        if ($pm->existAssociationUserPlace($userID,$place->getPlaceID()) == false){
+            $pm->storePlaceToUser($userID, $place->getPlaceID());
+        }
+        if ($pm->existAssociationPostPlace($postID,$place->getPlaceID()) == false){
+            $pm->storePlaceToPost($postID, $place->getPlaceID());
+        }
 
         $numImg = 2;
         echo 'image'.$numImg;
         if (isset($_FILES['image'.$numImg])) {
-            echo 'DIO PORCOOOOOOO';
             $nome_file = 'image' . $numImg;
             $img = static::upload($travelID, $nome_file);
             switch ($img) {

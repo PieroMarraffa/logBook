@@ -23,12 +23,15 @@
         "<div class='col-md-3'></div></div></div>" +
         "<div class='card-body'>" +
         "<textarea class='form-control' name='description"+ numCode +"' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+        "</div><div align='end'>" +
+        "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove("+ numCode +")' href='#experiences'>- Delete Experience</a>" +
         "</div></div>";
     document.getElementById("container").appendChild(nuovo_elemento);
     obj=eval("document.getElementById(\"quadro"+parseInt(document.getElementById("container").childNodes.length)+"\")");
-    obj.style.height="400px";
+    obj.style.height="450px";
     obj.style.width="1000px";
     }
+
 
     function creaImage(){
         nuovo_elemento = document.createElement("div");
@@ -36,7 +39,7 @@
         nuovo_elemento.setAttribute("id","quadretto"+parseInt(document.getElementById("container2").childNodes.length+1));
         nuovo_elemento.setAttribute("class","quadrato");
         nuovo_elemento.innerHTML=
-            "<input class='btn btn-primary my-1' type='file' name='image"+ numCode +"' id='image' accept='image/png, image/jpeg'>";
+            "<input width='100%' class='btn btn-primary my-1' type='file' name='image"+ numCode +"' id='image' accept='image/png, image/jpeg'>";
         document.getElementById("container2").appendChild(nuovo_elemento);
         obj=eval("document.getElementById(\"quadretto"+parseInt(document.getElementById("container2").childNodes.length)+"\")");
         obj.style.height="70px";
@@ -53,7 +56,9 @@
         else{
             window.alert("Place is not in our database");
         }
-}
+    }
+
+
     function addPlace(){
         nuovo_elemento = document.createElement("div");
         nuovo_elemento.setAttribute("id","quadro"+parseInt(document.getElementById("container").childNodes.length+1));
@@ -67,8 +72,9 @@
         obj.style.width="200px";
     }
 
-    function remove(){
-            var elem = document.getElementById(this.id);
+
+    function remove(numero){
+            var elem = document.getElementById("quadro" + numero);
             elem.parentNode.removeChild(elem);
             return false;
     }
