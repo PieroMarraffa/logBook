@@ -16,24 +16,21 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="/logBook/Smarty/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/logBook/Smarty/css/style.css">
 </head>
 
 <body class="text-center">
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <div class="row">
-                <h1 class="cover-heading mt-5 mr-4">Installazione LogBook</h1>
-                <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="190" height="160">
+<div class="">
+    <header align="center">
+            <div class="col-md-auto" >
+                <h1 class="">Installazione</h1>
+                <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="500" height="200">
             </div>
-        </div>
     </header>
 
     <main role="main" class="inner cover">
         <h3 class=" text-danger">{if isset($nophpv)} La tua versione di php non è compatibile! {/if} {if isset($nocookie)} L'app necessita dei cookie abilitati! {/if} <br> {if isset($nojs)} L'app necessita di javascript! {/if}<br> </h3>
-        <h3 class="pb-3">Profilo Database</h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
                 <label>Database name</label>
@@ -46,6 +43,8 @@
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
                 <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
+            </div>
+        </form>
     </main>
 
     <footer class="mastfoot mt-auto">

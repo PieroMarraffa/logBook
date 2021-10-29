@@ -47,10 +47,23 @@
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1">{$Title}</h1>
-                    <!-- Post meta content-->
-                    <h4 class="fw-bolder mb-1">{$author}</h4>
-                    <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
+                    <div class="row">
+                        <div class="col-md-7">
+                        <h1 class="fw-bolder mb-1">{$Title}</h1>
+                        <!-- Post meta content-->
+                        <h4 class="fw-bolder mb-1">{$author}</h4>
+                        <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
+                        </div>
+                        <div class="col-md-4" align="end">
+                            <div class="btn btn-primary align-content-center" >
+                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                            </div>
+                            <div class="btn btn-primary align-content-center" >
+                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                            </div>
+
+                        </div>
+                    </div>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>

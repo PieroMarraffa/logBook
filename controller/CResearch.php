@@ -89,17 +89,22 @@ class CResearch
         $view=new VResearch();
         if($_SERVER['REQUEST_METHOD'] == "GET") {
             $post = $pm->load("IDpost", $id, FPost::getClass());
-            $author=$pm->load("IDuser",$post->getUserID(),FUser::getClass());
-            $experience=$post->getTravel()->getExperienceList();
-            if (is_object($experience)) {
-                $array_e = array();
-                $array_e[] = $experience;
-            } else $array_e = $experience;
-            $array_place=array();
-            foreach ($array_e as $e){
-                $array_place[]=$e->getPlace();
+            if($post->getDeleted()!=true){
+                $author=$pm->load("IDuser",$post->getUserID(),FUser::getClass());
+                $experience=$post->getTravel()->getExperienceList();
+                if (is_object($experience)) {
+                    $array_e = array();
+                    $array_e[] = $experience;
+                } else $array_e = $experience;
+                $array_place=array();
+                foreach ($array_e as $e){
+                    $array_place[]=$e->getPlace();
+                }
+                $view->post($post,$author,$array_place);
             }
-            $view->post($post,$author,$array_place);
+            else{
+                header("Location: /logBook/User/home");
+            }
         }
     }
 

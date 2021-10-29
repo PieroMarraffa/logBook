@@ -125,13 +125,13 @@ class FUser extends FDataBase
 
     /** Restituisce tutti i valori di place associati a quell'utente */   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
     public static function loadPlaceByUser($idUser){
-        $place=null;
+        $place=array();
         $database = FDataBase::getInstance();
         $result = $database->loadPlaceToUser($idUser);
         $rows_number = $database->interestedRowsInTable("place_to_user","IDuser",$idUser);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-            $place->setPlaceID($result['IDplace']);
+            $place[] = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place[0]->setPlaceID($result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){

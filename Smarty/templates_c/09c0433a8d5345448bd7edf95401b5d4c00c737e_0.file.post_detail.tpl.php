@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-29 00:02:41
+/* Smarty version 3.1.33, created on 2021-10-29 10:41:01
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617b1e01a5d9e2_83729989',
+  'unifunc' => 'content_617bb39d5f0a30_13633425',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635458559,
+      1 => 1635496858,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617b1e01a5d9e2_83729989 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617bb39d5f0a30_13633425 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -73,13 +73,26 @@ function content_617b1e01a5d9e2_83729989 (Smarty_Internal_Template $_smarty_tpl)
                 <!-- Post header-->
                 <header class="mb-4">
                     <!-- Post title-->
-                    <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
+                    <div class="row">
+                        <div class="col-md-7">
+                        <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
 </h1>
-                    <!-- Post meta content-->
-                    <h4 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
+                        <!-- Post meta content-->
+                        <h4 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
 </h4>
-                    <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+                        <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['date']->value;?>
 </div>
+                        </div>
+                        <div class="col-md-4" align="end">
+                            <div class="btn btn-primary align-content-center" >
+                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                            </div>
+                            <div class="btn btn-primary align-content-center" >
+                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                            </div>
+
+                        </div>
+                    </div>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>

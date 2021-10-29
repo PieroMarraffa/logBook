@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 15:07:00
+/* Smarty version 3.1.33, created on 2021-10-29 11:10:59
   from 'C:\xampp\htdocs\logBook\Smarty\templates\installazione.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617aa074e0f320_50207291',
+  'unifunc' => 'content_617bbaa3070a34_56409948',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cdd2f2aec03b1af720f0c2f00087dd128d541986' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\installazione.tpl',
-      1 => 1635343625,
+      1 => 1635498656,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617aa074e0f320_50207291 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617bbaa3070a34_56409948 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -39,24 +39,21 @@ function content_617aa074e0f320_50207291 (Smarty_Internal_Template $_smarty_tpl)
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
-    <link href="/logBook/Smarty/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/logBook/Smarty/css/style.css">
 </head>
 
 <body class="text-center">
 
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-        <div class="inner">
-            <div class="row">
-                <h1 class="cover-heading mt-5 mr-4">Installazione LogBook</h1>
-                <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="190" height="160">
+<div class="">
+    <header align="center">
+            <div class="col-md-auto" >
+                <h1 class="">Installazione</h1>
+                <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="500" height="200">
             </div>
-        </div>
     </header>
 
     <main role="main" class="inner cover">
         <h3 class=" text-danger"><?php if (isset($_smarty_tpl->tpl_vars['nophpv']->value)) {?> La tua versione di php non è compatibile! <?php }?> <?php if (isset($_smarty_tpl->tpl_vars['nocookie']->value)) {?> L'app necessita dei cookie abilitati! <?php }?> <br> <?php if (isset($_smarty_tpl->tpl_vars['nojs']->value)) {?> L'app necessita di javascript! <?php }?><br> </h3>
-        <h3 class="pb-3">Profilo Database</h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
                 <label>Database name</label>
@@ -69,6 +66,8 @@ function content_617aa074e0f320_50207291 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
                 <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
+            </div>
+        </form>
     </main>
 
     <footer class="mastfoot mt-auto">
