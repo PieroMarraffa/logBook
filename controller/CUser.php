@@ -13,7 +13,11 @@ class CUser
     static function home(){
         $pm = new FPersistentManager();
         $view = new VUser();
-        $result=$pm->loadPostHomePage();
+        $result=array();
+        $result[] = $pm->load("IDpost",1,FPost::getClass());       /** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
+        $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
+        $result[] = $pm->load("IDpost",3,FPost::getClass());
+        $result[] = $pm->load("IDpost",4,FPost::getClass());
         $view->home($result);
     }
 
