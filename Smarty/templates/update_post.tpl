@@ -40,17 +40,18 @@
                         <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                     </div>
                     <a name="experiences"></a>
-                    {if $arrayExperience}
-                    {foreach $arrayExperience as $experience}
+                    {if $array_experience}
+                    {if is_array($array_experience)}
+                    {foreach $array_experience as $exp}
                         <div class="card">
                             <div class="card-header">
-                                <textarea class="form-control" name="titleExperience{$numero}" rows="1" maxlength="49" placeholder="Insert experience title here">{$title}</textarea>
+                                <textarea class="form-control" name="titleExperience{$numero}" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate{$numero}" class="px-2" value="{$startDay}">
+                                        <input type="date" name="startDate{$numero}" class="px-2" value="{$exp->getStartDay()}">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" name="endDate{$numero}" class="px-2" value="{$endDay}">
+                                        <input type="date" name="endDate{$numero}" class="px-2" value="{$exp->getEndDay()}">
                                     </div>
                                     <div class="col-md-3">
                                         <select class="btn btn-primary" name="place{$numero}">
@@ -62,13 +63,15 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" name="descriprion{$numero}" maxlength="499" rows="6" placeholder="Insert description here">{$description}</textarea>
+                                <textarea class="form-control" name="descriprion{$numero}" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
                             </div>
                             <div align="end">
                                 <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove({$numero})">- Delete Experience</a>
                             </div>
                         </div>
+                        {$numero++}
                     {/foreach}
+                    {/if}
                     {/if}
                     <div class="col-md-8">
 

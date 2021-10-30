@@ -122,7 +122,9 @@ class CPost{
         $view = new VPost();
         $pm = new FPersistentManager();
         $travel = $pm->loadTravelByPost($postID);
-        $view->modify_post($travel);
+        $arrayExperience = $travel->getExperienceList();
+        $numero = 2;
+        $view->modify_post($travel, $arrayExperience, $numero);
     }
 
 
