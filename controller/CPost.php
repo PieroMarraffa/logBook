@@ -130,10 +130,13 @@ class CPost{
     /**
      * @throws SmartyException
      */
-    static function modify_post(){
+    static function modify_post($post){
         $view = new VPost();
         $pm = new FPersistentManager();
-        $travel = $pm->loadTravelByPost();
+        //$travel = $pm->loadTravelByPost();
+        echo '  ciaoo  ';
+        echo $post->getPostID();
+        echo '  ciaoo  ';
         $view->modify_post();
     }
 
