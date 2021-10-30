@@ -44,5 +44,12 @@ class VPost
         $this->smarty->assign('postList',$arrayPost);
         $this->smarty->display('profile.tpl');
     }
+
+    /**
+     * @throws SmartyException
+     */
+    public function modify_post(){
+        $this->smarty->display('update_post.tpl');
+    }
 }
 

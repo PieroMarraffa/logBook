@@ -54,6 +54,13 @@ class FPersistentManager
     }
 
 
+    public static function loadTravelByPost($idPost){
+        $result=null;
+        $result=FTravel::load("IDpost",$idPost);
+        return $result;
+    }
+
+
     public static function loadAdmin($field,$id){
         $result=FAdmin::loadAdmin($field,$id);
         return $result;

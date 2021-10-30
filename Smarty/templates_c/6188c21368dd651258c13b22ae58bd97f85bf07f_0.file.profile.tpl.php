@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 16:32:15
+/* Smarty version 3.1.33, created on 2021-10-29 10:43:13
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ab46f43f893_70304897',
+  'unifunc' => 'content_617bb421517ba9_99353227',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
-      1 => 1635431464,
+      1 => 1635496964,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ab46f43f893_70304897 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617bb421517ba9_99353227 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,6 +161,7 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 ?>
                     <!-- Blog post-->
+                <?php if (isset($_smarty_tpl->tpl_vars['p']->value)) {?>
                     <div class="col-md-4">
                         <div class="card mb-4">
                             <img class="card-img-top" src="" alt="..." />
@@ -169,10 +170,12 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 </div>
                                 <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getTitle();?>
 </h2>
-                                <a class="btn btn-primary" href="">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getPostID();?>
+">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
+                <?php }?>
             <?php
 }
 }

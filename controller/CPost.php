@@ -1,8 +1,5 @@
 <?php
 
-require 'utility/UCookie.php';
-require 'utility/USession.php';
-require 'utility/UServer.php';
 
 class CPost{
     public static function savePost()
@@ -51,9 +48,11 @@ class CPost{
             $pm->storePlaceToPost($postID, $place->getPlaceID());
         }
 
-        $numImg = 2;
-        echo 'image'.$numImg;
-        if (isset($_FILES['image'.$numImg])) {
+        $numImg = 0;
+        echo $_FILES['file']['size'];
+        $result = is_uploaded_file($_FILES['file']['tmp_name']);
+        echo $result;
+        if ($result) {
             $nome_file = 'image' . $numImg;
             $img = static::upload($travelID, $nome_file);
             switch ($img) {
@@ -125,5 +124,21 @@ class CPost{
         }
 
         return $ris;
+    }
+
+
+    /**
+     * @throws SmartyException
+     */
+    static function modify_post(){
+        $view = new VPost();
+        $pm = new FPersistentManager();
+        $travel = $pm->loadTravelByPost();
+        $view->modify_post();
+    }
+
+
+    static function upgradePost(){
+
     }
 }

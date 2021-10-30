@@ -166,6 +166,7 @@
                         }
                     </script>
                 </div>
+                <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/{$postID}" >Modify Post</a>
             </div>
 
         </div>

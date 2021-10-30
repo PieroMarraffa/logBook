@@ -130,6 +130,7 @@ class VResearch
                 $type[]= "image/png";
             }
         }
+        $this->smarty->assign('postId', $post->getPostId);
         $this->smarty->assign('array_place', $array_p);
         $this->smarty->assign('type', $type);
         $this->smarty->assign('pic64', $pic64);
