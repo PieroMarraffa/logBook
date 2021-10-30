@@ -13,11 +13,7 @@ class CUser
     static function home(){
         $pm = new FPersistentManager();
         $view = new VUser();
-        $result=array();
-        $result[] = $pm->load("IDpost",1,FPost::getClass());       /** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-        $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
-        $result[] = $pm->load("IDpost",3,FPost::getClass());
-        $result[] = $pm->load("IDpost",4,FPost::getClass());
+        $result=$pm->loadPostHomePage();
         $view->home($result);
     }
 
@@ -73,11 +69,7 @@ class CUser
                     header('Location: /logBook/Admin/adminHome');
                 $pm = new FPersistentManager();
                 $view = new VUser();
-                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-                $result[] = $pm->load("IDpost",1,FPost::getClass());
-                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
-                $result[] = $pm->load("IDpost",3,FPost::getClass());
-                $result[] = $pm->load("IDpost",4,FPost::getClass());
+                $result=$pm->loadPostHomePage();
                 $view->loginOk($result);
             }
             else{

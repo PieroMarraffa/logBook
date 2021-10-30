@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 22:57:47
+/* Smarty version 3.1.33, created on 2021-10-29 16:32:17
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617b0ecb5c65a4_20367238',
+  'unifunc' => 'content_617c05f1158885_71021419',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1635454651,
+      1 => 1635517931,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617b0ecb5c65a4_20367238 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617c05f1158885_71021419 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,7 +55,7 @@ function content_617b0ecb5c65a4_20367238 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -72,7 +72,7 @@ function content_617b0ecb5c65a4_20367238 (Smarty_Internal_Template $_smarty_tpl)
                             <div class="container py-3" id="container">
                             </div>
                             <div class="col-md-4">
-                                <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+                                <!--input name="send" type="submit" form="form_create_post" class="btn btn-primary" -->
                             </div>
 
                         </div>
@@ -92,6 +92,7 @@ function content_617b0ecb5c65a4_20367238 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
     </div>
+        <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
     </form>
 </section>
 

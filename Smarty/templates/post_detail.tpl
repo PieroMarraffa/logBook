@@ -25,6 +25,7 @@
             width: 100%;
         }
     </style>
+    <script src="/logBook/Smarty/js/bootstrap.js"></script>
 </head>
 <body>
 <!-- Navigation-->
@@ -65,9 +66,32 @@
                         </div>
                     </div>
                 </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
-                <!-- Post content-->
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {if isset($typeImg[0])}
+                            <div class="carousel-item active">
+                                <img class="w-100" src='data:{$typeImg[0]};charset=utf-8;base64,{$pic64Img[0]}' alt="...">
+                            </div>
+                        {/if}
+                        {if isset($typeImg[1])}
+                        {for $i=1;$i<=count($typeImg)-1;$i++}
+                            <div class="carousel-item">
+
+                                    <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' alt="...">
+
+                            </div>
+                        {/for}
+                        {/if}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <section class="mb-5">
                     {if $arrayExperience}
                     {foreach $arrayExperience as $experience}
@@ -174,7 +198,5 @@
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
 </body>
 </html>

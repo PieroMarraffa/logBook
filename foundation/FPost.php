@@ -89,13 +89,14 @@ class FPost
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
-            foreach ($likeList as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
+                foreach ($likeList as $l){
+                    if($l->getValue()==1){
+                        $nLike ++;
+                    }elseif ($l->getValue()==-1){
+                        $nDislike++;
+                    }
                 }
-            }}
+            }
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
@@ -206,11 +207,12 @@ class FPost
     }
 
 
-    /** visualizza tutti i post che possono essere visualizzati */
+    /** visualizza tutti i post che possono essere visualizzati
+     * @throws Exception
+     */
     public static function loadAllVisiblePost()
     {
-        $result = self::load("Deleted", "false");
-        return $result;
+        return self::load("Deleted", "false");
     }
 
     /** visualizza tutti i post che possono essere visualizzati
@@ -336,53 +338,36 @@ class FPost
     }
 
 
-    /** NON FUNZIONA VAFAMMOC A PIERO */
+    /**
+     * @throws Exception
+     */
     public static function loadPostHomePage()
     {
         $allPosts = self::loadAllVisiblePost();
         $mostLikedPost = array();
-        $toReturn = array();
-        $sortable = array();
+        $LikeForPost=array();
 
-        if (self::getPostCount() > 0){
-            $mostLikedPost[0]= $allPosts[0];
-            if (self::getPostCount() > 1){
-                $mostLikedPost[1]= $allPosts[1];
-                if (self::getPostCount() > 2){
-                    $mostLikedPost[2]= $allPosts[2];
-                    if (self::getPostCount() > 3){
-                        $mostLikedPost[3]= $allPosts[3];
-                        if (self::getPostCount() > 4){
-                            for($i = 4; $i < count($allPosts); $i++ ){
-                                $sortable[$allPosts[$i]] = self::getLikeCount($allPosts[$i]);
-                            }
-                            arsort($sortable);
-                            $sorted = array();
-                            $sorted[0] = $sortable[0];
-                            $sorted[1] = $sortable[1];
-                            $sorted[2] = $sortable[2];
-                            $sorted[3] = $sortable[3];
-                            foreach ($sorted as $key => $value){
-                                $mostLikedPost[] = $key;
-                            }
-                        } else{
-                            $toReturn = $mostLikedPost;
-                        }
-                    } else{
-                        $toReturn = $mostLikedPost;
-                    }
-                } else{
-                    $toReturn = $mostLikedPost;
-                }
-            } else{
-                $toReturn = $mostLikedPost;
-            }
-
-            return $toReturn;
-
-        } else{
-            return null;
+        foreach ($allPosts as $post){
+            $LikeForPost[]=$post->getNLike();
         }
+        echo var_dump($LikeForPost);
+        for($j=0;count($mostLikedPost)<4;$j++) {
+            $max = max($LikeForPost);
+            $count=count($LikeForPost);
+            echo $max;
+            for ($i = 0; $i < $count - 1; $i++) {
+                if ($allPosts[$i]->getNLike() == $max) {
+                    $mostLikedPost[] = $allPosts[$i];
+                    unset($LikeForPost[$i]);
+                    unset($allPosts[$i]);
+                    $i--;
+                    if(count($mostLikedPost)==4){
+                        break;
+                    }
+                }
+            }
+        }
+        return $mostLikedPost;
     }
 
     static function loadReportedPost(){

@@ -97,13 +97,14 @@ class VResearch
     /**
      * @throws SmartyException
      */
-    public function post($post, $author,$array_p){
+    public function post($post, $author,$array_p,$array_image){
         $pm = new FPersistentManager();
         if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
             $user=unserialize($u);
-            $this->smarty->assign('username',$user->getUserName());}
+            $this->smarty->assign('username',$user->getUserName());
+        }
         $travel = $post->getTravel();
         $experience=$travel->getExperienceList();
         $array_c=$post->getCommentList();
@@ -120,6 +121,20 @@ class VResearch
                 $img[] = $pm->load("IDimage", $u->getAuthor()->getImageID(), 'FImage');
             }
         }
+        $typeImg=array();
+        $pic64Img=array();
+        if(count($array_image)==1) {
+            foreach ($array_image as $im) {
+                $typeImg[] = $im->getType();
+                $pic64Img[] = base64_encode($im->getImageFile());
+            }
+        }
+        else{
+            foreach ($array_image as $im) {
+                $typeImg[] = $im->getType();
+                $pic64Img[] =$im->getImageFile();
+            }
+        }
         foreach($img as $i){
             if(isset($i[0])){
                 $type[]=$i[0]->getType();
@@ -131,6 +146,8 @@ class VResearch
             }
         }
         $this->smarty->assign('post', $post);
+        $this->smarty->assign('typeImg', $typeImg);
+        $this->smarty->assign('pic64Img', $pic64Img);
         $this->smarty->assign('array_place', $array_p);
         $this->smarty->assign('type', $type);
         $this->smarty->assign('pic64', $pic64);

@@ -4,9 +4,6 @@
 class CPost{
     public static function savePost()
     {
-        /*
-         * N3 stessa cosa con IMG
-         */
 
         USession::getInstance();
 
@@ -48,29 +45,21 @@ class CPost{
             $pm->storePlaceToPost($postID, $place->getPlaceID());
         }
 
-        $numImg = 0;
-        echo $_FILES['file']['size'];
-        $result = is_uploaded_file($_FILES['file']['tmp_name']);
-        echo $result;
-        if ($result) {
+        for($numImg=2; isset($_FILES['image'.$numImg]);$numImg++){
             $nome_file = 'image' . $numImg;
             $img = static::upload($travelID, $nome_file);
             switch ($img) {
                 case "size":
                     //$view->registrationError("size");
-
                     break;
                 case "type":
-                    echo 'DIO PORCOOOOOOO';
                     //$view->registrationError("type");
                     break;
                 case "ok":
-                    header('Location: /logBook/User/login');
+                    header('Location: /logBook/User/profile');
                     break;
             }
-            $numImg++;
         }
-
         $img=$pm->load("IDimage",$user->getImageID(),'FImage');
         $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
         $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
@@ -114,8 +103,7 @@ class CPost{
             $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
             $immagine = addslashes ($immagine);
             $image= new EImage($immagine,$travelID,$size,$type);
-            $id=$pm->storeMedia($image,$nome_file);
-            //L'inserimento è andato a buon fine, l'immagine e il nuovo user sono stati inseriti correttamente
+            $pm->storeMedia($image,$nome_file);
             $ris = "ok";
         }
         else {

@@ -28,7 +28,7 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -45,7 +45,7 @@
                             <div class="container py-3" id="container">
                             </div>
                             <div class="col-md-4">
-                                <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+                                <!--input name="send" type="submit" form="form_create_post" class="btn btn-primary" -->
                             </div>
 
                         </div>
@@ -66,6 +66,7 @@
             </div>
         </div>
     </div>
+        <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
     </form>
 </section>
 

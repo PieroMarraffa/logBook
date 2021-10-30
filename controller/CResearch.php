@@ -84,6 +84,9 @@ class CResearch
         }
     }
 
+    /**
+     * @throws SmartyException
+     */
     static function postDetail($id){
         $pm=new FPersistentManager();
         $view=new VResearch();
@@ -91,6 +94,8 @@ class CResearch
             $post = $pm->load("IDpost", $id, FPost::getClass());
             if($post->getDeleted()!=true){
                 $author=$pm->load("IDuser",$post->getUserID(),FUser::getClass());
+                $travel=$pm->load("IDpost",$post->getPostID(),FTravel::getClass());
+                $images=$pm->load("IDtravel",$travel->getTravelID(),FImage::getClass());
                 $experience=$post->getTravel()->getExperienceList();
                 if (is_object($experience)) {
                     $array_e = array();
@@ -100,7 +105,7 @@ class CResearch
                 foreach ($array_e as $e){
                     $array_place[]=$e->getPlace();
                 }
-                $view->post($post,$author,$array_place);
+                $view->post($post,$author,$array_place,$images);
             }
             else{
                 header("Location: /logBook/User/home");
