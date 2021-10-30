@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-29 16:56:23
+/* Smarty version 3.1.33, created on 2021-10-30 14:56:54
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617c0b975db6d0_97336700',
+  'unifunc' => 'content_617d411614b5e4_28134357',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635519381,
+      1 => 1635598611,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617c0b975db6d0_97336700 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617d411614b5e4_28134357 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -62,7 +62,8 @@ function content_617c0b975db6d0_97336700 (Smarty_Internal_Template $_smarty_tpl)
 
                     <div class="col-md-11 py-4">
 
-                        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
+">
 
                         <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                     </div>
@@ -73,7 +74,42 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
 ?>
-                        
+                        <div class="card">
+                            <div class="card-header">
+                                <textarea class="form-control" name="titleExperience<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+" rows="1" maxlength="49" placeholder="Insert experience title here"><?php echo $_smarty_tpl->tpl_vars['title']->value;?>
+</textarea>
+                                <div class="row py-2">
+                                    <div class="col-md-3">
+                                        <input type="date" name="startDate<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['startDay']->value;?>
+">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="date" name="endDate<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['endDay']->value;?>
+">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="btn btn-primary" name="place<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+">
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" name="descriprion<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+" maxlength="499" rows="6" placeholder="Insert description here"><?php echo $_smarty_tpl->tpl_vars['description']->value;?>
+</textarea>
+                            </div>
+                            <div align="end">
+                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove(<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+)">- Delete Experience</a>
+                            </div>
+                        </div>
                     <?php
 }
 }

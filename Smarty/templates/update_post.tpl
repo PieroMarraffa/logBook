@@ -35,24 +35,22 @@
 
                     <div class="col-md-11 py-4">
 
-                        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
 
                         <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                     </div>
                     <a name="experiences"></a>
                     {if $arrayExperience}
-                        {$numero = 2}
                     {foreach $arrayExperience as $experience}
-                        {$numero++}
                         <div class="card">
                             <div class="card-header">
-                                <textarea class="form-control" name="titleExperience{$numero}" rows="1" maxlength="49" placeholder="Insert experience title here">{$experience->getTitle()}</textarea>
+                                <textarea class="form-control" name="titleExperience{$numero}" rows="1" maxlength="49" placeholder="Insert experience title here">{$title}</textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate{$numero}" class="px-2" value="{$experience->getStartDay()}">
+                                        <input type="date" name="startDate{$numero}" class="px-2" value="{$startDay}">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" name="endDate{$numero}" class="px-2" value="{$experience->getEndDay()}">
+                                        <input type="date" name="endDate{$numero}" class="px-2" value="{$endDay}">
                                     </div>
                                     <div class="col-md-3">
                                         <select class="btn btn-primary" name="place{$numero}">
@@ -64,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" name="descriprion{$numero}" maxlength="499" rows="6" placeholder="Insert description here">{$experience->getDescription()}</textarea>
+                                <textarea class="form-control" name="descriprion{$numero}" maxlength="499" rows="6" placeholder="Insert description here">{$description}</textarea>
                             </div>
                             <div align="end">
                                 <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove({$numero})">- Delete Experience</a>

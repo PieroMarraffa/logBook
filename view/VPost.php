@@ -48,8 +48,26 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function modify_post(){
+    public function modify_post($travel){
+        $num = 2;
+        $this->smarty->assign('title', $travel->getExperienceList()[0]->getTitle());
+        echo $travel->getExperienceList()[0]->getTitle();
+        $this->smarty->assign('description', $travel->getExperienceList()[0]->getDescription());
+        $this->smarty->assign('startDay', $travel->getExperienceList()[0]->getStartDay());
+        $this->smarty->assign('endDay',$travel->getExperienceList()[0]->getEndDay());
+        $this->smarty->assign('numero', $num);
+        $this->smarty->assign('travelTitle', $travel->getTitle());
         $this->smarty->display('update_post.tpl');
+    }
+
+    public function prova($travel, $num){
+        foreach ($travel->getExperienceList() as $exp){
+            echo "     A STECCA      ";
+            echo var_dump($exp);
+            echo "     A STECCA      ";
+            $this->smarty->assign('experience', $exp);
+            $this->smarty->assign('numero', $num);
+        }
     }
 }
 
