@@ -13,14 +13,15 @@ class CUser
     static function home(){
         $pm = new FPersistentManager();
         $view = new VUser();
-        $result=array();
-        $result[] = $pm->load("IDpost",1,FPost::getClass());       /** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-        $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
-        $result[] = $pm->load("IDpost",3,FPost::getClass());
-        $result[] = $pm->load("IDpost",4,FPost::getClass());
-        $view->home($result);
+        $result=$pm->loadPostHomePage();
+        $image=array();
+        foreach ($result as $r){
+            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+            $image[]=$i;
+        }
+        $view->home($result,$image);
     }
-
 
     /**
      * Metodo che verifica se l'utente è loggato
@@ -146,8 +147,14 @@ class CUser
                         }
                     }
                 }
-                $arrayPlace=$pm->loadPlaceByUser($user->getUserID());  /** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
-                $view->profile($user,$img,$arrayPost,$arrayPlace);
+                $image=array();
+                foreach ($arrayPost as $r){
+                    $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+                    $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+                    $image[]=$i;
+                }
+                $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
+                $view->profile($user,$img,$arrayPost,$arrayPlace,$image);
             }
         } else
                 header('Location: /logBook/User/login');

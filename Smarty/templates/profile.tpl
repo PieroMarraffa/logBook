@@ -112,21 +112,26 @@
         <!-- Blog entries-->
         {if $postList}
         {if isset($postList)}
-            {foreach $postList as $p}
-                    <!-- Blog post-->
-                {if isset($p)}
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted">{$p->getCreationDate()}</div>
-                                <h2 class="card-title h4">{$p->getTitle()}</h2>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$p->getPostID()}">Go to the Post →</a>
+            {for $i=0;$i<=count($postList)-1;$i++}
+                {if isset($postList[$i])}
+                <div class="col mb-5" >
+                    <div class="card h-100">
+                        <!-- Profile image-->
+                        <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" alt="...">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{$postList[$i]->getTitle()}</h5>
+                                <!-- Product price-->
+                                <h6 class="text-muted ">{$postList[$i]->getCreationDate()}</h6>
+                                <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$postList[$i]->getPostID()}">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 {/if}
-            {/foreach}
+            {/for}
         {/if}
         {/if}
     </div>

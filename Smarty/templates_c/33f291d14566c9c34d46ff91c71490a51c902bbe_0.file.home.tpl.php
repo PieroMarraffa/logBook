@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-27 19:13:00
+/* Smarty version 3.1.33, created on 2021-10-31 11:27:55
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6179889ccb3896_09494948',
+  'unifunc' => 'content_617e6fabdab641_55273097',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1635354778,
+      1 => 1635676071,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6179889ccb3896_09494948 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617e6fabdab641_55273097 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -98,33 +98,35 @@ function content_6179889ccb3896_09494948 (Smarty_Internal_Template $_smarty_tpl)
         <?php if ($_smarty_tpl->tpl_vars['array_post_home']->value) {?>
         <?php if (is_array($_smarty_tpl->tpl_vars['array_post_home']->value)) {?>
         <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_post_home']->value, 'post');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['array_post_home']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['array_post_home']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-        <div class="col mb-5">
+        <div class="col mb-5" >
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="card-img-top" src="" alt="..." />
+                <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' height="300" alt="...">
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
                         <!-- Product name-->
-                        <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
+                        <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['array_post_home']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
 </h5>
                         <!-- Product price-->
-                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
+                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['array_post_home']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
 </h6>
-                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['array_post_home']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
 ">Go to the Post →</a>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
+        <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+?>
         <?php }?>
         <?php }?>
     </div>

@@ -18,7 +18,7 @@ class VUser
     /**
      * @throws SmartyException
      */
-    public function home($result){
+    public function home($result,$image){
         if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
@@ -29,7 +29,26 @@ class VUser
             $this->smarty->assign('username',$user->getUserName());}
         else
             $this->smarty->assign('userlogged','nouser');
-
+        $typeImg=array();
+        $pic64Img=array();
+        foreach ($image as $im) {
+            if($im!=null) {
+                if(count($im)==1){
+                $typeImg[] = $im[0]->getType();
+                $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                else{
+                    $typeImg[] = $im[0]->getType();
+                    $pic64Img[] =  $im[0]->getImageFile();
+                }
+            }
+            else{
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+                $pic64Img[]= base64_encode($data);
+                $typeImg[] = "image/png";
+            }
+        }
+        $this->smarty->assign('typeImg',$typeImg);
+        $this->smarty->assign('pic64Img',$pic64Img);
         $this->smarty->assign('array_post_home',$result);
         $this->smarty->display('home.tpl');}
 
@@ -59,7 +78,7 @@ class VUser
     /**
      * @throws SmartyException
      */
-    public function profile($user, $image, $arrayPost,$arrayPlace){
+    public function profile($user, $image, $arrayPost,$arrayPlace,$array_image){
         if(isset($image[0])){
         $this->smarty->assign('type', $image[0]->getType());
         $this->smarty->assign('pic64', base64_encode($image[0]->getImageFile()));}
@@ -77,6 +96,26 @@ class VUser
             $array_p=array();
             $array_p[]=$arrayPost;
         }else $array_p=$arrayPost;
+        $typeImg=array();
+        $pic64Img=array();
+        foreach ($array_image as $im) {
+            if($im!=null) {
+                if(count($im)==1){
+                    $typeImg[] = $im[0]->getType();
+                    $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                else{
+                    $typeImg[] = $im[0]->getType();
+                    $pic64Img[] =  $im[0]->getImageFile();
+                }
+            }
+            else{
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+                $pic64Img[]= base64_encode($data);
+                $typeImg[] = "image/png";
+            }
+        }
+        $this->smarty->assign('typeImg',$typeImg);
+        $this->smarty->assign('pic64Img',$pic64Img);
         $this->smarty->assign('postList',$array_p);
         $this->smarty->display('profile.tpl');
     }

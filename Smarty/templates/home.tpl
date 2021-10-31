@@ -71,24 +71,24 @@
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {if $array_post_home}
         {if is_array($array_post_home)}
-        {foreach $array_post_home as $post}
-        <div class="col mb-5">
+        {for $i=0;$i<=count($array_post_home)-1;$i++}
+        <div class="col mb-5" >
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="card-img-top" src="" alt="..." />
+                <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" alt="...">
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
                         <!-- Product name-->
-                        <h5 class="fw-bolder">{$post->getTitle()}</h5>
+                        <h5 class="fw-bolder">{$array_post_home[$i]->getTitle()}</h5>
                         <!-- Product price-->
-                        <h6 class="text-muted ">{$post->getCreationDate()}</h6>
-                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$post->getPostID()}">Go to the Post →</a>
+                        <h6 class="text-muted ">{$array_post_home[$i]->getCreationDate()}</h6>
+                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$array_post_home[$i]->getPostID()}">Go to the Post →</a>
                     </div>
                 </div>
             </div>
         </div>
-        {/foreach}
+        {/for}
         {/if}
         {/if}
     </div>

@@ -344,30 +344,16 @@ class FPost
     public static function loadPostHomePage()
     {
         $allPosts = self::loadAllVisiblePost();
-        $mostLikedPost = array();
-        $LikeForPost=array();
-
-        foreach ($allPosts as $post){
-            $LikeForPost[]=$post->getNLike();
-        }
-        echo var_dump($LikeForPost);
-        for($j=0;count($mostLikedPost)<4;$j++) {
-            $max = max($LikeForPost);
-            $count=count($LikeForPost);
-            echo $max;
-            for ($i = 0; $i < $count - 1; $i++) {
-                if ($allPosts[$i]->getNLike() == $max) {
-                    $mostLikedPost[] = $allPosts[$i];
-                    unset($LikeForPost[$i]);
-                    unset($allPosts[$i]);
-                    $i--;
-                    if(count($mostLikedPost)==4){
-                        break;
-                    }
-                }
+        $Post = array();
+        $count=0;
+        for($j=0;$count<4;$j++) {
+            $n=rand(0,count($allPosts)-1);
+            if(!in_array($allPosts[$n],$Post)){
+                $Post[]=$allPosts[$n];
+                $count++;
             }
         }
-        return $mostLikedPost;
+        return $Post;
     }
 
     static function loadReportedPost(){
@@ -409,4 +395,5 @@ class FPost
             return false;
         }
     }
+
 }

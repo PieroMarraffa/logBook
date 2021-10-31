@@ -73,13 +73,16 @@
                         {if $post[$i]}
                             {if $post[$i]!=null}
                                 {for $j=0; $j<count($post[$i]) && $j<=2; $j++}
-                                    <div class="col-md-4">
-                                        <div class="card mb-4">
-                                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
-                                            <div class="card-body">
-                                                <div class="small text-muted">{$post[$i][$j]->getCreationDate()}</div>
-                                                <h2 class="card-title h4">{$post[$i][$j]->getTitle()}</h2>
-                                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$post[$i][$j]->getPostID()}">Go to the Post →</a>
+                                    <div class="col mb-5" >
+                                        <div class="card h-100">
+                                            <div class="card-body p-4">
+                                                <div class="text-center">
+                                                    <!-- Product name-->
+                                                    <h3 class="fw-bolder">{$post[$i][$j]->getTitle()}</h3>
+                                                    <!-- Product price-->
+                                                    <h5 class="text-muted ">{$post[$i][$j]->getCreationDate()}</h5>
+                                                    <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$post[$i][$j]->getPostID()}">Go to the Post →</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
