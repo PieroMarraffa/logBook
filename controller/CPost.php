@@ -131,8 +131,9 @@ class CPost{
         $travel = $pm->loadTravelByPost($postID);
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
+        $arrayPlace=$pm->load("Category",'città',FPlace::getClass());
         echo $_POST['titleExperience' . $arrayExperience[0]->getExperienceID()];
-        $view->modify_post($travel, $arrayExperience, $numero);
+        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace);
     }
 
 

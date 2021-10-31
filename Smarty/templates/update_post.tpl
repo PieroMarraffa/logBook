@@ -55,7 +55,14 @@
                                     </div>
                                     <div class="col-md-3">
                                         <select class="btn btn-primary" name="place{$exp->getExperienceID()}">
-
+                                            <option value="{$exp->getPlace()->getPlaceID()}">{$exp->getPlace()->getName()}</option>
+                                            {if isset($arrayPlace)}
+                                                {foreach $arrayPlace as $p}
+                                                    {if $p->getName() != $exp->getPlace()->getName()}
+                                                        <option value="{$p->getPlaceID()}">{$p->getName()}</option>
+                                                    {/if}
+                                                {/foreach}
+                                            {/if}
                                         </select>
                                     </div>
                                     <div class="col-md-3">

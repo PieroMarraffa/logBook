@@ -24,11 +24,14 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $result = FPersistentManager::existAssociationUserPlace(8, 3);
-        return $result;
+        $pm = new FPersistentManager();
+        $travel = $pm->loadTravelByPost(1);
+        return $arrayExperience = $travel->getExperienceList();
     }
 }
 
-$e = testPippo::test();
+$array_experience = testPippo::test();
+foreach ($array_experience as $exp){
+    echo var_dump($exp->getPlace()->getName());
+}
 
-echo var_dump($e);

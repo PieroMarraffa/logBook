@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-29 10:43:13
+/* Smarty version 3.1.33, created on 2021-10-31 15:57:48
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617bb421517ba9_99353227',
+  'unifunc' => 'content_617eaeec557979_05507940',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
-      1 => 1635496964,
+      1 => 1635687367,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617bb421517ba9_99353227 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617eaeec557979_05507940 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,30 +156,37 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <?php if ($_smarty_tpl->tpl_vars['postList']->value) {?>
         <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
             <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['postList']->value, 'p');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-                    <!-- Blog post-->
-                <?php if (isset($_smarty_tpl->tpl_vars['p']->value)) {?>
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['p']->value->getCreationDate();?>
-</div>
-                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getTitle();?>
-</h2>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getPostID();?>
+                <?php if (isset($_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+                <div class="col mb-5" >
+                    <div class="card h-100">
+                        <!-- Profile image-->
+                        <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' height="300" alt="...">
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
+</h5>
+                                <!-- Product price-->
+                                <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
+</h6>
+                                <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
 ">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
+                </div>
                 <?php }?>
-            <?php
+            <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+?>
         <?php }?>
         <?php }?>
     </div>

@@ -33,7 +33,7 @@ class EExperience
         $this->startDay = $startDay;
         $this->endDay = $endDay;
         $this->title = $title;
-        $this->place = $place;
+        $this->place = new EPlace($place->getName(), $place->getLongitude(), $place->getLatitude(), $place->getCategory());
         $this->description = $description;
     }
 
@@ -169,6 +169,8 @@ class EExperience
         return $this->place->getPlaceID();
     }
 
-
+    public function setPlaceID($id){
+        $this->place->setPlaceID($id);
+    }
 
     }

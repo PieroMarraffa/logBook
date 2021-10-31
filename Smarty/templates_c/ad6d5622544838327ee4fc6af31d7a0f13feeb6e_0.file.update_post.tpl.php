@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 08:41:14
+/* Smarty version 3.1.33, created on 2021-10-31 16:54:52
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617e489a1ff958_40551752',
+  'unifunc' => 'content_617ebc4c3fe176_49895042',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635666072,
+      1 => 1635695691,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617e489a1ff958_40551752 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ebc4c3fe176_49895042 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -94,7 +94,25 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
                                     <div class="col-md-3">
                                         <select class="btn btn-primary" name="place<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 ">
-
+                                            <option value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getPlaceID();?>
+"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
+</option>
+                                            <?php if (isset($_smarty_tpl->tpl_vars['arrayPlace']->value)) {?>
+                                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayPlace']->value, 'p');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
+?>
+                                                    <?php if ($_smarty_tpl->tpl_vars['p']->value->getName() != $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName()) {?>
+                                                        <option value="<?php echo $_smarty_tpl->tpl_vars['p']->value->getPlaceID();?>
+"><?php echo $_smarty_tpl->tpl_vars['p']->value->getName();?>
+</option>
+                                                    <?php }?>
+                                                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                                            <?php }?>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
