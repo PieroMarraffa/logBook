@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-30 14:08:06
+/* Smarty version 3.1.33, created on 2021-10-30 17:31:08
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617d35a662c569_30554073',
+  'unifunc' => 'content_617d653cd1b134_39471881',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1635595677,
+      1 => 1635607677,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617d35a662c569_30554073 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617d653cd1b134_39471881 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -50,6 +50,9 @@ function content_617d35a662c569_30554073 (Smarty_Internal_Template $_smarty_tpl)
             width: 100%;
         }
     </style>
+    <?php echo '<script'; ?>
+ src="/logBook/Smarty/js/bootstrap.js"><?php echo '</script'; ?>
+>
 </head>
 <body>
 <!-- Navigation-->
@@ -94,9 +97,43 @@ function content_617d35a662c569_30554073 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                     </div>
                 </header>
-                <!-- Preview image figure-->
-                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
-                <!-- Post content-->
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php if (isset($_smarty_tpl->tpl_vars['typeImg']->value[0])) {?>
+                            <div class="carousel-item active">
+                                <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[0];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[0];?>
+' alt="...">
+                            </div>
+                        <?php }?>
+                        <?php if (isset($_smarty_tpl->tpl_vars['typeImg']->value[1])) {?>
+                        <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 1;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['typeImg']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['typeImg']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
+?>
+                            <div class="carousel-item">
+
+                                    <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' alt="...">
+
+                            </div>
+                        <?php }
+}
+?>
+                        <?php }?>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 <section class="mb-5">
                     <?php if ($_smarty_tpl->tpl_vars['arrayExperience']->value) {?>
                     <?php
@@ -240,10 +277,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
-<!-- Core theme JS-->
-<?php echo '<script'; ?>
- src="js/scripts.js"><?php echo '</script'; ?>
 >
 </body>
 </html><?php }

@@ -45,16 +45,16 @@
                     {foreach $array_experience as $exp}
                         <div class="card">
                             <div class="card-header">
-                                <textarea class="form-control" name="titleExperience{$numero}" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
+                                <textarea class="form-control" name="titleExperience{$exp->getExperienceID()}" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate{$numero}" class="px-2" value="{$exp->getStartDay()}">
+                                        <input type="date" name="startDate{$exp->getExperienceID()}" class="px-2" value="{$exp->getStartDay()}">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" name="endDate{$numero}" class="px-2" value="{$exp->getEndDay()}">
+                                        <input type="date" name="endDate{$exp->getExperienceID()}" class="px-2" value="{$exp->getEndDay()}">
                                     </div>
                                     <div class="col-md-3">
-                                        <select class="btn btn-primary" name="place{$numero}">
+                                        <select class="btn btn-primary" name="place{$exp->getExperienceID()}">
 
                                         </select>
                                     </div>
@@ -63,13 +63,12 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" name="descriprion{$numero}" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
+                                <textarea class="form-control" name="descriprion{$exp->getExperienceID()}" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
                             </div>
                             <div align="end">
-                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove({$numero})">- Delete Experience</a>
+                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove({$exp->getExperienceID()})">- Delete Experience</a>
                             </div>
                         </div>
-                        {$numero++}
                     {/foreach}
                     {/if}
                     {/if}
@@ -78,7 +77,7 @@
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-4">
-                            <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+                            <input name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary">
                         </div>
 
                     </div>

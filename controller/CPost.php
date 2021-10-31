@@ -1,5 +1,9 @@
 <?php
 
+require 'utility/UCookie.php';
+require 'utility/USession.php';
+require 'utility/UServer.php';
+
 
 class CPost{
     public static function savePost()
@@ -17,7 +21,8 @@ class CPost{
             $startDate = $_POST['startDate' . $num];
             $finishDate = $_POST['endDate' . $num];
             $descriprion = $_POST['description' . $num];
-            $place = $pm->load("Name", "Roma", FPlace::getClass());
+            $placeID = $_POST['place' . $num];
+            $place = $pm->load("IDplace", $placeID, FPlace::getClass());
             $ExpList[] = new EExperience(0, $startDate, $finishDate, $Etitle, $place, $descriprion);
             $num++;
         }
@@ -69,7 +74,9 @@ class CPost{
 
     public static function create_post(){
         $view = new VPost();
-        $view->create_post();
+        $pm = new FPersistentManager();
+        $arrayPlace=$pm->load("Category",'città',FPlace::getClass());
+        $view->create_post($arrayPlace);
     }
 
     public static function deletePost(){
@@ -124,6 +131,7 @@ class CPost{
         $travel = $pm->loadTravelByPost($postID);
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
+        echo $_POST['titleExperience' . $arrayExperience[0]->getExperienceID()];
         $view->modify_post($travel, $arrayExperience, $numero);
     }
 

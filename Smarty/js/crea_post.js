@@ -1,5 +1,5 @@
 
-    function creaExperience(){
+    function creaExperience2(){
     nuovo_elemento = document.createElement("div");
     var numCode = parseInt(document.getElementById("container").childNodes.length+1);
     nuovo_elemento.setAttribute("id","quadro"+parseInt(document.getElementById("container").childNodes.length+1));

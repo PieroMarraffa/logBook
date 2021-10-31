@@ -22,7 +22,8 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function create_post(){
+    public function create_post($arrayPlace){
+        $this->smarty->assign('arrayPlace', $arrayPlace);
         $this->smarty->display('create_post.tpl');
     }
 

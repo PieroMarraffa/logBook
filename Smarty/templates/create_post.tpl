@@ -55,7 +55,41 @@
         <div class="col-md-3 fisso" >
             <div class="card">
             <div class="row">
-                <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                <script id="creaExperience">
+                    function creaExperience() {
+                        nuovo_elemento = document.createElement("div");
+                        var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
+                        nuovo_elemento.setAttribute("id", "quadro" + parseInt(document.getElementById("container").childNodes.length + 1));
+                        nuovo_elemento.setAttribute("class", "quadrato");
+                        nuovo_elemento.innerHTML =
+                            "<div class='card'>" +
+                            "<div class='card-header'>" +
+                            "<textarea class='form-control' name='titleExperience" + numCode + "' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
+                            "<div class='row py-2'>" +
+                            "<div class='col-md-3'>" +
+                            "<input type='date' name='startDate" + numCode + "' class='px-2'>" +
+                            "</div><div class='col-md-3'>" +
+                            "<input type='date' name='endDate" + numCode + "' class='px-2'>" +
+                            "</div><div class='col-md-3'>" +
+                            //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
+                            "<select class='btn btn-primary' name='place" + numCode + "'>" +
+                            "{if isset($arrayPlace)}" +
+                            "{foreach $arrayPlace as $p}" +
+                            "<option value='{$p->getPlaceID()}'>{$p->getName()}</option>{/foreach}{/if}</select>" +
+                            "</div>" +
+                            "<div class='col-md-3'></div></div></div>" +
+                            "<div class='card-body'>" +
+                            "<textarea class='form-control' name='description" + numCode + "' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+                            "</div><div align='end'>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
+                            "</div></div>";
+                        document.getElementById("container").appendChild(nuovo_elemento);
+                        obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
+                        obj.style.height = "450px";
+                        obj.style.width = "1000px";
+                    }
+                </script>
+                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-30 17:03:28
+/* Smarty version 3.1.33, created on 2021-10-31 08:41:14
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617d5ec0cd5378_67272403',
+  'unifunc' => 'content_617e489a1ff958_40551752',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635606205,
+      1 => 1635666072,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617d5ec0cd5378_67272403 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617e489a1ff958_40551752 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -77,22 +77,22 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ?>
                         <div class="card">
                             <div class="card-header">
-                                <textarea class="form-control" name="titleExperience<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                <textarea class="form-control" name="titleExperience<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " rows="1" maxlength="49" placeholder="Insert experience title here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getTitle();?>
 </textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                        <input type="date" name="startDate<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getStartDay();?>
 ">
                                     </div>
                                     <div class="col-md-3">
-                                        <input type="date" name="endDate<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                        <input type="date" name="endDate<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getEndDay();?>
 ">
                                     </div>
                                     <div class="col-md-3">
-                                        <select class="btn btn-primary" name="place<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                        <select class="btn btn-primary" name="place<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 ">
 
                                         </select>
@@ -102,17 +102,15 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
                                 </div>
                             </div>
                             <div class="card-body">
-                                <textarea class="form-control" name="descriprion<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                <textarea class="form-control" name="descriprion<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " maxlength="499" rows="6" placeholder="Insert description here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getDescription();?>
 </textarea>
                             </div>
                             <div align="end">
-                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove(<?php echo $_smarty_tpl->tpl_vars['numero']->value;?>
+                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 )">- Delete Experience</a>
                             </div>
                         </div>
-                        <?php echo $_smarty_tpl->tpl_vars['numero']->value++;?>
-
                     <?php
 }
 }
@@ -124,7 +122,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-4">
-                            <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+                            <input name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary">
                         </div>
 
                     </div>
