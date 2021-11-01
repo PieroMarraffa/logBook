@@ -98,6 +98,31 @@ class FExperience extends FDataBase
     }
 
 
+    public static function loadAll(){
+        $database = FDataBase::getInstance();
+        $result=$database->getAllByTable(self::getTable());
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $place = FPlace::load('IDplace', $result['IDplace']);
+            $experience []= new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
+            $experience[0]->setExperienceID($result['IDexperience']);
+            $experience[0]->setPlaceID($result['IDplace']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $experience = array();
+                for($i = 0; $i < count($result); $i++){
+                    $place = FPlace::load('IDplace', $result[$i]['IDplace']);
+                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
+                    $experience[$i]->setExperienceID($result[$i]['IDexperience']);
+                    $experience[$i]->setPlaceID($result[$i]['IDplace']);
+                }
+            }
+        }
+        return $experience;
+    }
+
+
     /** Restituisce la lista di tutte le esperienze figlie relative all'ID
      * dell'esperienza padre passato in ingresso
 

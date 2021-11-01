@@ -43,6 +43,7 @@ class CPost{
             $pm->store($exp);
         }
 
+
         if ($pm->existAssociationUserPlace($userID,$place->getPlaceID()) == false){
             $pm->storePlaceToUser($userID, $place->getPlaceID());
         }
@@ -81,7 +82,7 @@ class CPost{
     public static function create_post(){
         $view = new VPost();
         $pm = new FPersistentManager();
-        $arrayPlace=$pm->load("Category",'città',FPlace::getClass());
+        $arrayPlace=$pm->loadAll(FPlace::getClass());
         $view->create_post($arrayPlace);
     }
 
@@ -137,17 +138,47 @@ class CPost{
         $travel = $pm->loadTravelByPost($postID);
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
-        $arrayPlace=$pm->load("Category",'città',FPlace::getClass());
-        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace);
+        $arrayPlace=$pm->loadAll(FPlace::getClass());
+        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID);
     }
 
 
-    static function upgradePost(){
+    static function upgradePost($postID){
+        $view = new VPost();
         $pm = new FPersistentManager();
-        $travel = $pm->loadTravelByPost(46);
-        $arrayExperience = $travel->getExperienceList();
-        $gerry = $_POST['titleExperience' . $arrayExperience[0]->getExperienceID()];
-        echo var_dump($gerry);
+        $travel = $pm->loadTravelByPost($postID);
+        $arrayOriginalExperience = $travel->getExperienceList();
+
+
+        $arrayExperienceTitle = $_POST['titleExperience'];
+        $arrayStartDay = $_POST['startDate'];
+        $arrayEndDay = $_POST['endDate'];
+        $arrayPlace= $_POST['place'];
+        $arrayDescription = $_POST['description'];
+
+        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
+            $new = true;
+            foreach ($arrayOriginalExperience as $expO){
+                $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
+            }
+        }
+
+        $ExpList = array();
+        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
+            $Etitle = $arrayExperienceTitle[$i];
+            $startDate = $arrayStartDay[$i];
+            $finishDate = $arrayEndDay[$i];
+            $descriprion = $arrayDescription[$i];
+            $placeID = $arrayPlace[$i];
+            $place = $pm->load("IDplace", $placeID, FPlace::getClass());
+            $ExpList[] = new EExperience(0, $startDate, $finishDate, $Etitle, $place, $descriprion);
+        }
+
+        $travelID = $travel->getTravelID();
+        foreach ($ExpList as $exp){
+            $exp->setTravelID($travelID);
+            $pm->store($exp);
+        }
 
     }
 }

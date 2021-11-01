@@ -24,14 +24,10 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $pm = new FPersistentManager();
-        $travel = $pm->loadTravelByPost(1);
-        return $arrayExperience = $travel->getExperienceList();
+        $FDB = FDataBase::getInstance();
+        return $FDB->loadAll(FPlace::getTable());
     }
 }
 
-$array_experience = testPippo::test();
-foreach ($array_experience as $exp){
-    echo var_dump($exp->getPlace()->getName());
-}
+echo testPippo::test();
 

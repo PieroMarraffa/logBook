@@ -49,11 +49,12 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function modify_post($travel, $arrayExp, $numero, $arrayPlace){
+    public function modify_post($travel, $arrayExp, $numero, $arrayPlace, $postID){
         $this->smarty->assign('travelTitle', $travel->getTitle());
         $this->smarty->assign('array_experience', $arrayExp);
         $this->smarty->assign('numero', $numero);
         $this->smarty->assign('arrayPlace', $arrayPlace);
+        $this->smarty->assign('postID', $postID);
         $this->smarty->display('update_post.tpl');
     }
 }

@@ -94,6 +94,27 @@ class FPlace extends FDataBase
         return $place;
     }
 
+    /** Restituisce tutti gli oggetti nella tabella place */
+    public static function loadAll(){
+        $database = FDataBase::getInstance();
+        $result=$database->getAllByTable(self::getTable());
+        $rows_number = count($result);
+        if(($result != null) && ($rows_number == 1)) {
+            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place->setPlaceID($result['IDplace']);
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $place = array();
+                for($i = 0; $i < count($result); $i++){
+                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+                }
+            }
+        }
+        return $place;
+    }
+
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true
      *altrimenti restituisce false
      */

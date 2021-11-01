@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 17:42:14
+/* Smarty version 3.1.33, created on 2021-11-01 13:53:55
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ec7660588c1_16491742',
+  'unifunc' => 'content_617fe363eb8d86_71572215',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635698532,
+      1 => 1635771234,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ec7660588c1_16491742 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617fe363eb8d86_71572215 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -109,11 +109,13 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 ?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['p']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['p']->value->getName();?>
-</option><?php
+</option>" +
+                            "<?php
 }
 }
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-}?></select>" +
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
+                            "</select>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +

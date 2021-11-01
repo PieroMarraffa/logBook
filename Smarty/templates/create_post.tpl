@@ -75,7 +75,10 @@
                             "<select class='btn btn-primary' name='place" + numCode + "'>" +
                             "{if isset($arrayPlace)}" +
                             "{foreach $arrayPlace as $p}" +
-                            "<option value='{$p->getPlaceID()}'>{$p->getName()}</option>{/foreach}{/if}</select>" +
+                            "<option value='{$p->getPlaceID()}'>{$p->getName()}</option>" +
+                            "{/foreach}"+
+                            "{/if}" +
+                            "</select>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +
