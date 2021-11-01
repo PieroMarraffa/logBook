@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 09:44:24
+/* Smarty version 3.1.33, created on 2021-10-31 17:42:14
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617e5768edbe07_02005098',
+  'unifunc' => 'content_617ec7660588c1_16491742',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635669861,
+      1 => 1635698532,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617e5768edbe07_02005098 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ec7660588c1_16491742 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -139,7 +139,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
             </div>
         </div>
     </div>
-        <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
     </form>
 </section>
 

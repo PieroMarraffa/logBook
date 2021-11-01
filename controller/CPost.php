@@ -12,7 +12,7 @@ class CPost{
         USession::getInstance();
 
         $num = 2;
-        $view = new VPost();
+        $view = new VUser();
         $pm = new FPersistentManager();
         $user = unserialize(USession::getElement('user'));
         $ExpList = array();
@@ -67,8 +67,14 @@ class CPost{
         }
         $img=$pm->load("IDimage",$user->getImageID(),'FImage');
         $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-        $arrayPlace=$pm->load("Category",'città',FPlace::getClass());/** RICORDATI DI MODIFICARLO (LOADPLACEBYUSER) PERCHE' SENNO' TI FA VEDERE I MARKER A CASO SULLA MAPPA*/
-        $view->profile($user,$img,$arrayPost,$arrayPlace);
+        $image=array();
+        foreach ($arrayPost as $r){
+            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+            $image[]=$i;
+        }
+        $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
+        $view->profile($user,$img,$arrayPost,$arrayPlace, $image);
 
     }
 
@@ -132,12 +138,16 @@ class CPost{
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
         $arrayPlace=$pm->load("Category",'città',FPlace::getClass());
-        echo $_POST['titleExperience' . $arrayExperience[0]->getExperienceID()];
         $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace);
     }
 
 
     static function upgradePost(){
+        $pm = new FPersistentManager();
+        $travel = $pm->loadTravelByPost(46);
+        $arrayExperience = $travel->getExperienceList();
+        $gerry = $_POST['titleExperience' . $arrayExperience[0]->getExperienceID()];
+        echo var_dump($gerry);
 
     }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 16:54:52
+/* Smarty version 3.1.33, created on 2021-10-31 17:33:56
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ebc4c3fe176_49895042',
+  'unifunc' => 'content_617ec574182a43_07482427',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635695691,
+      1 => 1635697965,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ebc4c3fe176_49895042 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ec574182a43_07482427 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,7 +55,7 @@ function content_617ebc4c3fe176_49895042 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
+    <form method="post" id="form_create_post" action="/logBook/Post/upgradePost">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
@@ -82,8 +82,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 </textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getStartDay();?>
+                                        <input type="date" name="startDate[]" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getStartDay();?>
 ">
                                     </div>
                                     <div class="col-md-3">

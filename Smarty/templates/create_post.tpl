@@ -100,7 +100,7 @@
             </div>
         </div>
     </div>
-        <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
     </form>
 </section>
 

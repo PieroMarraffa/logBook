@@ -28,7 +28,7 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost">
+    <form method="post" id="form_create_post" action="/logBook/Post/upgradePost">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
@@ -48,7 +48,7 @@
                                 <textarea class="form-control" name="titleExperience{$exp->getExperienceID()}" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
                                 <div class="row py-2">
                                     <div class="col-md-3">
-                                        <input type="date" name="startDate{$exp->getExperienceID()}" class="px-2" value="{$exp->getStartDay()}">
+                                        <input type="date" name="startDate[]" class="px-2" value="{$exp->getStartDay()}">
                                     </div>
                                     <div class="col-md-3">
                                         <input type="date" name="endDate{$exp->getExperienceID()}" class="px-2" value="{$exp->getEndDay()}">
