@@ -66,23 +66,21 @@
             <div class="card">
                 <div class="card-header">
                     <img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="...">
-                    <B><a href="/logBook/Research/postDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></B>
+                    <B><a href="/logBook/Research/profileDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></B>
                 </div>
-                <div class="card-body">
-                    <div class="row">
+                <div class="container px-4 px-lg-5 mt-3">
+                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
                         {if $post[$i]}
                             {if $post[$i]!=null}
                                 {for $j=0; $j<count($post[$i]) && $j<=2; $j++}
-                                    <div class="col mb-5" >
-                                        <div class="card h-100">
-                                            <div class="card-body p-4">
-                                                <div class="text-center">
-                                                    <!-- Product name-->
-                                                    <h3 class="fw-bolder">{$post[$i][$j]->getTitle()}</h3>
-                                                    <!-- Product price-->
-                                                    <h5 class="text-muted ">{$post[$i][$j]->getCreationDate()}</h5>
-                                                    <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$post[$i][$j]->getPostID()}">Go to the Post →</a>
-                                                </div>
+                                    <div class="col md-5 py-4">
+                                        <div class="card mb-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h3 class="fw-bolder">{$post[$i][$j]->getTitle()}</h3>
+                                                <!-- Product price-->
+                                                <h5 class="text-muted ">{$post[$i][$j]->getCreationDate()}</h5>
+                                                <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$post[$i][$j]->getPostID()}">Go to the Post →</a>
                                             </div>
                                         </div>
                                     </div>

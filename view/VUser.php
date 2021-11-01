@@ -42,9 +42,9 @@ class VUser
                 }
             }
             else{
-                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
                 $pic64Img[]= base64_encode($data);
-                $typeImg[] = "image/png";
+                $typeImg[] = "image/jpg";
             }
         }
         $this->smarty->assign('typeImg',$typeImg);
@@ -98,21 +98,28 @@ class VUser
         }else $array_p=$arrayPost;
         $typeImg=array();
         $pic64Img=array();
-        foreach ($array_image as $im) {
-            if($im!=null) {
-                if(count($im)==1){
-                    $typeImg[] = $im[0]->getType();
-                    $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+        if(count($array_image)!=0) {
+            foreach ($array_image as $im) {
+                if($im!=null) {
+                    if(count($im)==1){
+                        $typeImg[] = $im[0]->getType();
+                        $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                    else{
+                        $typeImg[] = $im[0]->getType();
+                        $pic64Img[] =  $im[0]->getImageFile();
+                    }
+                }
                 else{
-                    $typeImg[] = $im[0]->getType();
-                    $pic64Img[] =  $im[0]->getImageFile();
+                    $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
+                    $pic64Img[]= base64_encode($data);
+                    $typeImg[] = "image/jpg";
                 }
             }
-            else{
-                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
-                $pic64Img[]= base64_encode($data);
-                $typeImg[] = "image/png";
-            }
+        }
+        else{
+            $data = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
+            $pic64Img[] = base64_encode($data);
+            $typeImg[] = "image/jpg";
         }
         $this->smarty->assign('typeImg',$typeImg);
         $this->smarty->assign('pic64Img',$pic64Img);

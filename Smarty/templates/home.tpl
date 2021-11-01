@@ -68,7 +68,7 @@
     </div>
 </header>
 <div class="container px-4 px-lg-5 mt-5">
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
         {if $array_post_home}
         {if is_array($array_post_home)}
         {for $i=0;$i<=count($array_post_home)-1;$i++}

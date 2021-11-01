@@ -122,32 +122,32 @@
     </div>
 </header>
 <!-- Section-->
-<section class="py-5">
-
-    <div class="row">
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
         <!-- Blog entries-->
         {if $arrayPostPlace}
         {if isset($arrayPostPlace)}
-            <div class="row">
                 <!-- Blog post-->
-                {foreach $arrayPostPlace as $post}
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="https://dummyimage.com/400x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted">{$post->getCreationDate()}</div>
-                                <h2 class="card-title h4">{$post->getTitle()}</h2>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$post->getPostID()}">Go to the Post →</a>
+        {for $i=0;$i<=count($arrayPostPlace)-1;$i++}
+        {if isset($arrayPostPlace[$i])}
+        <div class="col md-4" >
+            <div class="card mb-4">
+                <!-- Profile image-->
+                <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
+                <div class="card-body">
+                                <div class="small text-muted">{$arrayPostPlace[$i]->getCreationDate()}</div>
+                                <h2 class="card-title h4">{$arrayPostPlace[$i]->getTitle()}</h2>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$arrayPostPlace[$i]->getPostID()}">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
-                {/foreach}
+            {/if}
+                {/for}
             </div>
         {/if}
         {/if}
     </div>
-
-</section>
+</div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

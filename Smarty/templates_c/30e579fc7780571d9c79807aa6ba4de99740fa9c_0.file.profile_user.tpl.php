@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 14:54:08
-  from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
+/* Smarty version 3.1.33, created on 2021-11-01 17:54:41
+  from 'C:\xampp\htdocs\logBook\Smarty\templates\profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ff180ebe1c9_52703877',
+  'unifunc' => 'content_61801bd1b230a1_10829225',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '9657d6d92daaf7a98b91025218cac7601121fddc' => 
+    '30e579fc7780571d9c79807aa6ba4de99740fa9c' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1635773758,
+      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile_user.tpl',
+      1 => 1635785648,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ff180ebe1c9_52703877 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61801bd1b230a1_10829225 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +35,9 @@ function content_617ff180ebe1c9_52703877 (Smarty_Internal_Template $_smarty_tpl)
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/logBook/Smarty/css/styles.css" rel="stylesheet" />
     <link href="/logBook/Smarty/css/profile.css" rel="stylesheet" />
+    <?php echo '<script'; ?>
+ type="text/javascript" src="../js/profile_map.js"><?php echo '</script'; ?>
+>
     <?php echo '<script'; ?>
 >
         function ready(){
@@ -60,7 +63,8 @@ function content_617ff180ebe1c9_52703877 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
-<header class="bg-light border-bottom mb-4">
+<header class="py-5 bg-light border-bottom mb-4">
+
     <div id="map"></div>
 
     <?php echo '<script'; ?>
@@ -69,6 +73,7 @@ function content_617ff180ebe1c9_52703877 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
+
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
@@ -132,19 +137,19 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ' width="150" height="150" alt="...">
         </div>
         <div class="col-md-6">
+
             <h2><b><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
 </b></h2>
             <h5><?php echo $_smarty_tpl->tpl_vars['user']->value->getDescription();?>
 </h5>
         </div>
-        <div class="col-md-1">
-            <div class="btn btn-primary align-content-center" ><a class="navbar-brand" href="/logBook/User/changeCredential"><img src="/logBook/Smarty/immagini/pencil.png" width="30" height="25" class="d-inline-block" alt=""></a></div>
-        </div>
-        <div class="col-md-1">
-            <a class="btn btn-primary" href="/logBook/Post/create_post">+ Post</a>
-        </div>
-        <div class="col-md-1">
-            <a class="btn btn-primary" href="/logBook/User/logout">Logout</a>
+        <div class="col-md-4" align="end" >
+            <div class="btn btn-danger justify-content-end" >
+                <a class="navbar-brand justify-content-end" href="/logBook/Research/report/<?php echo $_smarty_tpl->tpl_vars['user']->value->getUserID();?>
+">
+                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -153,40 +158,40 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
         <?php if ($_smarty_tpl->tpl_vars['postList']->value) {?>
-        <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
-            <?php
+            <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
+                <?php
 $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
 $_smarty_tpl->tpl_vars['i']->value = 0;
 if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1) {
 for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-                <?php if (isset($_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
-                <div class="col md-4" >
-                    <div class="card mb-4">
-                        <!-- Profile image-->
-                        <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                    <?php if (isset($_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+                        <div class="col md-4" >
+                            <div class="card mb-4">
+                                <!-- Profile image-->
+                                <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' height="300" width="400" alt="...">
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
 </h5>
-                                <!-- Product price-->
-                                <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
+                                        <!-- Product price-->
+                                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
 </h6>
-                                <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+                                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
 ">Go to the Post →</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <?php }?>
-            <?php }
+                    <?php }?>
+                <?php }
 }
 ?>
-        <?php }?>
+            <?php }?>
         <?php }?>
     </div>
 </div>

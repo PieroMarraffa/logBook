@@ -60,7 +60,7 @@ class CResearch
             if($_POST['research']!=""){
                 $place=$pm->load("Name",$_POST['research'],FPlace::getClass());
                 if($place!=null){
-                $post=$pm->loadPostByPlace($place->getPlaceID());
+                    $post=$pm->loadPostByPlace($place->getPlaceID());
                     $array_posts=array();
                     if($post!=null){
                         if (is_object($post)) {
@@ -75,7 +75,13 @@ class CResearch
                             }
                         }
                     }
-                $view->search_place($place,$array_posts);
+                    $image=array();
+                    foreach ($array_posts as $r){
+                        $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+                        $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+                        $image[]=$i;
+                    }
+                $view->search_place($place,$array_posts,$image);
                     }
                 else{
                     $view->search_error($research);
@@ -113,4 +119,45 @@ class CResearch
         }
     }
 
+    /**
+     * @throws SmartyException
+     */
+    static function profileDetail($id){
+        require 'utility/USession.php';
+        $pm=new FPersistentManager();
+        $view=new VResearch();
+        if($_SERVER['REQUEST_METHOD'] == "GET") {
+            $user = $pm->load("IDuser", $id, FUser::getClass());
+            USession::getInstance();
+            $u=USession::getElement('user');
+            $utente=unserialize($u);
+            if($user==$utente){
+                header("Location: /logBook/User/profile");
+            }else{
+                $img=$pm->load("IDimage",$user->getImageID(),'FImage');
+                $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
+                if($arrayPost!=null){
+                    foreach ($arrayPost as $a){
+                        if($a->getDeleted()==true){
+                            unset($arrayPost[array_search($a,$arrayPost,true)]);
+                        }
+                    }
+                }
+                $image=array();
+                foreach ($arrayPost as $r){
+                    $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+                    $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+                    $image[]=$i;
+                }
+                $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
+                $view->profileDetail($user,$img,$arrayPost,$arrayPlace,$image);
+            }
+        }
+    }
+
+    static function report($id){
+        $pm= new FPersistentManager();
+        $pm->update("Reported",1,$id,FUser::getClass());
+        header('Location: /logBook/User/home');
+    }
 }

@@ -20,12 +20,18 @@
         }
         document.addEventListener("DOMContentLoaded", ready);
     </script>
+    <style type="text/css">
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="home_logged.html"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
@@ -36,7 +42,6 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>
 
     <script>
-
 
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -93,41 +98,45 @@
             <h2><b>{$user->getUsername()}</b></h2>
             <h5>{$user->getDescription()}</h5>
         </div>
-        <div class="col-md-2">
-            <div class="btn btn-danger align-content-center" ><a class="navbar-brand" href="/logBook/Ricerca/report"><img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt=""></a></div>
+        <div class="col-md-4" align="end" >
+            <div class="btn btn-danger justify-content-end" >
+                <a class="navbar-brand justify-content-end" href="/logBook/Research/report/{$user->getUserID()}">
+                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 
-<div class="container my-5">
-    <div class="row">
-        <!-- Blog entries-->
-        {if isset($user->getPostList())}
-            {foreach $user->getPostList() as $p}
-
-                <div class="row">
-                    <!-- Blog post-->
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted">{$p->getDate()}</div>
-                                <h2 class="card-title h4">{$p->getPostTitle()}</h2>
-                                <p class="card-text">{$p->getDescription()}</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$p->getID()}">Go to the Post →</a>
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+        {if $postList}
+            {if isset($postList)}
+                {for $i=0;$i<=count($postList)-1;$i++}
+                    {if isset($postList[$i])}
+                        <div class="col md-4" >
+                            <div class="card mb-4">
+                                <!-- Profile image-->
+                                <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder">{$postList[$i]->getTitle()}</h5>
+                                        <!-- Product price-->
+                                        <h6 class="text-muted ">{$postList[$i]->getCreationDate()}</h6>
+                                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/{$postList[$i]->getPostID()}">Go to the Post →</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            {/foreach}
+                    {/if}
+                {/for}
+            {/if}
         {/if}
     </div>
 </div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

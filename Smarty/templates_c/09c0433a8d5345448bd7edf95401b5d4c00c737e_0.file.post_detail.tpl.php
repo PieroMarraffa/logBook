@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-30 17:33:50
+/* Smarty version 3.1.33, created on 2021-11-01 18:13:07
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617d65deef55e2_08070695',
+  'unifunc' => 'content_618020232298b3_27158883',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635607261,
+      1 => 1635786785,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617d65deef55e2_08070695 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618020232298b3_27158883 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -29,7 +29,8 @@ function content_617d65deef55e2_08070695 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Post</title>
+    <title><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
+</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -81,8 +82,9 @@ function content_617d65deef55e2_08070695 (Smarty_Internal_Template $_smarty_tpl)
                         <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
 </h1>
                         <!-- Post meta content-->
-                        <h4 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
-</h4>
+                            <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
+</a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['date']->value;?>
 </div>
                         </div>
@@ -184,6 +186,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                                 <div class="d-flex mb-4">
                                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                                     <?php if (isset($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+                                        <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getDeleted() != true) {?>
                                             <div class="flex-shrink-0"><img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' width="65" height="65" alt="..."></div>
@@ -194,6 +197,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 </div>
                                             </div>
                                         <?php }?>
+                                    <?php }?>
                                 </div>
                                 <?php }
 }

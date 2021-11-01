@@ -350,7 +350,7 @@ class CUser
             if (CUser::isLogged()) {
                 $view->changePassword();
             }else
-                header('Location: /FillSpaceWEB/Utente/login');
+                header('Location: /logBook/User/login');
         }
     }
 
@@ -363,7 +363,7 @@ class CUser
             if (CUser::isLogged()) {
                 $view->changeEmail();
             }else
-                header('Location: /FillSpaceWEB/Utente/login');
+                header('Location: /logBook/User/login');
         }
     }
 
@@ -376,7 +376,7 @@ class CUser
             if (CUser::isLogged()) {
                 $view->changeUsername();
             }else
-                header('Location: /FillSpaceWEB/Utente/login');
+                header('Location: /logBook/User/login');
         }
     }
 
@@ -389,7 +389,7 @@ class CUser
             if (CUser::isLogged()) {
                 $view->changeImage();
             }else
-                header('Location: /FillSpaceWEB/Utente/login');
+                header('Location: /logBook/User/login');
         }
     }
 
@@ -402,7 +402,7 @@ class CUser
             if (CUser::isLogged()) {
                 $view->changeDescription();
             }else
-                header('Location: /FillSpaceWEB/Utente/login');
+                header('Location: /logBook/User/login');
         }
     }
 

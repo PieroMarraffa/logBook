@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Post</title>
+    <title>{$Title}</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -52,7 +52,7 @@
                         <div class="col-md-7">
                         <h1 class="fw-bolder mb-1">{$Title}</h1>
                         <!-- Post meta content-->
-                        <h4 class="fw-bolder mb-1">{$author}</h4>
+                            <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author}</a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
                         </div>
                         <div class="col-md-4" align="end">
@@ -126,12 +126,14 @@
                                 <div class="d-flex mb-4">
                                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                                     {if isset($arrayComment[$i])}
+                                        {if $arrayComment[$i]->getDeleted()!=true}
                                             <div class="flex-shrink-0"><img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="..."></div>
                                             <div class="ms-3">
                                                 <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
                                                 <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
                                             </div>
                                         {/if}
+                                    {/if}
                                 </div>
                                 {/for}
                             {/if}

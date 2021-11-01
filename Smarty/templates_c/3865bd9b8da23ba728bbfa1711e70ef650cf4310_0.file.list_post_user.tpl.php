@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 11:48:43
+/* Smarty version 3.1.33, created on 2021-11-01 17:22:14
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617e748b6d6484_43244907',
+  'unifunc' => 'content_61801436d8c2d9_84868221',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3865bd9b8da23ba728bbfa1711e70ef650cf4310' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_user.tpl',
-      1 => 1635677319,
+      1 => 1635783731,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617e748b6d6484_43244907 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61801436d8c2d9_84868221 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -99,12 +99,12 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     <img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' width="65" height="65" alt="...">
-                    <B><a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['arrayUser']->value[$_smarty_tpl->tpl_vars['i']->value]->getUserID();?>
+                    <B><a href="/logBook/Research/profileDetail/<?php echo $_smarty_tpl->tpl_vars['arrayUser']->value[$_smarty_tpl->tpl_vars['i']->value]->getUserID();?>
 "><?php echo $_smarty_tpl->tpl_vars['arrayUser']->value[$_smarty_tpl->tpl_vars['i']->value]->getUsername();?>
 </a></B>
                 </div>
-                <div class="card-body">
-                    <div class="row">
+                <div class="container px-4 px-lg-5 mt-3">
+                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
                         <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) {?>
                             <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value] != null) {?>
                                 <?php
@@ -113,19 +113,17 @@ $_smarty_tpl->tpl_vars['j']->value = 0;
 if ($_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2) {
 for ($_foo=true;$_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2; $_smarty_tpl->tpl_vars['j']->value++) {
 ?>
-                                    <div class="col mb-5" >
-                                        <div class="card h-100">
-                                            <div class="card-body p-4">
-                                                <div class="text-center">
-                                                    <!-- Product name-->
-                                                    <h3 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getTitle();?>
+                                    <div class="col md-5 py-4">
+                                        <div class="card mb-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h3 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getTitle();?>
 </h3>
-                                                    <!-- Product price-->
-                                                    <h5 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getCreationDate();?>
+                                                <!-- Product price-->
+                                                <h5 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getCreationDate();?>
 </h5>
-                                                    <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getPostID();?>
+                                                <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getPostID();?>
 ">Go to the Post →</a>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
