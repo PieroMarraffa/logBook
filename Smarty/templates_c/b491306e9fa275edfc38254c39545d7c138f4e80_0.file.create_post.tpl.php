@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-29 16:32:17
+/* Smarty version 3.1.33, created on 2021-10-31 17:41:00
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617c05f1158885_71021419',
+  'unifunc' => 'content_617ec71c0e6b33_53121040',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1635517931,
+      1 => 1635698457,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617c05f1158885_71021419 (Smarty_Internal_Template $_smarty_tpl) {
+function content_617ec71c0e6b33_53121040 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -82,17 +82,64 @@ function content_617c05f1158885_71021419 (Smarty_Internal_Template $_smarty_tpl)
         <div class="col-md-3 fisso" >
             <div class="card">
             <div class="row">
-                <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                <?php echo '<script'; ?>
+ id="creaExperience">
+                    function creaExperience() {
+                        nuovo_elemento = document.createElement("div");
+                        var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
+                        nuovo_elemento.setAttribute("id", "quadro" + parseInt(document.getElementById("container").childNodes.length + 1));
+                        nuovo_elemento.setAttribute("class", "quadrato");
+                        nuovo_elemento.innerHTML =
+                            "<div class='card'>" +
+                            "<div class='card-header'>" +
+                            "<textarea class='form-control' name='titleExperience" + numCode + "' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
+                            "<div class='row py-2'>" +
+                            "<div class='col-md-3'>" +
+                            "<input type='date' name='startDate" + numCode + "' class='px-2'>" +
+                            "</div><div class='col-md-3'>" +
+                            "<input type='date' name='endDate" + numCode + "' class='px-2'>" +
+                            "</div><div class='col-md-3'>" +
+                            //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
+                            "<select class='btn btn-primary' name='place" + numCode + "'>" +
+                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayPlace']->value)) {?>" +
+                            "<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayPlace']->value, 'p');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
+?>" +
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['p']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['p']->value->getName();?>
+</option><?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+}?></select>" +
+                            "</div>" +
+                            "<div class='col-md-3'></div></div></div>" +
+                            "<div class='card-body'>" +
+                            "<textarea class='form-control' name='description" + numCode + "' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+                            "</div><div align='end'>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
+                            "</div></div>";
+                        document.getElementById("container").appendChild(nuovo_elemento);
+                        obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
+                        obj.style.height = "450px";
+                        obj.style.width = "1000px";
+                    }
+                <?php echo '</script'; ?>
+>
+                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
             </div>
             </div>
         </div>
     </div>
-        <input name="send" type="submit" form="form_create_post" class="btn btn-primary" >
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Innnnnnnnnnnn</button>
     </form>
 </section>
 

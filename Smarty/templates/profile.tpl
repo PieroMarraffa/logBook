@@ -107,17 +107,16 @@
 </div>
 
 
-<div class="container my-5">
-    <div class="row">
-        <!-- Blog entries-->
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {if $postList}
         {if isset($postList)}
             {for $i=0;$i<=count($postList)-1;$i++}
                 {if isset($postList[$i])}
-                <div class="col mb-5" >
-                    <div class="card h-100">
+                <div class="col md-4" >
+                    <div class="card mb-4">
                         <!-- Profile image-->
-                        <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" alt="...">
+                        <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">

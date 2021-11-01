@@ -149,23 +149,26 @@ class FPlace extends FDataBase
         else {
             if(($result != null) && ($rows_number > 1)){
                 $post= array();
-                for($i = 0; $i < count($result); $i++){
-                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
-                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
-                    $nLike=0;
-                    $nDislike=0;
-                    if ($likeList!=null){
-                    foreach ($Like as $l){
-                        if($l->getValue()==1){
-                            $nLike ++;
-                        }elseif ($l->getValue()==-1){
-                            $nDislike++;
+                for($i = 0; $i <= count($result)-1; $i++) {
+                    if ($result[$i]){
+                        $commentList = FComment::load("IDpost", $result[$i]['IDpost']);
+                        $likeList = FLike::load("IDpost", $result[$i]['IDpost']);
+                        $travel = FTravel::load("IDpost", $result[$i]['IDpost']);
+                        $Like = FLike::load("IDpost", $result[$i]['IDpost']);
+                        $nLike = 0;
+                        $nDislike = 0;
+                        if ($likeList != null) {
+                            foreach ($Like as $l) {
+                                if ($l->getValue() == 1) {
+                                    $nLike++;
+                                } elseif ($l->getValue() == -1) {
+                                    $nDislike++;
+                                }
+                            }
                         }
-                    }}
-                    $post[] = new EPost( $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser']);
-                    $post[$i]->setPostID($result[$i]['IDpost']);
+                        $post[] = new EPost($result[$i]['Title'], $commentList, $likeList, $result[$i]['Date'], $travel, $result[$i]['Deleted'], $nLike, $nDislike, $result[$i]['IDuser']);
+                        $post[$i]->setPostID($result[$i]['IDpost']);
+                    }
                 }
             }
         }
