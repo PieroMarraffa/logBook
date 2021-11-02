@@ -2,6 +2,19 @@
 
 class FPersistentManager
 {
+    private static $instance;
+
+    private function __construct(){}
+
+    public static function getInstance(){
+        if(self::$instance==null){
+            self::$instance=new FPersistentManager();
+
+        }
+
+        return self::$instance;
+    }
+
 /** forse rimuovere il supreme admin dalle classi che supportano la store */
     public static function store($object){
         $Eclass=get_class($object);

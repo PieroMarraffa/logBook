@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 18:13:07
+/* Smarty version 3.1.33, created on 2021-11-02 12:33:55
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618020232298b3_27158883',
+  'unifunc' => 'content_618122232d1cc8_76975130',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635786785,
+      1 => 1635852832,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618020232298b3_27158883 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618122232d1cc8_76975130 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -89,9 +89,13 @@ function content_618020232298b3_27158883 (Smarty_Internal_Template $_smarty_tpl)
 </div>
                         </div>
                         <div class="col-md-4" align="end">
+                            <b><?php echo $_smarty_tpl->tpl_vars['nLike']->value;?>
+</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
+                            <b><?php echo $_smarty_tpl->tpl_vars['nDislike']->value;?>
+</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>

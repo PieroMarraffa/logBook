@@ -17,7 +17,7 @@ class CAdmin
      * @throws SmartyException
      */
     static function adminHome(){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $view=new VAdmin();
         $image_reported=array();
         $image_banned=array();
@@ -61,7 +61,7 @@ class CAdmin
      * @throws SmartyException
      */
     static function banUser($userID){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $pm->update("Reported",0,$userID,FUser::getClass());
         $resultPost=$pm->load("IDuser",$userID,FPost::getClass());
         if($resultPost!=null) {
@@ -93,13 +93,13 @@ class CAdmin
      * @throws SmartyException
      */
     static function ignoreUser($userID){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $pm->update("Reported",0,$userID,FUser::getClass());
         header('Location: /logBook/Admin/adminHome');
     }
 
     static function restoreUser($userID){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $pm->update("Reported",0,$userID,FUser::getClass());
         $resultPost=$pm->load("IDuser",$userID,FPost::getClass());
         if($resultPost!=null){

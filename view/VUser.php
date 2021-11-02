@@ -19,11 +19,12 @@ class VUser
      * @throws SmartyException
      */
     public function home($result,$image){
+        $pm = FPersistentManager::getInstance();
         if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
             $user=unserialize($u);
-            $adm = FPersistentManager::loadAdmin("Email", $user->getMail());
+            $adm = $pm->loadAdmin("Email", $user->getMail());
             if (isset($adm))
                 header('Location: /logBook/Admin/adminHome');
             $this->smarty->assign('username',$user->getUserName());}

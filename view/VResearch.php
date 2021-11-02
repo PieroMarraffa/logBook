@@ -19,7 +19,7 @@ class VResearch
      * @throws SmartyException
      */
     public function search_user($array_user,$post){
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         if(CUser::isLogged()){
           $this->smarty->assign('userlogged',"loggato");
         $u=USession::getElement('user');
@@ -118,7 +118,7 @@ class VResearch
      * @throws SmartyException
      */
     public function post($post,$author,$array_p,$array_image){
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
@@ -165,6 +165,9 @@ class VResearch
                 $type[]= "image/png";
             }
         }
+
+        $this->smarty->assign('nDislike',$post->getNLike());
+        $this->smarty->assign('nLike',$post->getNDisLike());
         $this->smarty->assign('post', $post);
         $this->smarty->assign('typeImg', $typeImg);
         $this->smarty->assign('pic64Img', $pic64Img);

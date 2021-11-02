@@ -2,12 +2,6 @@
 
 if(file_exists('config.inc.php')) require_once 'config.inc.php';
 
-/** DEVI AGGIUNGERE LA ROBA DI INSTALLAZIONE CHE CREA IL FILE CONFIG E SFRUTTA IL COCKIE DI ACCESSO */
-
-/** RICORDIAMOCI DI CONTROLLARE SE I COOKIE SONO ABILITATI O NO E SE NON SONO ABILITATI NOTIFICARLO ALL'UTENTE PERCHE SENNO'
- *L'APPLICAZIONE NON FUNZIONA
- */
-
 
 class FDataBase
 {
@@ -17,8 +11,8 @@ class FDataBase
     private $database;
 
     /** "mysql:dbname=logbook;host=127.0.0.1; charset=utf8;","root","pippo" */
-    private function __construct()
-    {
+    
+    private function __construct(){
         try{
             $this->database=new PDO("mysql:dbname=".$GLOBALS['database'].";host=127.0.0.1; charset=utf8;", $GLOBALS['username'], $GLOBALS['password']);
         }

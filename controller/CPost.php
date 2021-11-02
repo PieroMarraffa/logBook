@@ -1,18 +1,13 @@
 <?php
 
-require 'utility/UCookie.php';
-require 'utility/USession.php';
-require 'utility/UServer.php';
-
 
 class CPost{
     public static function savePost()
     {
 
         USession::getInstance();
-
         $view = new VUser();
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $user = unserialize(USession::getElement('user'));
         $arrayExperienceTitle = $_POST['titleExperience'];
         $arrayStartDay = $_POST['startDate'];
@@ -85,15 +80,16 @@ class CPost{
 
     public static function create_post(){
         $view = new VPost();
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $arrayPlace=$pm->loadAll(FPlace::getClass());
         $view->create_post($arrayPlace);
     }
 
     public static function deletePost(){
+        $pm = FPersistentManager::getInstance();
         $view = new VUser();
         $postID = USession::getElement('IDpost');
-        FPersistentManager::deletePost($postID);
+        $pm->deletePost($postID);
         $view->profile();
     }
 
@@ -107,7 +103,7 @@ class CPost{
 
 
     static function upload($travelID,$nome_file) {
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $max_size = 600000000;
         $size = $_FILES[$nome_file]['size'];
         $type = $_FILES[$nome_file]['type'];
@@ -138,7 +134,7 @@ class CPost{
      */
     static function modify_post($postID){
         $view = new VPost();
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $travel = $pm->loadTravelByPost($postID);
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
@@ -149,7 +145,7 @@ class CPost{
 
     static function upgradePost($postID){
         $view = new VUser();
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();
         $user = $pm->loadUserByPost($postID);

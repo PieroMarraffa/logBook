@@ -7,7 +7,7 @@ class CUser
      * @throws SmartyException
      */
     static function home(){
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $view = new VUser();
         $result=$pm->loadPostHomePage();
         $image=array();
@@ -45,7 +45,7 @@ class CUser
      */
     static function isBanned(){
         $user = unserialize(USession::getElement('user'));
-        $pm=new FPersistentManager();
+        $pm=FPersistentManager::getInstance();
         $view=new VUser();
         $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
         if($u->isBanned()==true){
@@ -61,14 +61,15 @@ class CUser
      * @throws SmartyException
      */
     static function login(){
+        $pm = FPersistentManager::getInstance();
         //se nell'url viene immesso il pattern /User/login
-        if($_SERVER['REQUEST_METHOD']=="GET"){   //Serve a controllare quello che viene scritto all'interno della url, se viene scritto nell'url può essere solo un reindirizzamento ad un'altra pagina
+        if(UServer::getRequestMethod()=="GET"){   //Serve a controllare quello che viene scritto all'interno della url, se viene scritto nell'url può essere solo un reindirizzamento ad un'altra pagina
             if(static::isLogged()) {
                 $utente = unserialize(USession::getElement('user'));
-                $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
+                $adm = $pm->loadAdmin("Email", $utente->getMail());
                 if (isset($adm))
                     header('Location: /logBook/Admin/adminHome');
-                $pm = new FPersistentManager();
+
                 $view = new VUser();
                 $result=$pm->loadPostHomePage();
                 $view->loginOk($result);
@@ -80,7 +81,7 @@ class CUser
         }
         //se viene richiamato il metodo login attraverso una richiesta POST
         //Vuol dire che si sta cercando di accedere all'account premendo sul pulsante di login dopo aver inserito le credenziali
-        elseif ($_SERVER['REQUEST_METHOD']=="POST")
+        elseif (UServer::getRequestMethod()=="POST")
             static::checkLogin();
     }
 
@@ -90,7 +91,7 @@ class CUser
      */
     static function checkLogin(){
         $view = new VUser();
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
         $admin=$pm->loadAdmin("IDadmin",1);
         $adminEmail=$admin->getMail();
@@ -129,8 +130,8 @@ class CUser
      */
     static function profile(){
         $view = new VUser();
-        $pm = new FPersistentManager();
-        if($_SERVER['REQUEST_METHOD'] == "GET") {
+        $pm = FPersistentManager::getInstance();
+        if(UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
@@ -161,9 +162,9 @@ class CUser
      * @throws SmartyException
      */
     static function registration(){
-        if($_SERVER['REQUEST_METHOD']=="GET") {
+        if(UServer::getRequestMethod()=="GET") {
             $view = new VUser();
-            $pm = new FPersistentManager();
+            $pm = FPersistentManager::getInstance();
             if (static::isLogged()) {
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
@@ -177,7 +178,7 @@ class CUser
             else {
                 $view->registration_form();             //Reindirizza alla schermata di registrazione
             }
-        }else if($_SERVER['REQUEST_METHOD']=="POST") {
+        }else if(UServer::getRequestMethod()=="POST") {
             static::checkRegistration();
         }
     }
@@ -186,7 +187,7 @@ class CUser
      * @throws SmartyException
      */
     static function checkRegistration(){
-            $pm = new FPersistentManager();
+            $pm = FPersistentManager::getInstance();
             $verifiemail = $pm->exist("Email", $_POST['email'],"FUser");
             $view = new VUser();
             if ($verifiemail){
@@ -214,7 +215,7 @@ class CUser
     }
 
     static function upload($user,$nome_file) {
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $max_size = 600000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
         echo $result;
@@ -265,18 +266,18 @@ class CUser
      * @throws SmartyException
      */
     static function changeCredential(){
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $view = new VUser();
         USession::getInstance();
         $user = unserialize(USession::getElement('user'));
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
                 $view->changeCredentialForm($user,$img);
             } else
                 header('Location: /logBook/User/login');
         }
-        elseif ($_SERVER['REQUEST_METHOD']=="POST"){
+        elseif (UServer::getRequestMethod() =="POST"){
             if(isset($_POST['email'])){
                 $id=$user->getUserID();
                 $pm->update('Email',$_POST['email'],$id,FUser::getClass());
@@ -342,7 +343,7 @@ class CUser
 
     static function changePassword(){
         $view=new VUser();
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $view->changePassword();
             }else
@@ -355,7 +356,7 @@ class CUser
      */
     static function changeEmail(){
         $view=new VUser();
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $view->changeEmail();
             }else
@@ -368,7 +369,7 @@ class CUser
      */
     static function changeUsername(){
         $view=new VUser();
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $view->changeUsername();
             }else
@@ -381,7 +382,7 @@ class CUser
      */
     static function changeImage(){
         $view=new VUser();
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $view->changeImage();
             }else
@@ -394,7 +395,7 @@ class CUser
      */
     static function changeDescription(){
         $view=new VUser();
-        if ($_SERVER['REQUEST_METHOD'] == "GET") {
+        if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
                 $view->changeDescription();
             }else
@@ -403,7 +404,7 @@ class CUser
     }
 
     static function updateImage($user,$nome_file) {
-        $pm = new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $max_size = 600000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
         if (!$result) {

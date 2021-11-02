@@ -9,7 +9,8 @@ class CFrontController
      */
     public function run($path)
     {
-        $method = $_SERVER['REQUEST_METHOD'];
+        $pm = FPersistentManager::getInstance();
+        $method = UServer::getRequestMethod();
 
         $res = explode("/", $path);
 
@@ -45,7 +46,7 @@ class CFrontController
                     } else {
                         if (CUser::isLogged()) {
                             $utente = unserialize(USession::getElement('user'));
-                            $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
+                            $adm = $pm->loadAdmin("Email", $utente->getMail());
                             if (isset($adm))
                                 header('Location: /logBook/Admin/adminHome');
                             else {
@@ -58,7 +59,7 @@ class CFrontController
                     if (CUser::isLogged()) {
 
                         $utente = unserialize(USession::getElement('user'));
-                        $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
+                        $adm = $pm->loadAdmin("Email", $utente->getMail());
                         if (isset($adm))
                             header('Location: /logBook/Admin/adminHome');
                         else {
@@ -72,7 +73,7 @@ class CFrontController
                 if (CUser::isLogged()) {
 
                     $utente = unserialize(USession::getElement('user'));
-                    $adm = FPersistentManager::loadAdmin("Email", $utente->getMail());
+                    $adm = $pm->loadAdmin("Email", $utente->getMail());
                     if (isset($adm))
                         header('Location: /logBook/Admin/adminHome');
                     else {

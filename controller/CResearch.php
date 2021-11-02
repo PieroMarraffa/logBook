@@ -10,7 +10,7 @@ class CResearch
      */
     static function find(){
         $view=new VResearch();
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $research=$_POST['research'];
         if($_POST['search']==1){
             $post1=array();
@@ -94,9 +94,9 @@ class CResearch
      * @throws SmartyException
      */
     static function postDetail($id){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $view=new VResearch();
-        if($_SERVER['REQUEST_METHOD'] == "GET") {
+        if(UServer::getRequestMethod() == "GET") {
             $post = $pm->load("IDpost", $id, FPost::getClass());
             if($post->getDeleted()!=true){
                 $author=$pm->load("IDuser",$post->getUserID(),FUser::getClass());
@@ -123,9 +123,9 @@ class CResearch
      * @throws SmartyException
      */
     static function profileDetail($id){
-        $pm=new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $view=new VResearch();
-        if($_SERVER['REQUEST_METHOD'] == "GET") {
+        if(UServer::getRequestMethod() == "GET") {
             $user = $pm->load("IDuser", $id, FUser::getClass());
             USession::getInstance();
             $u=USession::getElement('user');
@@ -155,7 +155,7 @@ class CResearch
     }
 
     static function report($id){
-        $pm= new FPersistentManager();
+        $pm = FPersistentManager::getInstance();
         $pm->update("Reported",1,$id,FUser::getClass());
         header('Location: /logBook/User/home');
     }

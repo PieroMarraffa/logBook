@@ -56,9 +56,11 @@
                         <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
                         </div>
                         <div class="col-md-4" align="end">
+                            <b>{$nLike}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
+                            <b>{$nDislike}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
