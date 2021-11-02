@@ -64,15 +64,15 @@
                         nuovo_elemento.innerHTML =
                             "<div class='card'>" +
                             "<div class='card-header'>" +
-                            "<textarea class='form-control' name='titleExperience" + numCode + "' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
+                            "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate" + numCode + "' class='px-2'>" +
+                            "<input type='date' name='startDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate" + numCode + "' class='px-2'>" +
+                            "<input type='date' name='endDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
-                            "<select class='btn btn-primary' name='place" + numCode + "'>" +
+                            "<select class='btn btn-primary' name='place[]]'>" +
                             "{if isset($arrayPlace)}" +
                             "{foreach $arrayPlace as $p}" +
                             "<option value='{$p->getPlaceID()}'>{$p->getName()}</option>" +
@@ -82,7 +82,7 @@
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +
-                            "<textarea class='form-control' name='description" + numCode + "' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+                            "<textarea class='form-control' name='description[]' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
                             "</div><div align='end'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
                             "</div></div>";

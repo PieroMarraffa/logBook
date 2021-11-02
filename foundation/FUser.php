@@ -293,14 +293,13 @@ class FUser extends FDataBase
         self::store($user);
     }
 
-    /** FAI IL METODO DI RIPRISTINO DEI COMMENTI E DEI POST  */
     /** FAI IL METODO PER LA RICERCA DEGLI UTENTI IN BASE ALLA STRINGA INSERITA */
 
     static function existAssociationUserPlace($idUser, $idPlace){
         $result = self::loadPlaceByUser($idUser);
         if ($result == null) {return false;}
         elseif (count($result) == 1){
-            if ($result->getPlaceID() == $idPlace){
+            if ($result[0]->getPlaceID() == $idPlace){
                 return true;
             }
             else{

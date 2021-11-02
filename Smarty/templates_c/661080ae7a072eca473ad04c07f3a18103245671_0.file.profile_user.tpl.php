@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-15 02:50:26
+/* Smarty version 3.1.33, created on 2021-11-02 10:28:29
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6168d052cfa577_91176070',
+  'unifunc' => 'content_618104bd7f6c45_40040118',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '661080ae7a072eca473ad04c07f3a18103245671' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile_user.tpl',
-      1 => 1634210245,
+      1 => 1635789457,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6168d052cfa577_91176070 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618104bd7f6c45_40040118 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +28,8 @@ function content_6168d052cfa577_91176070 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title><?php echo $_smarty_tpl->tpl_vars['user']->value->getUsername();?>
+</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -47,12 +48,18 @@ function content_6168d052cfa577_91176070 (Smarty_Internal_Template $_smarty_tpl)
         document.addEventListener("DOMContentLoaded", ready);
     <?php echo '</script'; ?>
 >
+    <style type="text/css">
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <a class="navbar-brand" href="home_logged.html"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
+        <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
@@ -66,7 +73,6 @@ function content_6168d052cfa577_91176070 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
-
 
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -137,52 +143,58 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <h5><?php echo $_smarty_tpl->tpl_vars['user']->value->getDescription();?>
 </h5>
         </div>
-        <div class="col-md-2">
-            <div class="btn btn-danger align-content-center" ><a class="navbar-brand" href="/logBook/Ricerca/report"><img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt=""></a></div>
+        <div class="col-md-4" align="end" >
+            <div class="btn btn-danger justify-content-end" >
+                <a class="navbar-brand justify-content-end" href="/logBook/Research/report/<?php echo $_smarty_tpl->tpl_vars['user']->value->getUserID();?>
+">
+                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 
-<div class="container my-5">
-    <div class="row">
-        <!-- Blog entries-->
-        <?php if ((($_smarty_tpl->tpl_vars['user']->value->getPostList() !== null ))) {?>
-            <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['user']->value->getPostList(), 'p');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
+        <?php if ($_smarty_tpl->tpl_vars['postList']->value) {?>
+            <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
+                <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-
-                <div class="row">
-                    <!-- Blog post-->
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDate();?>
-</div>
-                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['p']->value->getPostTitle();?>
-</h2>
-                                <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['p']->value->getDescription();?>
-</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['p']->value->getID();?>
+                    <?php if (isset($_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+                        <div class="col md-4" >
+                            <div class="card mb-4">
+                                <!-- Profile image-->
+                                <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' height="300" width="400" alt="...">
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
+</h5>
+                                        <!-- Product price-->
+                                        <h6 class="text-muted "><?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
+</h6>
+                                        <a class="btn btn-primary py-2" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
 ">Go to the Post →</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            <?php
+                    <?php }?>
+                <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+?>
+            <?php }?>
         <?php }?>
     </div>
 </div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>

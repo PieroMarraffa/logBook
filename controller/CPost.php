@@ -15,16 +15,22 @@ class CPost{
         $view = new VUser();
         $pm = new FPersistentManager();
         $user = unserialize(USession::getElement('user'));
+        $arrayExperienceTitle = $_POST['titleExperience'];
+        $arrayStartDay = $_POST['startDate'];
+        $arrayEndDay = $_POST['endDate'];
+        $arrayPlaceID= $_POST['place'];
+        $arrayDescription = $_POST['description'];
         $ExpList = array();
-        while (isset($_POST['titleExperience' . $num])) {
-            $Etitle = $_POST['titleExperience' . $num];
-            $startDate = $_POST['startDate' . $num];
-            $finishDate = $_POST['endDate' . $num];
-            $descriprion = $_POST['description' . $num];
-            $placeID = $_POST['place' . $num];
-            $place = $pm->load("IDplace", $placeID, FPlace::getClass());
-            $ExpList[] = new EExperience(0, $startDate, $finishDate, $Etitle, $place, $descriprion);
-            $num++;
+        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
+            $Etitle = $arrayExperienceTitle[$i];
+            $EstartDate = $arrayStartDay[$i];
+            $EfinishDate = $arrayEndDay[$i];
+            $Edescriprion = $arrayDescription[$i];
+            $EplaceID = $arrayPlaceID[$i];
+            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+            $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+            $exp->setPlaceID($EplaceID);
+            $ExpList[] = $exp;
         }
         $title = $_POST['title'];
         $TravelDays = FTravel::lowerAndHigherDate($ExpList);
@@ -41,14 +47,13 @@ class CPost{
         foreach ($ExpList as $exp){
             $exp->setTravelID($travelID);
             $pm->store($exp);
-        }
 
-
-        if ($pm->existAssociationUserPlace($userID,$place->getPlaceID()) == false){
-            $pm->storePlaceToUser($userID, $place->getPlaceID());
-        }
-        if ($pm->existAssociationPostPlace($postID,$place->getPlaceID()) == false){
-            $pm->storePlaceToPost($postID, $place->getPlaceID());
+            if ($pm->existAssociationUserPlace($userID,$exp->getPlaceID()) == false){
+                $pm->storePlaceToUser($userID, $exp->getPlaceID());
+            }
+            if ($pm->existAssociationPostPlace($postID,$exp->getPlaceID()) == false){
+                $pm->storePlaceToPost($postID, $exp->getPlaceID());
+            }
         }
 
         for($numImg=2; isset($_FILES['image'.$numImg]);$numImg++){

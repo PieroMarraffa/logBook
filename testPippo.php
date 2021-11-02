@@ -24,10 +24,10 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $FDB = FDataBase::getInstance();
-        return $FDB->loadAll(FPlace::getTable());
+        $pm = new FPersistentManager();
+        return $pm->existAssociationUserPlace(8,6);
     }
 }
 
-echo testPippo::test();
+echo var_dump($today = date('d/m/y'));
 

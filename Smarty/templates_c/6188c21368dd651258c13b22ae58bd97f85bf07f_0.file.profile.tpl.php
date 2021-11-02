@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 15:57:48
+/* Smarty version 3.1.33, created on 2021-11-01 18:57:52
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617eaeec557979_05507940',
+  'unifunc' => 'content_61802aa0d9e4c3_18779261',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
-      1 => 1635687367,
+      1 => 1635789457,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617eaeec557979_05507940 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61802aa0d9e4c3_18779261 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -150,9 +150,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 </div>
 
 
-<div class="container my-5">
-    <div class="row">
-        <!-- Blog entries-->
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
         <?php if ($_smarty_tpl->tpl_vars['postList']->value) {?>
         <?php if (isset($_smarty_tpl->tpl_vars['postList']->value)) {?>
             <?php
@@ -162,12 +161,12 @@ if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList
 for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['postList']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
                 <?php if (isset($_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
-                <div class="col mb-5" >
-                    <div class="card h-100">
+                <div class="col md-4" >
+                    <div class="card mb-4">
                         <!-- Profile image-->
-                        <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                        <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" alt="...">
+' height="300" width="400" alt="...">
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
