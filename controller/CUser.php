@@ -136,7 +136,11 @@ class CUser
                 USession::getInstance();
                 $user=unserialize(USession::getElement('user'));
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
-                $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
+                $arrayP=$pm->load("IDuser",$user->getUserID(),"FPost");
+                if(!is_array($arrayP)){
+                    $arrayPost=array();
+                    $arrayPost[]=$arrayP;
+                }else $arrayPost=$arrayP;
                 if($arrayPost!=null){
                     foreach ($arrayPost as $a){
                         if($a->getDeleted()==true){
@@ -145,10 +149,12 @@ class CUser
                     }
                 }
                 $image=array();
-                foreach ($arrayPost as $r){
-                    $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
-                    $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
-                    $image[]=$i;
+                if($arrayPost!=null) {
+                    foreach ($arrayPost as $r) {
+                        $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                        $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                        $image[] = $i;
+                    }
                 }
                 $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
                 $view->profile($user,$img,$arrayPost,$arrayPlace,$image);
@@ -216,9 +222,8 @@ class CUser
 
     static function upload($user,$nome_file) {
         $pm = FPersistentManager::getInstance();
-        $max_size = 600000;
+        $max_size = 600000000;
         $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
-        echo $result;
         if (!$result) {
             //no immagine
             $pm->store($user);

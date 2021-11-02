@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 18:23:45
+/* Smarty version 3.1.33, created on 2021-11-02 15:46:09
   from 'C:\xampp\htdocs\logBook\Smarty\templates\update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618022a1e18b77_68814653',
+  'unifunc' => 'content_61814f318f8530_40263778',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d713b7c33cf173f85bd20e4b736fac9dcc2ae4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\update_post.tpl',
-      1 => 1635786798,
+      1 => 1635864209,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618022a1e18b77_68814653 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61814f318f8530_40263778 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -28,7 +28,7 @@ function content_618022a1e18b77_68814653 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creation Post</title>
+    <title>Update Post</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -136,7 +136,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-4">
-                            <input name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary">
+                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+                            <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+" class="btn btn-danger" >Elimina</a>
                         </div>
 
                     </div>

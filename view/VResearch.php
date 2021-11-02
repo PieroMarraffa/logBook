@@ -223,7 +223,7 @@ class VResearch
                         $typeImg[] = $im[0]->getType();
                         $pic64Img[] = $im[0]->getImageFile();
                     }
-                } else {
+                }else {
                     $data = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
                     $pic64Img[] = base64_encode($data);
                     $typeImg[] = "image/jpg";

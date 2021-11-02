@@ -104,7 +104,8 @@ class VUser
                 if($im!=null) {
                     if(count($im)==1){
                         $typeImg[] = $im[0]->getType();
-                        $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                        $pic64Img[] =  base64_encode($im[0]->getImageFile());
+                    }
                     else{
                         $typeImg[] = $im[0]->getType();
                         $pic64Img[] =  $im[0]->getImageFile();

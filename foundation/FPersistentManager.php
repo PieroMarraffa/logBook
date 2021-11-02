@@ -34,7 +34,7 @@ class FPersistentManager
         if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
             $Fclass::delete($field,$val);
         else
-            print ("METODO NON SUPPORTATO DALLA CLASSE");
+            echo ("METODO NON SUPPORTATO DALLA CLASSE");
     }
 
 

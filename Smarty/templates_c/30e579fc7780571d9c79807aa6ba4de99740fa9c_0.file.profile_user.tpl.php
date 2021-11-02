@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 10:58:55
+/* Smarty version 3.1.33, created on 2021-11-02 15:28:49
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61810bdf0549f9_49229972',
+  'unifunc' => 'content_61814b218f4587_30043686',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30e579fc7780571d9c79807aa6ba4de99740fa9c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile_user.tpl',
-      1 => 1635847132,
+      1 => 1635863326,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61810bdf0549f9_49229972 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61814b218f4587_30043686 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -72,7 +72,7 @@ function content_61810bdf0549f9_49229972 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Page header with logo and tagline-->
-<header class="py-5 bg-light border-bottom mb-4">
+<header class="bg-light border-bottom mb-4">
 
     <div id="map"></div>
 
