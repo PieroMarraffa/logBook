@@ -130,7 +130,7 @@ class CResearch
             USession::getInstance();
             $u=USession::getElement('user');
             $utente=unserialize($u);
-            if($user==$utente){
+            if($user->getUserID()==$utente->getUserID()){
                 header("Location: /logBook/User/profile");
             }else{
                 $img=$pm->load("IDimage",$user->getImageID(),'FImage');
