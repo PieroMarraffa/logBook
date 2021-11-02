@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 10:49:22
+/* Smarty version 3.1.33, created on 2021-11-02 10:58:55
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618109a273c623_02380943',
+  'unifunc' => 'content_61810bdf0549f9_49229972',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30e579fc7780571d9c79807aa6ba4de99740fa9c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile_user.tpl',
-      1 => 1635845774,
+      1 => 1635847132,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618109a273c623_02380943 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61810bdf0549f9_49229972 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -62,7 +62,7 @@ function content_618109a273c623_02380943 (Smarty_Internal_Template $_smarty_tpl)
     <div class="container">
         <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
-    <div class="col-auto">
+    <div class="col-auto" align="end">
         <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
             <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
 </a>

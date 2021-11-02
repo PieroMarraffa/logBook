@@ -34,7 +34,7 @@
     <div class="container">
         <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
-    <div class="col-auto">
+    <div class="col-auto" align="end">
         {if $userlogged!='nouser'}
             <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
         {else}
