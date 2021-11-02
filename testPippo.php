@@ -25,9 +25,9 @@ require '../logBook/entity/EUser.php';
 class testPippo{
     public static function test(){
         $pm = new FPersistentManager();
-        return $pm->existAssociationUserPlace(8,6);
+        return $pm->loadUserByPost(28);
     }
 }
 
-echo var_dump($today = date('d/m/y'));
+echo var_dump(testPippo::test());
 

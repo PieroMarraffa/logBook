@@ -11,7 +11,6 @@ class CPost{
 
         USession::getInstance();
 
-        $num = 2;
         $view = new VUser();
         $pm = new FPersistentManager();
         $user = unserialize(USession::getElement('user'));
@@ -149,10 +148,11 @@ class CPost{
 
 
     static function upgradePost($postID){
-        $view = new VPost();
+        $view = new VUser();
         $pm = new FPersistentManager();
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();
+        $user = $pm->loadUserByPost($postID);
 
 
         $arrayExperienceTitle = $_POST['titleExperience'];
@@ -162,7 +162,6 @@ class CPost{
         $arrayDescription = $_POST['description'];
 
         for ($i = 0; $i < count($arrayExperienceTitle); $i++){
-            $new = true;
             foreach ($arrayOriginalExperience as $expO){
                 $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
             }
@@ -171,19 +170,39 @@ class CPost{
         $ExpList = array();
         for ($i = 0; $i < count($arrayExperienceTitle); $i++){
             $Etitle = $arrayExperienceTitle[$i];
-            $startDate = $arrayStartDay[$i];
-            $finishDate = $arrayEndDay[$i];
-            $descriprion = $arrayDescription[$i];
-            $placeID = $arrayPlace[$i];
-            $place = $pm->load("IDplace", $placeID, FPlace::getClass());
-            $ExpList[] = new EExperience(0, $startDate, $finishDate, $Etitle, $place, $descriprion);
+            $EstartDate = $arrayStartDay[$i];
+            $EfinishDate = $arrayEndDay[$i];
+            $Edescriprion = $arrayDescription[$i];
+            $EplaceID = $arrayPlace[$i];
+            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+            $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+            $exp->setPlaceID($EplaceID);
+            $ExpList[] = $exp;
         }
 
         $travelID = $travel->getTravelID();
         foreach ($ExpList as $exp){
             $exp->setTravelID($travelID);
             $pm->store($exp);
+
+            if ($pm->existAssociationUserPlace($user->getUserID(),$exp->getPlaceID()) == false){
+                $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
+            }
+            if ($pm->existAssociationPostPlace($postID,$exp->getPlaceID()) == false){
+                $pm->storePlaceToPost($postID, $exp->getPlaceID());
+            }
         }
+
+        $img=$pm->load("IDimage",$user->getImageID(),'FImage');
+        $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
+        $image=array();
+        foreach ($arrayPost as $r){
+            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
+            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
+            $image[]=$i;
+        }
+        $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
+        $view->profile($user,$img,$arrayPost,$arrayPlace, $image);
 
     }
 }

@@ -67,6 +67,15 @@ class FPersistentManager
     }
 
 
+    public static function loadUserByPost($idPost){
+        $result=null;
+        $post = FPost::load("IDpost",$idPost);
+        $userID = $post->getUserID();
+        $user = FUser::load("IDuser", $userID);
+        return $user;
+    }
+
+
     public static function loadAdmin($field,$id){
         $result=FAdmin::loadAdmin($field,$id);
         return $result;

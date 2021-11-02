@@ -27,25 +27,6 @@ class VPost
         $this->smarty->display('create_post.tpl');
     }
 
-    public function profile($user, $image, $arrayPost,$arrayPlace){
-        if(isset($image[0])){
-            $this->smarty->assign('type', $image[0]->getType());
-            $this->smarty->assign('pic64', base64_encode($image[0]->getImageFile()));}
-        else{
-            $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/user.png');
-            $pic64= base64_encode($data);
-            $type = "image/png";
-            $this->smarty->assign('type', $type);
-            $this->smarty->assign('pic64', $pic64);
-        }
-        //$this->smarty->assign('image',$image);
-        $this->smarty->assign('array_place',$arrayPlace);
-        $this->smarty->assign('user',$user);
-        $this->smarty->assign('email',$user->getMail());
-        $this->smarty->assign('postList',$arrayPost);
-        $this->smarty->display('profile.tpl');
-    }
-
     /**
      * @throws SmartyException
      */
