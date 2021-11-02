@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 10:57:06
+/* Smarty version 3.1.33, created on 2021-11-02 11:10:21
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61810b720a2824_72070187',
+  'unifunc' => 'content_61810e8db25405_14393520',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '661080ae7a072eca473ad04c07f3a18103245671' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile_user.tpl',
-      1 => 1635847013,
+      1 => 1635847799,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61810b720a2824_72070187 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61810e8db25405_14393520 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -59,7 +59,7 @@ function content_61810b720a2824_72070187 (Smarty_Internal_Template $_smarty_tpl)
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
+    <div class="col-md-6">
         <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
     <div class="col-auto">

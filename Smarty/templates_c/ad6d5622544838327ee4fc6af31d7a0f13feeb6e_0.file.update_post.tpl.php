@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 15:19:37
+/* Smarty version 3.1.33, created on 2021-11-02 11:27:10
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ff7790e37d3_51466636',
+  'unifunc' => 'content_6181127e24a028_86410784',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635776375,
+      1 => 1635848605,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ff7790e37d3_51466636 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6181127e24a028_86410784 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -28,7 +28,7 @@ function content_617ff7790e37d3_51466636 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creation Post</title>
+    <title>Update Post</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -136,7 +136,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-4">
-                            <input name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary">
+                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+                            <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+" class="btn btn-danger" >Elimina</a>
                         </div>
 
                     </div>

@@ -65,16 +65,8 @@ class CPost{
                     break;
             }
         }
-        $img=$pm->load("IDimage",$user->getImageID(),'FImage');
-        $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-        $image=array();
-        foreach ($arrayPost as $r){
-            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
-            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
-            $image[]=$i;
-        }
-        $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
-        $view->profile($user,$img,$arrayPost,$arrayPlace, $image);
+
+        header('Location: /logBook/User/profile');
 
     }
 
@@ -85,12 +77,20 @@ class CPost{
         $view->create_post($arrayPlace);
     }
 
-    public static function deletePost(){
+
+    public static function deletePost($postID){
         $pm = FPersistentManager::getInstance();
-        $view = new VUser();
-        $postID = USession::getElement('IDpost');
+        $post = $pm->load('IDpost', $postID, FPost::getClass());
+        echo var_dump($post);
+        $travel = $post->getTravel();
+        $ExpList = $travel->getExperienceList();
+        foreach ($ExpList as $exp){
+            $pm->delete('IDexperience', $exp->getExperienceID(), FExperience::getClass());
+        }
+        echo var_dump($travel);
+        $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
         $pm->deletePost($postID);
-        $view->profile();
+        //header('Location: /logBook/User/profile');
     }
 
 
@@ -189,16 +189,7 @@ class CPost{
             }
         }
 
-        $img=$pm->load("IDimage",$user->getImageID(),'FImage');
-        $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-        $image=array();
-        foreach ($arrayPost as $r){
-            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
-            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
-            $image[]=$i;
-        }
-        $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
-        $view->profile($user,$img,$arrayPost,$arrayPlace, $image);
+        header('Location: /logBook/User/profile');
 
     }
 }

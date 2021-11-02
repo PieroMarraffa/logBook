@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Creation Post</title>
+    <title>Update Post</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -84,7 +84,8 @@
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-4">
-                            <input name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary">
+                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+                            <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger" >Elimina</a>
                         </div>
 
                     </div>

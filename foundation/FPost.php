@@ -86,6 +86,7 @@ class FPost
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
+            echo var_dump($travel);
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
