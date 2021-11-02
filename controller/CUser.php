@@ -1,9 +1,5 @@
 <?php
 
-require 'utility/UCookie.php';
-require 'utility/USession.php';
-require 'utility/UServer.php';
-
 
 class CUser
 {

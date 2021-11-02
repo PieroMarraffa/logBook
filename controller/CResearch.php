@@ -123,7 +123,6 @@ class CResearch
      * @throws SmartyException
      */
     static function profileDetail($id){
-        require 'utility/USession.php';
         $pm=new FPersistentManager();
         $view=new VResearch();
         if($_SERVER['REQUEST_METHOD'] == "GET") {

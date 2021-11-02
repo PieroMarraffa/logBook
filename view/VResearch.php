@@ -185,6 +185,12 @@ class VResearch
      * @throws SmartyException
      */
     public function profileDetail($user, $image, $arrayPost,$arrayPlace,$array_image){
+        if(CUser::isLogged()){
+            $this->smarty->assign('userlogged',"loggato");
+            $u=USession::getElement('user');
+            $utente=unserialize($u);
+            $this->smarty->assign('username',$utente->getUserName());
+        }
         if(isset($image[0])){
             $this->smarty->assign('type', $image[0]->getType());
             $this->smarty->assign('pic64', base64_encode($image[0]->getImageFile()));}

@@ -20,6 +20,10 @@ function my_autoloader($className) {
                 include_once( 'controller/'. $className . '.php' );
                 break;
 
+            case 'U':
+                include_once( 'utility/'. $className . '.php' );
+                break;
+
             case 'I':
                 include_once( $className . '.php' );
                 break;

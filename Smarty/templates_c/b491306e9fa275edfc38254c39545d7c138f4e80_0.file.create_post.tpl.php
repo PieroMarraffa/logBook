@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-31 17:41:00
+/* Smarty version 3.1.33, created on 2021-11-02 10:33:14
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ec71c0e6b33_53121040',
+  'unifunc' => 'content_618105dabb6df3_90765710',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1635698457,
+      1 => 1635845589,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ec71c0e6b33_53121040 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618105dabb6df3_90765710 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -92,15 +92,15 @@ function content_617ec71c0e6b33_53121040 (Smarty_Internal_Template $_smarty_tpl)
                         nuovo_elemento.innerHTML =
                             "<div class='card'>" +
                             "<div class='card-header'>" +
-                            "<textarea class='form-control' name='titleExperience" + numCode + "' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
+                            "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate" + numCode + "' class='px-2'>" +
+                            "<input type='date' name='startDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate" + numCode + "' class='px-2'>" +
+                            "<input type='date' name='endDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
-                            "<select class='btn btn-primary' name='place" + numCode + "'>" +
+                            "<select class='btn btn-primary' name='place[]]'>" +
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayPlace']->value)) {?>" +
                             "<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayPlace']->value, 'p');
@@ -109,15 +109,17 @@ foreach ($_from as $_smarty_tpl->tpl_vars['p']->value) {
 ?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['p']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['p']->value->getName();?>
-</option><?php
+</option>" +
+                            "<?php
 }
 }
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
-}?></select>" +
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
+                            "</select>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +
-                            "<textarea class='form-control' name='description" + numCode + "' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+                            "<textarea class='form-control' name='description[]' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
                             "</div><div align='end'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
                             "</div></div>";
@@ -139,7 +141,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
             </div>
         </div>
     </div>
-        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Innnnnnnnnnnn</button>
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
     </form>
 </section>
 

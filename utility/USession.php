@@ -12,8 +12,6 @@ class USession{
 
     static function getInstance(){
 
-
-
         if (USession::$instance == null){
             if (isset($_SESSION['single'])) {
                 USession::$instance = $_SESSION['single'];
