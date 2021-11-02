@@ -24,8 +24,8 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $pm = new FPersistentManager();
-        return $pm->loadUserByPost(28);
+        $pm = FPersistentManager::getInstance();
+        return $pm->load('IDpost', 28, FPost::getClass());
     }
 }
 

@@ -81,16 +81,14 @@ class CPost{
     public static function deletePost($postID){
         $pm = FPersistentManager::getInstance();
         $post = $pm->load('IDpost', $postID, FPost::getClass());
-        echo var_dump($post);
         $travel = $post->getTravel();
         $ExpList = $travel->getExperienceList();
         foreach ($ExpList as $exp){
             $pm->delete('IDexperience', $exp->getExperienceID(), FExperience::getClass());
         }
-        echo var_dump($travel);
         $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
         $pm->deletePost($postID);
-        //header('Location: /logBook/User/profile');
+        header('Location: /logBook/User/profile');
     }
 
 

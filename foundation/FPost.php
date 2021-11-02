@@ -86,7 +86,6 @@ class FPost
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
             $travel=FTravel::load("IDpost",$result['IDpost']);
-            echo var_dump($travel);
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
@@ -99,6 +98,7 @@ class FPost
                 }
             }
             $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            $post->getTravel()->setTravelID($travel->getTravelID());
             $post->setPostID($result['IDpost']);
         }
         else {
