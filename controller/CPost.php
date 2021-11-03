@@ -136,40 +136,45 @@ class CPost{
     static function modify_post($postID){
         $view = new VPost();
         $pm = FPersistentManager::getInstance();
-        $travel = $pm->loadTravelByPost($postID);
-        $image=$pm->load("IDtravel",$travel->getTravelID(),FImage::getClass());
-        $arrayExperience = $travel->getExperienceList();
-        $numero = 2;
-        $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
-        $arrayCity = $pm->load('category', 'città', FPlace::getClass());
-        $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
-        $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
-        $arrayPlace=$pm->loadAll(FPlace::getClass());
-        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+        echo $pm->getUserByPost($postID);
+        $user = unserialize(USession::getElement('user'));
+        if ($user->getUserID() == $pm->getUserByPost($postID)) {
+            $travel = $pm->loadTravelByPost($postID);
+            $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
+            $arrayExperience = $travel->getExperienceList();
+            $numero = 2;
+            $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
+            $arrayCity = $pm->load('category', 'città', FPlace::getClass());
+            $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
+            $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
+            $arrayPlace = $pm->loadAll(FPlace::getClass());
+            //$view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+        } else{
+            //header('Location: /logBook/User/home');
+        }
     }
 
 
     static function updatePost($postID){
         $pm = FPersistentManager::getInstance();
+        $user = $pm->loadUserByPost($postID);
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();
-        $user = $pm->loadUserByPost($postID);
-
 
         $arrayExperienceTitle = $_POST['titleExperience'];
         $arrayStartDay = $_POST['startDate'];
         $arrayEndDay = $_POST['endDate'];
-        $arrayPlace= $_POST['place'];
+        $arrayPlace = $_POST['place'];
         $arrayDescription = $_POST['description'];
 
-        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
-            foreach ($arrayOriginalExperience as $expO){
+        for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
+            foreach ($arrayOriginalExperience as $expO) {
                 $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
             }
         }
 
         $ExpList = array();
-        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
+        for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
             $Etitle = $arrayExperienceTitle[$i];
             $EstartDate = $arrayStartDay[$i];
             $EfinishDate = $arrayEndDay[$i];
@@ -182,19 +187,18 @@ class CPost{
         }
 
         $travelID = $travel->getTravelID();
-        foreach ($ExpList as $exp){
+        foreach ($ExpList as $exp) {
             $exp->setTravelID($travelID);
             $pm->store($exp);
 
-            if ($pm->existAssociationUserPlace($user->getUserID(),$exp->getPlaceID()) == false){
+            if ($pm->existAssociationUserPlace($user->getUserID(), $exp->getPlaceID()) == false) {
                 $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
             }
-            if ($pm->existAssociationPostPlace($postID,$exp->getPlaceID()) == false){
+            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
                 $pm->storePlaceToPost($postID, $exp->getPlaceID());
             }
         }
 
         header('Location: /logBook/User/profile');
-
     }
 }

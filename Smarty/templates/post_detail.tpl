@@ -205,7 +205,11 @@
                         }
                     </script>
                 </div>
+                {$pm = FPersistentManager::getInstance()}
+                {$user = unserialize(USession::getElement('user'))}
+                {if $post->getUserID() == $user->getUserID()}
                 <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
+                {/if}
             </div>
 
         </div>

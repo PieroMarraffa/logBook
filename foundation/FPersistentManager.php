@@ -111,6 +111,22 @@ class FPersistentManager
     /**
      * @throws Exception
      */
+    public static function getPostByUser($id){
+        $result = FPost::load('IDuser', $id);
+        return $result;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getUserByPost($id){
+        $post = FPost::load('IDpost', $id);
+        return $post->getUserID();
+    }
+
+    /**
+     * @throws Exception
+     */
     public static function loadPostByPlaceName($name){
         $place=FPlace::load("Name",$name);
         $id=$place->getPlaceID();

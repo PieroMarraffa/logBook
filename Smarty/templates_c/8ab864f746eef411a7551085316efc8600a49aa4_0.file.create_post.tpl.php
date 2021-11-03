@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 13:59:21
+/* Smarty version 3.1.33, created on 2021-11-03 17:23:21
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618287a9bda7e9_72458158',
+  'unifunc' => 'content_6182b779a051c0_52691423',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635944314,
+      1 => 1635945392,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618287a9bda7e9_72458158 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6182b779a051c0_52691423 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -99,7 +99,6 @@ function content_618287a9bda7e9_72458158 (Smarty_Internal_Template $_smarty_tpl)
                             "</div><div class='col-md-3'>" +
                             "<input type='date' name='endDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value)) {?>" +

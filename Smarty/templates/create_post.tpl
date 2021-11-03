@@ -71,7 +71,6 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' name='endDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
 
                             "{if isset($arrayMete)}" +
