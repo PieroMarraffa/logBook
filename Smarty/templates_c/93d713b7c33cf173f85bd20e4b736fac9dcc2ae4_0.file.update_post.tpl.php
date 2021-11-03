@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 15:46:09
+/* Smarty version 3.1.33, created on 2021-11-03 11:09:22
   from 'C:\xampp\htdocs\logBook\Smarty\templates\update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61814f318f8530_40263778',
+  'unifunc' => 'content_61825fd2bd1e70_69240961',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d713b7c33cf173f85bd20e4b736fac9dcc2ae4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\update_post.tpl',
-      1 => 1635864209,
+      1 => 1635934160,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61814f318f8530_40263778 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61825fd2bd1e70_69240961 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -65,8 +65,29 @@ function content_61814f318f8530_40263778 (Smarty_Internal_Template $_smarty_tpl)
 
                         <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
 ">
-
-                        <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                        <div class="py-3">
+                        <?php if (isset($_smarty_tpl->tpl_vars['image']->value)) {?>
+                            <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['image']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['image']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
+?>
+                                <div class="row align-content-md-center py-3">
+                                    <div class="col-md-8 align-content-center">
+                                        <img class="card-img-top w-auto h-100 " src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+'  alt="...">
+                                    </div>
+                                    <div class="col-md-3 align-content-center" align="center">
+                                        <button class="btn btn-danger"> Delete </button>
+                                    </div>
+                                </div>
+                            <?php }
+}
+?>
+                        <?php }?>
+                        </div>
                     </div>
                     <a name="experiences"></a>
                     <?php if ($_smarty_tpl->tpl_vars['array_experience']->value) {?>
