@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 13:02:35
+/* Smarty version 3.1.33, created on 2021-11-03 13:59:21
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61827a5b2de4e5_13130658',
+  'unifunc' => 'content_618287a9bda7e9_72458158',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635940955,
+      1 => 1635944314,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61827a5b2de4e5_13130658 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618287a9bda7e9_72458158 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -102,16 +102,13 @@ function content_61827a5b2de4e5_13130658 (Smarty_Internal_Template $_smarty_tpl)
                             //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
 
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value) && count($_smarty_tpl->tpl_vars['arrayMete']->value) == 1) {?>" +
+                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value)) {?>" +
                             "<optgroup label='Tourist Destinations'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayMete']->value) == 1) {?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayMete']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['arrayMete']->value->getName();?>
 </option>" +
-                            "</optgroup>" +
-                            "<?php }?>" +
-
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value) && count($_smarty_tpl->tpl_vars['arrayMete']->value) > 1) {?>" +
-                            "<optgroup label='Tourist Destinations'>" +
+                            "<?php } else { ?>" +
                             "<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayMete']->value, 'm');
 if ($_from !== null) {
@@ -124,81 +121,76 @@ foreach ($_from as $_smarty_tpl->tpl_vars['m']->value) {
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayCity']->value) && count($_smarty_tpl->tpl_vars['arrayCity']->value) == 1) {?>" +
+                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayCity']->value)) {?>" +
                             "<optgroup label='Cities'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayCity']->value) == 1) {?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayCity']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['arrayCity']->value->getName();?>
 </option>" +
-                            "</optgroup>" +
-                            "<?php }?>" +
-
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayCity']->value) && count($_smarty_tpl->tpl_vars['arrayCity']->value) > 1) {?>" +
-                            "<optgroup label='Cities'>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayCity']->value, 'c');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayCity']->value, 'city');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['c']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['city']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['c']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['c']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['city']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['city']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayRegion']->value) && count($_smarty_tpl->tpl_vars['arrayRegion']->value) == 1) {?>" +
+                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayRegion']->value)) {?>" +
                             "<optgroup label='Regions'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayRegion']->value) == 1) {?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayRegion']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['arrayRegion']->value->getName();?>
 </option>" +
-                            "</optgroup>" +
-                            "<?php }?>" +
-
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayRegion']->value) && count($_smarty_tpl->tpl_vars['arrayRegion']->value) > 1) {?>" +
-                            "<optgroup label='Regions'>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayRegion']->value, 'c');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayRegion']->value, 'region');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['c']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['region']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['c']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['c']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['region']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['region']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayState']->value) && count($_smarty_tpl->tpl_vars['arrayState']->value) == 1) {?>" +
+                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayState']->value)) {?>" +
                             "<optgroup label='States'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayState']->value) == 1) {?>" +
                             "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayState']->value->getPlaceID();?>
 '><?php echo $_smarty_tpl->tpl_vars['arrayState']->value->getName();?>
 </option>" +
-                            "</optgroup>" +
-                            "<?php }?>" +
-
-                            "<?php if (isset($_smarty_tpl->tpl_vars['arrayState']->value) && count($_smarty_tpl->tpl_vars['arrayState']->value) > 1) {?>" +
-                            "<optgroup label='States'>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayState']->value, 's');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayState']->value, 'state');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['s']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['state']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['s']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['s']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['state']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['state']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 

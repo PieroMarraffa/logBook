@@ -140,12 +140,16 @@ class CPost{
         $image=$pm->load("IDtravel",$travel->getTravelID(),FImage::getClass());
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
+        $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
+        $arrayCity = $pm->load('category', 'città', FPlace::getClass());
+        $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
+        $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
         $arrayPlace=$pm->loadAll(FPlace::getClass());
-        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID,$image);
+        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
     }
 
 
-    static function upgradePost($postID){
+    static function updatePost($postID){
         $pm = FPersistentManager::getInstance();
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();
