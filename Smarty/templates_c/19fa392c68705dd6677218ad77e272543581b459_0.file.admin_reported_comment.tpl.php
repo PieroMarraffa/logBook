@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 17:00:00
+/* Smarty version 3.1.33, created on 2021-11-03 18:35:42
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_comment.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182b2007c8b46_97861077',
+  'unifunc' => 'content_6182c86e2bd590_61362464',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '19fa392c68705dd6677218ad77e272543581b459' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_comment.tpl',
-      1 => 1635954831,
+      1 => 1635960938,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182b2007c8b46_97861077 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6182c86e2bd590_61362464 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,14 +50,19 @@ function content_6182b2007c8b46_97861077 (Smarty_Internal_Template $_smarty_tpl)
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62">
-        <a href="/logBook/Admin/reported_comment" >Reported comments</a>
-        <a href="/logBook/Admin/reported_posts" >Reported posts</a>
-        <a href="/logBook/Admin/reported_user" >Reported user</a>
-
-        <a class="btn btn-primary align-content-end" href="/logBook/Admin/logout">Logout</a>
+        <div class="col-md-auto">
+            <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
+        <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
+                <b class="h5">Reported comments</b></div></a>
+        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+                <b class="h5">Reported posts</b></div></a>
+        <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
+                <b class="h5">Reported user</b></div></a>
+        <div class="col-md-auto">
+            <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
+<div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Reported Comments</h4></p></div>
 <!-- Section-->
 <section class="py-5">
     <?php if ($_smarty_tpl->tpl_vars['commentArrayReported']->value) {?>
@@ -71,7 +76,9 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
                     <div id="comment" class="d-flex mb-4">
                         <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                         <div class="flex-shrink-0">
-                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" width="100" height="100" alt="..." />
+                                <img class="rounded-circle ml-3" width="100" height="100" src="data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+"  alt="profile picture" />
                         </div>
                         <div class="ms-3">
                             <div class="fw-bold h4">
@@ -85,7 +92,8 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
                     <div align="end">
                         <a href="/logBook/Admin/deleteComment/<?php echo $_smarty_tpl->tpl_vars['commentArrayReported']->value[$_smarty_tpl->tpl_vars['i']->value]->getCommentID();?>
 "><button id="delete" class="btn btn-primary" >Delete</button></a>
-                        <button id="ignore" class="btn btn-primary"> Ignore</button>
+                        <a href="/logBook/Admin/ignoreComment/<?php echo $_smarty_tpl->tpl_vars['commentArrayReported']->value[$_smarty_tpl->tpl_vars['i']->value]->getCommentID();?>
+"><button id="ignore" class="btn btn-primary"> Ignore</button></a>
                     </div>
                 </div>
             </div>

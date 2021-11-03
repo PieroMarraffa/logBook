@@ -25,14 +25,19 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62">
-        <a href="/logBook/Admin/reported_comment" >Reported comments</a>
-        <a href="/logBook/Admin/reported_posts" >Reported posts</a>
-        <a href="/logBook/Admin/reported_user" >Reported user</a>
-
-        <a class="btn btn-primary align-content-end" href="/logBook/Admin/logout">Logout</a>
+        <div class="col-md-auto">
+            <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
+        <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
+                <b class="h5">Reported comments</b></div></a>
+        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+                <b class="h5">Reported posts</b></div></a>
+        <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
+                <b class="h5">Reported user</b></div></a>
+        <div class="col-md-auto">
+            <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
+<div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Reported Comments</h4></p></div>
 <!-- Section-->
 <section class="py-5">
     {if $commentArrayReported}
@@ -42,7 +47,7 @@
                     <div id="comment" class="d-flex mb-4">
                         <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                         <div class="flex-shrink-0">
-                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" width="100" height="100" alt="..." />
+                                <img class="rounded-circle ml-3" width="100" height="100" src="data:{$typeImg[$i]};base64,{$pic64Img[$i]}"  alt="profile picture" />
                         </div>
                         <div class="ms-3">
                             <div class="fw-bold h4">
@@ -53,7 +58,7 @@
                     </div>
                     <div align="end">
                         <a href="/logBook/Admin/deleteComment/{$commentArrayReported[$i]->getCommentID()}"><button id="delete" class="btn btn-primary" >Delete</button></a>
-                        <button id="ignore" class="btn btn-primary"> Ignore</button>
+                        <a href="/logBook/Admin/ignoreComment/{$commentArrayReported[$i]->getCommentID()}"><button id="ignore" class="btn btn-primary"> Ignore</button></a>
                     </div>
                 </div>
             </div>

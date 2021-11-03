@@ -147,11 +147,12 @@ class FComment
         $result=array();
         if(isset($r['IDcomment'])){ $result[]=self::load("IDcomment",$r['IDcomment']);}
         else{
-            foreach ($r as $c){
-                $result[]=self::load("IDcomment",$c['IDcomment']);
+            if($r!=null) {
+                foreach ($r as $c) {
+                    $result[] = self::load("IDcomment", $c['IDcomment']);
+                }
             }
         }
-        //echo var_dump($result);
         return $result;
     }
 
@@ -159,4 +160,5 @@ class FComment
         $database=FDataBase::getInstance();
         $database->deleteFromCommentReportedByUser($idComment);
     }
+
 }
