@@ -74,7 +74,13 @@
                             //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
 
-                            "{if isset($arrayMete)}" +
+                            "{if isset($arrayMete) && count($arrayMete) == 1}" +
+                            "<optgroup label='Tourist Destinations'>" +
+                            "<option value='{$arrayMete->getPlaceID()}'>{$arrayMete->getName()}</option>" +
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayMete) && count($arrayMete) > 1}" +
                             "<optgroup label='Tourist Destinations'>" +
                             "{foreach $arrayMete as $m}" +
                             "<option value='{$m->getPlaceID()}'>{$m->getName()}</option>" +
@@ -82,7 +88,13 @@
                             "</optgroup>" +
                             "{/if}" +
 
-                            "{if isset($arrayCity)}" +
+                            "{if isset($arrayCity) && count($arrayCity) == 1}" +
+                            "<optgroup label='Cities'>" +
+                            "<option value='{$arrayCity->getPlaceID()}'>{$arrayCity->getName()}</option>" +
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayCity) && count($arrayCity) > 1}" +
                             "<optgroup label='Cities'>" +
                             "{foreach $arrayCity as $c}" +
                             "<option value='{$c->getPlaceID()}'>{$c->getName()}</option>" +
@@ -90,15 +102,27 @@
                             "</optgroup>" +
                             "{/if}" +
 
-                            "{if isset($arrayRegion)}" +
+                            "{if isset($arrayRegion) && count($arrayRegion) == 1}" +
                             "<optgroup label='Regions'>" +
-                            "{foreach $arrayRegion as $r}" +
-                            "<option value='{$r->getPlaceID()}'>{$r->getName()}</option>" +
+                            "<option value='{$arrayRegion->getPlaceID()}'>{$arrayRegion->getName()}</option>" +
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayRegion) && count($arrayRegion) > 1}" +
+                            "<optgroup label='Regions'>" +
+                            "{foreach $arrayRegion as $c}" +
+                            "<option value='{$c->getPlaceID()}'>{$c->getName()}</option>" +
                             "{/foreach}"+
                             "</optgroup>" +
                             "{/if}" +
 
-                            "{if isset($arrayState)}" +
+                            "{if isset($arrayState) && count($arrayState) == 1}" +
+                            "<optgroup label='States'>" +
+                            "<option value='{$arrayState->getPlaceID()}'>{$arrayState->getName()}</option>" +
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayState)&& count($arrayState) > 1}" +
                             "<optgroup label='States'>" +
                             "{foreach $arrayState as $s}" +
                             "<option value='{$s->getPlaceID()}'>{$s->getName()}</option>" +
