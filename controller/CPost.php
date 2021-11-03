@@ -134,15 +134,15 @@ class CPost{
         $view = new VPost();
         $pm = FPersistentManager::getInstance();
         $travel = $pm->loadTravelByPost($postID);
+        $image=$pm->load("IDtravel",$travel->getTravelID(),FImage::getClass());
         $arrayExperience = $travel->getExperienceList();
         $numero = 2;
         $arrayPlace=$pm->loadAll(FPlace::getClass());
-        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID);
+        $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID,$image);
     }
 
 
     static function upgradePost($postID){
-        $view = new VUser();
         $pm = FPersistentManager::getInstance();
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();

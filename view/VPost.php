@@ -30,7 +30,24 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function modify_post($travel, $arrayExp, $numero, $arrayPlace, $postID){
+    public function modify_post($travel, $arrayExp, $numero, $arrayPlace, $postID,$image){
+        $typeImg=array();
+        $pic64Img=array();
+        if(count($image)==1) {
+            foreach ($image as $im) {
+                $typeImg[] = $im->getType();
+                $pic64Img[] = base64_encode($im->getImageFile());
+            }
+        }
+        else{
+            foreach ($image as $im) {
+                $typeImg[] = $im->getType();
+                $pic64Img[] =$im->getImageFile();
+            }
+        }
+        $this->smarty->assign('image', $image);
+        $this->smarty->assign('typeImg', $typeImg);
+        $this->smarty->assign('pic64Img', $pic64Img);
         $this->smarty->assign('travelTitle', $travel->getTitle());
         $this->smarty->assign('array_experience', $arrayExp);
         $this->smarty->assign('numero', $numero);
