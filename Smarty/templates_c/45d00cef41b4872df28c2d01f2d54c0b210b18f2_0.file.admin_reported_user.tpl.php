@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-09-29 17:05:07
+/* Smarty version 3.1.33, created on 2021-11-03 12:35:51
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_615480a3a4dfa1_12899783',
+  'unifunc' => 'content_618274172c4778_61544186',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '45d00cef41b4872df28c2d01f2d54c0b210b18f2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_user.tpl',
-      1 => 1632927904,
+      1 => 1635343625,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_615480a3a4dfa1_12899783 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618274172c4778_61544186 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('immagine', (($tmp = @$_smarty_tpl->tpl_vars['immagine']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['immagine_1']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
@@ -30,7 +30,7 @@ $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['imm
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Admin</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Bootstrap icons-->

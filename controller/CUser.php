@@ -71,8 +71,9 @@ class CUser
                     header('Location: /logBook/Admin/adminHome');
 
                 $view = new VUser();
-                $result=$pm->loadPostHomePage();
-                $view->loginOk($result);
+                //$result=$pm->loadPostHomePage();
+                //$view->loginOk($result);
+                header('Location: /logBook/User/home');
             }
             else{
                 $view=new VUser();
@@ -90,38 +91,38 @@ class CUser
      * @throws SmartyException
      */
     static function checkLogin(){
-        $view = new VUser();
-        $pm = FPersistentManager::getInstance();
-        $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
-        $admin=$pm->loadAdmin("IDadmin",1);
-        $adminEmail=$admin->getMail();
-        $adminPassword=$admin->getPassword();
-        if($exist==true){
-            $user=$pm->load("Email",$_POST['email'],"FUser");
-        if ($user != null && $user->isBanned() != true) {
-            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                USession::getInstance();
-                $salvare = serialize($user);
-                USession::setElement('user',$salvare);
-                header('Location: /logBook/User/home');
-            }
-        }elseif($user->isBanned() == true){
-            $view->loginBann();
-        }
-        }
-        elseif ($adminEmail==$_POST['email']&& $adminPassword==$_POST['password']){
-            if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                USession::getInstance();
-                $salvare = serialize($admin);
-                USession::setElement('user',$salvare);
+        if(UServer::getRequestMethod()!='GET') {
+            $view = new VUser();
+            $pm = FPersistentManager::getInstance();
+            $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
+            $admin = $pm->loadAdmin("IDadmin", 1);
+            $adminEmail = $admin->getMail();
+            $adminPassword = $admin->getPassword();
+            if ($exist == true) {
+                $user = $pm->load("Email", $_POST['email'], "FUser");
+                if ($user != null && $user->isBanned() != true) {
+                    if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                        USession::getInstance();
+                        $salvare = serialize($user);
+                        USession::setElement('user', $salvare);
+                        header('Location: /logBook/User/home');
+                    }
+                } elseif ($user->isBanned() == true) {
+                    $view->loginBann();
+                }
+            } elseif ($adminEmail == $_POST['email'] && $adminPassword == $_POST['password']) {
+                if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                    USession::getInstance();
+                    $salvare = serialize($admin);
+                    USession::setElement('user', $salvare);
 
-                header('Location: /logBook/Admin/adminHome');
-            }
+                    header('Location: /logBook/Admin/adminHome');
+                }
 
-        }
-        else {
-            $view->loginError();
-        }
+            } else {
+                $view->loginError();
+            }
+        }else header('Location: /logBook/User/home');
     }
 
 
@@ -170,16 +171,8 @@ class CUser
     static function registration(){
         if(UServer::getRequestMethod()=="GET") {
             $view = new VUser();
-            $pm = FPersistentManager::getInstance();
             if (static::isLogged()) {
-                USession::getInstance();
-                $user=unserialize(USession::getElement('user'));
-                $result=array();/** DA CAMBIARE L'HO MESSA SOLO PER PROVARE */
-                $result[] = $pm->load("IDpost",1,FPost::getClass());
-                $result[] = $pm->load("IDpost",2,FPost::getClass());      //Carica i post che devono stare nella schermata di home
-                $result[] = $pm->load("IDpost",3,FPost::getClass());
-                $result[] = $pm->load("IDpost",4,FPost::getClass());
-                $view->loginOk($result);
+                header('Location: /logBook/User/home');
             }
             else {
                 $view->registration_form();             //Reindirizza alla schermata di registrazione
@@ -193,6 +186,7 @@ class CUser
      * @throws SmartyException
      */
     static function checkRegistration(){
+        if(UServer::getRequestMethod()!='GET') {
             $pm = FPersistentManager::getInstance();
             $verifiemail = $pm->exist("Email", $_POST['email'],"FUser");
             $view = new VUser();
@@ -218,42 +212,45 @@ class CUser
                     }
                 }
             }
+        }else header('Location: /logBook/User/home');
     }
 
     static function upload($user,$nome_file) {
-        $pm = FPersistentManager::getInstance();
-        $max_size = 600000000;
-        $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
-        if (!$result) {
-            //no immagine
-            $pm->store($user);
-            $ris = "ok";
-        }
-        else {
-            $size = $_FILES[$nome_file]['size'];
-            $type = $_FILES[$nome_file]['type'];
-            if ($size > $max_size) {
-                //Il file è troppo grande
-                $ris = "size";
-            }
-            elseif ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
-                $size = $_FILES[$nome_file]['size'];
-                $type = $_FILES[$nome_file]['type'];
-                $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
-                $immagine = addslashes($immagine);
-                $profile_image= new EImage($immagine,null,$size,$type);
-                $id=$pm->storeMedia($profile_image,$nome_file);
-                $user->setImageID($id);
+        if(UServer::getRequestMethod()!='GET') {
+            $pm = FPersistentManager::getInstance();
+            $max_size = 600000000;
+            $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
+            if (!$result) {
+                //no immagine
                 $pm->store($user);
-                //L'inserimento è adnato a buon fine, l'immagine e il nuovo user sono stati inseriti correttamente
                 $ris = "ok";
             }
             else {
-                //formato diverso
-                $ris = "type";
+                $size = $_FILES[$nome_file]['size'];
+                $type = $_FILES[$nome_file]['type'];
+                if ($size > $max_size) {
+                    //Il file è troppo grande
+                    $ris = "size";
+                }
+                elseif ($type == 'image/jpeg' || $type == 'image/jpg' || $type == 'image/png') {
+                    $size = $_FILES[$nome_file]['size'];
+                    $type = $_FILES[$nome_file]['type'];
+                    $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
+                    $immagine = addslashes($immagine);
+                    $profile_image= new EImage($immagine,null,$size,$type);
+                    $id=$pm->storeMedia($profile_image,$nome_file);
+                    $user->setImageID($id);
+                    $pm->store($user);
+                    //L'inserimento è adnato a buon fine, l'immagine e il nuovo user sono stati inseriti correttamente
+                    $ris = "ok";
+                }
+                else {
+                    //formato diverso
+                    $ris = "type";
+                }
             }
-        }
-        return $ris;
+            return $ris;
+        }else header('Location: /logBook/User/home');
     }
 
     /**
@@ -409,39 +406,43 @@ class CUser
     }
 
     static function updateImage($user,$nome_file) {
-        $pm = FPersistentManager::getInstance();
-        $max_size = 600000;
-        $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
-        if (!$result) {
-            //no immagine
-            $ris = "ok";
+        if(UServer::getRequestMethod()!='GET'){
+            $pm = FPersistentManager::getInstance();
+            $max_size = 600000;
+            $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
+            if (!$result) {
+                //no immagine
+                $ris = "ok";
 
-        } else {
-            $size = $_FILES[$nome_file]['size'];
-            $type = $_FILES[$nome_file]['type'];
-            if ($size > $max_size) {
-                //Il file è troppo grande
-                $ris = "size";
-            }
-            elseif ($type == 'image/jpeg' || $type == 'image/jpg'|| $type == 'image/png' ) {
+            } else {
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
-                $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
-                $immagine = addslashes($immagine);
-                $profile_image= new EImage($immagine,null,$size,$type);
-                $id=$pm->storeMedia($profile_image,$nome_file);
-                $pm->update("Image",$id,$user->getUserID(),FUser::getClass());
-                $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
-                $salvare = serialize($u);
-                USession::setElement('user',$salvare);
-                $ris = "ok";
+                if ($size > $max_size) {
+                    //Il file è troppo grande
+                    $ris = "size";
+                }
+                elseif ($type == 'image/jpeg' || $type == 'image/jpg'|| $type == 'image/png' ) {
+                    $size = $_FILES[$nome_file]['size'];
+                    $type = $_FILES[$nome_file]['type'];
+                    $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
+                    $immagine = addslashes($immagine);
+                    $profile_image= new EImage($immagine,null,$size,$type);
+                    $id=$pm->storeMedia($profile_image,$nome_file);
+                    $pm->update("Image",$id,$user->getUserID(),FUser::getClass());
+                    $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
+                    $salvare = serialize($u);
+                    USession::setElement('user',$salvare);
+                    $ris = "ok";
+                }
+                else {
+                    //formato diverso
+                    $ris = "type";
+                }
             }
-            else {
-                //formato diverso
-                $ris = "type";
-            }
+            return $ris;
         }
-        return $ris;
+        else{ header('Location: /logBook/User/profile');}
     }
+
 
 }

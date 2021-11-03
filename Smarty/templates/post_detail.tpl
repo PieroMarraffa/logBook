@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>{$Title}</title>
+    <title>{$post->getTitle()}</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -50,17 +50,17 @@
                     <!-- Post title-->
                     <div class="row">
                         <div class="col-md-7">
-                        <h1 class="fw-bolder mb-1">{$Title}</h1>
+                        <h1 class="fw-bolder mb-1">{$post->getTitle()}</h1>
                         <!-- Post meta content-->
                             <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author}</a></h4>
-                        <div class="text-muted fst-italic mb-2">Posted on: {$date}</div>
+                        <div class="text-muted fst-italic mb-2">Posted on: {$post->getCreationDate()}</div>
                         </div>
                         <div class="col-md-4" align="end">
-                            <b>{$nLike}</b>
+                            <b>{$post->getNLike()}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
-                            <b>{$nDislike}</b>
+                            <b>{$post->getNDisLike()}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
@@ -125,15 +125,26 @@
                         {if $arrayComment}
                             {if isset($arrayComment)}
                                 {for $i=0;$i<=count($arrayComment)-1;$i++}
-                                <div class="d-flex mb-4">
+                                <div class=" mb-4">
                                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                                     {if isset($arrayComment[$i])}
                                         {if $arrayComment[$i]->getDeleted()!=true}
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="..."></div>
-                                            <div class="ms-3">
-                                                <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
-                                                <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
-                                            </div>
+                                                    <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="rounded-circle" src='data:{$type[$i]};charset=utf-8;base64,{$pic64[$i]}' width="65" height="65" alt="...">
+                                                    </div>
+                                                    <div class="md-7 ms-3">
+                                                        <div class="h5">{$arrayComment[$i]->getAuthor()->getUserName()}</div>
+                                                        <div class="text-muted mb-2">{$arrayComment[$i]->getContent()}</div>
+                                                    </div>
+                                                    </div>
+                                            {if $userlogged!='nouser'}
+                                                {if $arrayComment[$i]->getAuthor()->getUserName()!=$username}
+                                                    <div  align="end">
+                                                        <a href="/logBook/Research/reportComment/{$arrayComment[$i]->getCommentID()}/{$post->getPostID()}" class="btn btn-danger" >Report</a>
+                                                    </div>
+                                                {/if}
+                                            {/if}
                                         {/if}
                                     {/if}
                                 </div>

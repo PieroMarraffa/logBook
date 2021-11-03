@@ -166,18 +166,14 @@ class VResearch
             }
         }
 
-        $this->smarty->assign('nDislike',$post->getNLike());
-        $this->smarty->assign('nLike',$post->getNDisLike());
         $this->smarty->assign('post', $post);
         $this->smarty->assign('typeImg', $typeImg);
         $this->smarty->assign('pic64Img', $pic64Img);
         $this->smarty->assign('array_place', $array_p);
         $this->smarty->assign('type', $type);
         $this->smarty->assign('pic64', $pic64);
-        $this->smarty->assign('Title',$post->getTitle());
         $this->smarty->assign('id',$author->getUserID());
         $this->smarty->assign('author',$author->getUserName());
-        $this->smarty->assign('date',$post->getCreationDate());
         $this->smarty->assign('arrayExperience',$experience);
         $this->smarty->assign('arrayComment',$comment);
         $this->smarty->display('post_detail.tpl');

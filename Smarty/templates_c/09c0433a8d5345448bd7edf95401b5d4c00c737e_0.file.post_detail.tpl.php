@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 12:33:55
+/* Smarty version 3.1.33, created on 2021-11-03 12:57:08
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618122232d1cc8_76975130',
+  'unifunc' => 'content_61827914086236_37312226',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635852832,
+      1 => 1635940625,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618122232d1cc8_76975130 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61827914086236_37312226 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -29,7 +29,7 @@ function content_618122232d1cc8_76975130 (Smarty_Internal_Template $_smarty_tpl)
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
+    <title><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
 </title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/logBook/Smarty/immagini/immagine_logo.JPG" />
@@ -79,22 +79,22 @@ function content_618122232d1cc8_76975130 (Smarty_Internal_Template $_smarty_tpl)
                     <!-- Post title-->
                     <div class="row">
                         <div class="col-md-7">
-                        <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
+                        <h1 class="fw-bolder mb-1"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
 </h1>
                         <!-- Post meta content-->
                             <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
 "><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
 </a></h4>
-                        <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['date']->value;?>
+                        <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
 </div>
                         </div>
                         <div class="col-md-4" align="end">
-                            <b><?php echo $_smarty_tpl->tpl_vars['nLike']->value;?>
+                            <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
-                            <b><?php echo $_smarty_tpl->tpl_vars['nDislike']->value;?>
+                            <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNDisLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
@@ -187,19 +187,32 @@ $_smarty_tpl->tpl_vars['i']->value = 0;
 if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayComment']->value)-1) {
 for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayComment']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-                                <div class="d-flex mb-4">
+                                <div class=" mb-4">
                                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
                                     <?php if (isset($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
                                         <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getDeleted() != true) {?>
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                                                    <div class="d-flex">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="rounded-circle" src='data:<?php echo $_smarty_tpl->tpl_vars['type']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' width="65" height="65" alt="..."></div>
-                                            <div class="ms-3">
-                                                <div class="h5"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName();?>
+' width="65" height="65" alt="...">
+                                                    </div>
+                                                    <div class="md-7 ms-3">
+                                                        <div class="h5"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName();?>
 </div>
-                                                <div class="text-muted mb-2"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getContent();?>
+                                                        <div class="text-muted mb-2"><?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getContent();?>
 </div>
-                                            </div>
+                                                    </div>
+                                                    </div>
+                                            <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                                                <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName() != $_smarty_tpl->tpl_vars['username']->value) {?>
+                                                    <div  align="end">
+                                                        <a href="/logBook/Research/reportComment/<?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getCommentID();?>
+/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+" class="btn btn-danger" >Report</a>
+                                                    </div>
+                                                <?php }?>
+                                            <?php }?>
                                         <?php }?>
                                     <?php }?>
                                 </div>
