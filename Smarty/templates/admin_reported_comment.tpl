@@ -36,25 +36,32 @@
 <!-- Section-->
 <section class="py-5">
     {if $commentArrayReported}
-        {foreach $commentArrayReported as $c}
-            <div id="comment" class="d-flex mb-4">
-                <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
-                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                <div class="ms-3">
-                    <div class="fw-bold">{$commentArrayReported->getAuthor()}<button onclick="remove()" id="delete" class="btn btn-primary">
-                            Delete</button><button onclick="remove()" id="ignore" class="btn btn-primary"> Ignore</button></div>
-                    {$commentArrayReported->getContent()}
+        {for $i=0 to count($commentArrayReported)-1}
+            <div class="card my-3 px-4 mx-4">
+                <div class="card-body">
+                    <div id="comment" class="d-flex mb-4">
+                        <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
+                        <div class="flex-shrink-0">
+                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" width="100" height="100" alt="..." />
+                        </div>
+                        <div class="ms-3">
+                            <div class="fw-bold h4">
+                                {$author[$i]->getUserName()}
+                            </div>
+                            <h5 class="text-muted fst-italic mb-2">{$commentArrayReported[$i]->getContent()}</h5>
+                        </div>
+                    </div>
+                    <div align="end">
+                        <a href="/logBook/Admin/deleteComment/{$commentArrayReported[$i]->getCommentID()}"><button id="delete" class="btn btn-primary" >Delete</button></a>
+                        <button id="ignore" class="btn btn-primary"> Ignore</button>
+                    </div>
                 </div>
             </div>
-        {/foreach}
+        {/for}
     {/if}
 
 
 </section>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-</footer>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

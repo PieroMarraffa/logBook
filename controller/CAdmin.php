@@ -127,6 +127,27 @@ class CAdmin
         header('Location: /logBook/Admin/adminHome');
     }
 
+    /**
+     * @throws SmartyException
+     */
+    static function reportedComments(){
+        $pm = FPersistentManager::getInstance();
+        $view=new VAdmin;
+        $reportedComment=$pm->loadAllDeletedComment();
+        $author=array();
+        foreach ($reportedComment as $a){
+                $author[]=$pm->load("IDuser",$a->getAuthorID(),FUser::getClass());
+        }
+        $view->toReportedComments($reportedComment,$author);
+    }
+
+    static function deleteComment($id){
+        $pm=FPersistentManager::getInstance();
+        $pm->deleteComment($id);
+        $pm->deleteFromCommentReported($id);
+        header('Location: /logBook/Admin/reportedComments');
+    }
+
 
 
 

@@ -137,7 +137,10 @@ class CPost{
         $view = new VPost();
         $pm = FPersistentManager::getInstance();
         echo $pm->getUserByPost($postID);
-        $user = unserialize(USession::getElement('user'));
+        USession::getInstance();
+        $u=USession::getElement('user');
+        echo var_dump($u);
+        $user = unserialize($u);
         if ($user->getUserID() == $pm->getUserByPost($postID)) {
             $travel = $pm->loadTravelByPost($postID);
             $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());

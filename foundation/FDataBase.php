@@ -478,7 +478,6 @@ class FDataBase
                 $result=false;
             }elseif ($num==1){
                 $x=$statement->fetch(PDO::FETCH_ASSOC);
-                echo var_dump($x);
                 $result=$this->loadById("comment","IDcomment",$x['IDcomment']);
             }elseif($num>1){
                 $resID=array();
@@ -487,6 +486,33 @@ class FDataBase
                 $result=array();
                 foreach ($resID as $r){
                     $result[]=$this->loadById("comment","IDcomment",$r['IDcomment']);
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
+    public function loadAllCommentReported(){
+        try{
+            $query="SELECT * FROM comment_reported_by_user ;";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num==0){
+                $result=false;
+            }elseif ($num==1){
+                $result=$statement->fetch(PDO::FETCH_ASSOC);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$r;
                 }
             }
             return $result;
@@ -855,7 +881,28 @@ class FDataBase
         }
     }
 
+//----------------------------------------DELETE DALLE TABELLE INTERMEDIE------------------------------------
 
+    /** Elimina un'elemento del database dalla tabella ($entity)
+     * in cui il campo specificato ($field) corrisponde al valore
+     * dato in ingresso ($id). */
+    public function deleteFromCommentReportedByUser($idComment){
+        try{
+            $this->database->beginTransaction();
+                $query = "DELETE FROM comment_reported_by_user WHERE IDcomment = '" . $idComment ."';";
+                $statement = $this->database->prepare($query);
+                $statement->execute();
+                $this->database->commit();
+                $this->closeDbConnection();
+                $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
 
 
 

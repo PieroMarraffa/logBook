@@ -27,15 +27,15 @@
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <div class="col-md-4">
+        <div class="col-md-auto">
         <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_comment">Reported comments</a></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_posts" >Reported posts</a></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_user" >Reported user</a></div>
-        <div class="col-md-2">
+        <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
+        <b class="h5">Reported comments</b></div></a>
+        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+        <b class="h5">Reported posts</b></div></a>
+        <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
+                <b class="h5">Reported user</b></div></a>
+        <div class="col-md-auto">
             <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
@@ -58,7 +58,7 @@
                         <div class="ms-3">
                             <div class="fw-bold"><h4>{$userReported[$i]->getUsername()}</h4><br><a href="/logBook/Admin/banUser/{$userReported[$i]->getUserID()}" id="bann" class="btn btn-primary mx-3">
                                      Bann</a><a href="/logBook/Admin/ignoreUser/{$userReported[$i]->getUserID()}" id="ignore" class="btn btn-primary mx-3"> Ignore</a>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/{$userReported[$i]->getUserID()}"> Go to the Profile → </a></div>
+                            </div>
                         </div>
                     </div>
                 </div>

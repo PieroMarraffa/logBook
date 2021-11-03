@@ -74,8 +74,12 @@ class VAdmin
         $this->smarty->display('login.tpl');
     }
 
-    public function toReportedComments($array){
-        $this->smarty->assign('reportedComments', $array);
+    /**
+     * @throws SmartyException
+     */
+    public function toReportedComments($array,$author){
+        $this->smarty->assign('commentArrayReported', $array);
+        $this->smarty->assign('author', $author);
         $this->smarty->display('admin_reported_comment.tpl');
     }
 

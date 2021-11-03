@@ -123,14 +123,6 @@ class FComment
         $database->updateInDB(self::getClass(),"Deleted",0,"IDComment",$id);
     }
 
-    /** il commento non viene più visualizzato perchè il campo deleted è messo a true
-     *questo avviene quando l'utente viene bannato
-     */
-    public static function sospendComment($id){
-        $database=FDataBase::getInstance();
-        $database->updateInDB(self::getClass(),"Deleted",1,"IDComment",$id);
-    }
-
 
     /** restituisce la persona che ha reportato il commento */
     public static function loadCommentReporter($idComment){
@@ -142,7 +134,6 @@ class FComment
     /** visualizza tutti i commenti che possono essere visualizzati */
     public static function loadAllVisibleComment()
     {
-        $database=FDataBase::getInstance();
         $result = self::load("Deleted", 0);
         //$rows_number = $database->interestedRows(static::getClass(), "Deleted", "0");
         return $result;
@@ -152,7 +143,20 @@ class FComment
     public static function loadReportedComments()
     {
         $database=FDataBase::getInstance();
-        $result = self::load("Deleted", 1);
+        $r=$database->loadAllCommentReported();
+        $result=array();
+        if(isset($r['IDcomment'])){ $result[]=self::load("IDcomment",$r['IDcomment']);}
+        else{
+            foreach ($r as $c){
+                $result[]=self::load("IDcomment",$c['IDcomment']);
+            }
+        }
+        //echo var_dump($result);
         return $result;
+    }
+
+    public static function deleteFromCommentReported($idComment){
+        $database=FDataBase::getInstance();
+        $database->deleteFromCommentReportedByUser($idComment);
     }
 }

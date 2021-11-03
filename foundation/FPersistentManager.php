@@ -229,12 +229,12 @@ class FPersistentManager
 
     public static function loadAllDeletedComment()
     {
-        $result = FComment::loadAllDeletedComment();
+        $result = FComment::loadReportedComments();
         return $result;
     }
 
     public static function deleteComment($id){
-        FComment::deleteComment($id);}
+        FComment::delete("IDcomment",$id);}
 
     public static function restoreComment($id){
         FComment::restoreComment($id);}
@@ -300,5 +300,9 @@ class FPersistentManager
 
     public static function reportPost($reportedPostId){
         FPost::loadReportedPost($reportedPostId);
+    }
+
+    public static function deleteFromCommentReported($idComment){
+        FComment::deleteFromCommentReported($idComment);
     }
 }
