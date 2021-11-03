@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 13:58:34
+/* Smarty version 3.1.33, created on 2021-11-03 18:40:28
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182877ae66a43_86620725',
+  'unifunc' => 'content_6182c98c75cb28_65306871',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1635944314,
+      1 => 1635961221,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182877ae66a43_86620725 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6182c98c75cb28_65306871 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -89,7 +89,6 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                         <?php }?>
                         </div>
                     </div>
-                    <a name="experiences"></a>
                     <?php if ($_smarty_tpl->tpl_vars['array_experience']->value) {?>
                     <?php if (is_array($_smarty_tpl->tpl_vars['array_experience']->value)) {?>
                     <?php
@@ -278,8 +277,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                         <div class="col-md-4">
                             <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+                            <a name="send" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+/" class="btn btn-warning" >Annulla</a>
                             <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 " class="btn btn-danger" >Elimina</a>
+                            <a name="bottomPage"></a>
                         </div>
 
                     </div>
@@ -415,7 +417,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                             }
                         <?php echo '</script'; ?>
 >
-                        <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                        <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#bottomPage" >+ Add Experience</a>
                     </div>
                     <div class="row">
                         <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>

@@ -39,7 +39,6 @@
 
                             <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                         </div>
-                        <a name="experiences"></a>
                         <div class="col-md-8">
 
                             <div class="container py-3" id="container">
@@ -135,7 +134,7 @@
                         obj.style.width = "1000px";
                     }
                 </script>
-                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
@@ -146,7 +145,9 @@
             </div>
         </div>
     </div>
-        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
+        <button name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary" >Salva</button>
+        <a name="send" href="/logBook/User/profile" class="mx-3 my-3 btn btn-warning" >Annulla</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 

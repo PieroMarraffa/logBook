@@ -51,7 +51,6 @@
                         {/if}
                         </div>
                     </div>
-                    <a name="experiences"></a>
                     {if $array_experience}
                     {if is_array($array_experience)}
                     {foreach $array_experience as $exp}
@@ -168,7 +167,9 @@
                         </div>
                         <div class="col-md-4">
                             <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+                            <a name="send" href="/logBook/Research/postDetail/{$postID}/" class="btn btn-warning" >Annulla</a>
                             <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger" >Elimina</a>
+                            <a name="bottomPage"></a>
                         </div>
 
                     </div>
@@ -258,7 +259,7 @@
                                 obj.style.width = "1000px";
                             }
                         </script>
-                        <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                        <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#bottomPage" >+ Add Experience</a>
                     </div>
                     <div class="row">
                         <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>

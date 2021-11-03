@@ -83,22 +83,28 @@ class CPost{
 
 
     public static function deletePost($postID){
+        USession::getInstance();
         $pm = FPersistentManager::getInstance();
-        $post = $pm->load('IDpost', $postID, FPost::getClass());
-        $travel = $post->getTravel();
-        $ExpList = $travel->getExperienceList();
-        foreach ($ExpList as $exp){
-            $pm->delete('IDexperience', $exp->getExperienceID(), FExperience::getClass());
+        $user = unserialize(USession::getElement('user'));
+        if ($user->getUserID() == $pm->getUserByPost($postID)) {
+            $post = $pm->load('IDpost', $postID, FPost::getClass());
+            $travel = $post->getTravel();
+            $ExpList = $travel->getExperienceList();
+            foreach ($ExpList as $exp) {
+                $pm->delete('IDexperience', $exp->getExperienceID(), FExperience::getClass());
+            }
+            $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
+            $pm->deletePost($postID);
+            header('Location: /logBook/User/profile');
+        } else{
+            header('Location: /logBook/User/home');
         }
-        $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
-        $pm->deletePost($postID);
-        header('Location: /logBook/User/profile');
     }
 
 
-    public static function reportPost(){
+    public static function reportPost($id){
         $view = new VResearch();
-        FPersistentManager::reportPost($reportedPostId);
+        FPersistentManager::reportPost($id);
         $view->search_result();
     }
 
@@ -134,13 +140,10 @@ class CPost{
      * @throws SmartyException
      */
     static function modify_post($postID){
+        USession::getInstance();
         $view = new VPost();
         $pm = FPersistentManager::getInstance();
-        echo $pm->getUserByPost($postID);
-        USession::getInstance();
-        $u=USession::getElement('user');
-        echo var_dump($u);
-        $user = unserialize($u);
+        $user = unserialize(USession::getElement('user'));
         if ($user->getUserID() == $pm->getUserByPost($postID)) {
             $travel = $pm->loadTravelByPost($postID);
             $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
@@ -151,9 +154,9 @@ class CPost{
             $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
             $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
             $arrayPlace = $pm->loadAll(FPlace::getClass());
-            //$view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+            $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
         } else{
-            //header('Location: /logBook/User/home');
+            header('Location: /logBook/User/home');
         }
     }
 

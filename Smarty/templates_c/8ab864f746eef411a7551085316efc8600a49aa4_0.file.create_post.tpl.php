@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 17:23:21
+/* Smarty version 3.1.33, created on 2021-11-03 18:38:04
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182b779a051c0_52691423',
+  'unifunc' => 'content_6182c8fc980033_42859593',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635945392,
+      1 => 1635961084,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182b779a051c0_52691423 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6182c8fc980033_42859593 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -56,6 +56,7 @@ function content_6182b779a051c0_52691423 (Smarty_Internal_Template $_smarty_tpl)
 </nav>
 <section>
     <form method="post" id="form_create_post" action="/logBook/Post/savePost" enctype="multipart/form-data">
+        <?php $_smarty_tpl->_assignInScope('numero', 1);?>
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -66,7 +67,6 @@ function content_6182b779a051c0_52691423 (Smarty_Internal_Template $_smarty_tpl)
 
                             <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
                         </div>
-                        <a name="experiences"></a>
                         <div class="col-md-8">
 
                             <div class="container py-3" id="container">
@@ -208,10 +208,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                     }
                 <?php echo '</script'; ?>
 >
-                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
             <div class="row">
-                <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                <a type="button" class="btn btn-primary  my-1 " onclick="creaImage()" href="#top">+ Add Image</a>
                 <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
@@ -219,7 +219,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
             </div>
         </div>
     </div>
-        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
+        <button name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary" >Salva</button>
+        <a name="send" href="/logBook/User/profile" class="mx-3 my-3 btn btn-warning" >Annulla</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 
