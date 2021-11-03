@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 18:38:04
+/* Smarty version 3.1.33, created on 2021-11-03 19:58:11
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182c8fc980033_42859593',
+  'unifunc' => 'content_6182dbc3f3f858_79858036',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635961084,
+      1 => 1635961139,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182c8fc980033_42859593 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6182dbc3f3f858_79858036 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -56,7 +56,6 @@ function content_6182c8fc980033_42859593 (Smarty_Internal_Template $_smarty_tpl)
 </nav>
 <section>
     <form method="post" id="form_create_post" action="/logBook/Post/savePost" enctype="multipart/form-data">
-        <?php $_smarty_tpl->_assignInScope('numero', 1);?>
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -211,7 +210,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
             <div class="row">
-                <a type="button" class="btn btn-primary  my-1 " onclick="creaImage()" href="#top">+ Add Image</a>
+                <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
                 <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
