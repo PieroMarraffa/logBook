@@ -73,11 +73,39 @@
                             "</div><div class='col-md-3'>" +
                             //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
-                            "{if isset($arrayPlace)}" +
-                            "{foreach $arrayPlace as $p}" +
-                            "<option value='{$p->getPlaceID()}'>{$p->getName()}</option>" +
+
+                            "{if isset($arrayMete)}" +
+                            "<optgroup label='Tourist Destinations'>" +
+                            "{foreach $arrayMete as $m}" +
+                            "<option value='{$m->getPlaceID()}'>{$m->getName()}</option>" +
                             "{/foreach}"+
+                            "</optgroup>" +
                             "{/if}" +
+
+                            "{if isset($arrayCity)}" +
+                            "<optgroup label='Cities'>" +
+                            "{foreach $arrayCity as $c}" +
+                            "<option value='{$c->getPlaceID()}'>{$c->getName()}</option>" +
+                            "{/foreach}"+
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayRegion)}" +
+                            "<optgroup label='Regions'>" +
+                            "{foreach $arrayRegion as $r}" +
+                            "<option value='{$r->getPlaceID()}'>{$r->getName()}</option>" +
+                            "{/foreach}"+
+                            "</optgroup>" +
+                            "{/if}" +
+
+                            "{if isset($arrayState)}" +
+                            "<optgroup label='States'>" +
+                            "{foreach $arrayState as $s}" +
+                            "<option value='{$s->getPlaceID()}'>{$s->getName()}</option>" +
+                            "{/foreach}"+
+                            "</optgroup>" +
+                            "{/if}" +
+
                             "</select>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +

@@ -73,8 +73,12 @@ class CPost{
     public static function create_post(){
         $view = new VPost();
         $pm = FPersistentManager::getInstance();
+        $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
+        $arrayCity = $pm->load('category', 'città', FPlace::getClass());
+        $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
+        $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
         $arrayPlace=$pm->loadAll(FPlace::getClass());
-        $view->create_post($arrayPlace);
+        $view->create_post($arrayPlace, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
     }
 
 
@@ -94,7 +98,6 @@ class CPost{
 
     public static function reportPost(){
         $view = new VResearch();
-        $reportedPostId = USession::getElement('IDpost');
         FPersistentManager::reportPost($reportedPostId);
         $view->search_result();
     }

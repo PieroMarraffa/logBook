@@ -22,8 +22,12 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function create_post($arrayPlace){
+    public function create_post($arrayPlace, $arrayCity, $arrayRegion, $arrayState, $arrayMete){
         $this->smarty->assign('arrayPlace', $arrayPlace);
+        $this->smarty->assign('arrayMete', $arrayMete);
+        $this->smarty->assign('arrayCity', $arrayCity);
+        $this->smarty->assign('arrayRegion', $arrayRegion);
+        $this->smarty->assign('arrayState', $arrayState);
         $this->smarty->display('create_post.tpl');
     }
 

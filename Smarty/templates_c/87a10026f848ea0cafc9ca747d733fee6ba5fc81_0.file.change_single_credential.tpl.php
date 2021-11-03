@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 19:06:21
+/* Smarty version 3.1.33, created on 2021-11-02 15:26:13
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/change_single_credential.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ad88da8c4e0_28937235',
+  'unifunc' => 'content_61814a857160f9_72023005',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '87a10026f848ea0cafc9ca747d733fee6ba5fc81' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/change_single_credential.tpl',
-      1 => 1635431464,
+      1 => 1635496964,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ad88da8c4e0_28937235 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61814a857160f9_72023005 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
-<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
+<?php $_smarty_tpl->_assignInScope('error', (($tmp = @$_smarty_tpl->tpl_vars['error']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
+$_smarty_tpl->_assignInScope('errorUsername', (($tmp = @$_smarty_tpl->tpl_vars['errorUsername']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
 <html lang="en">
 <head>
     <!--meta charset="utf-8" /-->
@@ -77,9 +80,24 @@ function content_617ad88da8c4e0_28937235 (Smarty_Internal_Template $_smarty_tpl)
                 <input type="text" id="new_password" class="fadeIn second" name="new_password" placeholder="new password" required>
                 <input type="text" id="confirm_password" class="fadeIn second" name="confirm_password" placeholder="confirm new password" required>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'username') {?>
-                <input type="text" id="username" class="fadeIn second" name="username" placeholder="new username" required>
+                <label><input type="text" id="username" class="fadeIn second" name="username" placeholder="new username" required></label>
+                <?php if ($_smarty_tpl->tpl_vars['errorUsername']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p  class="fadeIn third" align="center">Attention! This username is alredy used!  </p>
+                    </div>
+                <?php }?>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'image') {?>
                 <input type="file" name="file" >
+                <?php if ($_smarty_tpl->tpl_vars['errorSize']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p class="fadeIn third" align="center">Attention! Inserted image is too big. </p>
+                    </div>
+                <?php }?>
+                <?php if ($_smarty_tpl->tpl_vars['errorType']->value != 'ok') {?>
+                    <div style="color: red;">
+                        <p  class="fadeIn third" align="center">Attention! This image's type is not allowed. </p>
+                    </div>
+                <?php }?>
             <?php } elseif ($_smarty_tpl->tpl_vars['change']->value == 'description') {?>
                 <div class="col-md-5">
                     <label for="description">
