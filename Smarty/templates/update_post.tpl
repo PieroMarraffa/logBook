@@ -165,7 +165,7 @@
 
                         <div class="container py-3" id="container">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
                             <a name="send" href="/logBook/Research/postDetail/{$postID}/" class="btn btn-warning" >Annulla</a>
                             <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger" >Elimina</a>
