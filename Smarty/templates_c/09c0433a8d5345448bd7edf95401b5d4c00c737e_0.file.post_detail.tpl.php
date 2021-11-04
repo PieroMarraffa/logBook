@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 17:46:03
+/* Smarty version 3.1.33, created on 2021-11-04 16:46:13
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182bccb122644_82343528',
+  'unifunc' => 'content_61840045700467_58459549',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1635957786,
+      1 => 1636040770,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182bccb122644_82343528 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61840045700467_58459549 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -88,7 +88,7 @@ function content_6182bccb122644_82343528 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
 </div>
                         </div>
-                        <div class="col-md-4" align="end">
+                        <div class="col-md-12" align="end">
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
@@ -99,7 +99,17 @@ function content_6182bccb122644_82343528 (Smarty_Internal_Template $_smarty_tpl)
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
+                                <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                                    <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value) {?>
+                                        <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+">
+                                            <div class="btn btn-danger justify-content-end" >
+                                                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
 
+                                            </div>
+                                        </a>
+                                    <?php }?>
+                                <?php }?>
                         </div>
                     </div>
                 </header>
@@ -121,7 +131,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 ?>
                             <div class="carousel-item">
 
-                                    <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                                    <img class="w-100" src='
+
+                                    data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' alt="...">
 
@@ -142,25 +154,25 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                 </div>
                 <section class="mb-5">
                     <?php if ($_smarty_tpl->tpl_vars['arrayExperience']->value) {?>
-                    <?php
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayExperience']->value, 'experience');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
 ?>
-                    <div class="card my-3">
-                        <div class="card-header">
-                            <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
 </h4>
-                            <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
+                                <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
    To: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getEndDay();?>
 </div>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
+                            </div>
+                            <div class="card-body">
+                                <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
 
+                            </div>
                         </div>
-                    </div>
-                    <?php
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>

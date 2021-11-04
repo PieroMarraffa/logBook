@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 13:33:23
+/* Smarty version 3.1.33, created on 2021-11-04 16:11:13
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6183d313d49873_85177654',
+  'unifunc' => 'content_6183f811c06412_62768344',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'eb560377f96d769f2fdc2b806f514d821a0665d5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_post.tpl',
-      1 => 1636029201,
+      1 => 1636038671,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6183d313d49873_85177654 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6183f811c06412_62768344 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,6 +62,8 @@ function content_6183d313d49873_85177654 (Smarty_Internal_Template $_smarty_tpl)
             <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
+<div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Reported Posts</h4></p></div>
+
 <!-- Section-->
 <section class="py-5">
 
@@ -69,31 +71,37 @@ function content_6183d313d49873_85177654 (Smarty_Internal_Template $_smarty_tpl)
         <!-- Blog entries-->
         <div class="row">
             <?php if ($_smarty_tpl->tpl_vars['arrayReportedPost']->value) {?>
-                <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayReportedPost']->value, 'a');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
+                <?php if (is_array($_smarty_tpl->tpl_vars['arrayReportedPost']->value)) {?>
+                    <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayReportedPost']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayReportedPost']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
+                    <?php if (isset($_smarty_tpl->tpl_vars['arrayReportedPost']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
                     <!-- Blog post-->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card mb-4">
-                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' height="300" width="400" alt="...">
                             <div class="card-body">
-                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['a']->value->getDate();?>
+                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['arrayReportedPost']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
 </div>
-                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['a']->value->getTitle();?>
+                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['arrayReportedPost']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
 </h2>
-                                <p class="card-text"><?php echo $_smarty_tpl->tpl_vars['a']->value->getAuthor();?>
-</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['a']->value->getID();?>
-">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Admin/deletePost/<?php echo $_smarty_tpl->tpl_vars['arrayReportedPost']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">Delete</a>
+                                <a class="btn btn-primary" href="/logBook/Admin/ignorePost/<?php echo $_smarty_tpl->tpl_vars['arrayReportedPost']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">Ignore</a>
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php }?>
+                <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+?>
+                <?php }?>
             <?php }?>
         </div>
     </div>

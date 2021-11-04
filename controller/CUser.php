@@ -114,7 +114,7 @@ class CUser
                 if (USession::getSessionStatus() == PHP_SESSION_NONE) {
                     USession::getInstance();
                     $salvare = serialize($admin);
-                    USession::setElement('user', $salvare);
+                    USession::setElement('admin', $salvare);
 
                     header('Location: /logBook/Admin/adminHome');
                 }

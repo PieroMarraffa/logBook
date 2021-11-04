@@ -121,6 +121,40 @@ class CResearch
     /**
      * @throws SmartyException
      */
+    static function reportPost($idPost){
+        $pm= FPersistentManager::getInstance();
+        if(UServer::getRequestMethod()=='GET'){
+            if(CUser::isLogged()){
+                $u=USession::getElement('user');
+                $user=unserialize($u);
+                $reporter=$pm->loadPostReporter($idPost);
+                if($reporter==null){
+                    $pm->storePostReporter($user->getUserID(),$idPost);
+                }elseif(!is_array($reporter)) {
+                    if($reporter->getUserName()!=$reporter->getUserName()){
+                        $pm->storeCommentReporter($user->getUserID(),$idPost);
+                    }
+                }else{
+                    foreach($reporter as $r){
+                        if($r->getUserName()==$user->getUserName()){
+                            $report=true;
+                            break;
+                        }else{
+                            $report=false;
+                        }
+                    }
+                    if($report==false){
+                        $pm->storeCommentReporter($user->getUserID(),$idPost);
+                    }
+                }
+                header('Location: /logBook/Research/postDetail/'.$idPost .'');
+            }
+        }
+    }
+
+    /**
+     * @throws SmartyException
+     */
     static function profileDetail($id){
         $pm = FPersistentManager::getInstance();
         $view=new VResearch();
@@ -170,7 +204,23 @@ class CResearch
                 $user=unserialize($u);
                 $reporter=$pm->loadCommentReporter($idComment);
                 if($reporter==null){
-                $pm->storeCommentReporter($user->getUserID(),$idComment);
+                    $pm->storeCommentReporter($user->getUserID(),$idComment);
+                }elseif(!is_array($reporter)) {
+                    if($reporter->getUserName()!=$reporter->getUserName()){
+                        $pm->storeCommentReporter($user->getUserID(),$idComment);
+                    }
+                }else{
+                    foreach($reporter as $r){
+                        if($r->getUserName()==$user->getUserName()){
+                            $report=true;
+                            break;
+                        }else{
+                            $report=false;
+                        }
+                    }
+                    if($report==false){
+                        $pm->storeCommentReporter($user->getUserID(),$idComment);
+                    }
                 }
                 header('Location: /logBook/Research/postDetail/'.$idPost .'');
             }

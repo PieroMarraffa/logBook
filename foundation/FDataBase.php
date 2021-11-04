@@ -523,6 +523,33 @@ class FDataBase
 
     }
 
+    public function loadAllPostReported(){
+        try{
+            $query="SELECT * FROM post_reported_by_user ;";
+            $statement=$this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num==0){
+                $result=false;
+            }elseif ($num==1){
+                $result=$statement->fetch(PDO::FETCH_ASSOC);
+            }elseif($num>1){
+                $resID=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) $resID[] = $row;
+                $result=array();
+                foreach ($resID as $r){
+                    $result[]=$r;
+                }
+            }
+            return $result;
+        }catch(PDOException $e){
+            echo "ERROR " . $e->getMessage();
+            return null;
+        }
+
+    }
+
 
     public function loadPostReporter($idPost){
         try{
@@ -881,11 +908,9 @@ class FDataBase
         }
     }
 
-//----------------------------------------DELETE DALLE TABELLE INTERMEDIE------------------------------------
+//----------------------------------------DELETE DALLE TABELLE CONTENITORE------------------------------------
 
-    /** Elimina un'elemento del database dalla tabella ($entity)
-     * in cui il campo specificato ($field) corrisponde al valore
-     * dato in ingresso ($id). */
+
     public function deleteFromCommentReportedByUser($idComment){
         try{
             $this->database->beginTransaction();
@@ -904,6 +929,24 @@ class FDataBase
         return $result;
     }
 
+
+    public function deleteFromPostReportedByUser($idPost){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM post_reported_by_user WHERE IDpost = '" . $idPost ."';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
 
 
 

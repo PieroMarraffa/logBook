@@ -37,6 +37,8 @@
             <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
+<div class="navbar btn-primary" align="center"><p class="mx-2"><h4>Reported Posts</h4></p></div>
+
 <!-- Section-->
 <section class="py-5">
 
@@ -44,20 +46,24 @@
         <!-- Blog entries-->
         <div class="row">
             {if $arrayReportedPost}
-                {foreach $arrayReportedPost as $a}
+                {if is_array($arrayReportedPost)}
+                    {for $i=0;$i<=count($arrayReportedPost)-1;$i++}
+                    {if isset($arrayReportedPost[$i])}
                     <!-- Blog post-->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card mb-4">
-                            <img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." />
+                            <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
                             <div class="card-body">
-                                <div class="small text-muted">{$a->getDate()}</div>
-                                <h2 class="card-title h4">{$a->getTitle()}</h2>
-                                <p class="card-text">{$a->getAuthor()}</p>
-                                <a class="btn btn-primary" href="/logBook/Research/postDetail/{$a->getID()}">Go to the Post →</a>
+                                <div class="small text-muted">{$arrayReportedPost[$i]->getCreationDate()}</div>
+                                <h2 class="card-title h4">{$arrayReportedPost[$i]->getTitle()}</h2>
+                                <a class="btn btn-primary" href="/logBook/Admin/deletePost/{$arrayReportedPost[$i]->getPostID()}">Delete</a>
+                                <a class="btn btn-primary" href="/logBook/Admin/ignorePost/{$arrayReportedPost[$i]->getPostID()}">Ignore</a>
                             </div>
                         </div>
                     </div>
-                {/foreach}
+                    {/if}
+                {/for}
+                {/if}
             {/if}
         </div>
     </div>

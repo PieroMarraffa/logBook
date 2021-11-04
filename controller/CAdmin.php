@@ -7,6 +7,7 @@ class CAdmin
 
     static function isAdminLogged(){
         $identificato = false;
+        USession::getInstance();
         if(USession::getIsSet('admin')){
                 $identificato = true;
         }
@@ -50,6 +51,7 @@ class CAdmin
             } else $array_b = array();
             $view->adminHomePage($array_b, $array_r, $image_reported, $image_banned);
         }else header('Location: /logBook/User/home');
+
     }
 
     static function adminLogout(){
@@ -146,7 +148,7 @@ class CAdmin
             $reportedComment = $pm->loadAllDeletedComment();
             $author = array();
             foreach ($reportedComment as $a) {
-                $author[] = $pm->load("IDuser", $a->getAuthorID(), FUser::getClass());
+                    $author[] = $pm->load("IDuser", $a->getAuthorID(), FUser::getClass());
             }
             $image = array();
             foreach ($author as $a) {
@@ -175,10 +177,41 @@ class CAdmin
     }
 
 
+    /**
+     * @throws SmartyException
+     */
     static function reportedPosts(){
+        $pm=FPersistentManager::getInstance();
         if(self::isAdminLogged()==true) {
             $view = new VAdmin;
-            $view->toReportedPosts();
+            $pm=FPersistentManager::getInstance();
+            $result=$pm->loadAllDeletedPost();
+            $image=array();
+            if($result!=null) {
+                foreach ($result as $r) {
+                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                    $image[] = $i;
+                }
+            }
+            $view->toReportedPosts($result,$image);
+        }else header('Location: /logBook/User/home');
+    }
+
+    static function deletePost($id){
+        if(self::isAdminLogged()==true) {
+            $pm=FPersistentManager::getInstance();
+            $pm->deletePost($id);
+            $pm->deleteFromPostReported($id);
+            header('Location: /logBook/Admin/reportedPosts');
+        }else header('Location: /logBook/User/home');
+    }
+
+    static function ignorePost($id){
+        if(self::isAdminLogged()==true) {
+            $pm=FPersistentManager::getInstance();
+            $pm->deleteFromPostReported($id);
+            header('Location: /logBook/Admin/reportedPosts');
         }else header('Location: /logBook/User/home');
     }
 

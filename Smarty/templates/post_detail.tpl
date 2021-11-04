@@ -55,7 +55,7 @@
                             <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author}</a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: {$post->getCreationDate()}</div>
                         </div>
-                        <div class="col-md-4" align="end">
+                        <div class="col-md-12" align="end">
                             <b>{$post->getNLike()}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
@@ -64,7 +64,16 @@
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
+                                {if $userlogged!='nouser'}
+                                    {if $author!=$username}
+                                        <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/{$post->getPostID()}">
+                                            <div class="btn btn-danger justify-content-end" >
+                                                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
 
+                                            </div>
+                                        </a>
+                                    {/if}
+                                {/if}
                         </div>
                     </div>
                 </header>
@@ -79,7 +88,9 @@
                         {for $i=1;$i<=count($typeImg)-1;$i++}
                             <div class="carousel-item">
 
-                                    <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' alt="...">
+                                    <img class="w-100" src='
+
+                                    data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' alt="...">
 
                             </div>
                         {/for}
@@ -96,17 +107,17 @@
                 </div>
                 <section class="mb-5">
                     {if $arrayExperience}
-                    {foreach $arrayExperience as $experience}
-                    <div class="card my-3">
-                        <div class="card-header">
-                            <h4>{$experience->getTitle()}</h4>
-                            <div  class="text-muted fst-italic mb-2">From: {$experience->getStartDay()}   To: {$experience->getEndDay()}</div>
+                        {foreach $arrayExperience as $experience}
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <h4>{$experience->getTitle()}</h4>
+                                <div  class="text-muted fst-italic mb-2">From: {$experience->getStartDay()}   To: {$experience->getEndDay()}</div>
+                            </div>
+                            <div class="card-body">
+                                {$experience->getDescription()}
+                            </div>
                         </div>
-                        <div class="card-body">
-                            {$experience->getDescription()}
-                        </div>
-                    </div>
-                    {/foreach}
+                        {/foreach}
                     {/if}
                 </section>
             </article>

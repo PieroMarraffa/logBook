@@ -114,7 +114,28 @@ class VAdmin
     /**
      * @throws SmartyException
      */
-    public function toReportedPosts(){
+    public function toReportedPosts($arrayReportedPost,$image){
+        $typeImg=array();
+        $pic64Img=array();
+        foreach ($image as $im) {
+            if($im!=null) {
+                if(count($im)==1){
+                    $typeImg[] = $im[0]->getType();
+                    $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                else{
+                    $typeImg[] = $im[0]->getType();
+                    $pic64Img[] =  $im[0]->getImageFile();
+                }
+            }
+            else{
+                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
+                $pic64Img[]= base64_encode($data);
+                $typeImg[] = "image/jpg";
+            }
+        }
+        $this->smarty->assign('typeImg',$typeImg);
+        $this->smarty->assign('pic64Img',$pic64Img);
+        $this->smarty->assign('arrayReportedPost', $arrayReportedPost);
         $this->smarty->display('admin_reported_post.tpl');
     }
 }

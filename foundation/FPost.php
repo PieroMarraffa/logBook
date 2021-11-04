@@ -397,6 +397,28 @@ class FPost
         }
     }
 
+    /** visualizza tutti i post che non possono essere visualizzati */
+    public static function loadReportedPosts()
+    {
+        $database=FDataBase::getInstance();
+        $r=$database->loadAllPostReported();
+        $result=array();
+        if(isset($r['IDpost'])){ $result[]=self::load("IDpost",$r['IDpost']);}
+        else{
+            if($r!=null) {
+                foreach ($r as $c) {
+                    $result[] = self::load("IDpost", $c['IDpost']);
+                }
+            }
+        }
+        return $result;
+    }
+
+    public static function deleteFromPostReported($idPost){
+        $database=FDataBase::getInstance();
+        $database->deleteFromPostReportedByUser($idPost);
+    }
+
 
 
 }
