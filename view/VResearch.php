@@ -123,7 +123,7 @@ class VResearch
             $this->smarty->assign('userlogged',"loggato");
             $u=USession::getElement('user');
             $user=unserialize($u);
-            $this->smarty->assign('username',$user->getUserName());
+            $this->smarty->assign('username',$user);
         }
         $travel = $post->getTravel();
         $experience=$travel->getExperienceList();

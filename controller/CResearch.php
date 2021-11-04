@@ -160,30 +160,49 @@ class CResearch
         $view=new VResearch();
         if(UServer::getRequestMethod() == "GET") {
             $user = $pm->load("IDuser", $id, FUser::getClass());
-            USession::getInstance();
-            $u=USession::getElement('user');
-            $utente=unserialize($u);
-            if($user->getUserID()==$utente->getUserID()){
-                header("Location: /logBook/User/profile");
-            }else{
-                $img=$pm->load("IDimage",$user->getImageID(),'FImage');
-                $arrayPost=$pm->load("IDuser",$user->getUserID(),"FPost");
-                if($arrayPost!=null){
-                    foreach ($arrayPost as $a){
-                        if($a->getDeleted()==true){
-                            unset($arrayPost[array_search($a,$arrayPost,true)]);
+            if(CUser::isLogged()){
+                USession::getInstance();
+                $u = USession::getElement('user');
+                $utente = unserialize($u);
+                if ($user->getUserID() == $utente->getUserID()) {
+                    header("Location: /logBook/User/profile");
+                } else {
+                    $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
+                    $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
+                    if ($arrayPost != null) {
+                        foreach ($arrayPost as $a) {
+                            if ($a->getDeleted() == true) {
+                                unset($arrayPost[array_search($a, $arrayPost, true)]);
+                            }
                         }
                     }
+                    $image = array();
+                    foreach ($arrayPost as $r) {
+                        $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                        $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                        $image[] = $i;
+                    }
+                    $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
+                    $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
                 }
-                $image=array();
-                foreach ($arrayPost as $r){
-                    $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
-                    $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
-                    $image[]=$i;
-                }
-                $arrayPlace=$pm->loadPlaceByUser($user->getUserID());
-                $view->profileDetail($user,$img,$arrayPost,$arrayPlace,$image);
             }
+            $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
+            $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
+            if ($arrayPost != null) {
+                foreach ($arrayPost as $a) {
+                    if ($a->getDeleted() == true) {
+                        unset($arrayPost[array_search($a, $arrayPost, true)]);
+                    }
+                }
+            }
+            $image = array();
+            foreach ($arrayPost as $r) {
+                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                $image[] = $i;
+            }
+            $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
+            $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
         }
     }
 

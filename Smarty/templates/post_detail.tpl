@@ -33,7 +33,7 @@
     <div class="container">
         <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
         {if $userlogged!='nouser'}
-            <a class="btn btn-primary" href="/logBook/User/profile">{$username}</a>
+            <a class="btn btn-primary" href="/logBook/User/profile">{$username->getUserName()}</a>
         {else}
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
         {/if}
@@ -58,11 +58,11 @@
                         <div class="col-md-12" align="end">
                             <b>{$post->getNLike()}</b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href="/logBook/Research/postDetail/like/{$post->getPostID()}/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                             <b>{$post->getNDisLike()}</b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href="/logBook/Research/postDetail/like/{$post->getPostID()}/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 {if $userlogged!='nouser'}
                                     {if $author!=$username}
@@ -218,10 +218,10 @@
                         }
                     </script>
                 </div>
-                {$pm = FPersistentManager::getInstance()}
-                {$user = unserialize(USession::getElement('user'))}
-                {if $post->getUserID() == $user->getUserID()}
-                <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
+                {if $userlogged!='nouser'}
+                    {if $post->getUserID() == $username->getUserID()}
+                    <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
+                    {/if}
                 {/if}
             </div>
 

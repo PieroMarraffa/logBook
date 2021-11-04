@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 17:24:07
+/* Smarty version 3.1.33, created on 2021-11-04 18:30:24
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6184092711e107_37307507',
+  'unifunc' => 'content_618418b00457d3_72705072',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1636043005,
+      1 => 1636047008,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6184092711e107_37307507 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618418b00457d3_72705072 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -61,7 +61,7 @@ function content_6184092711e107_37307507 (Smarty_Internal_Template $_smarty_tpl)
     <div class="container">
         <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
         <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
-            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value->getUserName();?>
 </a>
         <?php } else { ?>
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
@@ -92,12 +92,14 @@ function content_6184092711e107_37307507 (Smarty_Internal_Template $_smarty_tpl)
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href="/logBook/Research/postDetail/like"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNDisLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href="/logBook/Research/postDetail/dislike"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
                                     <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value) {?>
@@ -303,11 +305,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <?php echo '</script'; ?>
 >
                 </div>
-                <?php $_smarty_tpl->_assignInScope('pm', FPersistentManager::getInstance());?>
-                <?php $_smarty_tpl->_assignInScope('user', unserialize(USession::getElement('user')));?>
-                <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['user']->value->getUserID()) {?>
-                <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+                <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                    <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['username']->value->getUserID()) {?>
+                    <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">Modify Post</a>
+                    <?php }?>
                 <?php }?>
             </div>
 
