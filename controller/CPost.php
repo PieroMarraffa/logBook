@@ -214,5 +214,6 @@ class CPost{
         $comment= new EComment( $IDpost, $user,null ,null ,$content );
         $pm= FPersistentManager::getInstance();
         $pm->store($comment);
+        header('Location: /logBook/Research/postDetail/'.$IDpost);
     }
 }
