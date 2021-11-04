@@ -31,7 +31,7 @@
         <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
         <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
         <b class="h5">Reported comments</b></div></a>
-        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+        <a href="/logBook/Admin/reportedPosts" ><div class="col-md-auto">
         <b class="h5">Reported posts</b></div></a>
         <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
                 <b class="h5">Reported user</b></div></a>

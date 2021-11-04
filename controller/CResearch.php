@@ -156,7 +156,7 @@ class CResearch
     static function report($id){
         $pm = FPersistentManager::getInstance();
         $pm->update("Reported",1,$id,FUser::getClass());
-        header('Location: /logBook/User/home');
+        header('Location: /logBook/Research/profileDetail/'.$id);
     }
 
     /**

@@ -103,8 +103,18 @@ class VAdmin
         $this->smarty->display('admin_reported_comment.tpl');
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function toReportedUsers($array){
         $this->smarty->assign('reportedComments', $array);
         $this->smarty->display('admin_reported_user.tpl');
+    }
+
+    /**
+     * @throws SmartyException
+     */
+    public function toReportedPosts(){
+        $this->smarty->display('admin_reported_post.tpl');
     }
 }

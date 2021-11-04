@@ -36,19 +36,29 @@
                         <div class="col-md-11 py-4">
 
                             <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <p class="text-justify text-dark align-content-start px-5 py-4 h5">
+                                <b>
+                                    This is the post's creation form, here you can create your posts.</br></br>
 
-                            <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                                A post is composed by a title, some experience (not less than one) and the images.</br></br>
+
+                                You can insert a title in the form on top of the page.</br></br>
+
+                                You can create an experience clicking on the button "Add Experience" and</br>
+                                you can add the images clicking on the button "Add Image".</br></br>
+
+                                You can also modify the post clicking on the button "Modify Post" in the</br>
+                                    post page.</br>
+                                </b>
+                            </p>
+
                         </div>
                         <div class="col-md-8">
 
                             <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-4">
-                                <!--input name="send" type="submit" form="form_create_post" class="btn btn-primary" -->
-                            </div>
 
                         </div>
-
             </div>
         </div>
         <div class="col-md-3 fisso" >
@@ -138,7 +148,6 @@
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
-                <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
             </div>

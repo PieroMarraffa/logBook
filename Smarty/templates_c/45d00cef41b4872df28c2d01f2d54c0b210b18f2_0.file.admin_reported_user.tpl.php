@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 15:42:30
+/* Smarty version 3.1.33, created on 2021-11-04 13:34:00
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61829fd6379081_47832542',
+  'unifunc' => 'content_6183d338683b93_22230867',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '45d00cef41b4872df28c2d01f2d54c0b210b18f2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_user.tpl',
-      1 => 1635950545,
+      1 => 1636029049,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61829fd6379081_47832542 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6183d338683b93_22230867 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('immagine', (($tmp = @$_smarty_tpl->tpl_vars['immagine']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['immagine_1']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
@@ -56,7 +56,7 @@ $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['imm
         <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
         <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
         <b class="h5">Reported comments</b></div></a>
-        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+        <a href="/logBook/Admin/reportedPosts" ><div class="col-md-auto">
         <b class="h5">Reported posts</b></div></a>
         <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
                 <b class="h5">Reported user</b></div></a>

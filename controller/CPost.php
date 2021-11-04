@@ -67,7 +67,6 @@ class CPost{
         }
 
         header('Location: /logBook/User/profile');
-
     }
 
     public static function create_post(){

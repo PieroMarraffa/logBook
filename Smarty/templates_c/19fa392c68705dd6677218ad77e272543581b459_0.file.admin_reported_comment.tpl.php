@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 18:35:42
+/* Smarty version 3.1.33, created on 2021-11-04 13:32:51
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_comment.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182c86e2bd590_61362464',
+  'unifunc' => 'content_6183d2f346d150_92157121',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '19fa392c68705dd6677218ad77e272543581b459' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_comment.tpl',
-      1 => 1635960938,
+      1 => 1636029049,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182c86e2bd590_61362464 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6183d2f346d150_92157121 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +54,7 @@ function content_6182c86e2bd590_61362464 (Smarty_Internal_Template $_smarty_tpl)
             <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
         <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
                 <b class="h5">Reported comments</b></div></a>
-        <a href="/logBook/Admin/reported_posts" ><div class="col-md-auto">
+        <a href="/logBook/Admin/reportedPosts" ><div class="col-md-auto">
                 <b class="h5">Reported posts</b></div></a>
         <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
                 <b class="h5">Reported user</b></div></a>

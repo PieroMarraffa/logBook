@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 12:31:11
+/* Smarty version 3.1.33, created on 2021-11-04 13:07:29
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618272ff20bbc3_99937521',
+  'unifunc' => 'content_6183cd012d5298_19624613',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1635939058,
+      1 => 1636027646,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618272ff20bbc3_99937521 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6183cd012d5298_19624613 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -63,20 +63,29 @@ function content_618272ff20bbc3_99937521 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="col-md-11 py-4">
 
                             <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <p class="text-justify text-dark align-content-start px-5 py-4 h5">
+                                <b>
+                                    This is the post's creation form, here you can create your posts.</br></br>
 
-                            <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                                A post is composed by a title, some experience (not less than one) and the images.</br></br>
+
+                                You can insert a title in the form on top of the page.</br></br>
+
+                                You can create an experience clicking on the button "Add Experience" and</br>
+                                you can add the images clicking on the button "Add Image".</br></br>
+
+                                You can also modify the post clicking on the button "Modify Post" in the</br>
+                                    post page.</br>
+                                </b>
+                            </p>
+
                         </div>
-                        <a name="experiences"></a>
                         <div class="col-md-8">
 
                             <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-4">
-                                <!--input name="send" type="submit" form="form_create_post" class="btn btn-primary" -->
-                            </div>
 
                         </div>
-
             </div>
         </div>
         <div class="col-md-3 fisso" >
@@ -99,11 +108,15 @@ function content_618272ff20bbc3_99937521 (Smarty_Internal_Template $_smarty_tpl)
                             "</div><div class='col-md-3'>" +
                             "<input type='date' name='endDate[]]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
                             "<select class='btn btn-primary' name='place[]]'>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value)) {?>" +
                             "<optgroup label='Tourist Destinations'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayMete']->value) == 1) {?>" +
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayMete']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['arrayMete']->value->getName();?>
+</option>" +
+                            "<?php } else { ?>" +
                             "<?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayMete']->value, 'm');
 if ($_from !== null) {
@@ -116,57 +129,76 @@ foreach ($_from as $_smarty_tpl->tpl_vars['m']->value) {
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayCity']->value)) {?>" +
                             "<optgroup label='Cities'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayCity']->value) == 1) {?>" +
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayCity']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['arrayCity']->value->getName();?>
+</option>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayCity']->value, 'c');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayCity']->value, 'city');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['c']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['city']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['c']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['c']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['city']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['city']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayRegion']->value)) {?>" +
                             "<optgroup label='Regions'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayRegion']->value) == 1) {?>" +
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayRegion']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['arrayRegion']->value->getName();?>
+</option>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayRegion']->value, 'r');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayRegion']->value, 'region');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['r']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['region']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['r']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['r']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['region']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['region']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayState']->value)) {?>" +
                             "<optgroup label='States'>" +
+                            "<?php if (count($_smarty_tpl->tpl_vars['arrayState']->value) == 1) {?>" +
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['arrayState']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['arrayState']->value->getName();?>
+</option>" +
+                            "<?php } else { ?>" +
                             "<?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayState']->value, 's');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayState']->value, 'state');
 if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['s']->value) {
+foreach ($_from as $_smarty_tpl->tpl_vars['state']->value) {
 ?>" +
-                            "<option value='<?php echo $_smarty_tpl->tpl_vars['s']->value->getPlaceID();?>
-'><?php echo $_smarty_tpl->tpl_vars['s']->value->getName();?>
+                            "<option value='<?php echo $_smarty_tpl->tpl_vars['state']->value->getPlaceID();?>
+'><?php echo $_smarty_tpl->tpl_vars['state']->value->getName();?>
 </option>" +
                             "<?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
+                            "<?php }?>" +
                             "</optgroup>" +
                             "<?php }?>" +
 
@@ -185,18 +217,19 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                     }
                 <?php echo '</script'; ?>
 >
-                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#experiences" >+ Add Experience</a>
+                <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
-                <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
             </div>
             </div>
         </div>
     </div>
-        <button name="send" type="submit" form="form_create_post" class="btn btn-primary" >Salva</button>
+        <button name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary" >Salva</button>
+        <a name="send" href="/logBook/User/profile" class="mx-3 my-3 btn btn-warning" >Annulla</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 
