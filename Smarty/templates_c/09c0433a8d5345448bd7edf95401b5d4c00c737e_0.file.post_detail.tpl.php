@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 16:46:13
+/* Smarty version 3.1.33, created on 2021-11-04 16:57:24
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61840045700467_58459549',
+  'unifunc' => 'content_618402e4b76216_30764704',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1636040770,
+      1 => 1636041443,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61840045700467_58459549 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618402e4b76216_30764704 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -184,10 +184,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="card bg-light">
                     <div class="card-body">
                         <!-- Comment form-->
-                        <form method="post" id="form_comment" action="/logBook/Post/writeComment" class="mb-4">
-                            <textarea class="form-control" id="comment" rows="3" placeholder="Leave a comment!"></textarea>
+                        <form method="POST" id="form_comment" action="/logBook/Post/writeComment/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+" class="mb-4">
+                            <input class="form-control" name="comment" id="comment" rows="3" placeholder="Leave a comment!">
                             <div align="end">
-                                <button class="btn btn-primary my-2" type="submit" form="form_comment" value="Submit"> Post comment </button>
+                                <input class="btn btn-primary my-2" type="submit" id="submit" form="form_comment" value="Post comment"> 
+
                             </div>
                         </form>
                         <!-- Comment -->
@@ -245,6 +247,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     <h5>Map</h5>
                 </div>
                 <div class="card-body">
+
                     <div id="map"></div>
 
                     <?php echo '<script'; ?>

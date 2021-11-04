@@ -126,10 +126,11 @@
                 <div class="card bg-light">
                     <div class="card-body">
                         <!-- Comment form-->
-                        <form method="post" id="form_comment" action="/logBook/Post/writeComment" class="mb-4">
-                            <textarea class="form-control" id="comment" rows="3" placeholder="Leave a comment!"></textarea>
+                        <form method="POST" id="form_comment" action="/logBook/Post/writeComment/{$post->getPostID()}" class="mb-4">
+                            <input class="form-control" name="comment" id="comment" rows="3" placeholder="Leave a comment!">
                             <div align="end">
-                                <button class="btn btn-primary my-2" type="submit" form="form_comment" value="Submit"> Post comment </button>
+                                <input class="btn btn-primary my-2" type="submit" id="submit" form="form_comment" value="Post comment"> 
+
                             </div>
                         </form>
                         <!-- Comment -->
@@ -174,6 +175,7 @@
                     <h5>Map</h5>
                 </div>
                 <div class="card-body">
+
                     <div id="map"></div>
 
                     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> </script>

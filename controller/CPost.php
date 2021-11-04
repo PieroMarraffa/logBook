@@ -206,4 +206,13 @@ class CPost{
 
         header('Location: /logBook/User/profile');
     }
+
+    static function writeComment($IDpost){
+        USession::getInstance();
+        $user=unserialize(USession::getElement('user'));
+        $content=$_POST['comment'];
+        $comment= new EComment( $IDpost, $user,null ,null ,$content );
+        $pm= FPersistentManager::getInstance();
+        $pm->store($comment);
+    }
 }
