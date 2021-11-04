@@ -208,12 +208,43 @@ class CPost{
     }
 
     static function writeComment($IDpost){
-        USession::getInstance();
-        $user=unserialize(USession::getElement('user'));
-        $content=$_POST['comment'];
-        $comment= new EComment( $IDpost, $user,null ,null ,$content );
-        $pm= FPersistentManager::getInstance();
-        $pm->store($comment);
-        header('Location: /logBook/Research/postDetail/'.$IDpost);
+        if(CUser::isLogged()) {
+            USession::getInstance();
+            $user = unserialize(USession::getElement('user'));
+            $content = $_POST['comment'];
+            $comment = new EComment($IDpost, $user, null, null, $content);
+            $pm = FPersistentManager::getInstance();
+            $pm->store($comment);
+            header('Location: /logBook/Research/postDetail/' . $IDpost);
+        }else{
+            header('Location: /logBook/User/login');
+        }
+    }
+    static function like($IDpost,$value){
+        if(CUser::isLogged()){
+            USession::getInstance();
+            $user=unserilize(USession::getElement('user'));
+            if ($value==1||$value==-1){
+                     $reaction = new ELike($value , $user, $IDpost);
+                     $pm=FPersistentManager::getInstance();
+                     $result=$pm->load('IDuser', $user->getUserID(), FLike::getClass());
+                     if($result==null){
+                          $pm->store($reaction);
+                          header('Location: /logBook/Research/postDetail/'.$IDpost);
+                     }else{
+                          foreach ($result as $res){
+                                  if($res->getPostID()==$IDpost) {
+                                        header('Location: /logBook/Research/postDetail/'.$IDpost);
+                                  }
+                                  }else{
+                                        $pm->store($reaction);
+                                         header('Location: /logBook/Research/postDetail/'.$IDpost);
+                     }
+
+                }
+            }else{
+                     header('Location: /logBook/Research/postDetail/'.$IDpost);
+            }
+        }
     }
 }

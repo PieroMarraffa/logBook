@@ -23,7 +23,7 @@ class ELike
     {
         $this->value = $value;
         $this->userID = $userID;
-        $this->postID=$postID;
+        $this->postID= $postID;
     }
 
     /**

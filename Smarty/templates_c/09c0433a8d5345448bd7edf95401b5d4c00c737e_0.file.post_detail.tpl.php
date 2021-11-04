@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 16:57:24
+/* Smarty version 3.1.33, created on 2021-11-04 17:24:07
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618402e4b76216_30764704',
+  'unifunc' => 'content_6184092711e107_37307507',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1636041443,
+      1 => 1636043005,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618402e4b76216_30764704 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6184092711e107_37307507 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -92,12 +92,12 @@ function content_618402e4b76216_30764704 (Smarty_Internal_Template $_smarty_tpl)
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Research/postDetail/like"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNDisLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Research/postDetail/dislike"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
                                     <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value) {?>
