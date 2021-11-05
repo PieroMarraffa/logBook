@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-05 13:04:25
+/* Smarty version 3.1.33, created on 2021-11-05 22:38:52
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61851dc99c64f2_21822822',
+  'unifunc' => 'content_6185a46c127955_99573464',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1636113862,
+      1 => 1636148150,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61851dc99c64f2_21822822 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6185a46c127955_99573464 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -422,7 +422,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                     </div>
                     <div class="row">
                         <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
-                        <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
                     </div>
                     <div id="container2" class="col">
                     </div>

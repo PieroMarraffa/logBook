@@ -259,7 +259,7 @@ class CPost{
             $Edescriprion = $arrayDescription[$i];
             $EplaceID = $arrayPlaceID[$i];
             $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
-            if (isset($Etitle) | isset($EstartDate) | isset($EfinishDate) | isset($Edescriprion)) {
+            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
                 $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
                 $exp->setPlaceID($EplaceID);
                 $ExpList[] = $exp;
