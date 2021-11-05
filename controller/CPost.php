@@ -9,7 +9,7 @@ class CPost{
         $pm = FPersistentManager::getInstance();
         $user = unserialize(USession::getElement('user'));
         if (!isset($_POST['titleExperience'])) {
-            header('Location: /logBook/User/home');
+            header('Location: /logBook/User/profile');
         } else {
             $arrayExperienceTitle = $_POST['titleExperience'];
             $arrayStartDay = $_POST['startDate'];
