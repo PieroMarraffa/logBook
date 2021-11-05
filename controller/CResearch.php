@@ -186,25 +186,28 @@ class CResearch
                     $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
                 }
             }
-            $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
-            $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
-            if ($arrayPost != null) {
-                foreach ($arrayPost as $a) {
-                    if ($a->getDeleted() == true) {
-                        unset($arrayPost[array_search($a, $arrayPost, true)]);
+            else{
+                $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
+                $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
+                if ($arrayPost != null) {
+                    foreach ($arrayPost as $a) {
+                        if ($a->getDeleted() == true) {
+                            unset($arrayPost[array_search($a, $arrayPost, true)]);
+                        }
                     }
                 }
+                $image = array();
+                foreach ($arrayPost as $r) {
+                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                    $image[] = $i;
+                }
+                $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
+                $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
             }
-            $image = array();
-            foreach ($arrayPost as $r) {
-                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
-                $image[] = $i;
-            }
-            $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
-            $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
         }
     }
+
 
     static function report($id){
         $pm = FPersistentManager::getInstance();

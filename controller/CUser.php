@@ -144,17 +144,21 @@ class CUser
                 }else $arrayPost=$arrayP;
                 if($arrayPost!=null){
                     foreach ($arrayPost as $a){
-                        if($a->getDeleted()==true){
-                            unset($arrayPost[array_search($a,$arrayPost,true)]);
+                        if($a !=null) {
+                            if ($a->getDeleted() == true) {
+                                unset($arrayPost[array_search($a, $arrayPost, true)]);
+                            }
                         }
                     }
                 }
                 $image=array();
                 if($arrayPost!=null) {
                     foreach ($arrayPost as $r) {
-                        $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                        $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
-                        $image[] = $i;
+                        if($r !=null) {
+                            $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                            $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                            $image[] = $i;
+                        }
                     }
                 }
                 $arrayPlace=$pm->loadPlaceByUser($user->getUserID());

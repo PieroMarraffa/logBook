@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 20:10:03
+/* Smarty version 3.1.33, created on 2021-11-05 13:44:30
   from 'C:\xampp\htdocs\logBook\Smarty\templates\update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182de8b539812_44191849',
+  'unifunc' => 'content_6185272e334d01_15231081',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d713b7c33cf173f85bd20e4b736fac9dcc2ae4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\update_post.tpl',
-      1 => 1635966578,
+      1 => 1636115760,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182de8b539812_44191849 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6185272e334d01_15231081 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -261,8 +261,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 </textarea>
                             </div>
                             <div align="end">
-                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-)">- Delete Experience</a>
+                                <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+">- Delete Experience</a>
                             </div>
                         </div>
                     <?php
@@ -277,7 +278,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                         <div class="col-md-8">
                             <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
-                            <a name="send" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+                            <a name="send" href="/logBook/Post/annullaModifiche/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 /" class="btn btn-warning" >Annulla</a>
                             <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 " class="btn btn-danger" >Elimina</a>
@@ -304,11 +305,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                                     "<div class='row py-2'>" +
                                     "<div class='col-md-3'>" +
-                                    "<input type='date' name='startDate[]]' class='px-2'>" +
+                                    "<input type='date' name='startDate[]' class='px-2'>" +
                                     "</div><div class='col-md-3'>" +
-                                    "<input type='date' name='endDate[]]' class='px-2'>" +
+                                    "<input type='date' name='endDate[]' class='px-2'>" +
                                     "</div><div class='col-md-3'>" +
-                                    "<select class='btn btn-primary' name='place[]]'>" +
+                                    "<select class='btn btn-primary' name='place[]'>" +
 
                                     "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value)) {?>" +
                                     "<optgroup label='Tourist Destinations'>" +
