@@ -54,8 +54,11 @@
                         <!-- Post meta content-->
                             <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author}</a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: {$post->getCreationDate()}</div>
+                            <div class="text-muted fst-italic mb-2">From: {$startDate}    To: {$endDate}</div>
+
                         </div>
                         <div class="col-md-12" align="end">
+
                             <b>{$post->getNLike()}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
