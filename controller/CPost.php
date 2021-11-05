@@ -133,6 +133,13 @@ class CPost{
     }
 
 
+    public static function deleteExistingImage($id, $postID){
+        $pm = FPersistentManager::getInstance();
+        $pm->update('IDimage', -$id, $id, FImage::getClass());
+        self::modify_post($postID);
+    }
+
+
     public static function reportPost($id){
         $view = new VResearch();
         FPersistentManager::reportPost($id);
