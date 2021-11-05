@@ -56,6 +56,29 @@ class FPersistentManager
     }
 
 
+    public static function loadAllPostIDByUser($idUser){
+        return FPost::loadAllPostIDByUser($idUser);
+    }
+
+    public static function loadAllPlaceIDByUser($idUser){
+        $postID = self::loadAllPostIDByUser($idUser);
+        if (count($postID > 1)){
+            $travelID = array();
+            foreach ($postID as $p){
+                $travelID[] = self::loadTravelByPost($p)->getTravelID();
+            }
+            $placeID = array();
+            foreach ($travelID as $t){
+                $exp = self::loadExperienceByTravel($t);
+                foreach ($exp as $e){
+                    $placeID[] = $e->getPlaceID();
+                }
+            }
+            return $placeID;
+        }
+    }
+
+
     public static function update($field, $newvalue, $val,$Fclass) {
         $ris = null;
         if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
@@ -316,7 +339,23 @@ class FPersistentManager
         FPost::deleteFromPostReported($idPost);
     }
 
+    public static function deleteFromReaction($idPost){
+        FPost::deleteFromReaction($idPost);
+    }
+
     public static function deleteFromPlaceToPost($idPost){
         FPost::deleteFromPlaceToPost($idPost);
+    }
+
+    public static function deleteOneFromPlaceToPost($idPost, $idPlace){
+        FPost::deleteOneFromPlaceToPost($idPost, $idPlace);
+    }
+
+    public static function deleteOneFromPlaceToUser($userID, $placeID){
+        FPost::deleteOneFromPlaceToUser($userID, $placeID);
+    }
+
+    public static function deleteAllFromPlaceToUser($userID){
+        FPost::deleteAllFromPlaceToUser($userID);
     }
 }

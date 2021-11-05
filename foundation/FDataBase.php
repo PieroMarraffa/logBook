@@ -323,6 +323,33 @@ class FDataBase
         }
     }
 
+
+    public function loadAllPostIDByUser($id){
+        try{
+            $query="SELECT IDpost FROM post WHERE IDuser = '" . $id."';";
+            $statement= $this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num == 0){
+                $result=null;
+            }
+            elseif ($num ==1){
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                $result=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch())
+                    $result[] = $row;
+            }
+            $this->closeDbConnection();
+            return $result;
+        }catch (PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            return null;
+        }
+    }
+
+
     public function loadPostToPlace($idPlace){
         try{
             $query="SELECT * FROM place_to_post WHERE IDplace ='". $idPlace . "';";
@@ -949,10 +976,86 @@ class FDataBase
     }
 
 
+    public function deleteFromPostReaction($idPost){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM reaction WHERE IDpost = '" . $idPost ."';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
+
+
     public function deleteFromPlaceToPost($idPost){
         try{
             $this->database->beginTransaction();
             $query = "DELETE FROM place_to_post WHERE IDpost = '" . $idPost ."';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
+
+
+    public function deleteOneFromPlaceToPost($idPost, $idPlace){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM place_to_post WHERE IDpost = '" . $idPost ."' && IDplace = '" . $idPlace . "';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
+
+
+    public function deleteOneFromPlaceToUser($idUser, $idPlace){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM place_to_user WHERE IDuser = '" . $idUser ."' && IDplace = '" . $idPlace . "';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
+
+
+    public function deleteAllFromPlaceToUser($idUser){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM place_to_user WHERE IDuser = '" . $idUser ."';";
             $statement = $this->database->prepare($query);
             $statement->execute();
             $this->database->commit();

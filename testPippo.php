@@ -24,10 +24,11 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $pm = FPersistentManager::getInstance();
-        return $pm->load('IDpost', 28, FPost::getClass());
+        $result = FPersistentManager::loadAllPlaceIDByUser(5);
+        echo var_dump($result);
     }
 }
 
-echo var_dump(testPippo::test());
+testPippo::test();
+//echo var_dump(testPippo::test());
 

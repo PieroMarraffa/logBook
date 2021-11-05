@@ -9,6 +9,8 @@ class FPost
 
     public static $value = "(:IDpost,:IDuser,:Title,:Date,:Deleted)";
 
+
+
     public function __constructor()
     {
     }
@@ -182,6 +184,28 @@ class FPost
             }
         }
         return $place;
+    }
+
+
+    /** restituisce la persona o le persone che hanno reportato quel post */
+    public static function loadAllPostIDByUser($idUser)
+    {
+        $postID = null;
+        $database = FDataBase::getInstance();
+        $result = $database->loadAllPostIDByUser($idUser);
+        $rows_number = count($result);
+        if(($result[0] != null) && ($rows_number == 1)) {
+            $postID = $result[0]['IDpost'];
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $postID = array();
+                for($i = 0; $i < $rows_number; $i++){
+                    $postID[$i] = $result[$i]['IDpost'];
+                }
+            }
+        }
+        return $postID;
     }
 
 
@@ -420,10 +444,33 @@ class FPost
     }
 
 
+    public static function deleteFromReaction($idPost){
+        $database=FDataBase::getInstance();
+        $database->deleteFromPostReaction($idPost);
+    }
+
+
     public static function deleteFromPlaceToPost($idPost){
         $database=FDataBase::getInstance();
         $database->deleteFromPlaceToPost($idPost);
     }
 
+
+    public static function deleteOneFromPlaceToPost($idPost, $idPlace){
+        $database=FDataBase::getInstance();
+        $database->deleteOneFromPlaceToPost($idPost, $idPlace);
+    }
+
+
+    public static function deleteOneFromPlaceToUser($userID, $placeID){
+        $database=FDataBase::getInstance();
+        $database->deleteOneFromPlaceToUser($userID, $placeID);
+    }
+
+
+    public static function deleteAllFromPlaceToUser($userID){
+        $database=FDataBase::getInstance();
+        $database->deleteAllFromPlaceToUser($userID);
+    }
 
 }

@@ -4,7 +4,6 @@
 class CPost{
     public static function savePost()
     {
-
         USession::getInstance();
         $pm = FPersistentManager::getInstance();
         $user = unserialize(USession::getElement('user'));
@@ -50,9 +49,11 @@ class CPost{
                     $exp->setTravelID($travelID);
                     $pm->store($exp);
 
+                    echo var_dump($pm->existAssociationUserPlace($userID, $exp->getPlaceID()));
                     if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
                         $pm->storePlaceToUser($userID, $exp->getPlaceID());
                     }
+                    echo var_dump($pm->existAssociationPostPlace($postID, $exp->getPlaceID()));
                     if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
                         $pm->storePlaceToPost($postID, $exp->getPlaceID());
                     }
@@ -105,6 +106,20 @@ class CPost{
             }
             $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
             $pm->deletePost($postID);
+            $pm->deleteFromPlaceToPost($postID);
+
+            $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+            echo var_dump($listaPlaceID);
+            $pm->deleteAllFromPlaceToUser($user->getUserID());
+            foreach ($listaPlaceID as $id){
+                $pm->storePlaceToUser($user->getUserID(), $id);
+            }
+
+            $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
+            $pm->delete('IDpost', $postID, FComment::getClass());
+            $pm->deleteFromPostReported($postID);
+            $pm->deleteFromReaction($postID);
+
             header('Location: /logBook/User/profile');
         } else{
             header('Location: /logBook/User/home');
@@ -211,10 +226,21 @@ class CPost{
         $arrayExperienceTitle = $_POST['titleExperience'];
         $arrayStartDay = $_POST['startDate'];
         $arrayEndDay = $_POST['endDate'];
-        $arrayPlace = $_POST['place'];
+        $arrayPlaceID = $_POST['place'];
         $arrayDescription = $_POST['description'];
 
+        $associationsToDelete = array();
         foreach ($arrayOriginalExperience as $expO) {
+            $deletableAssociation = true;
+            foreach ($arrayPlaceID as $id){
+                if ($id == $expO->getPlaceID()){
+                    $deletableAssociation = false;
+                }
+            }
+            if ($deletableAssociation == true){
+                $associationsToDelete = $expO->getPlaceID();
+                $pm->deleteOneFromPlaceToPost($postID, $expO->getPlaceID());
+            }
             $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
         }
 
@@ -224,15 +250,14 @@ class CPost{
             $EstartDate = $arrayStartDay[$i];
             $EfinishDate = $arrayEndDay[$i];
             $Edescriprion = $arrayDescription[$i];
-            $EplaceID = $arrayPlace[$i];
+            $EplaceID = $arrayPlaceID[$i];
+            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
             if (isset($Etitle) | isset($EstartDate) | isset($EfinishDate) | isset($Edescriprion)) {
-                $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
                 $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
                 $exp->setPlaceID($EplaceID);
                 $ExpList[] = $exp;
             }
         }
-
         $travelID = $travel->getTravelID();
         foreach ($ExpList as $exp) {
             $exp->setTravelID($travelID);
@@ -244,6 +269,12 @@ class CPost{
             if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
                 $pm->storePlaceToPost($postID, $exp->getPlaceID());
             }
+        }
+
+        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+        $pm->deleteAllFromPlaceToUser($user->getUserID());
+        foreach ($listaPlaceID as $id){
+            $pm->storePlaceToUser($user->getUserID(), $id);
         }
 
         header('Location: /logBook/User/profile');
