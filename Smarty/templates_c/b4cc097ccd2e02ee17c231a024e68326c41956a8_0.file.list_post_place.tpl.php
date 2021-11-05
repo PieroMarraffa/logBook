@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-28 19:04:35
+/* Smarty version 3.1.33, created on 2021-11-05 22:17:10
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617ad823280b46_35626713',
+  'unifunc' => 'content_61859f56959e65_16668134',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b4cc097ccd2e02ee17c231a024e68326c41956a8' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl',
-      1 => 1635431464,
+      1 => 1635789457,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617ad823280b46_35626713 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61859f56959e65_16668134 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -158,41 +158,44 @@ function content_617ad823280b46_35626713 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </header>
 <!-- Section-->
-<section class="py-5">
-
-    <div class="row">
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
         <!-- Blog entries-->
         <?php if ($_smarty_tpl->tpl_vars['arrayPostPlace']->value) {?>
         <?php if (isset($_smarty_tpl->tpl_vars['arrayPostPlace']->value)) {?>
-            <div class="row">
                 <!-- Blog post-->
-                <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayPostPlace']->value, 'post');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
+        <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
+$_smarty_tpl->tpl_vars['i']->value = 0;
+if ($_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayPostPlace']->value)-1) {
+for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_vars['arrayPostPlace']->value)-1; $_smarty_tpl->tpl_vars['i']->value++) {
 ?>
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="https://dummyimage.com/400x300/dee2e6/6c757d.jpg" alt="..." />
-                            <div class="card-body">
-                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
+        <?php if (isset($_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value])) {?>
+        <div class="col md-4" >
+            <div class="card mb-4">
+                <!-- Profile image-->
+                <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+' height="300" width="400" alt="...">
+                <div class="card-body">
+                                <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
 </div>
-                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['post']->value->getTitle();?>
+                                <h2 class="card-title h4"><?php echo $_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value]->getTitle();?>
 </h2>
-                                <a class="btn btn-primary" href="">Go to the Post →</a>
+                                <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">Go to the Post →</a>
                             </div>
                         </div>
                     </div>
-                <?php
+            <?php }?>
+                <?php }
 }
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+?>
             </div>
         <?php }?>
         <?php }?>
     </div>
-
-</section>
+</div>
 <!-- Bootstrap core JS-->
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
