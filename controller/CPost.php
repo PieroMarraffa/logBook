@@ -6,7 +6,6 @@ class CPost{
     {
 
         USession::getInstance();
-        $view = new VUser();
         $pm = FPersistentManager::getInstance();
         $user = unserialize(USession::getElement('user'));
         $arrayExperienceTitle = $_POST['titleExperience'];
@@ -22,51 +21,60 @@ class CPost{
             $Edescriprion = $arrayDescription[$i];
             $EplaceID = $arrayPlaceID[$i];
             $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
-            $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-            $exp->setPlaceID($EplaceID);
-            $ExpList[] = $exp;
-        }
-        $title = $_POST['title'];
-        $TravelDays = FTravel::lowerAndHigherDate($ExpList);
-        $DayOne = $TravelDays[0];
-        $LastDay = $TravelDays[1];
-        $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
-        $date = date("Y-m-d h:i:s");
-        $userID = $user->getUserID();
-        $deleted = 0;
-        $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
-        $postID = $pm->store($post);
-        $travel->setPostID($postID);
-        $travelID = $pm->store($travel);
-        foreach ($ExpList as $exp){
-            $exp->setTravelID($travelID);
-            $pm->store($exp);
-
-            if ($pm->existAssociationUserPlace($userID,$exp->getPlaceID()) == false){
-                $pm->storePlaceToUser($userID, $exp->getPlaceID());
+            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                $exp->setPlaceID($EplaceID);
+                $ExpList[] = $exp;
             }
-            if ($pm->existAssociationPostPlace($postID,$exp->getPlaceID()) == false){
-                $pm->storePlaceToPost($postID, $exp->getPlaceID());
-            }
-        }
 
-        for($numImg=2; isset($_FILES['image'.$numImg]);$numImg++){
-            $nome_file = 'image' . $numImg;
-            $img = static::upload($travelID, $nome_file);
-            switch ($img) {
-                case "size":
-                    //$view->registrationError("size");
-                    break;
-                case "type":
-                    //$view->registrationError("type");
-                    break;
-                case "ok":
-                    header('Location: /logBook/User/profile');
-                    break;
-            }
         }
+        if (count($ExpList) == 0){
+            header('Location: /logBook/User/profile');
+        }
+        else {
+            $title = $_POST['title'];
+            $TravelDays = FTravel::lowerAndHigherDate($ExpList);
+            $DayOne = $TravelDays[0];
+            $LastDay = $TravelDays[1];
+            $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
+            $date = date("Y-m-d h:i:s");
+            $userID = $user->getUserID();
+            $deleted = 0;
+            $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+            $postID = $pm->store($post);
+            $travel->setPostID($postID);
+            $travelID = $pm->store($travel);
+            foreach ($ExpList as $exp) {
+                $exp->setTravelID($travelID);
+                $pm->store($exp);
 
-        header('Location: /logBook/User/profile');
+                if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
+                    $pm->storePlaceToUser($userID, $exp->getPlaceID());
+                }
+                if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
+                    $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                }
+            }
+
+            for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
+                echo $numImg;
+                $nome_file = 'image' . $numImg;
+                $img = static::upload($travelID, $nome_file);
+                switch ($img) {
+                    case "size":
+                        //$view->registrationError("size");
+                        break;
+                    case "type":
+                        //$view->registrationError("type");
+                        break;
+                    case "ok":
+                        //header('Location: /logBook/User/profile');
+                        break;
+                }
+            }
+
+            header('Location: /logBook/User/profile');
+        }
     }
 
     public static function create_post(){
@@ -98,6 +106,12 @@ class CPost{
         } else{
             header('Location: /logBook/User/home');
         }
+    }
+
+    public static function deleteExistingExperience($id, $postID){
+        $pm = FPersistentManager::getInstance();
+        $pm->update('IDexperience', -$id, $id, FExperience::getClass());
+        self::modify_post($postID);
     }
 
 
@@ -147,15 +161,40 @@ class CPost{
             $travel = $pm->loadTravelByPost($postID);
             $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
             $arrayExperience = $travel->getExperienceList();
+            $arrayExperienceDaVedere = array();
+            foreach ($arrayExperience as $exp){
+                if ($exp->getExperienceID() > 0){
+                    $arrayExperienceDaVedere[] = $exp;
+                }
+            }
             $numero = 2;
             $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
             $arrayCity = $pm->load('category', 'città', FPlace::getClass());
             $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
             $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
             $arrayPlace = $pm->loadAll(FPlace::getClass());
-            $view->modify_post($travel, $arrayExperience, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+            $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
         } else{
             header('Location: /logBook/User/home');
+        }
+    }
+
+
+    static function annullaModifiche($postID){
+        USession::getInstance();
+        $pm = FPersistentManager::getInstance();
+        $user = unserialize(USession::getElement('user'));
+        if ($user->getUserID() == $pm->getUserByPost($postID)) {
+            $travel = $pm->loadTravelByPost($postID);
+            $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
+            $arrayExperience = $travel->getExperienceList();
+            foreach ($arrayExperience as $exp) {
+                if ($exp->getExperienceID() < 0) {
+                    echo 'u mannassa';
+                    $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+                }
+            }
+            header('Location: /logBook/Research/postDetail/' . $postID);
         }
     }
 
@@ -172,10 +211,8 @@ class CPost{
         $arrayPlace = $_POST['place'];
         $arrayDescription = $_POST['description'];
 
-        for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
-            foreach ($arrayOriginalExperience as $expO) {
-                $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
-            }
+        foreach ($arrayOriginalExperience as $expO) {
+            $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
         }
 
         $ExpList = array();
@@ -185,10 +222,12 @@ class CPost{
             $EfinishDate = $arrayEndDay[$i];
             $Edescriprion = $arrayDescription[$i];
             $EplaceID = $arrayPlace[$i];
-            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
-            $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-            $exp->setPlaceID($EplaceID);
-            $ExpList[] = $exp;
+            if (isset($Etitle) | isset($EstartDate) | isset($EfinishDate) | isset($Edescriprion)) {
+                $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                $exp->setPlaceID($EplaceID);
+                $ExpList[] = $exp;
+            }
         }
 
         $travelID = $travel->getTravelID();

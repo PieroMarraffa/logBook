@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 19:58:11
+/* Smarty version 3.1.33, created on 2021-11-04 19:05:09
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182dbc3f3f858_79858036',
+  'unifunc' => 'content_618420d54e45b2_99822177',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1635961139,
+      1 => 1636048890,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182dbc3f3f858_79858036 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618420d54e45b2_99822177 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -63,19 +63,29 @@ function content_6182dbc3f3f858_79858036 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="col-md-11 py-4">
 
                             <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <p class="text-justify text-dark align-content-start px-5 py-4 h5">
+                                <b>
+                                    This is the post's creation form, here you can create your posts.</br></br>
 
-                            <img class="mx-3 my-5" src="https://dummyimage.com/1050x700/dee2e6/6c757d.jpg" width="1050" height="700" alt="image">
+                                A post is composed by a title, some experience (not less than one) and the images.</br></br>
+
+                                You can insert a title in the form on top of the page.</br></br>
+
+                                You can create an experience clicking on the button "Add Experience" and</br>
+                                you can add the images clicking on the button "Add Image".</br></br>
+
+                                You can also modify the post clicking on the button "Modify Post" in the</br>
+                                    post page.</br>
+                                </b>
+                            </p>
+
                         </div>
                         <div class="col-md-8">
 
                             <div class="container py-3" id="container">
                             </div>
-                            <div class="col-md-4">
-                                <!--input name="send" type="submit" form="form_create_post" class="btn btn-primary" -->
-                            </div>
 
                         </div>
-
             </div>
         </div>
         <div class="col-md-3 fisso" >
@@ -94,11 +104,11 @@ function content_6182dbc3f3f858_79858036 (Smarty_Internal_Template $_smarty_tpl)
                             "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate[]]' class='px-2'>" +
+                            "<input type='date' name='startDate[]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate[]]' class='px-2'>" +
+                            "<input type='date' name='endDate[]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<select class='btn btn-primary' name='place[]]'>" +
+                            "<select class='btn btn-primary' name='place[]'>" +
 
                             "<?php if (isset($_smarty_tpl->tpl_vars['arrayMete']->value)) {?>" +
                             "<optgroup label='Tourist Destinations'>" +
@@ -211,7 +221,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
             </div>
             <div class="row">
                 <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
-                <input width='100%' class='btn btn-primary my-1' type='file' name='file' id='image' accept='image/png, image/jpeg'>
             </div>
                 <div id="container2" class="col">
             </div>

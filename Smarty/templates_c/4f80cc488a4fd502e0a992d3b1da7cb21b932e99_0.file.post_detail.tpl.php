@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-03 17:21:50
+/* Smarty version 3.1.33, created on 2021-11-04 19:17:29
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6182b71e5da251_91439656',
+  'unifunc' => 'content_618423b9c0f162_24942958',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1635956505,
+      1 => 1636048605,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6182b71e5da251_91439656 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618423b9c0f162_24942958 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -61,7 +61,7 @@ function content_6182b71e5da251_91439656 (Smarty_Internal_Template $_smarty_tpl)
     <div class="container">
         <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="logo"></a>
         <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
-            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
+            <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value->getUserName();?>
 </a>
         <?php } else { ?>
             <a class="btn btn-primary" href="/logBook/User/login">Sign Up</a>
@@ -88,18 +88,30 @@ function content_6182b71e5da251_91439656 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
 </div>
                         </div>
-                        <div class="col-md-4" align="end">
+                        <div class="col-md-12" align="end">
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNDisLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
-                                <a class="navbar-brand" href=""><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
+                                <a class="navbar-brand" href="/logBook/Post/like/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
+                                <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                                    <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value) {?>
+                                        <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+">
+                                            <div class="btn btn-danger justify-content-end" >
+                                                    <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
 
+                                            </div>
+                                        </a>
+                                    <?php }?>
+                                <?php }?>
                         </div>
                     </div>
                 </header>
@@ -121,7 +133,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 ?>
                             <div class="carousel-item">
 
-                                    <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                                    <img class="w-100" src='
+
+                                    data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ' alt="...">
 
@@ -142,25 +156,25 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                 </div>
                 <section class="mb-5">
                     <?php if ($_smarty_tpl->tpl_vars['arrayExperience']->value) {?>
-                    <?php
+                        <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['arrayExperience']->value, 'experience');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
 ?>
-                    <div class="card my-3">
-                        <div class="card-header">
-                            <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
+                        <div class="card my-3">
+                            <div class="card-header">
+                                <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
 </h4>
-                            <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
+                                <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
    To: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getEndDay();?>
 </div>
-                        </div>
-                        <div class="card-body">
-                            <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
+                            </div>
+                            <div class="card-body">
+                                <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
 
+                            </div>
                         </div>
-                    </div>
-                    <?php
+                        <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
@@ -172,10 +186,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <div class="card bg-light">
                     <div class="card-body">
                         <!-- Comment form-->
-                        <form method="post" id="form_comment" action="/logBook/Post/writeComment" class="mb-4">
-                            <textarea class="form-control" id="comment" rows="3" placeholder="Leave a comment!"></textarea>
+                        <form method="POST" id="form_comment" action="/logBook/Post/writeComment/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+" class="mb-4">
+                            <input class="form-control" name="comment" id="comment" rows="3" placeholder="Leave a comment!">
                             <div align="end">
-                                <button class="btn btn-primary my-2" type="submit" form="form_comment" value="Submit"> Post comment </button>
+                                <input class="btn btn-primary my-2" type="submit" id="submit" form="form_comment" value="Post comment"> 
+
                             </div>
                         </form>
                         <!-- Comment -->
@@ -233,6 +249,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     <h5>Map</h5>
                 </div>
                 <div class="card-body">
+
                     <div id="map"></div>
 
                     <?php echo '<script'; ?>
@@ -288,11 +305,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <?php echo '</script'; ?>
 >
                 </div>
-                <?php $_smarty_tpl->_assignInScope('pm', FPersistentManager::getInstance());?>
-                <?php $_smarty_tpl->_assignInScope('user', unserialize(USession::getElement('user')));?>
-                <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['user']->value->getUserID()) {?>
-                <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+                <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
+                    <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['username']->value->getUserID()) {?>
+                    <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">Modify Post</a>
+                    <?php }?>
                 <?php }?>
             </div>
 

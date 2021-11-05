@@ -76,11 +76,11 @@
                             "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate[]]' class='px-2'>" +
+                            "<input type='date' name='startDate[]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate[]]' class='px-2'>" +
+                            "<input type='date' name='endDate[]' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<select class='btn btn-primary' name='place[]]'>" +
+                            "<select class='btn btn-primary' name='place[]'>" +
 
                             "{if isset($arrayMete)}" +
                             "<optgroup label='Tourist Destinations'>" +

@@ -155,7 +155,7 @@
                                 <textarea class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
                             </div>
                             <div align="end">
-                                <a type="button" class="my-3 mx-3 btn btn-danger" onclick="remove({$exp->getExperienceID()})">- Delete Experience</a>
+                                <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>
                             </div>
                         </div>
                     {/foreach}
@@ -167,7 +167,7 @@
                         </div>
                         <div class="col-md-8">
                             <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
-                            <a name="send" href="/logBook/Research/postDetail/{$postID}/" class="btn btn-warning" >Annulla</a>
+                            <a name="send" href="/logBook/Post/annullaModifiche/{$postID}/" class="btn btn-warning" >Annulla</a>
                             <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger" >Elimina</a>
                             <a name="bottomPage"></a>
                         </div>
@@ -191,11 +191,11 @@
                                     "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                                     "<div class='row py-2'>" +
                                     "<div class='col-md-3'>" +
-                                    "<input type='date' name='startDate[]]' class='px-2'>" +
+                                    "<input type='date' name='startDate[]' class='px-2'>" +
                                     "</div><div class='col-md-3'>" +
-                                    "<input type='date' name='endDate[]]' class='px-2'>" +
+                                    "<input type='date' name='endDate[]' class='px-2'>" +
                                     "</div><div class='col-md-3'>" +
-                                    "<select class='btn btn-primary' name='place[]]'>" +
+                                    "<select class='btn btn-primary' name='place[]'>" +
 
                                     "{if isset($arrayMete)}" +
                                     "<optgroup label='Tourist Destinations'>" +
