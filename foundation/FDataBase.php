@@ -949,6 +949,24 @@ class FDataBase
     }
 
 
+    public function deleteFromPlaceToPost($idPost){
+        try{
+            $this->database->beginTransaction();
+            $query = "DELETE FROM place_to_post WHERE IDpost = '" . $idPost ."';";
+            $statement = $this->database->prepare($query);
+            $statement->execute();
+            $this->database->commit();
+            $this->closeDbConnection();
+            $result = true;
+
+        }catch(PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            $this->database->rollBack();
+            $result= false;
+        }
+        return $result;
+    }
+
 
 
     public function getAllByTable($table){

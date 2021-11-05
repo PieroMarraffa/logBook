@@ -315,4 +315,8 @@ class FPersistentManager
     public static function deleteFromPostReported($idPost){
         FPost::deleteFromPostReported($idPost);
     }
+
+    public static function deleteFromPlaceToPost($idPost){
+        FPost::deleteFromPlaceToPost($idPost);
+    }
 }

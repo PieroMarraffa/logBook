@@ -420,5 +420,10 @@ class FPost
     }
 
 
+    public static function deleteFromPlaceToPost($idPost){
+        $database=FDataBase::getInstance();
+        $database->deleteFromPlaceToPost($idPost);
+    }
+
 
 }

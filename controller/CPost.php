@@ -8,72 +8,75 @@ class CPost{
         USession::getInstance();
         $pm = FPersistentManager::getInstance();
         $user = unserialize(USession::getElement('user'));
-        $arrayExperienceTitle = $_POST['titleExperience'];
-        $arrayStartDay = $_POST['startDate'];
-        $arrayEndDay = $_POST['endDate'];
-        $arrayPlaceID= $_POST['place'];
-        $arrayDescription = $_POST['description'];
-        $ExpList = array();
-        for ($i = 0; $i < count($arrayExperienceTitle); $i++){
-            $Etitle = $arrayExperienceTitle[$i];
-            $EstartDate = $arrayStartDay[$i];
-            $EfinishDate = $arrayEndDay[$i];
-            $Edescriprion = $arrayDescription[$i];
-            $EplaceID = $arrayPlaceID[$i];
-            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
-            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
-                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                $exp->setPlaceID($EplaceID);
-                $ExpList[] = $exp;
-            }
-
-        }
-        if (count($ExpList) == 0){
-            header('Location: /logBook/User/profile');
-        }
-        else {
-            $title = $_POST['title'];
-            $TravelDays = FTravel::lowerAndHigherDate($ExpList);
-            $DayOne = $TravelDays[0];
-            $LastDay = $TravelDays[1];
-            $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
-            $date = date("Y-m-d h:i:s");
-            $userID = $user->getUserID();
-            $deleted = 0;
-            $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
-            $postID = $pm->store($post);
-            $travel->setPostID($postID);
-            $travelID = $pm->store($travel);
-            foreach ($ExpList as $exp) {
-                $exp->setTravelID($travelID);
-                $pm->store($exp);
-
-                if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
-                    $pm->storePlaceToUser($userID, $exp->getPlaceID());
+        if (!isset($_POST['titleExperience'])) {
+            header('Location: /logBook/User/home');
+        } else {
+            $arrayExperienceTitle = $_POST['titleExperience'];
+            $arrayStartDay = $_POST['startDate'];
+            $arrayEndDay = $_POST['endDate'];
+            $arrayPlaceID = $_POST['place'];
+            $arrayDescription = $_POST['description'];
+            $ExpList = array();
+            for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
+                $Etitle = $arrayExperienceTitle[$i];
+                $EstartDate = $arrayStartDay[$i];
+                $EfinishDate = $arrayEndDay[$i];
+                $Edescriprion = $arrayDescription[$i];
+                $EplaceID = $arrayPlaceID[$i];
+                $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+                if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                    $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                    $exp->setPlaceID($EplaceID);
+                    $ExpList[] = $exp;
                 }
-                if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
-                    $pm->storePlaceToPost($postID, $exp->getPlaceID());
-                }
-            }
 
-            for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
-                echo $numImg;
-                $nome_file = 'image' . $numImg;
-                $img = static::upload($travelID, $nome_file);
-                switch ($img) {
-                    case "size":
-                        //$view->registrationError("size");
-                        break;
-                    case "type":
-                        //$view->registrationError("type");
-                        break;
-                    case "ok":
-                        //header('Location: /logBook/User/profile');
-                        break;
-                }
             }
+            if (count($ExpList) == 0) {
+                header('Location: /logBook/User/profile');
+            } else {
+                $title = $_POST['title'];
+                $TravelDays = FTravel::lowerAndHigherDate($ExpList);
+                $DayOne = $TravelDays[0];
+                $LastDay = $TravelDays[1];
+                $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
+                $date = date("Y-m-d h:i:s");
+                $userID = $user->getUserID();
+                $deleted = 0;
+                $post = new EPost($title, array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+                $postID = $pm->store($post);
+                $travel->setPostID($postID);
+                $travelID = $pm->store($travel);
+                foreach ($ExpList as $exp) {
+                    $exp->setTravelID($travelID);
+                    $pm->store($exp);
 
-            header('Location: /logBook/User/profile');
+                    if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
+                        $pm->storePlaceToUser($userID, $exp->getPlaceID());
+                    }
+                    if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
+                        $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                    }
+                }
+
+                for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
+                    echo $numImg;
+                    $nome_file = 'image' . $numImg;
+                    $img = static::upload($travelID, $nome_file);
+                    switch ($img) {
+                        case "size":
+                            //$view->registrationError("size");
+                            break;
+                        case "type":
+                            //$view->registrationError("type");
+                            break;
+                        case "ok":
+                            //header('Location: /logBook/User/profile');
+                            break;
+                    }
+                }
+
+                header('Location: /logBook/User/profile');
+            }
         }
     }
 
