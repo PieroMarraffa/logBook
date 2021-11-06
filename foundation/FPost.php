@@ -7,7 +7,7 @@ class FPost
 
     public static $table = "post";
 
-    public static $value = "(:IDpost,:IDuser,:Title,:Date,:Deleted)";
+    public static $value = "(:IDpost,:IDuser,:Date,:Deleted)";
 
 
 
@@ -19,7 +19,6 @@ class FPost
     {
         $statement->bindValue(":IDpost", NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDuser", $post->getUserID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
-        $statement->bindValue(":Title", $post->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":Date", $post->getCreationDate(), PDO::PARAM_STR);
         $statement->bindValue(":Deleted", $post->getDeleted(), PDO::PARAM_BOOL);
     }
@@ -99,7 +98,7 @@ class FPost
                     }
                 }
             }
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->getTravel()->setTravelID($travel->getTravelID());
             $post->setPostID($result['IDpost']);
         }
@@ -120,7 +119,7 @@ class FPost
                             $nDislike++;
                         }
                     }}
-                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList, $result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
+                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -264,7 +263,7 @@ class FPost
                     $nDislike++;
                 }
             }}
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDpost']);
+            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDpost']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -285,7 +284,7 @@ class FPost
                             $nDislike++;
                         }
                     }}
-                    $post[] = new EPost($result[$i]->getTitle(),$commentList,$likeList,$result[$i]->getCreationDate(),$travel,$result[$i]->getDeleted(),$nLike,$nDislike, $result[$i]->getUserID());
+                    $post[] = new EPost($commentList,$likeList,$result[$i]->getCreationDate(),$travel,$result[$i]->getDeleted(),$nLike,$nDislike, $result[$i]->getUserID());
                     $post[$i]->setPostID($result[$i]->getPostID());
                 }
             }
@@ -323,7 +322,7 @@ class FPost
                     $nDislike++;
                 }
             }}
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -344,7 +343,7 @@ class FPost
                             $nDislike++;
                         }
                     }}
-                    $post[] = new EPost($result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
+                    $post[] = new EPost($commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -389,8 +388,8 @@ class FPost
     /**
      * @throws Exception
      */
-    static function newPost($iduser, $titolo, $data, $deleted){
-        $post = new EPost($titolo, array(), array(), $data, null, $deleted, 0, 0 , $iduser);
+    static function newPost($iduser,$data, $deleted){
+        $post = new EPost(array(), array(), $data, null, $deleted, 0, 0 , $iduser);
         self::store($post);
     }
 

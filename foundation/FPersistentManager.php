@@ -234,15 +234,6 @@ class FPersistentManager
 
     }
 
-    public static function loadByCategory($idCategory){
-        $result=FPlace::loadByCategory($idCategory);
-        return $result;
-    }
-
-    public static function loadLowerCategory($idCategory){
-        $result=FPlace::loadLowerCategory($idCategory);
-        return $result;
-    }
 
     public static function loadAllVisibleComment()
     {
@@ -319,13 +310,6 @@ class FPersistentManager
         return FPost::loadDeletedPosts();
     }
 
-    public static function newUserToDB($IDuser, $email, $password, $name, $description, $IDimage, $username, $banned){
-        FUser::newUserToDB( $email, $password, $name, $description, $IDimage, $username, $banned);
-    }
-
-    public static function newPost($idpost, $iduser, $autore, $titolo, $data, $deleted){
-        FPost::newPost( $iduser, $titolo, $data, $deleted);
-    }
 
     public static function reportPost($reportedPostId){
         FPost::loadReportedPost($reportedPostId);

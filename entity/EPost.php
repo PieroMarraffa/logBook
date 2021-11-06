@@ -5,7 +5,6 @@ use Cassandra\Date;
 
 class EPost implements Countable
 {
-    private $title;
     private $commentList;
     private $likeList;
     private $creationDate;
@@ -18,7 +17,6 @@ class EPost implements Countable
 
     /**
      * EPost constructor.
-     * @param $title
      * @param $commentList
      * @param $likeList
      * @param $creationDate
@@ -30,10 +28,9 @@ class EPost implements Countable
      * @param $userID
      * @throws Exception
      */
-    public function __construct($title, $commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
+    public function __construct($commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
     {
 
-        $this->title = $title;
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = $creationDate;
@@ -132,7 +129,7 @@ class EPost implements Countable
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->travel->getTitle();
     }
 
     /**
@@ -140,7 +137,7 @@ class EPost implements Countable
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        $this->travel->setTitle($title);
     }
 
     /**
