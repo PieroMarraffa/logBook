@@ -64,7 +64,6 @@ class CPost{
                     }
 
                     for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
-                        echo $numImg;
                         $nome_file = 'image' . $numImg;
                         $img = static::upload($travelID, $nome_file);
                         switch ($img) {
@@ -376,9 +375,8 @@ class CPost{
             USession::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($value == 1 || $value == -1) {
-                $reaction = new ELike($value, $user, $IDpost);
+                $reaction = new ELike($value,$user->getUserID(), $IDpost);
                 $pm = FPersistentManager::getInstance();
-                var_dump($user);
                 $result = $pm->load('IDuser', $user->getUserID(), FLike::getClass());
                 var_dump($result);
                 if ($result == null) {
