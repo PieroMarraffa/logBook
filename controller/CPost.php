@@ -155,6 +155,9 @@ class CPost{
     }
 
 
+    /**
+     * @throws SmartyException
+     */
     public static function deleteExistingImage($id, $postID){
         $pm = FPersistentManager::getInstance();
         $pm->update('IDimage', -$id, $id, FImage::getClass());
@@ -373,13 +376,20 @@ class CPost{
                     $pm->store($reaction);
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
                 } else {
-                    foreach ($result as $res) {
-                        if ($res->getPostID() == $IDpost) {
-                            header('Location: /logBook/Research/postDetail/' . $IDpost);
-                            break;
-                        } else {
-                            $pm->store($reaction);
-                            header('Location: /logBook/Research/postDetail/' . $IDpost);
+                    var_dump($result);
+                    if(is_object($result)){
+                        $pm->store($reaction);
+                        header('Location: /logBook/Research/postDetail/' . $IDpost);
+                    }else {
+                        foreach ($result as $res) {
+                            if ($res->getPostID() == $IDpost) {
+
+                                header('Location: /logBook/Research/postDetail/' . $IDpost);
+                                break;
+                            } else {
+                                $pm->store($reaction);
+                                header('Location: /logBook/Research/postDetail/' . $IDpost);
+                            }
                         }
                     }
                     }

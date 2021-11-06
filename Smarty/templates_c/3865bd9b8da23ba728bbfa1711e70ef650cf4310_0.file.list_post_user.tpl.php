@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 17:22:14
+/* Smarty version 3.1.33, created on 2021-11-06 17:01:53
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61801436d8c2d9_84868221',
+  'unifunc' => 'content_6186a6f1e2e4c7_02563896',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3865bd9b8da23ba728bbfa1711e70ef650cf4310' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_user.tpl',
-      1 => 1635783731,
+      1 => 1636214509,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61801436d8c2d9_84868221 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6186a6f1e2e4c7_02563896 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -113,8 +113,8 @@ $_smarty_tpl->tpl_vars['j']->value = 0;
 if ($_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2) {
 for ($_foo=true;$_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2; $_smarty_tpl->tpl_vars['j']->value++) {
 ?>
-                                    <div class="col md-5 py-4">
-                                        <div class="card mb-4">
+                                    <div class="col-md-5 my-2">
+                                        <div class="card py-3 mb-4">
                                             <div class="text-center">
                                                 <!-- Product name-->
                                                 <h3 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getTitle();?>

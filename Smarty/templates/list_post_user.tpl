@@ -73,8 +73,8 @@
                         {if $post[$i]}
                             {if $post[$i]!=null}
                                 {for $j=0; $j<count($post[$i]) && $j<=2; $j++}
-                                    <div class="col md-5 py-4">
-                                        <div class="card mb-4">
+                                    <div class="col-md-5 my-2">
+                                        <div class="card py-3 mb-4">
                                             <div class="text-center">
                                                 <!-- Product name-->
                                                 <h3 class="fw-bolder">{$post[$i][$j]->getTitle()}</h3>
