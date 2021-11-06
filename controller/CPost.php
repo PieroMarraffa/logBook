@@ -230,58 +230,62 @@ class CPost{
         $travel = $pm->loadTravelByPost($postID);
         $arrayOriginalExperience = $travel->getExperienceList();
 
-        $arrayExperienceTitle = $_POST['titleExperience'];
-        $arrayStartDay = $_POST['startDate'];
-        $arrayEndDay = $_POST['endDate'];
-        $arrayPlaceID = $_POST['place'];
-        $arrayDescription = $_POST['description'];
+        if (isset($_POST['titleExperience']) && isset($_POST['startDate']) && isset($_POST['endDate']) && isset($_POST['description']) && isset($_POST['title'])) {
+            $titlePost = $_POST['title'];
+            $pm->update('Title', $titlePost, $postID, FPost::getClass());
+            $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
+            $arrayExperienceTitle = $_POST['titleExperience'];
+            $arrayStartDay = $_POST['startDate'];
+            $arrayEndDay = $_POST['endDate'];
+            $arrayPlaceID = $_POST['place'];
+            $arrayDescription = $_POST['description'];
 
-        $associationsToDelete = array();
-        foreach ($arrayOriginalExperience as $expO) {
-            $deletableAssociation = true;
-            foreach ($arrayPlaceID as $id){
-                if ($id == $expO->getPlaceID()){
-                    $deletableAssociation = false;
+            foreach ($arrayOriginalExperience as $expO) {
+                $deletableAssociation = true;
+                foreach ($arrayPlaceID as $id) {
+                    if ($id == $expO->getPlaceID()) {
+                        $deletableAssociation = false;
+                    }
+                }
+                if ($deletableAssociation == true) {
+                    $pm->deleteOneFromPlaceToPost($postID, $expO->getPlaceID());
+                }
+                $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
+            }
+
+            $ExpList = array();
+            for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
+                $Etitle = $arrayExperienceTitle[$i];
+                $EstartDate = $arrayStartDay[$i];
+                $EfinishDate = $arrayEndDay[$i];
+                $Edescriprion = $arrayDescription[$i];
+                $EplaceID = $arrayPlaceID[$i];
+                $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+                if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                    $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                    $exp->setPlaceID($EplaceID);
+                    $ExpList[] = $exp;
                 }
             }
-            if ($deletableAssociation == true){
-                $associationsToDelete = $expO->getPlaceID();
-                $pm->deleteOneFromPlaceToPost($postID, $expO->getPlaceID());
-            }
-            $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
-        }
+            $travelID = $travel->getTravelID();
+            foreach ($ExpList as $exp) {
+                $exp->setTravelID($travelID);
+                $pm->store($exp);
 
-        $ExpList = array();
-        for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
-            $Etitle = $arrayExperienceTitle[$i];
-            $EstartDate = $arrayStartDay[$i];
-            $EfinishDate = $arrayEndDay[$i];
-            $Edescriprion = $arrayDescription[$i];
-            $EplaceID = $arrayPlaceID[$i];
-            $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
-            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
-                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                $exp->setPlaceID($EplaceID);
-                $ExpList[] = $exp;
+                if ($pm->existAssociationUserPlace($user->getUserID(), $exp->getPlaceID()) == false) {
+                    $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
+                }
+                if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
+                    $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                }
             }
-        }
-        $travelID = $travel->getTravelID();
-        foreach ($ExpList as $exp) {
-            $exp->setTravelID($travelID);
-            $pm->store($exp);
 
-            if ($pm->existAssociationUserPlace($user->getUserID(), $exp->getPlaceID()) == false) {
-                $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
+            $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+            $pm->deleteAllFromPlaceToUser($user->getUserID());
+            foreach ($listaPlaceID as $id) {
+                $pm->storePlaceToUser($user->getUserID(), $id);
             }
-            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
-                $pm->storePlaceToPost($postID, $exp->getPlaceID());
-            }
-        }
 
-        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
-        $pm->deleteAllFromPlaceToUser($user->getUserID());
-        foreach ($listaPlaceID as $id){
-            $pm->storePlaceToUser($user->getUserID(), $id);
         }
 
         header('Location: /logBook/User/profile');

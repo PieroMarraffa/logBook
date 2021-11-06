@@ -24,8 +24,10 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $result = FPersistentManager::loadAllPlaceIDByUser(5);
-        echo var_dump($result);
+        $pm = FPersistentManager::getInstance();
+        $travel = $pm->loadTravelByPost(80);
+        $result = $pm->update('Title', 'pippino', $travel->getTravelID(), FTravel::getClass());
+        echo var_dump(FTravel::getClass());
     }
 }
 
