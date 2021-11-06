@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-05 22:38:52
+/* Smarty version 3.1.33, created on 2021-11-06 17:17:18
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6185a46c127955_99573464',
+  'unifunc' => 'content_6186aa8ea43370_08598767',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1636148150,
+      1 => 1636215430,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6185a46c127955_99573464 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6186aa8ea43370_08598767 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -80,7 +80,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 '  alt="...">
                                     </div>
                                     <div class="col-md-3 align-content-center" align="center">
-                                        <button class="btn btn-danger"> Delete </button>
+                                        <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/<?php echo $_smarty_tpl->tpl_vars['image']->value[$_smarty_tpl->tpl_vars['i']->value]->getImageID();?>
+/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+"> Delete </a>
                                     </div>
                                 </div>
                             <?php }

@@ -44,7 +44,7 @@
                                         <img class="card-img-top w-auto h-100 " src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
                                     </div>
                                     <div class="col-md-3 align-content-center" align="center">
-                                        <button class="btn btn-danger"> Delete </button>
+                                        <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/{$image[$i]->getImageID()}/{$postID}"> Delete </a>
                                     </div>
                                 </div>
                             {/for}
