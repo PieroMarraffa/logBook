@@ -371,26 +371,29 @@ class CPost{
             if ($value == 1 || $value == -1) {
                 $reaction = new ELike($value, $user, $IDpost);
                 $pm = FPersistentManager::getInstance();
+                var_dump($user);
                 $result = $pm->load('IDuser', $user->getUserID(), FLike::getClass());
+                var_dump($result);
                 if ($result == null) {
                     $pm->store($reaction);
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
                 } else {
-                    var_dump($result);
                     if(is_object($result)){
                         $pm->store($reaction);
                         header('Location: /logBook/Research/postDetail/' . $IDpost);
                     }else {
+                        $exist=false;
                         foreach ($result as $res) {
                             if ($res->getPostID() == $IDpost) {
-
-                                header('Location: /logBook/Research/postDetail/' . $IDpost);
+                                $exist=true;
                                 break;
-                            } else {
-                                $pm->store($reaction);
-                                header('Location: /logBook/Research/postDetail/' . $IDpost);
                             }
                         }
+                        if($exist!=true){
+                            $pm->store($reaction);
+                        }
+                        header('Location: /logBook/Research/postDetail/' . $IDpost);
+
                     }
                     }
                 }
