@@ -18,20 +18,18 @@ class ETravel
      * @param $travelID
      * @param $postID
      * @param $title
-     * @param $imageList
      * @param $experienceList
      * @param $startDate
      * @param $finishDate
      * @throws Exception
      */
-    public function __construct( $postID,$title, $experienceList, $imageList, $startDate, $finishDate)
+    public function __construct( $postID,$title, $experienceList, $startDate, $finishDate)
     {
         $this->postID = $postID;
         $this->title=$title;
         $this->startDate = $startDate;
         $this->finishDate = $finishDate;
         $this->experienceList = $experienceList;
-        $this->imageList = $imageList;
     }
 
     /**
@@ -82,22 +80,6 @@ class ETravel
     public function setPostID($postID): void
     {
         $this->postID = $postID;
-    }
-
-    /**
-     * @return array
-     */
-    public function getImageList(): array
-    {
-        return $this->imageList;
-    }
-
-    /**
-     * @param array $imageList
-     */
-    public function setImageList(array $imageList): void
-    {
-        $this->imageList = $imageList;
     }
 
     /**

@@ -164,7 +164,7 @@ class FPlace extends FDataBase
                     $nDislike++;
                 }
             }}else $likeList=array();
-            $post = new EPost($result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
+            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -187,7 +187,7 @@ class FPlace extends FDataBase
                                 }
                             }
                         }
-                        $post[] = new EPost($result[$i]['Title'], $commentList, $likeList, $result[$i]['Date'], $travel, $result[$i]['Deleted'], $nLike, $nDislike, $result[$i]['IDuser']);
+                        $post[] = new EPost( $commentList, $likeList, $result[$i]['Date'], $travel, $result[$i]['Deleted'], $nLike, $nDislike, $result[$i]['IDuser']);
                         $post[$i]->setPostID($result[$i]['IDpost']);
                     }
                 }

@@ -109,12 +109,11 @@ class FTravel
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $imageList=FImage::load("IDtravel",$result["IDtravel"]);
             $experienceList=FExperience::load("IDtravel",$result["IDtravel"]);
             $r=self::lowerAndHigherDate($experienceList);
             $startDate=$r[0];
             $finishDate=$r[1];
-            $travel = new ETravel($result['IDpost'],$result['Title'],$experienceList, $imageList,$startDate,$finishDate);
+            $travel = new ETravel($result['IDpost'],$result['Title'],$experienceList,$startDate,$finishDate);
             $travel->setTravelID($result['IDtravel']);
 
         }
@@ -122,17 +121,11 @@ class FTravel
             if(($result != null) && ($rows_number > 1)){
                 $travel = array();
                 for($i = 0; $i < count($result); $i++){
-                    $imageList=FImage::load("IDtravel",$result[$i]["IDtravel"]);
-                    if($imageList==null){
-                        $imageList=array();
-                    }elseif (gettype($imageList)==EImage::class){
-                        $imageList[]=$imageList;
-                    }
                     $experienceList=FExperience::load("IDtravel",$result[$i]["IDtravel"]);
                     $r=self::lowerAndHigherDate($experienceList);
                     $startDate=$r[0];
                     $finishDate=$r[1];
-                    $travel[] = new ETravel($result[$i]['IDpost'],$result[$i]['Title'],$experienceList, $imageList,$startDate,$finishDate);
+                    $travel[] = new ETravel($result[$i]['IDpost'],$result[$i]['Title'],$experienceList,$startDate,$finishDate);
                     $travel[$i]->setTravelID($result[$i]['IDtravel']);
                 }
             }

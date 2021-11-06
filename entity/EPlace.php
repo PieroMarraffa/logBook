@@ -14,9 +14,7 @@ class EPlace implements Countable
      * @param $name
      * @param $latitude
      * @param $longitude
-     * @param $nation
-     * @param $averageOfVisitors
-     * @param $placeID
+     * @param $category
      */
     public function __construct($name, $latitude, $longitude,$category)
     {

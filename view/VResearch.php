@@ -128,7 +128,6 @@ class VResearch
         $travel = $post->getTravel();
         $experience=$travel->getExperienceList();
         $array_c=$post->getCommentList();
-        $like=$post->getLikeList();
         $type=array();
         $pic64=array();
         $img=array();

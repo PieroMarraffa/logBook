@@ -420,7 +420,6 @@ class FPost
         }
     }
 
-    /** visualizza tutti i post che non possono essere visualizzati */
     public static function loadReportedPosts()
     {
         $database=FDataBase::getInstance();

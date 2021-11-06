@@ -70,6 +70,9 @@ class VAdmin
         return array($type, $pic64);
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function loginForm(){
         $this->smarty->display('login.tpl');
     }

@@ -181,7 +181,6 @@ class CAdmin
      * @throws SmartyException
      */
     static function reportedPosts(){
-        $pm=FPersistentManager::getInstance();
         if(self::isAdminLogged()==true) {
             $view = new VAdmin;
             $pm=FPersistentManager::getInstance();

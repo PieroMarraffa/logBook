@@ -41,7 +41,7 @@ class CPost{
                     $TravelDays = FTravel::lowerAndHigherDate($ExpList);
                     $DayOne = $TravelDays[0];
                     $LastDay = $TravelDays[1];
-                    $travel = new ETravel(0, $title, $ExpList, array(), $DayOne, $LastDay);
+                    $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
                     $date = date("Y-m-d h:i:s");
                     $userID = $user->getUserID();
                     $deleted = 0;
@@ -107,6 +107,10 @@ class CPost{
     }
 
 
+    /**
+     * @throws SmartyException
+     * @throws Exception
+     */
     public static function deletePost($postID){
         if(CUser::isLogged()) {
             USession::getInstance();
@@ -165,7 +169,10 @@ class CPost{
     }
 
 
-    static function upload($travelID,$nome_file) {
+    /**
+     * @throws SmartyException
+     */
+    static function upload($travelID, $nome_file) {
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
             $max_size = 600000000;
@@ -198,6 +205,7 @@ class CPost{
 
     /**
      * @throws SmartyException
+     * @throws Exception
      */
     static function modify_post($postID){
         if(CUser::isLogged()) {
@@ -231,6 +239,10 @@ class CPost{
     }
 
 
+    /**
+     * @throws SmartyException
+     * @throws Exception
+     */
     static function annullaModifiche($postID){
         if(CUser::isLogged()) {
             USession::getInstance();
@@ -242,7 +254,6 @@ class CPost{
                 $arrayExperience = $travel->getExperienceList();
                 foreach ($arrayExperience as $exp) {
                     if ($exp->getExperienceID() < 0) {
-                        echo 'u mannassa';
                         $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
                     }
                 }
@@ -254,6 +265,9 @@ class CPost{
     }
 
 
+    /**
+     * @throws SmartyException
+     */
     static function updatePost($postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
@@ -333,7 +347,7 @@ class CPost{
             USession::getInstance();
             $user = unserialize(USession::getElement('user'));
             $content = $_POST['comment'];
-            $comment = new EComment($IDpost, $user, null, null, $content);
+            $comment = new EComment($IDpost, $user, null, $content);
             $pm = FPersistentManager::getInstance();
             $pm->store($comment);
             header('Location: /logBook/Research/postDetail/' . $IDpost);
@@ -346,7 +360,7 @@ class CPost{
     /**
      * @throws SmartyException
      */
-    static function like($IDpost, $value)
+    static function like($IDpost,$value)
     {
         if (CUser::isLogged()) {
             USession::getInstance();
@@ -362,6 +376,7 @@ class CPost{
                     foreach ($result as $res) {
                         if ($res->getPostID() == $IDpost) {
                             header('Location: /logBook/Research/postDetail/' . $IDpost);
+                            break;
                         } else {
                             $pm->store($reaction);
                             header('Location: /logBook/Research/postDetail/' . $IDpost);
@@ -376,7 +391,6 @@ class CPost{
         } else{
             header('Location: /logBook/Research/postDetail/' . $IDpost);
         }
-
     }
 
 

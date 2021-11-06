@@ -60,6 +60,9 @@ class FPersistentManager
         return FPost::loadAllPostIDByUser($idUser);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function loadAllPlaceIDByUser($idUser){
         $postID = self::loadAllPostIDByUser($idUser);
         if (count($postID) > 1){
@@ -90,12 +93,14 @@ class FPersistentManager
 
 
     public static function loadExperienceByTravel($idTravel){
-        $result=null;
         $result=FExperience::load("IDtravel",$idTravel);
         return $result;
     }
 
 
+    /**
+     * @throws Exception
+     */
     public static function loadTravelByPost($idPost){
         $result=null;
         $result=FTravel::load("IDpost",$idPost);
@@ -103,6 +108,9 @@ class FPersistentManager
     }
 
 
+    /**
+     * @throws Exception
+     */
     public static function loadUserByPost($idPost){
         $result=null;
         $post = FPost::load("IDpost",$idPost);
@@ -112,12 +120,18 @@ class FPersistentManager
     }
 
 
-    public static function loadAdmin($field,$id){
+    /**
+     * @throws Exception
+     */
+    public static function loadAdmin($field, $id){
         $result=FAdmin::loadAdmin($field,$id);
         return $result;
     }
 
 
+    /**
+     * @throws Exception
+     */
     public static function loadAllPost(){
         $result = FPost::loadAll();
         return $result;

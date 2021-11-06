@@ -15,6 +15,9 @@ class VPost
         $this->smarty = StartSmarty::configuration();
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function savePost($c){
         $this->smarty->display('home.tpl');
     }

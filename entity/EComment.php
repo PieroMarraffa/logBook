@@ -5,7 +5,6 @@ class EComment{
     private $idPost;
     private $author;
     private $deleted;
-    private $reportedList;
     private $content;
 
     /**
@@ -14,7 +13,6 @@ class EComment{
      * @param $idPost
      * @param $author
      * @param $deleted
-     * @param $reportedList
      * @param $content
      */
 
@@ -22,13 +20,11 @@ class EComment{
     //--------------COSTRUTTORE----------------------
 
 
-    public function __construct( $idPost,EUser $author, $deleted, $signaledList, $content)
+    public function __construct( $idPost,EUser $author, $deleted, $content)
     {
-
         $this->idPost=$idPost;
         $this->author = $author;
         $this->deleted = $deleted;
-        $this->reportedList = $signaledList;
         $this->content = $content;
     }
 
@@ -109,21 +105,6 @@ class EComment{
         $this->deleted = $deleted;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getReportedList()
-    {
-        return $this->reportedList;
-    }
-
-    /**
-     * @param mixed $reportedList
-     */
-    public function setReportedList($reportedList): void
-    {
-        $this->reportedList = $reportedList;
-    }
 
     /**
      * @return mixed

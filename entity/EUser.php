@@ -10,9 +10,6 @@ class EUser
     private $mail;
     private $IDimage;
     private $description;
-    private $likedPosts;
-    private $personalPosts;
-    private $visitedPlaces;
     private $reported;
     private $banned;
 
@@ -21,12 +18,13 @@ class EUser
     /**
      * EUser constructor.
      * @param $userID
-     * @param $userName
+     * @param $username
      * @param $name
      * @param $password
-     * @param $mail
-     * @param $imgPathFile
+     * @param $email
+     * @param $IDimage
      * @param $description
+     * @param $reported
      * @param $banned
      */
     public function __construct( $email, $password, $name, $description, $IDimage, $username,$reported, $banned)
@@ -37,9 +35,6 @@ class EUser
         $this->mail = $email;
         $this->IDimage = $IDimage;
         $this->description = $description;
-        $this->likedPosts = array();
-        $this->personalPosts = array();
-        $this->visitedPlaces = array();
         $this->reported=$reported;
         $this->banned = $banned;
     }
@@ -189,53 +184,6 @@ class EUser
         $this->description = $description;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLikedPosts()
-    {
-        return $this->likedPosts;
-    }
-
-    /**
-     * @param mixed $likedPosts
-     */
-    public function setLikedPosts($likedPosts): void
-    {
-        $this->likedPosts = $likedPosts;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPersonalPosts()
-    {
-        return $this->personalPosts;
-    }
-
-    /**
-     * @param mixed $personalPosts
-     */
-    public function setPersonalPosts($personalPosts): void
-    {
-        $this->personalPosts = $personalPosts;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVisitedPlaces()
-    {
-        return $this->visitedPlaces;
-    }
-
-    /**
-     * @param mixed $visitedPlaces
-     */
-    public function setVisitedPlaces($visitedPlaces): void
-    {
-        $this->visitedPlaces = $visitedPlaces;
-    }
 
     /**
      * @return bool
@@ -251,36 +199,6 @@ class EUser
     public function setBanned(bool $banned): void
     {
         $this->banned = $banned;
-    }
-
-
-    //--------------METODI ADD TO LIST----------------------
-
-    public function addPostToLiked(EPost $post){
-        array_push($this->likedPosts, $post);
-    }
-
-    public function removePostFromLiked($pos){
-        unset($this->likedPosts[$pos]);
-        $this->placeList = array_values($this->likedPosts);
-    }
-
-    public function addPost(EPost $post){
-        array_push($this->personalPosts, $post);
-    }
-
-    public function removePost($pos){
-        unset($this->personalPosts[$pos]);
-        $this->personalPosts = array_values($this->personalPosts);
-    }
-
-    public function addPlace(EPlace $place){
-        array_push($this->visitedPlaces, $place);
-    }
-
-    public function removePlace($pos){
-        unset($this->visitedPlaces[$pos]);
-        $this->visitedPlaces = array_values($this->visitedPlaces);
     }
 
 

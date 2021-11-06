@@ -76,8 +76,7 @@ class FComment
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=self::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$result['Content']);
             $comment->setCommentID($result['IDcomment']);
         }
         else {
@@ -85,8 +84,7 @@ class FComment
                 $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $reportedList=self::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$result[$i]['Content']);
                     $comment[$i]->setCommentID($result[$i]['IDcomment']);
                 }
             }

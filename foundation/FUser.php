@@ -159,8 +159,7 @@ class FUser extends FDataBase
         $rows_number = $database->interestedRowsInTable("comment_reported_by_user","IDuser",$idUser);
         if(($result != null) && ($rows_number == 1)) {
             $author=FUser::load("IDuser",$result['IDuser']);
-            $reportedList=FComment::loadCommentReporter($result['IDcomment']);
-            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$reportedList,$result['Content']);
+            $comment = new EComment($result['IDpost'],$author,$result['Deleted'],$result['Content']);
             $comment->setCommentID($result['IDcomment']);
         }
         else {
@@ -168,8 +167,7 @@ class FUser extends FDataBase
                 $comment = array();
                 for($i = 0; $i < count($result); $i++){
                     $author=FUser::load("IDuser",$result[$i]['IDuser']);
-                    $reportedList=FComment::loadCommentReporter($result[$i]['IDcomment']);
-                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$reportedList,$result[$i]['Content']);
+                    $comment[] = new EComment($result[$i]['IDpost'],$author,$result[$i]['Deleted'],$result[$i]['Content']);
                     $comment[$i]->setCommentID($result[$i]['IDcomment']);
                 }
             }
@@ -200,7 +198,7 @@ class FUser extends FDataBase
                     $nDislike++;
                 }
             }}
-            $post = new EPost( $result['Title'],$commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
+            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -220,7 +218,7 @@ class FUser extends FDataBase
                             $nDislike++;
                         }
                     }
-                    $post[] = new EPost( $result[$i]['Title'],$commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser'],);
+                    $post[] = new EPost($commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser'],);
                     $post[$i]->setPostID($result[$i]['IDpost']);
 
                 }
@@ -314,5 +312,6 @@ class FUser extends FDataBase
             }
             return false;
         }
+        return false;
     }
 }

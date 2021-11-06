@@ -61,20 +61,13 @@ class VUser
         $this->smarty->display('login.tpl');
     }
 
+    /**
+     * @throws SmartyException
+     */
     public function registration_form(){
-
         $this->smarty->display('registration.tpl');
     }
 
-    public function detailPostLogged($id){
-        $this->smarty->assign('IDpost', $id);
-        $this->smarty->display('post_detail_logged.tpl');
-    }
-
-    public function detailPost($id){
-        $this->smarty->assign('IDpost', $id);
-        $this->smarty->display('post_detail.tpl');
-    }
 
     /**
      * @throws SmartyException

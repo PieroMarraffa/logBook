@@ -34,7 +34,7 @@ class EPost implements Countable
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = $creationDate;
-        $this->travel = new ETravel( $travel->getPostID(),$travel->getTitle(), $travel->getExperienceList(), $travel->getImageList(), $travel->getStartDate(), $travel->getFinishDate());
+        $this->travel = new ETravel( $travel->getPostID(),$travel->getTitle(), $travel->getExperienceList(), $travel->getStartDate(), $travel->getFinishDate());
         $this->deleted = $deleted;
         $this->nLike = $nLike;
         $this->nDisLike = $nDisLike;
