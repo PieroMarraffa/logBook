@@ -284,6 +284,7 @@ class CPost{
             $arrayOriginalExperience = $travel->getExperienceList();
 
             if (isset($_POST['titleExperience']) && isset($_POST['startDate']) && isset($_POST['endDate']) && isset($_POST['description']) && isset($_POST['title'])) {
+
                 $titlePost = $_POST['title'];
                 $pm->update('Title', $titlePost, $postID, FPost::getClass());
                 $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
@@ -320,7 +321,9 @@ class CPost{
                         $ExpList[] = $exp;
                     }
                 }
+
                 $travelID = $travel->getTravelID();
+
                 foreach ($ExpList as $exp) {
                     $exp->setTravelID($travelID);
                     $pm->store($exp);
@@ -334,9 +337,38 @@ class CPost{
                 }
 
                 $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+                $listaDaSalvare[0] = $listaPlaceID[0];
                 $pm->deleteAllFromPlaceToUser($user->getUserID());
                 foreach ($listaPlaceID as $id) {
-                    $pm->storePlaceToUser($user->getUserID(), $id);
+                    $salvabile = true;
+                    foreach ($listaDaSalvare as $l){
+                        if ($id == $l){
+                            $salvabile = false;
+                        }
+                    }
+                    if ($salvabile == true){
+                        $listaDaSalvare[] = $id;
+                        $pm->storePlaceToUser($user->getUserID(), $id);
+                    }
+                }
+
+                $pm->delete('IDtravel', $travelID, FImage::getClass());
+                echo var_dump(isset($_FILES['image2']));
+                for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
+                    echo $numImg;
+                    $nome_file = 'image' . $numImg;
+                    $img = static::upload($travelID, $nome_file);
+                    switch ($img) {
+                        case "size":
+                            //$view->registrationError("size");
+                            break;
+                        case "type":
+                            //$view->registrationError("type");
+                            break;
+                        case "ok":
+                            //header('Location: /logBook/User/profile');
+                            break;
+                    }
                 }
 
             }
