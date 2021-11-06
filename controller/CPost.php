@@ -117,27 +117,22 @@ class CPost{
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $post = $pm->load('IDpost', $postID, FPost::getClass());
-                $travel = $post->getTravel();
-                $ExpList = $travel->getExperienceList();
-                foreach ($ExpList as $exp) {
-                    $pm->delete('IDexperience', $exp->getExperienceID(), FExperience::getClass());
-                }
-                $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
-                $pm->deletePost($postID);
-                $pm->deleteFromPlaceToPost($postID);
+
+                $travel = $pm->load('IDpost', $postID, FTravel::getClass());
 
                 $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
-                echo var_dump($listaPlaceID);
                 $pm->deleteAllFromPlaceToUser($user->getUserID());
                 foreach ($listaPlaceID as $id){
                     $pm->storePlaceToUser($user->getUserID(), $id);
                 }
 
-                $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
-                $pm->delete('IDpost', $postID, FComment::getClass());
+                $pm->deleteFromPlaceToPost($postID);
                 $pm->deleteFromPostReported($postID);
                 $pm->deleteFromReaction($postID);
+                $pm->delete('IDpost', $postID, FComment::getClass());
+                $pm->delete('IDtravel', $travel->getTravelID(), FExperience::getClass());
+                $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
+                $pm->delete('IDpost', $postID, FPost::getClass());
 
                 header('Location: /logBook/User/profile');
             } else{
@@ -226,13 +221,19 @@ class CPost{
                         $arrayExperienceDaVedere[] = $exp;
                     }
                 }
+                $imageDaVedere = array();
+                foreach ($image as $i){
+                    if($i->getImageID() > 0){
+                        $imageDaVedere[] = $i;
+                    }
+                }
                 $numero = 2;
                 $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
                 $arrayCity = $pm->load('category', 'città', FPlace::getClass());
                 $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
                 $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
                 $arrayPlace = $pm->loadAll(FPlace::getClass());
-                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $imageDaVedere, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
             } else{
                 header('Location: /logBook/User/home');
             }
@@ -258,6 +259,11 @@ class CPost{
                 foreach ($arrayExperience as $exp) {
                     if ($exp->getExperienceID() < 0) {
                         $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+                    }
+                }
+                foreach ($image as $i){
+                    if ($i->getImageID < 0){
+                        $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
                     }
                 }
                 header('Location: /logBook/Research/postDetail/' . $postID);
@@ -341,6 +347,7 @@ class CPost{
             header('Location: /logBook/User/login');
         }
     }
+
 
     /**
      * @throws SmartyException
