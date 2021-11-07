@@ -28,11 +28,10 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/updatePost/{$postID}">
+    <form method="POST" id="form_create_post" action="/logBook/Post/updatePost/{$postID}">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
-
                     <div class="col-md-11 py-4">
 
                         <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
@@ -166,10 +165,7 @@
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-8">
-                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
-                            <a name="send" href="/logBook/Post/annullaModifiche/{$postID}/" class="btn btn-warning" >Annulla</a>
-                            <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger" >Elimina</a>
-                            <a name="bottomPage"></a>
+
                         </div>
 
                     </div>
@@ -269,6 +265,10 @@
                 </div>
             </div>
         </div>
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+        <a name="send" href="/logBook/Post/annullaModifiche/{$postID}/" class="btn btn-warning">Annulla</a>
+        <a name="send" href="/logBook/Post/deletePost/{$postID}" class="btn btn-danger">Elimina</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 

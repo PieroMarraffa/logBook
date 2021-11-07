@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-05 22:26:43
+/* Smarty version 3.1.33, created on 2021-11-07 13:57:58
   from 'C:\xampp\htdocs\logBook\Smarty\templates\update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6185a193d61689_59714237',
+  'unifunc' => 'content_6187cd567bbd92_03595756',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93d713b7c33cf173f85bd20e4b736fac9dcc2ae4' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\update_post.tpl',
-      1 => 1636147601,
+      1 => 1636289645,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6185a193d61689_59714237 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6187cd567bbd92_03595756 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,12 +55,11 @@ function content_6185a193d61689_59714237 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/updatePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+    <form method="POST" id="form_create_post" action="/logBook/Post/updatePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 ">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
-
                     <div class="col-md-11 py-4">
 
                         <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
@@ -80,7 +79,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 '  alt="...">
                                     </div>
                                     <div class="col-md-3 align-content-center" align="center">
-                                        <button class="btn btn-danger"> Delete </button>
+                                        <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/<?php echo $_smarty_tpl->tpl_vars['image']->value[$_smarty_tpl->tpl_vars['i']->value]->getImageID();?>
+/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+"> Delete </a>
                                     </div>
                                 </div>
                             <?php }
@@ -277,12 +278,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-8">
-                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
-                            <a name="send" href="/logBook/Post/annullaModifiche/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
-/" class="btn btn-warning" >Annulla</a>
-                            <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
-" class="btn btn-danger" >Elimina</a>
-                            <a name="bottomPage"></a>
+
                         </div>
 
                     </div>
@@ -428,6 +424,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                 </div>
             </div>
         </div>
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+        <a name="send" href="/logBook/Post/annullaModifiche/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+/" class="btn btn-warning">Annulla</a>
+        <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+" class="btn btn-danger">Elimina</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 

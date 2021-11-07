@@ -14,7 +14,7 @@ class Installation{
      */
     static function begin(){
         $smarty = StartSmarty::configuration();
-        if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if (UServer::getRequestMethod() == 'GET'){
             // viene inviato un cookie per verificare se questi sono abilitati
             setcookie('verifica_cookie', 'verifica',time()+3600);
             $smarty->display('installazione.tpl');
@@ -29,12 +29,12 @@ class Installation{
                 $smarty->assign('nophpv', $noPHP);
             }
             // controllo cookie
-            if (!isset($_COOKIE['verifica_cookie'])){
+            if (UCookie::getIsSet('verifica_cookie')){
                 $noCookie = true;
                 $smarty->assign('nocookie', $noCookie);
             }
             // verifica JS
-            if (!isset($_COOKIE['checkjs'])){
+            if (UCookie::getIsSet('checkjs')){
                 $noJS = true;
                 $smarty->assign('nojs', $noJS);
             }

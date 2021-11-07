@@ -45,7 +45,7 @@
 
             <label for="password"><input type="password" id="password" class="fadeIn third" name="password" placeholder="Password" required></label>
             <label for="confirm_password"><input type="password" id="confirm_password" class="fadeIn third" name="password2" placeholder="Confirm Password" required></label>
-            <label for="file-upload" ><input class="fadeIn third" type="file" name="file" size="40"/></label>
+            <div class="btn btn-primary"><input width='100%' class='btn btn-primary my-1 fadeIn third' type='file' name='file' id='image'></div>
 
         {if $errorSize!='ok'}
             <div style="color: red;">

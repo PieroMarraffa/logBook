@@ -286,14 +286,12 @@ class CPost{
             if (isset($_POST['titleExperience']) && isset($_POST['startDate']) && isset($_POST['endDate']) && isset($_POST['description']) && isset($_POST['title'])) {
 
                 $titlePost = $_POST['title'];
-                $pm->update('Title', $titlePost, $postID, FPost::getClass());
                 $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
                 $arrayExperienceTitle = $_POST['titleExperience'];
                 $arrayStartDay = $_POST['startDate'];
                 $arrayEndDay = $_POST['endDate'];
                 $arrayPlaceID = $_POST['place'];
                 $arrayDescription = $_POST['description'];
-
                 foreach ($arrayOriginalExperience as $expO) {
                     $deletableAssociation = true;
                     foreach ($arrayPlaceID as $id) {
@@ -353,7 +351,8 @@ class CPost{
                 }
 
                 $pm->delete('IDtravel', $travelID, FImage::getClass());
-                echo var_dump(isset($_FILES['image2']));
+
+                var_dump($_FILES);
                 for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
                     echo $numImg;
                     $nome_file = 'image' . $numImg;
