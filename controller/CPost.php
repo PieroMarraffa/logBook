@@ -54,15 +54,27 @@ class CPost{
                             $exp->setTravelID($travelID);
                             $pm->store($exp);
 
-                            echo var_dump($pm->existAssociationUserPlace($userID, $exp->getPlaceID()));
-                            if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
-                                $pm->storePlaceToUser($userID, $exp->getPlaceID());
-                            }
-                            echo var_dump($pm->existAssociationPostPlace($postID, $exp->getPlaceID()));
                             if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
                                 $pm->storePlaceToPost($postID, $exp->getPlaceID());
                             }
                         }
+
+                        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+                        $listaDaSalvare[0] = $listaPlaceID[0];
+                        $pm->deleteAllFromPlaceToUser($user->getUserID());
+                        foreach ($listaPlaceID as $id) {
+                            $salvabile = true;
+                            foreach ($listaDaSalvare as $l){
+                                if ($id == $l){
+                                    $salvabile = false;
+                                }
+                            }
+                            if ($salvabile == true){
+                                $listaDaSalvare[] = $id;
+                                $pm->storePlaceToUser($user->getUserID(), $id);
+                            }
+                        }
+
                     }else {
                         $travel = $pm->loadTravelByPost($postID);
                         $titlePost = $_POST['title'];
@@ -86,9 +98,6 @@ class CPost{
                             $exp->setTravelID($travelID);
                             $pm->store($exp);
 
-                            if ($pm->existAssociationUserPlace($user->getUserID(), $exp->getPlaceID()) == false) {
-                                $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
-                            }
                             if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
                                 $pm->storePlaceToPost($postID, $exp->getPlaceID());
                             }
