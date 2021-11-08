@@ -69,8 +69,9 @@
                     <B><a href="/logBook/Research/profileDetail/{$arrayUser[$i]->getUserID()}">{$arrayUser[$i]->getUsername()}</a></B>
                 </div>
                 <div class="container px-4 px-lg-5 mt-3">
-                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
+
                         {if $post[$i]}
+                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
                             {if $post[$i]!=null}
                                 {for $j=0; $j<count($post[$i]) && $j<=2; $j++}
                                     <div class="col-md-5 my-2">
@@ -86,10 +87,10 @@
                                     </div>
                                 {/for}
                             {/if}
+                    </div>
                         {else}
                             <p align="center">This user has no post</p>
                         {/if}
-                    </div>
                 </div>
             </div>
         </div>

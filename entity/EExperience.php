@@ -33,7 +33,7 @@ class EExperience
         $this->startDay = $startDay;
         $this->endDay = $endDay;
         $this->title = $title;
-        $this->place = new EPlace($place->getName(), $place->getLongitude(), $place->getLatitude(), $place->getCategory());
+        $this->place = new EPlace($place->getName(),$place->getLatitude(), $place->getLongitude(),  $place->getCategory());
         $this->description = $description;
     }
 

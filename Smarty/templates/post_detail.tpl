@@ -58,7 +58,6 @@
 
                         </div>
                         <div class="col-md-12" align="end">
-
                             <b>{$post->getNLike()}</b>
                             <div class="btn btn-primary align-content-center" >
                                 <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/1"><img src="/logBook/Smarty/immagini/cuore.png" width="30" height="25" class="d-inline-block" alt=""></a>
@@ -68,7 +67,7 @@
                                 <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 {if $userlogged!='nouser'}
-                                    {if $author!=$username}
+                                    {if $author!=$username->getUserName()}
                                         <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/{$post->getPostID()}">
                                             <div class="btn btn-danger justify-content-end" >
                                                     <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">
@@ -154,7 +153,7 @@
                                                     </div>
                                                     </div>
                                             {if $userlogged!='nouser'}
-                                                {if $arrayComment[$i]->getAuthor()->getUserName()!=$username}
+                                                {if $arrayComment[$i]->getAuthor()->getUserName()!=$username->getUserName()}
                                                     <div  align="end">
                                                         <a href="/logBook/Research/reportComment/{$arrayComment[$i]->getCommentID()}/{$post->getPostID()}" class="btn btn-danger" >Report</a>
                                                     </div>
@@ -186,7 +185,7 @@
                     <script>
                         function initialize() {
                             var map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 2,
+                                zoom: 2.5,
                                 center: new google.maps.LatLng(30,0),
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             });
@@ -217,14 +216,20 @@
                                     icon: icons[i]
                                 });
 
+                                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                    return function() {
+                                        infowindow.setContent(locations[i][0]);
+                                        infowindow.open(map, marker);
+                                    }
+                                })(marker, i));
                             }
                         }
                     </script>
                 </div>
                 {if $userlogged!='nouser'}
                     {if $post->getUserID() == $username->getUserID()}
-                        <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
-                        <a name="send" href="/logBook/Post/deletePost/{$post->getPostID()}" class="btn btn-danger">Elimina</a>
+                        <a type="button" class="mx-3 my-2 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
+                        <a name="send" href="/logBook/Post/deletePost/{$post->getPostID()}" class="mx-3 my-2 btn btn-danger">Elimina</a>
                     {/if}
                 {/if}
             </div>
@@ -234,5 +239,7 @@
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+
 </body>
 </html>

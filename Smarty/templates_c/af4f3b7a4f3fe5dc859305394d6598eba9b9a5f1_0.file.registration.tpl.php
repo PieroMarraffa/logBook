@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-07 13:55:36
+/* Smarty version 3.1.33, created on 2021-11-08 17:06:51
   from 'C:\xampp\htdocs\logBook\Smarty\templates\registration.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6187ccc8c3e061_12972549',
+  'unifunc' => 'content_61894b1bb86d75_26502998',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'af4f3b7a4f3fe5dc859305394d6598eba9b9a5f1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\registration.tpl',
-      1 => 1636289734,
+      1 => 1636289819,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6187ccc8c3e061_12972549 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61894b1bb86d75_26502998 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));
@@ -79,7 +79,7 @@ $_smarty_tpl->_assignInScope('errorEmail', (($tmp = @$_smarty_tpl->tpl_vars['err
             <div class="btn btn-primary"><input width='100%' class='btn btn-primary my-1 fadeIn third' type='file' name='file' id='image'></div>
 
         <?php if ($_smarty_tpl->tpl_vars['errorSize']->value != 'ok') {?>
-            <div style="color: red;">s
+            <div style="color: red;">
                 <p class="fadeIn third" align="center">Attention! Inserted image is too big. </p>
             </div>
         <?php }?>

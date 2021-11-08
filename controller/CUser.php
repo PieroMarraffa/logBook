@@ -12,9 +12,11 @@ class CUser
         $result=$pm->loadPostHomePage();
         $image=array();
         foreach ($result as $r){
-            $t=$pm->load("IDpost",$r->getPostID(),FTravel::getClass());
-            $i=$pm->load("IDtravel",$t->getTravelID(),FImage::getClass());
-            $image[]=$i;
+            if(isset($r)) {
+                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                $image[] = $i;
+            }
         }
         $view->home($result,$image);
     }
@@ -197,7 +199,7 @@ class CUser
             if ($verifiemail){
                 $view->registrationError("email");}
             else{
-                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", null,$_POST['username'],false,false);
+                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", 0,$_POST['username'],false,false);
                 if ($user != null) {
                     if (isset($_FILES['file'])) {
                         $nome_file = 'file';

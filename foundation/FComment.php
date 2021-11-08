@@ -125,7 +125,16 @@ class FComment
     /** restituisce la persona che ha reportato il commento */
     public static function loadCommentReporter($idComment){
         $database=FDataBase::getInstance();
-        $result=$database->loadCommentReporter($idComment);
+        $r=$database->loadCommentReporter($idComment);
+        $result=array();
+        if(isset($r['IDuser'])){ $result=FUser::load("IDuser",$r['IDuser']);}
+        else{
+            if($r!=null) {
+                foreach ($r as $c) {
+                    $result[] = FUser::load("IDuser", $c['IDuser']);
+                }
+            }
+        }
         return $result;
     }
 

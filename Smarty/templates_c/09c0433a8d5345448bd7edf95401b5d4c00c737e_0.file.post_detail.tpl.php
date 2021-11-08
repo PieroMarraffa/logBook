@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-05 11:55:40
+/* Smarty version 3.1.33, created on 2021-11-08 18:33:28
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61850dace2abf1_06778998',
+  'unifunc' => 'content_61895f68657379_52250819',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1636109738,
+      1 => 1636392805,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61850dace2abf1_06778998 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61895f68657379_52250819 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -93,7 +93,6 @@ function content_61850dace2abf1_06778998 (Smarty_Internal_Template $_smarty_tpl)
 
                         </div>
                         <div class="col-md-12" align="end">
-
                             <b><?php echo $_smarty_tpl->tpl_vars['post']->value->getNLike();?>
 </b>
                             <div class="btn btn-primary align-content-center" >
@@ -107,7 +106,7 @@ function content_61850dace2abf1_06778998 (Smarty_Internal_Template $_smarty_tpl)
 /-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
-                                    <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value) {?>
+                                    <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value->getUserName()) {?>
                                         <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">
                                             <div class="btn btn-danger justify-content-end" >
@@ -226,7 +225,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                                                     </div>
                                                     </div>
                                             <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
-                                                <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName() != $_smarty_tpl->tpl_vars['username']->value) {?>
+                                                <?php if ($_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getAuthor()->getUserName() != $_smarty_tpl->tpl_vars['username']->value->getUserName()) {?>
                                                     <div  align="end">
                                                         <a href="/logBook/Research/reportComment/<?php echo $_smarty_tpl->tpl_vars['arrayComment']->value[$_smarty_tpl->tpl_vars['i']->value]->getCommentID();?>
 /<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
@@ -265,7 +264,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 >
                         function initialize() {
                             var map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 2,
+                                zoom: 2.5,
                                 center: new google.maps.LatLng(30,0),
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             });
@@ -305,6 +304,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     icon: icons[i]
                                 });
 
+                                google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                                    return function() {
+                                        infowindow.setContent(locations[i][0]);
+                                        infowindow.open(map, marker);
+                                    }
+                                })(marker, i));
                             }
                         }
                     <?php echo '</script'; ?>
@@ -312,8 +317,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
                     <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['username']->value->getUserID()) {?>
-                    <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+                        <a type="button" class="mx-3 my-2 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">Modify Post</a>
+                        <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+" class="mx-3 my-2 btn btn-danger">Elimina</a>
                     <?php }?>
                 <?php }?>
             </div>
@@ -325,6 +332,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <?php echo '<script'; ?>
  src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
 >
+<?php echo '<script'; ?>
+ src="js/scripts.js"><?php echo '</script'; ?>
+>
+
 </body>
 </html><?php }
 }

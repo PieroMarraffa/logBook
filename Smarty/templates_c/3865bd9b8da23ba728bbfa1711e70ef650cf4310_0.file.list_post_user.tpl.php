@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-06 17:01:53
+/* Smarty version 3.1.33, created on 2021-11-08 17:49:10
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6186a6f1e2e4c7_02563896',
+  'unifunc' => 'content_61895506797e33_94828212',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3865bd9b8da23ba728bbfa1711e70ef650cf4310' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_user.tpl',
-      1 => 1636214509,
+      1 => 1636390143,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6186a6f1e2e4c7_02563896 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61895506797e33_94828212 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -104,8 +104,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 </a></B>
                 </div>
                 <div class="container px-4 px-lg-5 mt-3">
-                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
+
                         <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) {?>
+                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
                             <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value] != null) {?>
                                 <?php
 $_smarty_tpl->tpl_vars['j'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
@@ -131,10 +132,10 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_var
 }
 ?>
                             <?php }?>
+                    </div>
                         <?php } else { ?>
                             <p align="center">This user has no post</p>
                         <?php }?>
-                    </div>
                 </div>
             </div>
         </div>

@@ -355,8 +355,6 @@ class CPost{
      * @throws SmartyException
      */
     static function updatePost($postID){
-        echo 'dio';
-        echo var_dump($_FILES);
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
             $user = $pm->loadUserByPost($postID);

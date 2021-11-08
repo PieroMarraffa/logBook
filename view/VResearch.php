@@ -164,7 +164,6 @@ class VResearch
                 $type[]= "image/png";
             }
         }
-
         $this->smarty->assign('startDate', $travel->getStartDate());
         $this->smarty->assign('endDate', $travel->getFinishDate());
         $this->smarty->assign('post', $post);

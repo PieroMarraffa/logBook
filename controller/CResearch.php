@@ -221,27 +221,31 @@ class CResearch
     static function reportComment($idComment,$idPost){
         $pm= FPersistentManager::getInstance();
         if(UServer::getRequestMethod()=='GET'){
-            if(CUser::isLogged()){
-                $u=USession::getElement('user');
-                $user=unserialize($u);
-                $reporter=$pm->loadCommentReporter($idComment);
-                if($reporter==null){
-                    $pm->storeCommentReporter($user->getUserID(),$idComment);
-                }elseif(!is_array($reporter)) {
-                    if($reporter->getUserName()!=$reporter->getUserName()){
-                        $pm->storeCommentReporter($user->getUserID(),$idComment);
-                    }
-                }else{
-                    foreach($reporter as $r){
-                        if($r->getUserName()==$user->getUserName()){
-                            $report=true;
-                            break;
-                        }else{
-                            $report=false;
+            if(CUser::isLogged()) {
+                $u = USession::getElement('user');
+                $user = unserialize($u);
+                $reporter = $pm->loadCommentReporter($idComment);
+                $post = $pm->load('IDpost', $idPost, FPost::getClass());
+                $utente = $pm->load('IDuser', $post->getUserID(), FUser::getClass());
+                if ($user->getUserName() != $utente->getUserName()){
+                    if ($reporter == null) {
+                        $pm->storeCommentReporter($user->getUserID(), $idComment);
+                    } elseif (!is_array($reporter)) {
+                        if ($reporter->getUserName() != $reporter->getUserName()) {
+                            $pm->storeCommentReporter($user->getUserID(), $idComment);
                         }
-                    }
-                    if($report==false){
-                        $pm->storeCommentReporter($user->getUserID(),$idComment);
+                    } else {
+                        foreach ($reporter as $r) {
+                            if ($r->getUserName() == $user->getUserName()) {
+                                $report = true;
+                                break;
+                            } else {
+                                $report = false;
+                            }
+                        }
+                        if ($report == false) {
+                            $pm->storeCommentReporter($user->getUserID(), $idComment);
+                        }
                     }
                 }
                 header('Location: /logBook/Research/postDetail/'.$idPost .'');

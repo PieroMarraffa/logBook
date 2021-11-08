@@ -615,8 +615,7 @@ class FDataBase
             if($num==0){
                 $result=false;
             }elseif ($num==1){
-                $x=$statement->fetch(PDO::FETCH_ASSOC);
-                $result=$this->loadById("user","IDuser",$x['IDuser']);
+                $result=$statement->fetch(PDO::FETCH_ASSOC);
             }elseif($num>1){
 
                 $resID=array();
@@ -624,8 +623,7 @@ class FDataBase
                 while ($row = $statement->fetch()) $resID[] = $row;
                 $result=array();
                 foreach ($resID as $r){
-
-                    $result[]=$this->loadById("user","IDuser",$r['IDuser']);
+                    $result[]=$r;
                 }
             }
             return $result;

@@ -37,10 +37,12 @@ class CAdmin
             } else {
                 $array_r = $array_reported;
             }
-            foreach ($array_r as $a) {
-                $id = $a->getImageID();
-                $img = $pm->load("IDimage", $id, FImage::getClass());
-                $image_reported[] = $img;
+            if(isset($array_r)) {
+                foreach ($array_r as $a) {
+                    $id = $a->getImageID();
+                    $img = $pm->load("IDimage", $id, FImage::getClass());
+                    $image_reported[] = $img;
+                }
             }
             if (isset($array_b[0])) {
                 foreach ($array_b as $a) {

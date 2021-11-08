@@ -90,7 +90,11 @@ class FPost
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
-                foreach ($likeList as $l){
+                if(is_object($likeList)){
+                    $likeLista=array();
+                    $likeLista[]=$likeList;
+                }else $likeLista=$likeList;
+                foreach ($likeLista as $l){
                     if($l->getValue()==1){
                         $nLike ++;
                     }elseif ($l->getValue()==-1){

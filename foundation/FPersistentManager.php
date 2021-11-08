@@ -65,20 +65,22 @@ class FPersistentManager
      */
     public static function loadAllPlaceIDByUser($idUser){
         $postID = self::loadAllPostIDByUser($idUser);
-        if (count($postID) > 1){
-            $travelID = array();
-            foreach ($postID as $p){
-                $travelID[] = self::loadTravelByPost($p)->getTravelID();
-            }
-            $placeID = array();
-            foreach ($travelID as $t){
-                $exp = self::loadExperienceByTravel($t);
-                foreach ($exp as $e){
-                    $placeID[] = $e->getPlaceID();
+        if(isset($postID)) {
+            if (count($postID) > 1) {
+                $travelID = array();
+                foreach ($postID as $p) {
+                    $travelID[] = self::loadTravelByPost($p)->getTravelID();
                 }
+                $placeID = array();
+                foreach ($travelID as $t) {
+                    $exp = self::loadExperienceByTravel($t);
+                    foreach ($exp as $e) {
+                        $placeID[] = $e->getPlaceID();
+                    }
+                }
+                return $placeID;
             }
-            return $placeID;
-        }
+        }return null;
     }
 
 
