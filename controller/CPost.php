@@ -37,7 +37,7 @@ class CPost{
                 if (count($ExpList) == 0) {
                     header('Location: /logBook/User/profile');
                 } else {
-                    if (!isset($postID)) {
+                    if ($postID == NULL) {
                         $title = $_POST['title'];
                         $TravelDays = FTravel::lowerAndHigherDate($ExpList);
                         $DayOne = $TravelDays[0];
@@ -154,7 +154,7 @@ class CPost{
             $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
             $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
             $arrayPlace=$pm->loadAll(FPlace::getClass());
-            $view->create_post($arrayPlace, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+            $view->create_post($arrayPlace, $arrayCity, $arrayRegions, $arrayState, $arrayMete, true, NULL);
         }else{
             header('Location: /logBook/User/login');
         }

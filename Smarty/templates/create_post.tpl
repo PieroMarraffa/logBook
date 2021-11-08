@@ -30,6 +30,7 @@
 <section>
 
     <form method="post" id="form_create_post" action="/logBook/Post/savePost/{$postID}" enctype="multipart/form-data">
+        <a name="headPage"></a>
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -206,6 +207,10 @@
         {/if}
         <div class="col-md-3 fisso" >
             <div class="card">
+            <div class="row">
+                <a type="button" class="btn btn-primary" href="#headPage">Head Page</a>
+                <a type="button" class="btn btn-primary my-1" href="#bottomPage">Bottom Page</a>
+            </div>
             <div class="row">
                 <script id="creaExperience">
                     function creaExperience() {

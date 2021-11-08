@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-08 03:13:11
+/* Smarty version 3.1.33, created on 2021-11-08 04:51:03
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618887b79db925_39083022',
+  'unifunc' => 'content_61889ea7c0f491_59482420',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1636337583,
+      1 => 1636343450,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618887b79db925_39083022 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61889ea7c0f491_59482420 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -58,6 +58,7 @@ function content_618887b79db925_39083022 (Smarty_Internal_Template $_smarty_tpl)
 
     <form method="post" id="form_create_post" action="/logBook/Post/savePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 " enctype="multipart/form-data">
+        <a name="headPage"></a>
     <div class="row">
         <div class="col-md-9">
             <div class="card">
@@ -319,6 +320,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <?php }?>
         <div class="col-md-3 fisso" >
             <div class="card">
+            <div class="row">
+                <a type="button" class="btn btn-primary" href="#headPage">Head Page</a>
+                <a type="button" class="btn btn-primary my-1" href="#bottomPage">Bottom Page</a>
+            </div>
             <div class="row">
                 <?php echo '<script'; ?>
  id="creaExperience">

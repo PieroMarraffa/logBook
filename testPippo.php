@@ -25,20 +25,24 @@ require '../logBook/entity/EUser.php';
 class testPippo{
     public static function test(){
             $pm = FPersistentManager::getInstance();
-            $travel = $pm->loadTravelByPost(56);
-            $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
-            $arrayExperience = $travel->getExperienceList();
-            foreach ($arrayExperience as $exp) {
-                if ($exp->getExperienceID() < 0) {
-                    $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+            $pm->deleteAllFromPlaceToUser(3);
+            $listaPlaceID = $pm->loadAllPlaceIDByUser(3);
+            $listaPlaceIDDaSalvare[0] = $listaPlaceID[0];
+            foreach ($listaPlaceID as $id){
+                $salvabile = false;
+                foreach ($listaPlaceIDDaSalvare as $s){
+                    if ($id != $s){
+                        $salvabile=true;
+                    }
+                }
+                if ($salvabile == true){
+                    $listaPlaceIDDaSalvare[] = $id;
                 }
             }
-            foreach ($image as $i){
-                echo var_dump($i->getImageID());
-                if ($i->getImageID() < 0){
-                    $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
-                }
+            foreach ($listaPlaceIDDaSalvare as $s){
+                $pm->storePlaceToUser(3, $s);
             }
+            echo var_dump($listaPlaceIDDaSalvare);
         }
 
 }
