@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-08 01:55:56
+/* Smarty version 3.1.33, created on 2021-11-08 04:20:53
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6188759ccbe113_38151902',
+  'unifunc' => 'content_618897953a2351_54467559',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1636332721,
+      1 => 1636341653,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6188759ccbe113_38151902 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618897953a2351_54467559 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -312,8 +312,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
                     <?php if ($_smarty_tpl->tpl_vars['post']->value->getUserID() == $_smarty_tpl->tpl_vars['username']->value->getUserID()) {?>
-                    <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+                        <a type="button" class="mx-3 my-3 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">Modify Post</a>
+                        <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
+" class="btn btn-danger">Elimina</a>
                     <?php }?>
                 <?php }?>
             </div>

@@ -174,10 +174,23 @@ class CPost{
 
                 $travel = $pm->load('IDpost', $postID, FTravel::getClass());
 
+                $pm->deleteAllFromPlaceToUser($user->getUserID());
                 $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+                $listaPlaceIDDaSalvare[0] = $listaPlaceID[0];
                 $pm->deleteAllFromPlaceToUser($user->getUserID());
                 foreach ($listaPlaceID as $id){
-                    $pm->storePlaceToUser($user->getUserID(), $id);
+                    $salvabile = false;
+                    foreach ($listaPlaceIDDaSalvare as $s){
+                        if ($id != $s){
+                            $salvabile=true;
+                        }
+                    }
+                    if ($salvabile == true){
+                        $listaPlaceIDDaSalvare[] = $id;
+                    }
+                }
+                foreach ($listaPlaceIDDaSalvare as $s){
+                    $pm->storePlaceToUser($user->getUserID(), $s);
                 }
 
                 $pm->deleteFromPlaceToPost($postID);
@@ -186,6 +199,7 @@ class CPost{
                 $pm->delete('IDpost', $postID, FComment::getClass());
                 $pm->delete('IDtravel', $travel->getTravelID(), FExperience::getClass());
                 $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
+                $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
                 $pm->delete('IDpost', $postID, FPost::getClass());
 
                 header('Location: /logBook/User/profile');
