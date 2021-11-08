@@ -24,11 +24,23 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-        $pm = FPersistentManager::getInstance();
-        $travel = $pm->loadTravelByPost(80);
-        $result = $pm->update('Title', 'pippino', $travel->getTravelID(), FTravel::getClass());
-        echo var_dump(FTravel::getClass());
-    }
+            $pm = FPersistentManager::getInstance();
+            $travel = $pm->loadTravelByPost(56);
+            $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
+            $arrayExperience = $travel->getExperienceList();
+            foreach ($arrayExperience as $exp) {
+                if ($exp->getExperienceID() < 0) {
+                    $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+                }
+            }
+            foreach ($image as $i){
+                echo var_dump($i->getImageID());
+                if ($i->getImageID() < 0){
+                    $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
+                }
+            }
+        }
+
 }
 
 testPippo::test();

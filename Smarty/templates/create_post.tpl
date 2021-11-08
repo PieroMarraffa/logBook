@@ -28,30 +28,32 @@
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost" enctype="multipart/form-data">
+
+    <form method="post" id="form_create_post" action="/logBook/Post/savePost/{$postID}" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-9">
             <div class="card">
 
                         <div class="col-md-11 py-4">
 
+                            {if $creaPost == true}
                             <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+
                             <p class="text-justify text-dark align-content-start px-5 py-4 h5">
-                                <b>
-                                    This is the post's creation form, here you can create your posts.</br></br>
+                                    <b>
+                                        This is the post's creation form, here you can create your posts.</br></br>
 
-                                A post is composed by a title, some experience (not less than one) and the images.</br></br>
+                                    A post is composed by a title, some experience (not less than one) and the images.</br></br>
 
-                                You can insert a title in the form on top of the page.</br></br>
+                                    You can insert a title in the form on top of the page.</br></br>
 
-                                You can create an experience clicking on the button "Add Experience" and</br>
-                                you can add the images clicking on the button "Add Image".</br></br>
+                                    You can create an experience clicking on the button "Add Experience" and</br>
+                                    you can add the images clicking on the button "Add Image".</br></br>
 
-                                You can also modify the post clicking on the button "Modify Post" in the</br>
-                                    post page.</br>
-                                </b>
-                            </p>
-
+                                    You can also modify the post clicking on the button "Modify Post" in the</br>
+                                        post page.</br>
+                                    </b>
+                                </p>
                         </div>
                         <div class="col-md-8">
 
@@ -61,6 +63,147 @@
                         </div>
             </div>
         </div>
+        {else}
+        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+
+        <div class="py-3">
+            {if isset($image)}
+                {for $i=0;$i<=count($image)-1;$i++}
+                    <div class="row align-content-md-center py-3">
+                        <div class="col-md-8 align-content-center">
+                            <img class="card-img-top w-auto h-100 " src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
+                        </div>
+                        <div class="col-md-3 align-content-center" align="center">
+                            <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/{$image[$i]->getImageID()}/{$postID}"> Delete </a>
+                        </div>
+                    </div>
+                {/for}
+            {/if}
+        </div>
+    </div>
+        {if $array_experience}
+            {if is_array($array_experience)}
+                {foreach $array_experience as $exp}
+                    <div class="card">
+                        <div class="card-header">
+                            <textarea class="form-control" name="titleExperience[]" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
+                            <div class="row py-2">
+                                <div class="col-md-3">
+                                    <input type="date" name="startDate[]" class="px-2" value="{$exp->getStartDay()}">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="date" name="endDate[]" class="px-2" value="{$exp->getEndDay()}">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="btn btn-primary" name="place[]">
+                                        {if isset($arrayMete)}
+                                            <optgroup label="Tourist Destination">
+                                                {if count($arrayMete) == 1}
+                                                    {if $exp->getPlace()->getPlaceID() == $arrayMete->getPlaceID()}
+                                                        <option selected value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
+                                                    {else}
+                                                        <option value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
+                                                    {/if}
+                                                {else}
+                                                    {foreach $arrayMete as $mete}
+                                                        {if $exp->getPlace()->getPlaceID() == $mete->getPlaceID()}
+                                                            <option selected value="{$mete->getPlaceID()}">{$mete->getName()}</option>
+                                                        {else}
+                                                            <option value="{$mete->getPlaceID()}">{$mete->getName()}</option>
+                                                        {/if}
+                                                    {/foreach}
+                                                {/if}
+                                            </optgroup>
+                                        {/if}
+
+                                        {if isset($arrayCity)}
+                                            <optgroup label="Cities">
+                                                {if count($arrayCity) == 1}
+                                                    {if $exp->getPlace()->getPlaceID() == $arrayCity->getPlaceID()}
+                                                        <option selected value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
+                                                    {else}
+                                                        <option value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
+                                                    {/if}
+                                                {else}
+                                                    {foreach $arrayCity as $city}
+                                                        {if $exp->getPlace()->getPlaceID() == $city->getPlaceID()}
+                                                            <option selected value="{$city->getPlaceID()}">{$city->getName()}</option>
+                                                        {else}
+                                                            <option value="{$city->getPlaceID()}">{$city->getName()}</option>
+                                                        {/if}
+                                                    {/foreach}
+                                                {/if}
+                                            </optgroup>
+                                        {/if}
+
+                                        {if isset($arrayRegion)}
+                                            <optgroup label="Regions"">
+                                            {if count($arrayRegion) == 1}
+                                                {if $exp->getPlace()->getPlaceID() == $arrayRegion->getPlaceID()}
+                                                    <option selected value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
+                                                {else}
+                                                    <option value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
+                                                {/if}
+                                            {else}
+                                                {foreach $arrayRegion as $region}
+                                                    {if $exp->getPlace()->getPlaceID() == $region->getPlaceID()}
+                                                        <option selected value="{$region->getPlaceID()}">{$region->getName()}</option>
+                                                    {else}
+                                                        <option value="{$region->getPlaceID()}">{$region->getName()}</option>
+                                                    {/if}
+                                                {/foreach}
+                                            {/if}
+                                            </optgroup>
+                                        {/if}
+
+                                        {if isset($arrayState)}
+                                            <optgroup label="Stetes"">
+                                            {if count($arrayState) == 1}
+                                                {if $exp->getPlace()->getPlaceID() == $arrayState->getPlaceID()}
+                                                    <option selected value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
+                                                {else}
+                                                    <option value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
+                                                {/if}
+                                            {else}
+                                                {foreach $arrayState as $state}
+                                                    {if $exp->getPlace()->getPlaceID() == $state->getPlaceID()}
+                                                        <option selected value="{$state->getPlaceID()}">{$state->getName()}</option>
+                                                    {else}
+                                                        <option value="{$state->getPlaceID()}">{$state->getName()}</option>
+                                                    {/if}
+                                                {/foreach}
+                                            {/if}
+                                            </optgroup>
+                                        {/if}
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
+                        </div>
+                        <div align="end">
+                            <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>
+                        </div>
+                    </div>
+                {/foreach}
+            {/if}
+        {/if}
+        <div class="col-md-8">
+
+            <div class="container py-3" id="container">
+            </div>
+            <div class="col-md-8">
+
+            </div>
+
+        </div>
+
+        </div>
+        </div>
+        {/if}
         <div class="col-md-3 fisso" >
             <div class="card">
             <div class="row">
@@ -155,7 +298,11 @@
         </div>
     </div>
         <button name="send" type="submit" form="form_create_post" class="mx-3 my-3 btn btn-primary" >Salva</button>
-        <a name="send" href="/logBook/User/profile" class="mx-3 my-3 btn btn-warning" >Annulla</a>
+        {if !isset($postID)}
+            <a name="send" href="/logBook/User/profile" class="mx-3 my-3 btn btn-warning" >Annulla</a>
+        {else}
+            <a name="send" href="/logBook/Post/annullaModifiche/{$postID}/" class="btn btn-warning">Annulla</a>
+        {/if}
         <a name="bottomPage"></a>
     </form>
 </section>

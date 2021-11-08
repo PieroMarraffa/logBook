@@ -5,13 +5,13 @@ class CPost{
     /**
      * @throws Exception
      */
-    public static function savePost()
+    public static function savePost($postID)
     {
         if(CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
-            if (!isset($_POST['titleExperience'])) {
+            if (!isset($_POST['titleExperience']) || !isset($_POST['title'])) {
                 header('Location: /logBook/User/profile');
             } else {
                 $arrayExperienceTitle = $_POST['titleExperience'];
@@ -37,29 +37,84 @@ class CPost{
                 if (count($ExpList) == 0) {
                     header('Location: /logBook/User/profile');
                 } else {
-                    $title = $_POST['title'];
-                    $TravelDays = FTravel::lowerAndHigherDate($ExpList);
-                    $DayOne = $TravelDays[0];
-                    $LastDay = $TravelDays[1];
-                    $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
-                    $date = date("Y-m-d h:i:s");
-                    $userID = $user->getUserID();
-                    $deleted = 0;
-                    $post = new EPost( array(), array(), $date, $travel, $deleted, array(), array(), $userID);
-                    $postID = $pm->store($post);
-                    $travel->setPostID($postID);
-                    $travelID = $pm->store($travel);
-                    foreach ($ExpList as $exp) {
-                        $exp->setTravelID($travelID);
-                        $pm->store($exp);
+                    if (!isset($postID)) {
+                        $title = $_POST['title'];
+                        $TravelDays = FTravel::lowerAndHigherDate($ExpList);
+                        $DayOne = $TravelDays[0];
+                        $LastDay = $TravelDays[1];
+                        $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
+                        $date = date("Y-m-d h:i:s");
+                        $userID = $user->getUserID();
+                        $deleted = 0;
+                        $post = new EPost(array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+                        $postID = $pm->store($post);
+                        $travel->setPostID($postID);
+                        $travelID = $pm->store($travel);
+                        foreach ($ExpList as $exp) {
+                            $exp->setTravelID($travelID);
+                            $pm->store($exp);
 
-                        echo var_dump($pm->existAssociationUserPlace($userID, $exp->getPlaceID()));
-                        if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
-                            $pm->storePlaceToUser($userID, $exp->getPlaceID());
+                            echo var_dump($pm->existAssociationUserPlace($userID, $exp->getPlaceID()));
+                            if ($pm->existAssociationUserPlace($userID, $exp->getPlaceID()) == false) {
+                                $pm->storePlaceToUser($userID, $exp->getPlaceID());
+                            }
+                            echo var_dump($pm->existAssociationPostPlace($postID, $exp->getPlaceID()));
+                            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
+                                $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                            }
                         }
-                        echo var_dump($pm->existAssociationPostPlace($postID, $exp->getPlaceID()));
-                        if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
-                            $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                    }else {
+                        $travel = $pm->loadTravelByPost($postID);
+                        $titlePost = $_POST['title'];
+                        $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
+                        $arrayOriginalExperience = $travel->getExperienceList();
+                        foreach ($arrayOriginalExperience as $expO) {
+                            $deletableAssociation = true;
+                            foreach ($arrayPlaceID as $id) {
+                                if ($id == $expO->getPlaceID()) {
+                                    $deletableAssociation = false;
+                                }
+                            }
+                            if ($deletableAssociation == true) {
+                                $pm->deleteOneFromPlaceToPost($postID, $expO->getPlaceID());
+                            }
+                            $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
+                        }
+                        $travelID = $travel->getTravelID();
+
+                        foreach ($ExpList as $exp) {
+                            $exp->setTravelID($travelID);
+                            $pm->store($exp);
+
+                            if ($pm->existAssociationUserPlace($user->getUserID(), $exp->getPlaceID()) == false) {
+                                $pm->storePlaceToUser($user->getUserID(), $exp->getPlaceID());
+                            }
+                            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
+                                $pm->storePlaceToPost($postID, $exp->getPlaceID());
+                            }
+                        }
+
+                        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
+                        $listaDaSalvare[0] = $listaPlaceID[0];
+                        $pm->deleteAllFromPlaceToUser($user->getUserID());
+                        foreach ($listaPlaceID as $id) {
+                            $salvabile = true;
+                            foreach ($listaDaSalvare as $l){
+                                if ($id == $l){
+                                    $salvabile = false;
+                                }
+                            }
+                            if ($salvabile == true){
+                                $listaDaSalvare[] = $id;
+                                $pm->storePlaceToUser($user->getUserID(), $id);
+                            }
+                        }
+
+                        $immagini = $pm->load('IDtravel', $travelID, FImage::getClass());
+                        foreach ($immagini as $item){
+                            if ($item->getImageID() < 0){
+                                $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
+                            }
                         }
                     }
 
@@ -232,7 +287,7 @@ class CPost{
                 $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
                 $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
                 $arrayPlace = $pm->loadAll(FPlace::getClass());
-                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $imageDaVedere, $arrayCity, $arrayRegions, $arrayState, $arrayMete);
+                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $imageDaVedere, $arrayCity, $arrayRegions, $arrayState, $arrayMete, false);
             } else{
                 header('Location: /logBook/User/home');
             }
@@ -261,7 +316,7 @@ class CPost{
                     }
                 }
                 foreach ($image as $i){
-                    if ($i->getImageID < 0){
+                    if ($i->getImageID() < 0){
                         $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
                     }
                 }
@@ -277,6 +332,8 @@ class CPost{
      * @throws SmartyException
      */
     static function updatePost($postID){
+        echo 'dio';
+        echo var_dump($_FILES);
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
             $user = $pm->loadUserByPost($postID);
@@ -350,9 +407,7 @@ class CPost{
                     }
                 }
 
-                $pm->delete('IDtravel', $travelID, FImage::getClass());
 
-                var_dump($_FILES);
                 for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
                     echo $numImg;
                     $nome_file = 'image' . $numImg;
@@ -372,7 +427,7 @@ class CPost{
 
             }
 
-            header('Location: /logBook/User/profile');
+            //header('Location: /logBook/User/profile');
         }else{
             header('Location: /logBook/User/login');
         }

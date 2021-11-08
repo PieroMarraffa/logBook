@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-06 17:17:18
+/* Smarty version 3.1.33, created on 2021-11-08 02:54:11
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6186aa8ea43370_08598767',
+  'unifunc' => 'content_6188834356a423_27578796',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad6d5622544838327ee4fc6af31d7a0f13feeb6e' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/update_post.tpl',
-      1 => 1636215430,
+      1 => 1636336445,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6186aa8ea43370_08598767 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6188834356a423_27578796 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -55,12 +55,11 @@ function content_6186aa8ea43370_08598767 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <section>
-    <form method="post" id="form_create_post" action="/logBook/Post/updatePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+    <form method="POST" id="form_create_post" action="/logBook/Post/updatePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
 ">
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
-
                     <div class="col-md-11 py-4">
 
                         <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
@@ -279,12 +278,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="container py-3" id="container">
                         </div>
                         <div class="col-md-8">
-                            <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
-                            <a name="send" href="/logBook/Post/annullaModifiche/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
-/" class="btn btn-warning" >Annulla</a>
-                            <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
-" class="btn btn-danger" >Elimina</a>
-                            <a name="bottomPage"></a>
+
                         </div>
 
                     </div>
@@ -423,13 +417,35 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                         <a type="button" class="btn btn-primary "  onclick="creaExperience()" href="#bottomPage" >+ Add Experience</a>
                     </div>
                     <div class="row">
-                        <button type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</button>
+                        <?php echo '<script'; ?>
+ id="creaImage">
+                            function creaImage(){
+                                nuovo_elemento = document.createElement("div");
+                                var numCode = parseInt(document.getElementById("container2").childNodes.length+1);
+                                nuovo_elemento.setAttribute("id","quadretto"+parseInt(document.getElementById("container2").childNodes.length+1));
+                                nuovo_elemento.setAttribute("class","quadrato");
+                                nuovo_elemento.innerHTML=
+                                    "<input width='100%' class='btn btn-primary my-1' type='FILE' name='image"+ numCode +"' id='image' accept='image/png, image/jpeg, image/jpg'>";
+                                document.getElementById("container2").appendChild(nuovo_elemento);
+                                obj=eval("document.getElementById(\"quadretto"+parseInt(document.getElementById("container2").childNodes.length)+"\")");
+                                obj.style.height="70px";
+                                obj.style.width="300px";
+                            }
+                        <?php echo '</script'; ?>
+>
+                        <a type="button" class="btn btn-primary  my-1 " onclick="creaImage()" >+ Add Image</a>
                     </div>
-                    <div id="container2" class="col">
+                        <div id="container2" class="col">
                     </div>
                 </div>
             </div>
         </div>
+        <button name="send" type="submit" form="form_create_post" class="btn btn-primary">Salva</button>
+        <a name="send" href="/logBook/Post/annullaModifiche/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+/" class="btn btn-warning">Annulla</a>
+        <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['postID']->value;?>
+" class="btn btn-danger">Elimina</a>
+        <a name="bottomPage"></a>
     </form>
 </section>
 

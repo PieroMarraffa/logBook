@@ -37,7 +37,7 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function modify_post($travel, $arrayExp, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegion, $arrayState, $arrayMete){
+    public function modify_post($travel, $arrayExp, $numero, $arrayPlace, $postID, $image, $arrayCity, $arrayRegion, $arrayState, $arrayMete, $creaPost){
         $typeImg=array();
         $pic64Img=array();
         if(count($image)==1) {
@@ -64,7 +64,8 @@ class VPost
         $this->smarty->assign('arrayCity', $arrayCity);
         $this->smarty->assign('arrayRegion', $arrayRegion);
         $this->smarty->assign('arrayState', $arrayState);
-        $this->smarty->display('update_post.tpl');
+        $this->smarty->assign('creaPost', $creaPost);
+        $this->smarty->display('create_post.tpl');
     }
 }
 

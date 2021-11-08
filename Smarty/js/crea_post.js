@@ -14,7 +14,6 @@
         "</div><div class='col-md-3'>" +
         "<input type='date' name='endDate"+ numCode +"' class='px-2'>" +
         "</div><div class='col-md-3'>" +
-        //"<button class='btn btn-primary' onclick='selectPlace()'> + Add Place </button>" +
         "<select class='btn btn-primary' name='place"+ numCode +"'>" +
         "{if isset($arrayPlace)}" +
         "{foreach $arrayPlace as $p}" +
