@@ -16,36 +16,23 @@ class Installation{
         $smarty = StartSmarty::configuration();
         if (UServer::getRequestMethod() == 'GET'){
             // viene inviato un cookie per verificare se questi sono abilitati
-            setcookie('verifica_cookie', 'verifica',time()+3600);
             $smarty->display('installazione.tpl');
         }
         else {
             $noPHP = false;
-            $noCookie = false;
-            $noJS = false;
+
             // controllo versione PHP
             if (version_compare(PHP_VERSION,'7.0.0' , '<' )) {
                 $noPHP = true;
                 $smarty->assign('nophpv', $noPHP);
             }
-            // controllo cookie
-            if (UCookie::getIsSet('verifica_cookie')){
-                $noCookie = true;
-                $smarty->assign('nocookie', $noCookie);
-            }
-            // verifica JS
-            if (UCookie::getIsSet('checkjs')){
-                $noJS = true;
-                $smarty->assign('nojs', $noJS);
-            }
+
             // se almeno uno dei controlli non è andato a buon fine, si mostra la pagina di installazione con i relativi errori.
-            if ($noPHP || $noJS || $noCookie){
+            if ($noPHP){
                 $smarty->display('installazione.tpl');
             }
             // altrimenti, se i requisiti sono verificati elimino i cookie inviati in precedenza
             else {
-                setcookie('verifica_cookie', '',time()-3600);
-                setcookie('checkjs', '',time()-3600);
                 // si procede con l'installazione e il popolamento del db
                 static::install();
                 header ('Location: /logBook');
