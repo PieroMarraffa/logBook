@@ -54,7 +54,7 @@ class Installation{
         }
         try
         {
-            $query = $query . file_get_contents('logbook.sql');
+            $query = $query . file_get_contents('logbook_vecchio.sql');
             $db->exec($query);
             $file = fopen('config.inc.php', 'c+');
             $script = '<?php $GLOBALS[\'database\']= \'' . $_POST['nomedb'] . '\'; $GLOBALS[\'username\']=  \'' . $_POST['nomeutente'] . '\'; $GLOBALS[\'password\']= \'' . $_POST['password'] . '\';?>';

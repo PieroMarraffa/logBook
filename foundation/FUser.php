@@ -123,7 +123,7 @@ class FUser extends FDataBase
 
 
 
-    /** Restituisce tutti i valori di place associati a quell'utente */   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
+    /** Restituisce tutti i valori di place associati a quell'utente   //Ricordati di aggiungere quando un post viene creato la relazione tra user e place
     public static function loadPlaceByUser($idUser){
         $place=array();
         $database = FDataBase::getInstance();
@@ -143,7 +143,9 @@ class FUser extends FDataBase
             }
         }
         return $place;
-    }
+    }*/
+
+
 
     /** Inserisce nella tabella place_to_user l'associazione tra l'utente associata a idUser e
      *il posto associato a $idPlace

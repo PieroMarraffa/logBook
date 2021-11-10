@@ -207,7 +207,7 @@ class FDataBase
      * entity1= place => entity2=experience
      * entity1= place => entity2=post
      * entity1= place => entity2=user
-     */
+
     public function loadEntityToEntity($firstClass,$idFirstClass,$secondClass){
         if($firstClass=="place" && ($secondClass=="experience" || $secondClass=="post" || $secondClass=="user")){
         try{
@@ -321,7 +321,7 @@ class FDataBase
             }
 
         }
-    }
+    }*/
 
 
     public function loadAllPostIDByUser($id){
@@ -350,90 +350,6 @@ class FDataBase
     }
 
 
-    public function loadPostToPlace($idPlace){
-        try{
-            $query="SELECT * FROM place_to_post WHERE IDplace ='". $idPlace . "';";
-            $statement=$this->database->prepare($query);
-            $statement->execute();
-            $num=$statement->rowCount();
-            if($num==0){
-                $result=false;
-            }elseif ($num==1){
-                $x=$statement->fetch(PDO::FETCH_ASSOC);
-                $result=$this->loadById("post","IDpost",$x['IDpost']);
-            }elseif($num>1){
-                $resID=array();
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $statement->fetch()) $resID[] = $row;
-                $result=array();
-                foreach ($resID as $r){
-                    $result[]=$this->loadById("post","IDpost",$r['IDpost']);
-                }
-            }
-            return $result;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            return null;
-        }
-
-    }
-
-    public function loadPlaceToPost($idPost){
-        try{
-            $query="SELECT * FROM place_to_post WHERE IDpost ='". $idPost . "';";
-            $statement=$this->database->prepare($query);
-            $statement->execute();
-            $num=$statement->rowCount();
-            if($num==0){
-                $result=false;
-            }elseif ($num==1){
-                $x=$statement->fetch(PDO::FETCH_ASSOC);
-                $result=$this->loadById("place","IDplace",$x['IDplace']);
-            }elseif($num>1){
-                $resID=array();
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $statement->fetch()) $resID[] = $row;
-                $result=array();
-                foreach ($resID as $r){
-                    $result[]=$this->loadById("place","IDplace",$r['IDplace']);
-                }
-            }
-            return $result;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            return null;
-        }
-
-    }
-
-
-    public function loadPlaceToUser($idUser){
-        try{
-            $query="SELECT * FROM place_to_user WHERE IDuser ='". $idUser . "';";
-            $statement=$this->database->prepare($query);
-            $statement->execute();
-            $num=$statement->rowCount();
-            if($num==0){
-                $result=false;
-            }elseif ($num==1){
-                $x=$statement->fetch(PDO::FETCH_ASSOC);
-                $result=$this->loadById("place","IDplace",$x['IDplace']);
-            }elseif($num>1){
-                $resID=array();
-                $statement->setFetchMode(PDO::FETCH_ASSOC);
-                while ($row = $statement->fetch()) $resID[] = $row;
-                $result=array();
-                foreach ($resID as $r){
-                    $result[]=$this->loadById("place","IDplace",$r['IDplace']);
-                }
-            }
-            return $result;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            return null;
-        }
-
-    }
 
     /** seleziona tutti gli id dei post segnalati senza doppioni
      */

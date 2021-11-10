@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Nov 10, 2021 alle 20:07
+-- Creato il: Nov 10, 2021 alle 22:10
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -101,7 +101,8 @@ INSERT INTO `experience` (`IDexperience`, `IDtravel`, `IDplace`, `StartDay`, `En
 (126, 60, 5, '2021-10-15', '2021-11-15', 'Aereoporto', 'Siamo partiti da Roma la mattina presto con un volo Ryanair e siamo arrivati a Parigi all\'aereoporto Charles de Gaul '),
 (127, 60, 1, '2021-11-16', '2021-11-16', 'Visita alla tour Eiffel', 'Siamo saliti sulla tour Eiffel'),
 (128, 60, 8, '2021-11-16', '2021-11-16', 'Passeggiata sulla Senna', 'La sera abbiamo fatto un giro per la città e abbiamo preso il battello per fare un giro sulla Senna'),
-(129, 63, 5, '2021-11-06', '2021-11-07', 'Roma', 'Roma');
+(129, 63, 5, '2021-11-06', '2021-11-07', 'Roma', 'Roma'),
+(130, 64, 5, '2021-11-05', '2021-11-07', 'Roma', 'Core de sta città');
 
 -- --------------------------------------------------------
 
@@ -183,73 +184,6 @@ INSERT INTO `place` (`IDplace`, `Latitude`, `Longitude`, `Category`, `Name`) VAL
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `place_to_post`
---
-
-CREATE TABLE `place_to_post` (
-  `IDplace` int(10) NOT NULL,
-  `IDpost` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `place_to_post`
---
-
-INSERT INTO `place_to_post` (`IDplace`, `IDpost`) VALUES
-(4, 1),
-(5, 1),
-(6, 2),
-(8, 3),
-(9, 4),
-(11, 5),
-(12, 5),
-(5, 60),
-(5, 2),
-(3, 62),
-(1, 60),
-(8, 60);
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `place_to_user`
---
-
-CREATE TABLE `place_to_user` (
-  `IDplace` int(10) NOT NULL,
-  `IDuser` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `place_to_user`
---
-
-INSERT INTO `place_to_user` (`IDplace`, `IDuser`) VALUES
-(4, 2),
-(5, 2),
-(11, 3),
-(12, 3),
-(1, 4),
-(7, 4),
-(10, 4),
-(9, 5),
-(8, 5),
-(1, 3),
-(1, 13),
-(4, 13),
-(4, 13),
-(4, 3),
-(5, 1),
-(3, 1),
-(5, 8),
-(1, 8),
-(8, 8),
-(4, 8),
-(4, 17);
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `post`
 --
 
@@ -272,7 +206,8 @@ INSERT INTO `post` (`IDpost`, `IDuser`, `Date`, `Deleted`) VALUES
 (5, 3, '2021-09-12 01:34:58', 0),
 (60, 8, '2021-11-08 04:57:49', 0),
 (62, 1, '2021-11-08 06:05:04', 0),
-(63, 17, '2021-11-08 06:12:54', 0);
+(63, 17, '2021-11-08 06:12:54', 0),
+(64, 8, '2021-11-10 09:33:48', 0);
 
 -- --------------------------------------------------------
 
@@ -311,7 +246,8 @@ INSERT INTO `reaction` (`IDreaction`, `IDpost`, `IDuser`, `Reaction`) VALUES
 (33, 3, 1, '1'),
 (34, 60, 1, '1'),
 (36, 2, 1, '-1'),
-(37, 1, 17, '1');
+(37, 1, 17, '1'),
+(38, 5, 8, '1');
 
 -- --------------------------------------------------------
 
@@ -337,7 +273,8 @@ INSERT INTO `travel` (`IDtravel`, `Title`, `IDpost`) VALUES
 (5, 'road trip in Puglia ', 5),
 (60, 'Viaggio a Parigi', 60),
 (62, 'Viaggio a Londra', 62),
-(63, 'Roma', 63);
+(63, 'Roma', 63),
+(64, 'Roma', 64);
 
 -- --------------------------------------------------------
 
@@ -417,20 +354,6 @@ ALTER TABLE `place`
   ADD PRIMARY KEY (`IDplace`);
 
 --
--- Indici per le tabelle `place_to_post`
---
-ALTER TABLE `place_to_post`
-  ADD KEY `place_to_post_ibfk_1` (`IDplace`),
-  ADD KEY `place_to_post_ibfk_2` (`IDpost`);
-
---
--- Indici per le tabelle `place_to_user`
---
-ALTER TABLE `place_to_user`
-  ADD KEY `place_to_profile_ibfk_1` (`IDuser`),
-  ADD KEY `place_to_user_ibfk_2` (`IDplace`);
-
---
 -- Indici per le tabelle `post`
 --
 ALTER TABLE `post`
@@ -485,7 +408,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT per la tabella `experience`
 --
 ALTER TABLE `experience`
-  MODIFY `IDexperience` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `IDexperience` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT per la tabella `image`
@@ -503,19 +426,19 @@ ALTER TABLE `place`
 -- AUTO_INCREMENT per la tabella `post`
 --
 ALTER TABLE `post`
-  MODIFY `IDpost` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `IDpost` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT per la tabella `reaction`
 --
 ALTER TABLE `reaction`
-  MODIFY `IDreaction` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `IDreaction` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT per la tabella `travel`
 --
 ALTER TABLE `travel`
-  MODIFY `IDtravel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `IDtravel` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT per la tabella `user`

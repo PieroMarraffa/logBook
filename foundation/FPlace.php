@@ -136,87 +136,6 @@ class FPlace extends FDataBase
 
 
 
-    /** ritorna tutte le esperienze associate a quel determinato luogo passato in ingresso */
-    public static function loadExperienceByPlace($idPLace){
-        $result=FExperience::load("IDplace",$idPLace);
-        return $result;
-    }
-
-    /** ritorna tutte i post associati a quel determinato luogo passato in ingresso
-     * @throws Exception
-     */
-    public static function loadPostByPlace($idPLace){
-        $post=null;
-        $database=FDataBase::getInstance();
-        $result=$database->loadPostToPlace($idPLace);
-        $rows_number = $database->interestedRowsInTable("place_to_post","IDplace",$idPLace);
-        if(($result != null) && ($rows_number == 1)) {
-            $commentList=FComment::load("IDpost",$result['IDpost']);
-            $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $nLike=0;
-            $nDislike=0;
-            if(is_array($likeList)){
-            foreach ($likeList as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
-                }
-            }}else $likeList=array();
-            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
-            $post->setPostID($result['IDpost']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $post= array();
-                for($i = 0; $i <= count($result)-1; $i++) {
-                    if ($result[$i]){
-                        $commentList = FComment::load("IDpost", $result[$i]['IDpost']);
-                        $likeList = FLike::load("IDpost", $result[$i]['IDpost']);
-                        $travel = FTravel::load("IDpost", $result[$i]['IDpost']);
-                        $Like = FLike::load("IDpost", $result[$i]['IDpost']);
-                        $nLike = 0;
-                        $nDislike = 0;
-                        if ($likeList != null) {
-                            foreach ($Like as $l) {
-                                if ($l->getValue() == 1) {
-                                    $nLike++;
-                                } elseif ($l->getValue() == -1) {
-                                    $nDislike++;
-                                }
-                            }
-                        }
-                        $post[] = new EPost( $commentList, $likeList, $result[$i]['Date'], $travel, $result[$i]['Deleted'], $nLike, $nDislike, $result[$i]['IDuser']);
-                        $post[$i]->setPostID($result[$i]['IDpost']);
-                    }
-                }
-            }
-        }
-        return $post;
-    }
-
-    /** ritorna tutte gli utenti associati a quel determinato luogo passato in ingresso */
-    public static function loadUserByPlace($idPLace){
-        $database=FDataBase::getInstance();
-        $result=$database->loadEntityToEntity(self::getTable(),$idPLace,"user");
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $user = new EUser($result['UserName'],$result['Name'],$result['Password'],$result['Email'],$result['IDimage'],$result['Description'],$result['Reported'],$result['Banned']);
-            $user->setUserID($result['IDuser']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $user= array();
-                for($i = 0; $i < count($result); $i++){
-                    $user[] = new EUser($result[$i]['UserName'],$result[$i]['Name'],$result[$i]['Password'],$result[$i]['Email'],$result[$i]['IDimage'],$result[$i]['Description'],$result[$i]['Reported'],$result[$i]['Banned']);
-                    $user[$i]->setUserID($result[$i]['IDuser']);
-
-                }
-            }
-        }
-        return $user;
-    }
 
     /** ritorna tutti gli elementi della categoria associata */
     public static function loadByCategory($idCategory){
@@ -224,16 +143,6 @@ class FPlace extends FDataBase
         return $result;
     }
 
-
-    /** ritorna tutti gli elementi della categgoria inferiore a quella associata
-     non funziona perchè le categorie non sono numeri come dovrebbero essere*/
-    public static function loadLowerCategory($idCategory){
-        $result=array();
-        for($i=$idCategory;$i>0;$i--){
-            array_push($result,self::loadByCategory($i));
-        }
-        return $result;
-    }
 
 
 }

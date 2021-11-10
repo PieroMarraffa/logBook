@@ -167,23 +167,14 @@ class FPost
     }
 
 
-    /** Restituisce tutti i valori di place associati a quel post */
-    public static function loadPlaceByPost($idPost)
-    {   $place=null;
-        $database = FDataBase::getInstance();
-        $result = $database->loadPlaceToPost($idPost);
-        $rows_number = $database->interestedRowsInTable("place_to_post","IDpost",$idPost);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
-            $place->setPlaceID($result['IDplace']);
-        }
-        else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
-                    $place[$i]->setPlaceID($result[$i]['IDplace']);
-                }
+    public static function loadPlaceByPost($idPost){
+        $place=array();
+        $result=FPost::load('IDpost',$idPost);
+        $travel= $result->getTravel();
+        $experience= $travel->getExperienceList();
+        if($experience!=null){
+            foreach ($experience as $e) {
+                $place[] = $e->getPlace();
             }
         }
         return $place;

@@ -139,13 +139,7 @@ class FPersistentManager
         return $result;
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function loadPostByPlace($id){
-        $result = FPlace::loadPostByPlace($id);
-        return $result;
-    }
+
 
     /**
      * @throws Exception
@@ -192,16 +186,6 @@ class FPersistentManager
 
     public static function storePlaceToUser($idUser,$idPlace){
         FUser::storePlaceAssociatedToUser($idPlace,$idUser);
-    }
-
-    public static function loadPlaceByPost($idPost){
-        $result=FPost::loadPlaceByPost($idPost);
-        return $result;
-    }
-
-    public static function loadPlaceByUser($idUser){
-        $result=FUser::loadPlaceByUser($idUser);
-        return $result;
     }
 
     public static function loadCommentReportedByUser($idUser){
@@ -357,5 +341,41 @@ class FPersistentManager
 
     public static function deleteAllFromPlaceToUser($userID){
         FPost::deleteAllFromPlaceToUser($userID);
+    }
+
+
+    public static function loadPlaceByUser($idUser){
+        $place=array();
+        $database=FDataBase::getInstance();
+        $result=FPost::load('IDuser',$idUser);
+        if($result!=null){
+            if(!is_array($result)){
+                $res=array();
+                $res[]=$result;
+            }else $res=$result;
+            foreach ($res as $r){
+                $p=FPost::loadPlaceByPost($r->getPostID());
+                foreach ($p as $pl){
+                    $place[]=$pl;
+                }
+            }
+        }
+        return $place;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function loadPostByPlace($idPlace){
+        $result = array();
+        $experience=self::load('IDplace',$idPlace,FExperience::getClass());
+        $travel=array();
+        foreach ($experience as $e){
+            $travel[]=self::load('IDtravel',$e->getTravelID(),FTravel::getClass());
+        }
+        foreach ($travel as $t){
+            $result=self::load('IDpost',$t->getPostID(),FPost::getClass());
+        }
+        return $result;
     }
 }

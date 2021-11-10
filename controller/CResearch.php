@@ -177,10 +177,12 @@ class CResearch
                         }
                     }
                     $image = array();
-                    foreach ($arrayPost as $r) {
-                        $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                        $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
-                        $image[] = $i;
+                    if($arrayPost!=null) {
+                        foreach ($arrayPost as $r) {
+                            $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                            $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                            $image[] = $i;
+                        }
                     }
                     $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
                     $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
