@@ -234,8 +234,8 @@ class FPersistentManager
         return $result;
     }
 
-    public static function loadLogin($email,$password){
-        $result=FUser::loadLogin($email,$password);
+    public static function loadLogin($email){
+        $result=FUser::loadLogin($email);
         return $result;
     }
 

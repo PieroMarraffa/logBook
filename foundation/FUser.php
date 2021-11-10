@@ -252,10 +252,10 @@ class FUser extends FDataBase
     }
 
 
-    public static function loadLogin($email,$password){
+    public static function loadLogin($email){
         $database=FDatabase::getInstance();
         $class=FUser::getTable();
-        $result=$database->VerifiedAccess($class,$email, $password);
+        $result=$database->VerifiedAccess($class,$email);
         if(isset($result)){
             return true;
         }else{

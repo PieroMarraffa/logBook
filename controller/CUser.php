@@ -96,21 +96,23 @@ class CUser
         if(UServer::getRequestMethod()!='GET') {
             $view = new VUser();
             $pm = FPersistentManager::getInstance();
-            $exist = $pm->loadLogin($_POST['email'], $_POST['password']);
+            $exist = $pm->loadLogin($_POST['email']);
             $admin = $pm->loadAdmin("IDadmin", 1);
             $adminEmail = $admin->getMail();
             $adminPassword = $admin->getPassword();
             if ($exist == true) {
                 $user = $pm->load("Email", $_POST['email'], "FUser");
-                if ($user != null && $user->isBanned() != true) {
-                    if (USession::getSessionStatus() == PHP_SESSION_NONE) {
-                        USession::getInstance();
-                        $salvare = serialize($user);
-                        USession::setElement('user', $salvare);
-                        header('Location: /logBook/User/home');
+                if(password_verify($_POST['password'],$user->getPassword())) {
+                    if ($user->isBanned() != true) {
+                        if (USession::getSessionStatus() == PHP_SESSION_NONE) {
+                            USession::getInstance();
+                            $salvare = serialize($user);
+                            USession::setElement('user', $salvare);
+                            header('Location: /logBook/User/home');
+                        }
+                    } elseif ($user->isBanned() == true) {
+                        $view->loginBann();
                     }
-                } elseif ($user->isBanned() == true) {
-                    $view->loginBann();
                 }
             } elseif ($adminEmail == $_POST['email'] && $adminPassword == $_POST['password']) {
                 if (USession::getSessionStatus() == PHP_SESSION_NONE) {
@@ -199,7 +201,7 @@ class CUser
             if ($verifiemail){
                 $view->registrationError("email");}
             else{
-                $user = new EUser($_POST['email'], $_POST['password'],$_POST['name'],"", 0,$_POST['username'],false,false);
+                $user = new EUser($_POST['email'],password_hash($_POST['password'], PASSWORD_BCRYPT),$_POST['name'],"", 0,$_POST['username'],false,false);
                 if ($user != null) {
                     if (isset($_FILES['file'])) {
                         $nome_file = 'file';

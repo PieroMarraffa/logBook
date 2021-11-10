@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Nov 09, 2021 alle 17:36
+-- Creato il: Nov 10, 2021 alle 20:07
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.3
 
@@ -348,7 +348,7 @@ INSERT INTO `travel` (`IDtravel`, `Title`, `IDpost`) VALUES
 CREATE TABLE `user` (
   `IDuser` int(10) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
+  `Password` varchar(100) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Description` varchar(1000) NOT NULL,
   `Image` int(10) NOT NULL,
@@ -362,13 +362,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`IDuser`, `Email`, `Password`, `Name`, `Description`, `Image`, `UserName`, `Reported`, `Banned`) VALUES
-(1, 'pieromarraffa@gmail.com', 'Pippo', 'Piero', 'Davvero una bella persona', 28, 'marphino99', 0, 0),
-(2, 'gabrielegiusti@gmail.com', 'Gabriele', 'Gabriele', 'Davvero una persona cattiva', 1, 'SuperG', 0, 0),
-(3, 'silviamastracci@gmail.com', 'Silvia', 'Silvia', 'Davvero una persona bellina bellina', 3, 'Sissipessa', 0, 0),
-(4, 'federicoraschiatore@gmail.com', 'Federico', 'Federico', 'Davvero una persona che lascia indietro gli amici... kattiv', 1, 'MaurizioCostanzo00', 0, 0),
-(5, 'giuliacancello@gmail.com', 'Giulia', 'Giulia', 'davvero una persona che non sa fare una carbonara all\'altezza', 0, 'Zuly99', 0, 0),
-(8, 'attapalo@gmail.com', 'Balu', 'Balu', 'Baluuuuuuuuu', 70, 'Blu Balù', 1, 0),
-(17, 'tizio@gmail.com', 'Tizio', 'tizio', '', 0, 'Tizio', 0, 0);
+(1, 'pieromarraffa@gmail.com', '$2y$10$upESbcbMlMTBmtETJ1y8TeLrgkbW3K9iRdZQ6.nc/UiIDAC4ZOKri', 'Piero', 'Davvero una bella persona', 28, 'marphino99', 0, 0),
+(2, 'gabrielegiusti@gmail.com', '$2y$10$EW/Ar/VnluHHfH.uW1lH/O2TeE/SxstybrHvTpD.OTvKvar.bB.Uy', 'Gabriele', 'Davvero una persona cattiva', 1, 'SuperG', 0, 0),
+(3, 'silviamastracci@gmail.com', '$2y$10$CWCL20gl/9nr/swwuVmO3uQ4tEOtIqQ9karreS937NEMoV.eVmAN2', 'Silvia', 'Davvero una persona bellina bellina', 3, 'Sissipessa', 0, 0),
+(4, 'federicoraschiatore@gmail.com', '$2y$10$PEqbgav76n89KLiIE/mCOewDRj15yAjGgNUXZHxICzVzv9stE5LqC', 'Federico', 'Davvero una persona che lascia indietro gli amici... kattiv', 1, 'MaurizioCostanzo00', 0, 0),
+(5, 'giuliacancello@gmail.com', '$2y$10$80kPG.Vztk6w9IDOSyp78e.yacOl.e5nC5bdk5rrTIH9uhqR96lwq', 'Giulia', 'davvero una persona che non sa fare una carbonara all\'altezza', 0, 'Zuly99', 0, 0),
+(8, 'attapalo@gmail.com', '$2y$10$EFZgxkvxsLG2uF4geZmkm.MQWdsfRzHpoTepuZkYd5zoOssO.oF4e', 'Balu', 'Baluuuuuuuuu', 70, 'Blu Balù', 1, 0),
+(17, 'tizio@gmail.com', '$2y$10$mNu4C6oz0V/d3F14ZdYwleF7eSRcORpi3c.YvUahBFJqKShzRIFxK', 'tizio', '', 0, 'Tizio', 0, 0),
+(18, 'cryptotizio@gmail.com', '$2y$10$.WL2AqkwFx5NgvKJCiKaAeWqIrk2x7aFJD.qoccak7P0Sm4zI9FOq', 'CriptoTizio', '', 0, 'CryptoTizio', 0, 0);
 
 --
 -- Indici per le tabelle scaricate
@@ -520,7 +521,7 @@ ALTER TABLE `travel`
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `IDuser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `IDuser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Limiti per le tabelle scaricate

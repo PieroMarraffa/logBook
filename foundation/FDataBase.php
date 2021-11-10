@@ -175,10 +175,10 @@ class FDataBase
      * se questi sono presenti all'interno della tabella RegisteredUser del DB.
      *Se si ritorna l'utente associato se no ritorna null
      */
-    public function verifiedAccess($classTable,$email,$password){
+    public function verifiedAccess($classTable,$email){
 
         try{
-        $query="SELECT * FROM ". $classTable . " WHERE Email = '" . $email ."' AND Password = '" . $password . "';";
+        $query="SELECT * FROM ". $classTable . " WHERE Email = '" . $email ."';";
         $statement=$this->database->prepare($query);
         $statement->execute();
         $num= $statement->rowCount();
@@ -186,7 +186,7 @@ class FDataBase
             $result=null;
         }
         elseif ($num > 0){
-            $result=$statement->fetch(PDO::FETCH_ASSOC); /** DEVI DISTINGUERE IL LOGIN DEL SUPREME ADMIN DA QUELLO DELL'UTENTE NORMALI */
+            $result=$statement->fetch(PDO::FETCH_ASSOC);
         }
         }catch (PDOException $e) {
             echo "ERROR " . $e->getMessage();
