@@ -35,7 +35,7 @@ class Installation{
             else {
                 // si procede con l'installazione e il popolamento del db
                 static::install();
-                header ('Location: /logBook');
+                header ('Location: /logBook/');
             }
 
         }
@@ -45,9 +45,13 @@ class Installation{
      * Creazione del file config.inc.php per l'accesso e la creazione del db
      */
     static function install(){
-
-        $db = new PDO("mysql:dbname=logbook;host=127.0.0.1; charset=utf8;", $_POST['nomeutente'], $_POST['password']);
-        $db->beginTransaction();$query = 'DROP DATABASE IF EXISTS ' .$_POST['nomedb']. '; CREATE DATABASE ' . $_POST['nomedb'] . ' ; USE ' . $_POST['nomedb'] . ';' . 'SET GLOBAL max_allowed_packet=16777216;';
+        try {
+            $db = new PDO("mysql:dbname=logbook;host=127.0.0.1; charset=utf8;", $_POST['nomeutente'], $_POST['password']);
+            $db->beginTransaction();
+            $query = 'DROP DATABASE IF EXISTS ' . $_POST['nomedb'] . '; CREATE DATABASE ' . $_POST['nomedb'] . ' ; USE ' . $_POST['nomedb'] . ';' . 'SET GLOBAL max_allowed_packet=16777216;';
+        }catch(PDOException $e){
+            header ('Location: /logBook/');
+        }
         try
         {
             $query = $query . file_get_contents('logbook.sql');
@@ -57,7 +61,6 @@ class Installation{
             fwrite($file, $script);
             fclose($file);
             $db=null;
-
         }
         catch (PDOException $e)
         {
@@ -66,7 +69,6 @@ class Installation{
             die;
         }
     }
-
 
     /**
      * Funzione che verifica la presenza del cookie di installazione; quindi se l'installazione è stata effettuata

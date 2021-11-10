@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-10-29 11:10:59
+/* Smarty version 3.1.33, created on 2021-11-10 15:59:51
   from 'C:\xampp\htdocs\logBook\Smarty\templates\installazione.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_617bbaa3070a34_56409948',
+  'unifunc' => 'content_618bde67bbf3b8_54497593',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cdd2f2aec03b1af720f0c2f00087dd128d541986' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\installazione.tpl',
-      1 => 1635498656,
+      1 => 1636555921,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_617bbaa3070a34_56409948 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618bde67bbf3b8_54497593 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -53,7 +53,7 @@ function content_617bbaa3070a34_56409948 (Smarty_Internal_Template $_smarty_tpl)
     </header>
 
     <main role="main" class="inner cover">
-        <h3 class=" text-danger"><?php if (isset($_smarty_tpl->tpl_vars['nophpv']->value)) {?> La tua versione di php non è compatibile! <?php }?> <?php if (isset($_smarty_tpl->tpl_vars['nocookie']->value)) {?> L'app necessita dei cookie abilitati! <?php }?> <br> <?php if (isset($_smarty_tpl->tpl_vars['nojs']->value)) {?> L'app necessita di javascript! <?php }?><br> </h3>
+        <h3 class=" text-danger"><?php if (isset($_smarty_tpl->tpl_vars['nophpv']->value)) {?> La tua versione di php non è compatibile! <?php }?></h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
                 <label>Database name</label>
@@ -65,7 +65,7 @@ function content_617bbaa3070a34_56409948 (Smarty_Internal_Template $_smarty_tpl)
                 <label>Password</label>
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
-                <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
+                <button type="submit" class="btn mt-2 btn btn-light">Install</button>
             </div>
         </form>
     </main>

@@ -30,7 +30,7 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h3 class=" text-danger">{if isset($nophpv)} La tua versione di php non è compatibile! {/if} {if isset($nocookie)} L'app necessita dei cookie abilitati! {/if} <br> {if isset($nojs)} L'app necessita di javascript! {/if}<br> </h3>
+        <h3 class=" text-danger">{if isset($nophpv)} La tua versione di php non è compatibile! {/if}</h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
                 <label>Database name</label>
@@ -42,7 +42,7 @@
                 <label>Password</label>
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
-                <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
+                <button type="submit" class="btn mt-2 btn btn-light">Install</button>
             </div>
         </form>
     </main>
