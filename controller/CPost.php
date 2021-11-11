@@ -11,7 +11,7 @@ class CPost{
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
-            if (!isset($_POST['titleExperience']) || !isset($_POST['title'])) {
+            if (!isset($_POST['titleExperience']) || $_POST['title'] == NULL) {
                 header('Location: /logBook/User/profile');
             } else {
                 $arrayExperienceTitle = $_POST['titleExperience'];
@@ -73,6 +73,7 @@ class CPost{
                         $immagini = $pm->load('IDtravel', $travelID, FImage::getClass());
                         foreach ($immagini as $item){
                             if ($item->getImageID() < 0){
+                                echo 'DIo Bastardo';
                                 $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
                             }
                         }

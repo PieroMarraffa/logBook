@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-01 16:44:02
+/* Smarty version 3.1.33, created on 2021-11-11 11:47:37
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/installazione.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61800b42ad7314_55612525',
+  'unifunc' => 'content_618cf4c90b7693_25224596',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f297ed39b4791bbe2d7b5728dc6f7e072043528d' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/installazione.tpl',
-      1 => 1635588511,
+      1 => 1636621168,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61800b42ad7314_55612525 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618cf4c90b7693_25224596 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -53,7 +53,7 @@ function content_61800b42ad7314_55612525 (Smarty_Internal_Template $_smarty_tpl)
     </header>
 
     <main role="main" class="inner cover">
-        <h3 class=" text-danger"><?php if (isset($_smarty_tpl->tpl_vars['nophpv']->value)) {?> La tua versione di php non è compatibile! <?php }?> <?php if (isset($_smarty_tpl->tpl_vars['nocookie']->value)) {?> L'app necessita dei cookie abilitati! <?php }?> <br> <?php if (isset($_smarty_tpl->tpl_vars['nojs']->value)) {?> L'app necessita di javascript! <?php }?><br> </h3>
+        <h3 class=" text-danger"><?php if (isset($_smarty_tpl->tpl_vars['nophpv']->value)) {?> La tua versione di php non è compatibile! <?php }?></h3>
         <form action="/logBook/" method="POST">
             <div class="form-group">
                 <label>Database name</label>
@@ -65,7 +65,7 @@ function content_61800b42ad7314_55612525 (Smarty_Internal_Template $_smarty_tpl)
                 <label>Password</label>
                 <input type="password" class="form-control" name="password"> </div>
             <div class="form-group">
-                <button type="submit" class="btn mt-2 btn btn-light" onclick="setcookie()">Install</button>
+                <button type="submit" class="btn mt-2 btn btn-light">Install</button>
             </div>
         </form>
     </main>

@@ -188,8 +188,8 @@ class FPost
         $database = FDataBase::getInstance();
         $result = $database->loadAllPostIDByUser($idUser);
         $rows_number = count($result);
-        if(($result[0] != null) && ($rows_number == 1)) {
-            $postID = $result[0]['IDpost'];
+        if(($result != null) && ($rows_number == 1)) {
+            $postID = $result['IDpost'];
         }
         else {
             if(($result != null) && ($rows_number > 1)){

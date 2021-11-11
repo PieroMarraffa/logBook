@@ -31,7 +31,7 @@ class FPersistentManager
 
     public static function delete($field,$val,$Fclass){
         $Fclass::delete($field,$val);
-        if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser")//AGGIUNGI LE FOUNDATION MAN MANO
+        if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser"  || $Fclass=="FTravel")//AGGIUNGI LE FOUNDATION MAN MANO
             $Fclass::delete($field,$val);
         else
             echo ("METODO NON SUPPORTATO DALLA CLASSE");
@@ -74,9 +74,25 @@ class FPersistentManager
                 $placeID = array();
                 foreach ($travelID as $t) {
                     $exp = self::loadExperienceByTravel($t);
+                    if (count($exp) > 1){
+                        foreach ($exp as $e) {
+                            $placeID[] = $e->getPlaceID();
+                        }
+                    } elseif (count($exp) == 1){
+                        $placeID = $exp[0]->getPlaceID();
+                    }
+                }
+                return $placeID;
+            }
+            elseif (count($postID) == 1){
+                $travelID = self::loadTravelByPost($postID)->getTravelID();
+                $exp = self::loadExperienceByTravel($travelID);
+                if (count($exp) > 1){
                     foreach ($exp as $e) {
                         $placeID[] = $e->getPlaceID();
                     }
+                } elseif (count($exp) == 1){
+                    $placeID = $exp[0]->getPlaceID();
                 }
                 return $placeID;
             }

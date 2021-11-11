@@ -52,7 +52,9 @@
                                     you can add the images clicking on the button "Add Image".</br></br>
 
                                     You can also modify the post clicking on the button "Modify Post" in the</br>
-                                        post page.</br>
+                                        post page.</br></br>
+
+                                    If your post won't have a title or at list one complete experience won't be saved</br></br>
                                     </b>
                                 </p>
                         </div>
