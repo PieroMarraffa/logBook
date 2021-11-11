@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-11 12:16:42
+/* Smarty version 3.1.33, created on 2021-11-11 13:25:59
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618cfb9a4dc612_11510238',
+  'unifunc' => 'content_618d0bd70ce9b9_89879893',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1636629110,
+      1 => 1636633556,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618cfb9a4dc612_11510238 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618d0bd70ce9b9_89879893 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -217,7 +217,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                         <?php }?>
 
                                         <?php if (isset($_smarty_tpl->tpl_vars['arrayRegion']->value)) {?>
-                                            <optgroup label="Regions"">
+                                            <optgroup label="Regions">
                                             <?php if (count($_smarty_tpl->tpl_vars['arrayRegion']->value) == 1) {?>
                                                 <?php if ($_smarty_tpl->tpl_vars['exp']->value->getPlace()->getPlaceID() == $_smarty_tpl->tpl_vars['arrayRegion']->value->getPlaceID()) {?>
                                                     <option selected value="<?php echo $_smarty_tpl->tpl_vars['arrayRegion']->value->getPlaceID();?>
@@ -252,7 +252,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                         <?php }?>
 
                                         <?php if (isset($_smarty_tpl->tpl_vars['arrayState']->value)) {?>
-                                            <optgroup label="Stetes"">
+                                            <optgroup label="Stetes">
                                             <?php if (count($_smarty_tpl->tpl_vars['arrayState']->value) == 1) {?>
                                                 <?php if ($_smarty_tpl->tpl_vars['exp']->value->getPlace()->getPlaceID() == $_smarty_tpl->tpl_vars['arrayState']->value->getPlaceID()) {?>
                                                     <option selected value="<?php echo $_smarty_tpl->tpl_vars['arrayState']->value->getPlaceID();?>
@@ -329,6 +329,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="row">
                 <?php echo '<script'; ?>
  id="creaExperience">
+                    function defaultDate(numCode){
+                        var d1 = new Date(document.getElementById('date1'+ numCode).value);
+                        var d2 = new Date(document.getElementById('date2'+ numCode).value);
+
+                        if (d2.getDate()<d1.getDate()) {
+                            alert("You cannot enter an end date that is earlier than the start date");
+                            document.getElementById('date2'+ numCode).value= null;
+                        }
+                    }
+
                     function creaExperience() {
                         nuovo_elemento = document.createElement("div");
                         var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
@@ -340,9 +350,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate[]' class='px-2'>" +
+                            "<input type='date' name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate[]' class='px-2'>" +
+                            "<input type='date' name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<select class='btn btn-primary' name='place[]'>" +
 
@@ -446,11 +456,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>"+
                             "</div><div align='end'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
                             "</div></div>";
+
                         document.getElementById("container").appendChild(nuovo_elemento);
                         obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
                         obj.style.height = "450px";
                         obj.style.width = "1000px";
                     }
+
                 <?php echo '</script'; ?>
 >
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>

@@ -29,9 +29,9 @@ class CUser
         $identificato = false;
         if (UCookie::getIsSet('PHPSESSID')) {
             if (session_status() == PHP_SESSION_NONE) {
-                //header('Cache-Control: no cache'); //no cache
-                //session_cache_limiter('private_no_expire'); // works
-                //session_cache_limiter('public'); // works too
+                //header('Cache-Control: no cache');
+                //session_cache_limiter('private_no_expire');
+                //session_cache_limiter('public');
                 USession::getInstance();
             }
         }

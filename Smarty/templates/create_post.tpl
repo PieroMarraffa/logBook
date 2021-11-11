@@ -140,7 +140,7 @@
                                         {/if}
 
                                         {if isset($arrayRegion)}
-                                            <optgroup label="Regions"">
+                                            <optgroup label="Regions">
                                             {if count($arrayRegion) == 1}
                                                 {if $exp->getPlace()->getPlaceID() == $arrayRegion->getPlaceID()}
                                                     <option selected value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
@@ -160,7 +160,7 @@
                                         {/if}
 
                                         {if isset($arrayState)}
-                                            <optgroup label="Stetes"">
+                                            <optgroup label="Stetes">
                                             {if count($arrayState) == 1}
                                                 {if $exp->getPlace()->getPlaceID() == $arrayState->getPlaceID()}
                                                     <option selected value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
@@ -215,6 +215,16 @@
             </div>
             <div class="row">
                 <script id="creaExperience">
+                    function defaultDate(numCode){
+                        var d1 = new Date(document.getElementById('date1'+ numCode).value);
+                        var d2 = new Date(document.getElementById('date2'+ numCode).value);
+
+                        if (d2.getDate()<d1.getDate()) {
+                            alert("You cannot enter an end date that is earlier than the start date");
+                            document.getElementById('date2'+ numCode).value= null;
+                        }
+                    }
+
                     function creaExperience() {
                         nuovo_elemento = document.createElement("div");
                         var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
@@ -226,9 +236,9 @@
                             "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate[]' class='px-2'>" +
+                            "<input type='date' name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate[]' class='px-2'>" +
+                            "<input type='date' name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<select class='btn btn-primary' name='place[]'>" +
 
@@ -288,11 +298,13 @@
                             "</div><div align='end'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
                             "</div></div>";
+
                         document.getElementById("container").appendChild(nuovo_elemento);
                         obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
                         obj.style.height = "450px";
                         obj.style.width = "1000px";
                     }
+
                 </script>
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
