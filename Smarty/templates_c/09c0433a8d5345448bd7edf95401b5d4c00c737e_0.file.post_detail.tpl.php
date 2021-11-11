@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-08 18:33:28
+/* Smarty version 3.1.33, created on 2021-11-11 12:16:19
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61895f68657379_52250819',
+  'unifunc' => 'content_618cfb83e7cd31_25820649',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1636392805,
+      1 => 1636629110,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61895f68657379_52250819 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618cfb83e7cd31_25820649 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -320,7 +320,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <a type="button" class="mx-3 my-2 btn btn-primary "  href="/logBook/Post/modify_post/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">Modify Post</a>
                         <a name="send" href="/logBook/Post/deletePost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
-" class="mx-3 my-2 btn btn-danger">Elimina</a>
+" class="mx-3 my-2 btn btn-danger">Delete Post</a>
                     <?php }?>
                 <?php }?>
             </div>

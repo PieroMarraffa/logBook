@@ -199,11 +199,20 @@ class CAdmin
         }else header('Location: /logBook/User/home');
     }
 
-    static function deletePost($id){
+    /**
+     * @throws SmartyException
+     */
+    static function deletePost($postID){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $pm->deletePost($id);
-            $pm->deleteFromPostReported($id);
+            $travel = $pm->load('IDpost', $postID, FTravel::getClass());
+            $pm->deleteFromPostReported($postID);
+            $pm->deleteFromReaction($postID);
+            $pm->delete('IDpost', $postID, FComment::getClass());
+            $pm->delete('IDtravel', $travel->getTravelID(), FExperience::getClass());
+            $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
+            $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
+            $pm->delete('IDpost', $postID, FPost::getClass());
             header('Location: /logBook/Admin/reportedPosts');
         }else header('Location: /logBook/User/home');
     }

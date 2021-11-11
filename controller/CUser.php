@@ -73,8 +73,6 @@ class CUser
                     header('Location: /logBook/Admin/adminHome');
 
                 $view = new VUser();
-                //$result=$pm->loadPostHomePage();
-                //$view->loginOk($result);
                 header('Location: /logBook/User/home');
             }
             else{

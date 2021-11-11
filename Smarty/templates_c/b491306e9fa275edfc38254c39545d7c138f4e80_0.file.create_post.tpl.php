@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-08 11:34:33
+/* Smarty version 3.1.33, created on 2021-11-11 12:16:42
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6188fd39d9c337_85883290',
+  'unifunc' => 'content_618cfb9a4dc612_11510238',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1636367345,
+      1 => 1636629110,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6188fd39d9c337_85883290 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618cfb9a4dc612_11510238 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -80,7 +80,9 @@ function content_6188fd39d9c337_85883290 (Smarty_Internal_Template $_smarty_tpl)
                                     you can add the images clicking on the button "Add Image".</br></br>
 
                                     You can also modify the post clicking on the button "Modify Post" in the</br>
-                                        post page.</br>
+                                        post page.</br></br>
+
+                                    If your post won't have a title or at list one complete experience won't be saved</br></br>
                                     </b>
                                 </p>
                         </div>
