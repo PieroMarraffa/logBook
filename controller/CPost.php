@@ -53,26 +53,6 @@ class CPost{
                         foreach ($ExpList as $exp) {
                             $exp->setTravelID($travelID);
                             $pm->store($exp);
-
-                            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
-                                $pm->storePlaceToPost($postID, $exp->getPlaceID());
-                            }
-                        }
-
-                        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
-                        $listaDaSalvare[0] = $listaPlaceID[0];
-                        $pm->deleteAllFromPlaceToUser($user->getUserID());
-                        foreach ($listaPlaceID as $id) {
-                            $salvabile = true;
-                            foreach ($listaDaSalvare as $l){
-                                if ($id == $l){
-                                    $salvabile = false;
-                                }
-                            }
-                            if ($salvabile == true){
-                                $listaDaSalvare[] = $id;
-                                $pm->storePlaceToUser($user->getUserID(), $id);
-                            }
                         }
 
                     }else {
@@ -81,15 +61,6 @@ class CPost{
                         $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
                         $arrayOriginalExperience = $travel->getExperienceList();
                         foreach ($arrayOriginalExperience as $expO) {
-                            $deletableAssociation = true;
-                            foreach ($arrayPlaceID as $id) {
-                                if ($id == $expO->getPlaceID()) {
-                                    $deletableAssociation = false;
-                                }
-                            }
-                            if ($deletableAssociation == true) {
-                                $pm->deleteOneFromPlaceToPost($postID, $expO->getPlaceID());
-                            }
                             $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
                         }
                         $travelID = $travel->getTravelID();
@@ -97,26 +68,6 @@ class CPost{
                         foreach ($ExpList as $exp) {
                             $exp->setTravelID($travelID);
                             $pm->store($exp);
-
-                            if ($pm->existAssociationPostPlace($postID, $exp->getPlaceID()) == false) {
-                                $pm->storePlaceToPost($postID, $exp->getPlaceID());
-                            }
-                        }
-
-                        $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
-                        $listaDaSalvare[0] = $listaPlaceID[0];
-                        $pm->deleteAllFromPlaceToUser($user->getUserID());
-                        foreach ($listaPlaceID as $id) {
-                            $salvabile = true;
-                            foreach ($listaDaSalvare as $l){
-                                if ($id == $l){
-                                    $salvabile = false;
-                                }
-                            }
-                            if ($salvabile == true){
-                                $listaDaSalvare[] = $id;
-                                $pm->storePlaceToUser($user->getUserID(), $id);
-                            }
                         }
 
                         $immagini = $pm->load('IDtravel', $travelID, FImage::getClass());
@@ -180,29 +131,7 @@ class CPost{
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($user->getUserID() == $pm->getUserByPost($postID)) {
-
                 $travel = $pm->load('IDpost', $postID, FTravel::getClass());
-
-                $pm->deleteAllFromPlaceToUser($user->getUserID());
-                $listaPlaceID = $pm->loadAllPlaceIDByUser($user->getUserID());
-                $listaPlaceIDDaSalvare[0] = $listaPlaceID[0];
-                $pm->deleteAllFromPlaceToUser($user->getUserID());
-                foreach ($listaPlaceID as $id){
-                    $salvabile = false;
-                    foreach ($listaPlaceIDDaSalvare as $s){
-                        if ($id != $s){
-                            $salvabile=true;
-                        }
-                    }
-                    if ($salvabile == true){
-                        $listaPlaceIDDaSalvare[] = $id;
-                    }
-                }
-                foreach ($listaPlaceIDDaSalvare as $s){
-                    $pm->storePlaceToUser($user->getUserID(), $s);
-                }
-
-                $pm->deleteFromPlaceToPost($postID);
                 $pm->deleteFromPostReported($postID);
                 $pm->deleteFromReaction($postID);
                 $pm->delete('IDpost', $postID, FComment::getClass());

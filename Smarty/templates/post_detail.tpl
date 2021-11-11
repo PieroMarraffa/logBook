@@ -229,7 +229,7 @@
                 {if $userlogged!='nouser'}
                     {if $post->getUserID() == $username->getUserID()}
                         <a type="button" class="mx-3 my-2 btn btn-primary "  href="/logBook/Post/modify_post/{$post->getPostID()}">Modify Post</a>
-                        <a name="send" href="/logBook/Post/deletePost/{$post->getPostID()}" class="mx-3 my-2 btn btn-danger">Elimina</a>
+                        <a name="send" href="/logBook/Post/deletePost/{$post->getPostID()}" class="mx-3 my-2 btn btn-danger">Delete Post</a>
                     {/if}
                 {/if}
             </div>
