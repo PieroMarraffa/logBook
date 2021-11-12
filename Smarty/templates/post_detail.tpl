@@ -52,7 +52,7 @@
                         <div class="col-md-7">
                         <h1 class="fw-bolder mb-1">{$post->getTitle()}</h1>
                         <!-- Post meta content-->
-                            <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author}</a></h4>
+                            <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/{$id}">{$author->getUserName()}</a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: {$post->getCreationDate()}</div>
                             <div class="text-muted fst-italic mb-2">From: {$startDate}    To: {$endDate}</div>
 
@@ -67,7 +67,7 @@
                                 <a class="navbar-brand" href="/logBook/Post/like/{$post->getPostID()}/-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 {if $userlogged!='nouser'}
-                                    {if $author!=$username->getUserName()}
+                                    {if $author->getMail()!=$username->getMail()}
                                         <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/{$post->getPostID()}">
                                             <div class="btn btn-danger justify-content-end" >
                                                     <img src="/logBook/Smarty/immagini/alert.png" width="35" height="35" class="d-inline-block" alt="">

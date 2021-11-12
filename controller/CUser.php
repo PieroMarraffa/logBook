@@ -91,6 +91,7 @@ class CUser
 
     /**
      * @throws SmartyException
+     * @throws Exception
      */
     static function checkLogin(){
         if(UServer::getRequestMethod()!='GET') {
@@ -114,7 +115,7 @@ class CUser
                         $view->loginBann();
                     }
                 }
-            } elseif ($adminEmail == $_POST['email'] && $adminPassword == $_POST['password']) {
+            } elseif ($adminEmail == $_POST['email'] && password_verify($_POST['password'],$adminPassword )) {
                 if (USession::getSessionStatus() == PHP_SESSION_NONE) {
                     USession::getInstance();
                     $salvare = serialize($admin);

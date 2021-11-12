@@ -173,7 +173,7 @@ class VResearch
         $this->smarty->assign('type', $type);
         $this->smarty->assign('pic64', $pic64);
         $this->smarty->assign('id',$author->getUserID());
-        $this->smarty->assign('author',$author->getUserName());
+        $this->smarty->assign('author',$author);
         $this->smarty->assign('arrayExperience',$experience);
         $this->smarty->assign('arrayComment',$comment);
         $this->smarty->display('post_detail.tpl');
