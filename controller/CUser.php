@@ -50,11 +50,13 @@ class CUser
         $pm=FPersistentManager::getInstance();
         $view=new VUser();
         $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
-        if($u->isBanned()==true){
-            USession::unsetSession();
-            USession::destroySession();
-            $view->loginBann();
+        if(isset($u)) {
+            if ($u->isBanned() == true) {
+                USession::unsetSession();
+                USession::destroySession();
+                $view->loginBann();
 
+            }
         }
     }
 

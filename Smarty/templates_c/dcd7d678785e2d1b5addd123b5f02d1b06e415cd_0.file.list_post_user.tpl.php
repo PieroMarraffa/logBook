@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 10:29:31
+/* Smarty version 3.1.33, created on 2021-11-11 12:37:30
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618104fbeb1ea4_29848664',
+  'unifunc' => 'content_618d007a01b849_77385688',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dcd7d678785e2d1b5addd123b5f02d1b06e415cd' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_user.tpl',
-      1 => 1635789457,
+      1 => 1636421609,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618104fbeb1ea4_29848664 (Smarty_Internal_Template $_smarty_tpl) {
+function content_618d007a01b849_77385688 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -104,8 +104,9 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 </a></B>
                 </div>
                 <div class="container px-4 px-lg-5 mt-3">
-                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
+
                         <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) {?>
+                    <div class="row gx-4 py-1 gx-lg-5 row-cols-3 row-cols-md-3 row-cols-xl-3 justify-content-start">
                             <?php if ($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value] != null) {?>
                                 <?php
 $_smarty_tpl->tpl_vars['j'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);
@@ -113,8 +114,8 @@ $_smarty_tpl->tpl_vars['j']->value = 0;
 if ($_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2) {
 for ($_foo=true;$_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value]) && $_smarty_tpl->tpl_vars['j']->value <= 2; $_smarty_tpl->tpl_vars['j']->value++) {
 ?>
-                                    <div class="col md-5 py-4">
-                                        <div class="card mb-4">
+                                    <div class="col-md-5 my-2">
+                                        <div class="card py-3 mb-4">
                                             <div class="text-center">
                                                 <!-- Product name-->
                                                 <h3 class="fw-bolder"><?php echo $_smarty_tpl->tpl_vars['post']->value[$_smarty_tpl->tpl_vars['i']->value][$_smarty_tpl->tpl_vars['j']->value]->getTitle();?>
@@ -131,10 +132,10 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['j']->value < count($_smarty_tpl->tpl_var
 }
 ?>
                             <?php }?>
+                    </div>
                         <?php } else { ?>
                             <p align="center">This user has no post</p>
                         <?php }?>
-                    </div>
                 </div>
             </div>
         </div>
