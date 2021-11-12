@@ -8,16 +8,19 @@ class EPlace implements Countable
     private $longitude;
     private $category;
     private $placeID;
+    private $padreID;
 
     /**
      * EPlace constructor.
+     * @param $padreID
      * @param $name
      * @param $latitude
      * @param $longitude
      * @param $category
      */
-    public function __construct($name, $latitude, $longitude,$category)
+    public function __construct($padreID, $name, $latitude, $longitude,$category)
     {
+        $this->padreID = $padreID;
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
@@ -109,5 +112,21 @@ class EPlace implements Countable
     public function count()
     {
         return 1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPadreID()
+    {
+        return $this->padreID;
+    }
+
+    /**
+     * @param mixed $padreID
+     */
+    public function setPadreID($padreID): void
+    {
+        $this->padreID = $padreID;
     }
 }

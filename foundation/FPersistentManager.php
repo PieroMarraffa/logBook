@@ -390,8 +390,22 @@ class FPersistentManager
             $travel[]=self::load('IDtravel',$e->getTravelID(),FTravel::getClass());
         }
         foreach ($travel as $t){
-            $result=self::load('IDpost',$t->getPostID(),FPost::getClass());
+            $result[]=self::load('IDpost',$t->getPostID(),FPost::getClass());
         }
-        return $result;
+        $res=array();
+        foreach ($result as $r){
+            $isIn=false;
+            foreach ($res as $re){
+                if($re->getPostID()==$r->getPostID()){
+                    $isIn=true;
+                    break;
+                }else $isIn=false;
+
+            }
+            if($isIn==false){
+                $res[]=$r;
+                }
+        }
+        return $res;
     }
 }

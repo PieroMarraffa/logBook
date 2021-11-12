@@ -59,6 +59,7 @@ class CResearch
                 if ($_POST['research'] != "") {
                     $place = $pm->load("Name", $_POST['research'], FPlace::getClass());
                     if ($place != null) {
+                        $placeFigli = $pm->load('IDpadre', $place->getPlaceID(), FPlace::getClass());
                         $post = $pm->loadPostByPlace($place->getPlaceID());
                         $array_posts = array();
                         if ($post != null) {
@@ -70,6 +71,26 @@ class CResearch
                                 if ($p != null) {
                                     if ($p->getDeleted() != true) {
                                         $array_posts[] = $p;
+                                    }
+                                }
+                            }
+                        }
+                        if($placeFigli!=null) {
+                            foreach ($placeFigli as $p) {
+                                if ($p != null) {
+                                    $post = $pm->loadPostByPlace($p->getPlaceID());
+                                    if ($post != null) {
+                                        if (is_object($post)) {
+                                            $array_p = array();
+                                            $array_p[] = $post;
+                                        } else $array_p = $post;
+                                        foreach ($array_p as $pl) {
+                                            if ($pl != null) {
+                                                if ($pl->getDeleted() != true) {
+                                                    $array_posts[] = $pl;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
