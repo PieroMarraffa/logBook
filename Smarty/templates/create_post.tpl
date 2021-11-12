@@ -29,7 +29,7 @@
 </nav>
 <section>
 
-    <form method="post" id="form_create_post" action="/logBook/Post/savePost/{$postID}" enctype="multipart/form-data">
+    <form method="post" id="form_create_post"  action="/logBook/Post/savePost/{$postID}" enctype="multipart/form-data">
         <a name="headPage"></a>
     <div class="row">
         <div class="col-md-9">
@@ -38,7 +38,7 @@
                         <div class="col-md-11 py-4">
 
                             {if $creaPost == true}
-                            <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" required id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
 
                             <p class="text-justify text-dark align-content-start px-5 py-4 h5">
                                     <b>
@@ -67,7 +67,7 @@
             </div>
         </div>
         {else}
-        <input type="text" name="title" id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
 
         <div class="py-3">
             {if isset($image)}
@@ -208,13 +208,14 @@
         </div>
         {/if}
         <div class="col-md-3 fisso" >
+            <div align="center">
+                <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
+                <a type="button" href="#bottomPage"><img src="/logBook/Smarty/immagini/buttonDOWN.png" width="100" height="100" class="d-inline-block" alt=""></a>
+            </div>
             <div class="card">
             <div class="row">
-                <a type="button" class="btn btn-primary" href="#headPage">Head Page</a>
-                <a type="button" class="btn btn-primary my-1" href="#bottomPage">Bottom Page</a>
-            </div>
-            <div class="row">
                 <script id="creaExperience">
+
                     function defaultDate(numCode){
                         var d1 = new Date(document.getElementById('date1'+ numCode).value);
                         var d2 = new Date(document.getElementById('date2'+ numCode).value);
@@ -233,12 +234,12 @@
                         nuovo_elemento.innerHTML =
                             "<div class='card'>" +
                             "<div class='card-header'>" +
-                            "<textarea class='form-control' name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
+                            "<input type='text' class='form-control' required name='titleExperience[]' rows='1' maxlength='49' placeholder='Insert experience title here'></textarea>" +
                             "<div class='row py-2'>" +
                             "<div class='col-md-3'>" +
-                            "<input type='date' name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
+                            "<input type='date' required name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='date' name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
+                            "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<select class='btn btn-primary' name='place[]'>" +
 
@@ -294,7 +295,7 @@
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +
-                            "<textarea class='form-control' name='description[]' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
+                            "<textarea class='form-control' required name='description[]' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
                             "</div><div align='end'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
                             "</div></div>";
