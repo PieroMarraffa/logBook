@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Creato il: Nov 10, 2021 alle 22:10
--- Versione del server: 10.4.18-MariaDB
--- Versione PHP: 8.0.3
+-- Host: localhost
+-- Creato il: Nov 12, 2021 alle 17:46
+-- Versione del server: 10.4.21-MariaDB
+-- Versione PHP: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -157,6 +157,7 @@ INSERT INTO `image` (`IDimage`, `IDtravel`, `ImageFile`, `Size`, `Type`) VALUES
 
 CREATE TABLE `place` (
   `IDplace` int(10) NOT NULL,
+  `IDpadre` int(50) DEFAULT NULL,
   `Latitude` double NOT NULL,
   `Longitude` double NOT NULL,
   `Category` varchar(20) NOT NULL,
@@ -167,19 +168,19 @@ CREATE TABLE `place` (
 -- Dump dei dati per la tabella `place`
 --
 
-INSERT INTO `place` (`IDplace`, `Latitude`, `Longitude`, `Category`, `Name`) VALUES
-(1, 48.8588897, 2.320041, 'città', 'Parigi'),
-(2, 42.1368853, 13.610341, 'città', 'L\'Aquila'),
-(3, 51.5073219, -0.1276474, 'città', 'Londra'),
-(4, 41.8902614, 12.4930871, 'meta turistica', 'Colosseo'),
-(5, 41.8933203, 12.4829321, 'città', 'Roma'),
-(6, 52.865196, -7.9794599, 'nazione', 'Irlanda'),
-(7, 43.5234284, 12.574275, 'meta turistica', 'grotte di Frasassi'),
-(8, 41.3828939, 2.1774322, 'città', 'Barcellona'),
-(9, 43.1070321, 12.4029962, 'città', 'Perugia'),
-(10, 42.7534856, 13.9667011, 'città', 'Giulianova'),
-(11, 40.9842539, 16.6210027, 'regione', 'Puglia'),
-(12, 40.8359336, 14.2487826, 'città', 'Napoli');
+INSERT INTO `place` (`IDplace`, `IDpadre`, `Latitude`, `Longitude`, `Category`, `Name`) VALUES
+(1, NULL, 48.8588897, 2.320041, 'città', 'Parigi'),
+(2, NULL, 42.1368853, 13.610341, 'città', 'L\'Aquila'),
+(3, NULL, 51.5073219, -0.1276474, 'città', 'Londra'),
+(4, 5, 41.8902614, 12.4930871, 'meta turistica', 'Colosseo'),
+(5, NULL, 41.8933203, 12.4829321, 'città', 'Roma'),
+(6, NULL, 52.865196, -7.9794599, 'nazione', 'Irlanda'),
+(7, NULL, 43.5234284, 12.574275, 'meta turistica', 'grotte di Frasassi'),
+(8, NULL, 41.3828939, 2.1774322, 'città', 'Barcellona'),
+(9, NULL, 43.1070321, 12.4029962, 'città', 'Perugia'),
+(10, NULL, 42.7534856, 13.9667011, 'città', 'Giulianova'),
+(11, NULL, 40.9842539, 16.6210027, 'regione', 'Puglia'),
+(12, NULL, 40.8359336, 14.2487826, 'città', 'Napoli');
 
 -- --------------------------------------------------------
 
@@ -420,7 +421,7 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT per la tabella `place`
 --
 ALTER TABLE `place`
-  MODIFY `IDplace` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `IDplace` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT per la tabella `post`
