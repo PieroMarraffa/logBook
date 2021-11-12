@@ -51,7 +51,7 @@ class Installation{
             $query = 'DROP DATABASE IF EXISTS ' . $_POST['nomedb'] . '; CREATE DATABASE ' . $_POST['nomedb'] . ' ; USE ' . $_POST['nomedb'] . ';' . 'SET GLOBAL max_allowed_packet=16777216;';
             $query = $query . file_get_contents('logbook.sql');
             $db->exec($query);
-            $db->commit();
+            $db=null;
             $file = fopen('config.inc.php', 'c+');
             $script = '<?php $GLOBALS[\'database\']= \'' . $_POST['nomedb'] . '\'; $GLOBALS[\'username\']=  \'' . $_POST['nomeutente'] . '\'; $GLOBALS[\'password\']= \'' . $_POST['password'] . '\';?>';
             fwrite($file, $script);
