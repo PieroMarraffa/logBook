@@ -151,9 +151,11 @@ class CPost{
     }
 
     public static function deleteExistingExperience($id, $postID){
-        $pm = FPersistentManager::getInstance();
-        $pm->update('IDexperience', -$id, $id, FExperience::getClass());
-        self::modify_post($postID);
+        if(CUser::isLogged()) {
+            $pm = FPersistentManager::getInstance();
+            $pm->update('IDexperience', -$id, $id, FExperience::getClass());
+            self::modify_post($postID);
+        }else header('Location: /logBook/User/login');
     }
 
 
@@ -161,9 +163,11 @@ class CPost{
      * @throws SmartyException
      */
     public static function deleteExistingImage($id, $postID){
-        $pm = FPersistentManager::getInstance();
-        $pm->update('IDimage', -$id, $id, FImage::getClass());
-        self::modify_post($postID);
+        if(CUser::isLogged()) {
+            $pm = FPersistentManager::getInstance();
+            $pm->update('IDimage', -$id, $id, FImage::getClass());
+            self::modify_post($postID);
+        }else header('Location: /logBook/User/login');
     }
 
 
@@ -406,8 +410,7 @@ class CPost{
     /**
      * @throws SmartyException
      */
-    static function like($IDpost,$value)
-    {
+    static function like($IDpost,$value){
         if (CUser::isLogged()) {
             USession::getInstance();
             $user = unserialize(USession::getElement('user'));

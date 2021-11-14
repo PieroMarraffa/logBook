@@ -296,7 +296,6 @@ class CUser
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
                 header('Location: /logBook/User/profile');
-
             }
             elseif (isset($_POST['new_password'])){
                 $id=$user->getUserID();

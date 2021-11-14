@@ -20,13 +20,11 @@ class Installation{
         }
         else {
             $noPHP = false;
-
             // controllo versione PHP
             if (version_compare(PHP_VERSION,'7.0.0' , '<' )) {
                 $noPHP = true;
                 $smarty->assign('nophpv', $noPHP);
             }
-
             // se almeno uno dei controlli non è andato a buon fine, si mostra la pagina di installazione con i relativi errori.
             if ($noPHP){
                 $smarty->display('installazione.tpl');

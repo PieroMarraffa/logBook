@@ -169,7 +169,7 @@ class CResearch
                     }
                 }
                 header('Location: /logBook/Research/postDetail/'.$idPost .'');
-            }
+            }else header('Location: /logBook/User/home');
         }
     }
 
@@ -233,9 +233,11 @@ class CResearch
 
 
     static function report($id){
-        $pm = FPersistentManager::getInstance();
-        $pm->update("Reported",1,$id,FUser::getClass());
-        header('Location: /logBook/Research/profileDetail/'.$id);
+        if(CUser::isLogged()) {
+            $pm = FPersistentManager::getInstance();
+            $pm->update("Reported", 1, $id, FUser::getClass());
+            header('Location: /logBook/Research/profileDetail/' . $id);
+        }else header('Location: /logBook/Research/profileDetail/' . $id);
     }
 
     /**
@@ -250,16 +252,16 @@ class CResearch
                 $reporter = $pm->loadCommentReporter($idComment);
                 $post = $pm->load('IDpost', $idPost, FPost::getClass());
                 $utente = $pm->load('IDuser', $post->getUserID(), FUser::getClass());
-                if ($user->getUserName() != $utente->getUserName()){
+                if ($user->getMail() != $utente->getMail()){
                     if ($reporter == null) {
                         $pm->storeCommentReporter($user->getUserID(), $idComment);
                     } elseif (!is_array($reporter)) {
-                        if ($reporter->getUserName() != $reporter->getUserName()) {
+                        if ($reporter->getMail() != $reporter->getMail()) {
                             $pm->storeCommentReporter($user->getUserID(), $idComment);
                         }
                     } else {
                         foreach ($reporter as $r) {
-                            if ($r->getUserName() == $user->getUserName()) {
+                            if ($r->getMail() == $user->getMail()) {
                                 $report = true;
                                 break;
                             } else {
@@ -272,7 +274,7 @@ class CResearch
                     }
                 }
                 header('Location: /logBook/Research/postDetail/'.$idPost .'');
-            }
+            }else header('Location: /logBook/Research/postDetail/'.$idPost .'');
         }
     }
 }

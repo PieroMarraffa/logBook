@@ -57,9 +57,9 @@ class CAdmin
     }
 
     static function adminLogout(){
-        session_start();
-        session_unset();
-        session_destroy();
+        USession::getInstance();
+        USession::unsetSession();
+        USession::destroySession();
         header('Location: /logBook/User/login');
     }
 
