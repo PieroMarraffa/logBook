@@ -203,28 +203,31 @@ class CResearch
                 if ($user->getUserID() == $utente->getUserID()) {
                     header("Location: /logBook/User/profile");
                 } else {
-                    $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
-                    $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
-                    if ($arrayPost != null) {
-                        foreach ($arrayPost as $a) {
-                            if ($a->getDeleted() == true) {
-                                unset($arrayPost[array_search($a, $arrayPost, true)]);
+                    if ($user->isBanned() != true) {
+                        $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
+                        $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
+                        if ($arrayPost != null) {
+                            foreach ($arrayPost as $a) {
+                                if ($a->getDeleted() == true) {
+                                    unset($arrayPost[array_search($a, $arrayPost, true)]);
+                                }
                             }
                         }
-                    }
-                    $image = array();
-                    if($arrayPost!=null) {
-                        foreach ($arrayPost as $r) {
-                            $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                            $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
-                            $image[] = $i;
+                        $image = array();
+                        if ($arrayPost != null) {
+                            foreach ($arrayPost as $r) {
+                                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                $image[] = $i;
+                            }
                         }
-                    }
-                    $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
-                    $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
+                        $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
+                        $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
+                    }else header("Location: /logBook/User/home");
                 }
             }
             else{
+                if ($user->isBanned() != true) {
                 $img = $pm->load("IDimage", $user->getImageID(), 'FImage');
                 $arrayPost = $pm->load("IDuser", $user->getUserID(), "FPost");
                 if ($arrayPost != null) {
@@ -242,6 +245,7 @@ class CResearch
                 }
                 $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
                 $view->profileDetail($user, $img, $arrayPost, $arrayPlace, $image);
+                }else header("Location: /logBook/User/home");
             }
         }
     }
