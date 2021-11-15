@@ -96,12 +96,24 @@ class CResearch
                             }
                         }
                         $image = array();
-                        foreach ($array_posts as $r) {
+                        $arrayPost[0] = $array_posts[0];
+                        foreach ($array_posts as $r){
+                            $add = true;
+                            foreach ($arrayPost as $f){
+                                if($r->getPostID() == $f->getPostID()){
+                                    $add = false;
+                                }
+                            }
+                            if ($add == true){
+                                $arrayPost[] = $r;
+                            }
+                        }
+                        foreach ($arrayPost as $r) {
                             $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
                             $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
                             $image[] = $i;
                         }
-                        $view->search_place($place, $array_posts, $image);
+                        $view->search_place($place, $arrayPost, $image);
                     } else {
                         $view->search_error($research);
                     }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 19:17:24
+/* Smarty version 3.1.33, created on 2021-11-13 19:17:31
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618423b435c584_49162499',
+  'unifunc' => 'content_6190013b84f374_49811542',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8eb902ef4bfdf8a56c28eceab9a1e42ba2f0ffba' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl',
-      1 => 1635789457,
+      1 => 1636817155,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618423b435c584_49162499 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">

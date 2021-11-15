@@ -50,10 +50,10 @@ class CFrontController
                             if (isset($adm))
                                 header('Location: /logBook/Admin/adminHome');
                             else {
-                                CUser::home();                            }
+                                header('Location: /logBook/User/home');                            }
                         } else {
-
-                            CUser::home();                        }
+                            header('Location: /logBook/User/home');
+                        }
                     }
                 } else {
                     if (CUser::isLogged()) {
@@ -63,10 +63,10 @@ class CFrontController
                         if (isset($adm))
                             header('Location: /logBook/Admin/adminHome');
                         else {
-
-                            CUser::home();                        }
+                            header('Location: /logBook/User/home');
+                        }
                     } else {
-                        CUser::home();
+                        header('Location: /logBook/User/home');
                     }
                 }
             } else {
@@ -77,11 +77,9 @@ class CFrontController
                     if (isset($adm))
                         header('Location: /logBook/Admin/adminHome');
                     else {
-                        CUser::home();
-                    }
+                        header('Location: /logBook/User/home');                    }
                 } else {
-                    CUser::home();
-                }
+                    header('Location: /logBook/User/home');                }
             }
         }
     }
