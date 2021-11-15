@@ -291,10 +291,16 @@ class CUser
         elseif (UServer::getRequestMethod() =="POST"){
             if(isset($_POST['email'])){
                 $id=$user->getUserID();
-                $pm->update('Email',$_POST['email'],$id,FUser::getClass());
-                $u=$pm->load('IDuser',$id,FUser::getClass());
-                $salvare = serialize($u);
-                USession::setElement('user',$salvare);
+                $exist=$pm->exist('Email',$_POST['email'],FUser::getClass());
+                $admin=$pm->loadAdmin('IDadmin',1);
+                if(!$exist){
+                    if($_POST['email']!=$admin->getMail()) {
+                        $pm->update('Email', $_POST['email'], $id, FUser::getClass());
+                        $u = $pm->load('IDuser', $id, FUser::getClass());
+                        $salvare = serialize($u);
+                        USession::setElement('user', $salvare);
+                    }
+                }
                 header('Location: /logBook/User/profile');
             }
             elseif (isset($_POST['new_password'])){
