@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-12 16:42:05
+/* Smarty version 3.1.33, created on 2021-11-15 15:22:16
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618e8b4d2f4933_63689848',
+  'unifunc' => 'content_61926d18b93380_38773302',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1636731722,
+      1 => 1636986119,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618e8b4d2f4933_63689848 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61926d18b93380_38773302 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -95,7 +95,7 @@ function content_618e8b4d2f4933_63689848 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
         <?php } else { ?>
-        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
+        <input type="text" name="title" required id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
 ">
 
         <div class="py-3">
@@ -108,7 +108,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 ?>
                     <div class="row align-content-md-center py-3">
                         <div class="col-md-8 align-content-center">
-                            <img class="card-img-top w-auto h-100 " src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                            <img class="card-img-top w-100  " src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 '  alt="...">
                         </div>
@@ -133,15 +133,15 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ?>
                     <div class="card">
                         <div class="card-header">
-                            <textarea class="form-control" name="titleExperience[]" rows="1" maxlength="49" placeholder="Insert experience title here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getTitle();?>
+                            <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getTitle();?>
 </textarea>
                             <div class="row py-2">
                                 <div class="col-md-3">
-                                    <input type="date" name="startDate[]" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getStartDay();?>
+                                    <input type="date" name="startDate[]" class="px-2" required value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getStartDay();?>
 ">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="date" name="endDate[]" class="px-2" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getEndDay();?>
+                                    <input type="date" name="endDate[]" class="px-2"  required value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getEndDay();?>
 ">
                                 </div>
                                 <div class="col-md-3">
@@ -292,7 +292,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </div>
                         </div>
                         <div class="card-body">
-                            <textarea class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getDescription();?>
+                            <textarea required class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getDescription();?>
 </textarea>
                         </div>
                         <div align="end">

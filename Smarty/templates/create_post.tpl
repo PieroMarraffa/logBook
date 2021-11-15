@@ -74,7 +74,7 @@
                 {for $i=0;$i<=count($image)-1;$i++}
                     <div class="row align-content-md-center py-3">
                         <div class="col-md-8 align-content-center">
-                            <img class="card-img-top w-auto h-100 " src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
+                            <img class="card-img-top w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
                         </div>
                         <div class="col-md-3 align-content-center" align="center">
                             <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/{$image[$i]->getImageID()}/{$postID}"> Delete </a>
