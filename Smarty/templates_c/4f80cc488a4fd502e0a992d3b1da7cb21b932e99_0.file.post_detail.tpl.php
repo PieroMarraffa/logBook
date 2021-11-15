@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-11 12:36:20
+/* Smarty version 3.1.33, created on 2021-11-15 09:35:35
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618d00345ede30_47290027',
+  'unifunc' => 'content_61921bd79c0888_78263945',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1636627535,
+      1 => 1636811628,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618d00345ede30_47290027 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61921bd79c0888_78263945 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -83,7 +83,7 @@ function content_618d00345ede30_47290027 (Smarty_Internal_Template $_smarty_tpl)
 </h1>
                         <!-- Post meta content-->
                             <h4 class="fw-bolder mb-1"><a href="/logBook/Research/profileDetail/<?php echo $_smarty_tpl->tpl_vars['id']->value;?>
-"><?php echo $_smarty_tpl->tpl_vars['author']->value;?>
+"><?php echo $_smarty_tpl->tpl_vars['author']->value->getUserName();?>
 </a></h4>
                         <div class="text-muted fst-italic mb-2">Posted on: <?php echo $_smarty_tpl->tpl_vars['post']->value->getCreationDate();?>
 </div>
@@ -106,7 +106,7 @@ function content_618d00345ede30_47290027 (Smarty_Internal_Template $_smarty_tpl)
 /-1"><img src="/logBook/Smarty/immagini/cuore_spezzato.png" width="30" height="25" class="d-inline-block" alt=""></a>
                             </div>
                                 <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
-                                    <?php if ($_smarty_tpl->tpl_vars['author']->value != $_smarty_tpl->tpl_vars['username']->value->getUserName()) {?>
+                                    <?php if ($_smarty_tpl->tpl_vars['author']->value->getMail() != $_smarty_tpl->tpl_vars['username']->value->getMail()) {?>
                                         <a class="navbar-brand justify-content-end" href="/logBook/Research/reportPost/<?php echo $_smarty_tpl->tpl_vars['post']->value->getPostID();?>
 ">
                                             <div class="btn btn-danger justify-content-end" >
