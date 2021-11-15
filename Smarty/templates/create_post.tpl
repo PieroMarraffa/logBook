@@ -20,6 +20,9 @@
     </script>
     <script src="/logBook/Smarty/js/crea_post.js"></script>
 </head>
+
+{if $creaPost == true}
+
 <body onload="creaExperience()">
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
@@ -37,8 +40,7 @@
 
                         <div class="col-md-11 py-4">
 
-                            {if $creaPost == true}
-                            <input type="text" name="title" required id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' >
+                            <input type="text" name="title" required id="title" class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1'>
 
                             <p class="text-justify text-dark align-content-start px-5 py-4 h5">
                                     <b>
@@ -66,147 +68,162 @@
                         </div>
             </div>
         </div>
-        {else}
-        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
 
-        <div class="py-3">
-            {if isset($image)}
-                {for $i=0;$i<=count($image)-1;$i++}
-                    <div class="row align-content-md-center py-3">
-                        <div class="col-md-8 align-content-center">
-                            <img class="card-img-top w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
-                        </div>
-                        <div class="col-md-3 align-content-center" align="center">
-                            <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/{$image[$i]->getImageID()}/{$postID}"> Delete </a>
+{else}
+
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-light bg-light static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/logBook/"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62"></a>
+    </div>
+</nav>
+<section>
+
+    <form method="post" id="form_create_post"  action="/logBook/Post/savePost/{$postID}" enctype="multipart/form-data">
+        <a name="headPage"></a>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+
+                    <div class="col-md-11 py-4">
+                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+
+                        <div class="py-3">
+                            {if isset($image)}
+                                {for $i=0;$i<=count($image)-1;$i++}
+                                    <div class="row align-content-md-center py-3">
+                                        <div class="col-md-8 align-content-center">
+                                            <img class="card-img-top w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}'  alt="...">
+                                        </div>
+                                        <div class="col-md-3 align-content-center" align="center">
+                                            <a class="btn btn-danger" href="/logBook/Post/deleteExistingImage/{$image[$i]->getImageID()}/{$postID}"> Delete </a>
+                                        </div>
+                                    </div>
+                                {/for}
+                            {/if}
                         </div>
                     </div>
-                {/for}
-            {/if}
-        </div>
-    </div>
-        {if $array_experience}
-            {if is_array($array_experience)}
-                {foreach $array_experience as $exp}
-                    <div class="card">
-                        <div class="card-header">
-                            <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
-                            <div class="row py-2">
-                                <div class="col-md-3">
-                                    <input type="date" name="startDate[]" class="px-2" required value="{$exp->getStartDay()}">
-                                </div>
-                                <div class="col-md-3">
-                                    <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
-                                </div>
-                                <div class="col-md-3">
-                                    <select class="btn btn-primary" name="place[]">
-                                        {if isset($arrayMete)}
-                                            <optgroup label="Tourist Destination">
-                                                {if count($arrayMete) == 1}
-                                                    {if $exp->getPlace()->getPlaceID() == $arrayMete->getPlaceID()}
-                                                        <option selected value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
-                                                    {else}
-                                                        <option value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
-                                                    {/if}
-                                                {else}
-                                                    {foreach $arrayMete as $mete}
-                                                        {if $exp->getPlace()->getPlaceID() == $mete->getPlaceID()}
-                                                            <option selected value="{$mete->getPlaceID()}">{$mete->getName()}</option>
-                                                        {else}
-                                                            <option value="{$mete->getPlaceID()}">{$mete->getName()}</option>
+                        {if $array_experience}
+                            {if is_array($array_experience)}
+                                {foreach $array_experience as $exp}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
+                                            <div class="row py-2">
+                                                <div class="col-md-3">
+                                                    <input type="date" name="startDate[]" class="px-2" required value="{$exp->getStartDay()}">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="btn btn-primary" name="place[]">
+                                                        {if isset($arrayMete)}
+                                                            <optgroup label="Tourist Destination">
+                                                                {if count($arrayMete) == 1}
+                                                                    {if $exp->getPlace()->getPlaceID() == $arrayMete->getPlaceID()}
+                                                                        <option selected value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
+                                                                    {else}
+                                                                        <option value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
+                                                                    {/if}
+                                                                {else}
+                                                                    {foreach $arrayMete as $mete}
+                                                                        {if $exp->getPlace()->getPlaceID() == $mete->getPlaceID()}
+                                                                            <option selected value="{$mete->getPlaceID()}">{$mete->getName()}</option>
+                                                                        {else}
+                                                                            <option value="{$mete->getPlaceID()}">{$mete->getName()}</option>
+                                                                        {/if}
+                                                                    {/foreach}
+                                                                {/if}
+                                                            </optgroup>
                                                         {/if}
-                                                    {/foreach}
-                                                {/if}
-                                            </optgroup>
-                                        {/if}
 
-                                        {if isset($arrayCity)}
-                                            <optgroup label="Cities">
-                                                {if count($arrayCity) == 1}
-                                                    {if $exp->getPlace()->getPlaceID() == $arrayCity->getPlaceID()}
-                                                        <option selected value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
-                                                    {else}
-                                                        <option value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
-                                                    {/if}
-                                                {else}
-                                                    {foreach $arrayCity as $city}
-                                                        {if $exp->getPlace()->getPlaceID() == $city->getPlaceID()}
-                                                            <option selected value="{$city->getPlaceID()}">{$city->getName()}</option>
-                                                        {else}
-                                                            <option value="{$city->getPlaceID()}">{$city->getName()}</option>
+                                                        {if isset($arrayCity)}
+                                                            <optgroup label="Cities">
+                                                                {if count($arrayCity) == 1}
+                                                                    {if $exp->getPlace()->getPlaceID() == $arrayCity->getPlaceID()}
+                                                                        <option selected value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
+                                                                    {else}
+                                                                        <option value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
+                                                                    {/if}
+                                                                {else}
+                                                                    {foreach $arrayCity as $city}
+                                                                        {if $exp->getPlace()->getPlaceID() == $city->getPlaceID()}
+                                                                            <option selected value="{$city->getPlaceID()}">{$city->getName()}</option>
+                                                                        {else}
+                                                                            <option value="{$city->getPlaceID()}">{$city->getName()}</option>
+                                                                        {/if}
+                                                                    {/foreach}
+                                                                {/if}
+                                                            </optgroup>
                                                         {/if}
-                                                    {/foreach}
-                                                {/if}
-                                            </optgroup>
-                                        {/if}
 
-                                        {if isset($arrayRegion)}
-                                            <optgroup label="Regions">
-                                            {if count($arrayRegion) == 1}
-                                                {if $exp->getPlace()->getPlaceID() == $arrayRegion->getPlaceID()}
-                                                    <option selected value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
-                                                {else}
-                                                    <option value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
-                                                {/if}
-                                            {else}
-                                                {foreach $arrayRegion as $region}
-                                                    {if $exp->getPlace()->getPlaceID() == $region->getPlaceID()}
-                                                        <option selected value="{$region->getPlaceID()}">{$region->getName()}</option>
-                                                    {else}
-                                                        <option value="{$region->getPlaceID()}">{$region->getName()}</option>
-                                                    {/if}
-                                                {/foreach}
-                                            {/if}
-                                            </optgroup>
-                                        {/if}
+                                                        {if isset($arrayRegion)}
+                                                            <optgroup label="Regions">
+                                                            {if count($arrayRegion) == 1}
+                                                                {if $exp->getPlace()->getPlaceID() == $arrayRegion->getPlaceID()}
+                                                                    <option selected value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
+                                                                {else}
+                                                                    <option value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
+                                                                {/if}
+                                                            {else}
+                                                                {foreach $arrayRegion as $region}
+                                                                    {if $exp->getPlace()->getPlaceID() == $region->getPlaceID()}
+                                                                        <option selected value="{$region->getPlaceID()}">{$region->getName()}</option>
+                                                                    {else}
+                                                                        <option value="{$region->getPlaceID()}">{$region->getName()}</option>
+                                                                    {/if}
+                                                                {/foreach}
+                                                            {/if}
+                                                            </optgroup>
+                                                        {/if}
 
-                                        {if isset($arrayState)}
-                                            <optgroup label="Stetes">
-                                            {if count($arrayState) == 1}
-                                                {if $exp->getPlace()->getPlaceID() == $arrayState->getPlaceID()}
-                                                    <option selected value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
-                                                {else}
-                                                    <option value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
-                                                {/if}
-                                            {else}
-                                                {foreach $arrayState as $state}
-                                                    {if $exp->getPlace()->getPlaceID() == $state->getPlaceID()}
-                                                        <option selected value="{$state->getPlaceID()}">{$state->getName()}</option>
-                                                    {else}
-                                                        <option value="{$state->getPlaceID()}">{$state->getName()}</option>
-                                                    {/if}
-                                                {/foreach}
-                                            {/if}
-                                            </optgroup>
-                                        {/if}
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                </div>
+                                                        {if isset($arrayState)}
+                                                            <optgroup label="Stetes">
+                                                            {if count($arrayState) == 1}
+                                                                {if $exp->getPlace()->getPlaceID() == $arrayState->getPlaceID()}
+                                                                    <option selected value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
+                                                                {else}
+                                                                    <option value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
+                                                                {/if}
+                                                            {else}
+                                                                {foreach $arrayState as $state}
+                                                                    {if $exp->getPlace()->getPlaceID() == $state->getPlaceID()}
+                                                                        <option selected value="{$state->getPlaceID()}">{$state->getName()}</option>
+                                                                    {else}
+                                                                        <option value="{$state->getPlaceID()}">{$state->getName()}</option>
+                                                                    {/if}
+                                                                {/foreach}
+                                                            {/if}
+                                                            </optgroup>
+                                                        {/if}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <textarea required class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
+                                        </div>
+                                        <div align="end">
+                                            <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>
+                                        </div>
+                                    </div>
+                                {/foreach}
+                            {/if}
+                        {/if}
+                        <div class="col-md-8">
+
+                            <div class="container py-3" id="container">
+                            </div>
+                            <div class="col-md-8">
                             </div>
                         </div>
-                        <div class="card-body">
-                            <textarea required class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
                         </div>
-                        <div align="end">
-                            <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>
                         </div>
-                    </div>
-                {/foreach}
-            {/if}
-        {/if}
-        <div class="col-md-8">
-
-            <div class="container py-3" id="container">
-            </div>
-            <div class="col-md-8">
-
-            </div>
-
-        </div>
-
-        </div>
-        </div>
-        {/if}
+{/if}
         <div class="col-md-3 fisso" >
             <div align="center">
                 <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
