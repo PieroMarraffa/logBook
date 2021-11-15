@@ -108,10 +108,12 @@ class CResearch
                                 $arrayPost[] = $r;
                             }
                         }
-                        foreach ($arrayPost as $r) {
-                            $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                            $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
-                            $image[] = $i;
+                        if(isset($arrayPost[0])){
+                            foreach ($arrayPost as $r) {
+                                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                $image[] = $i;
+                            }
                         }
                         $view->search_place($place, $arrayPost, $image);
                     } else {

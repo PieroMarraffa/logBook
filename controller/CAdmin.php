@@ -4,7 +4,6 @@
 class CAdmin
 {
 
-
     static function isAdminLogged(){
         $identificato = false;
         USession::getInstance();
