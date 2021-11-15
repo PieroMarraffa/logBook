@@ -394,12 +394,17 @@ class CPost{
      */
     static function writeComment($IDpost){
         if(CUser::isLogged()) {
-            USession::getInstance();
-            $user = unserialize(USession::getElement('user'));
-            $content = $_POST['comment'];
-            $comment = new EComment($IDpost, $user, null, $content);
             $pm = FPersistentManager::getInstance();
-            $pm->store($comment);
+            $exist=$pm->exist("IDpost",$IDpost,FPost::getClass());
+            if($exist) {
+                USession::getInstance();
+                $user = unserialize(USession::getElement('user'));
+                $content = $_POST['comment'];
+                if ($content != null) {
+                    $comment = new EComment($IDpost, $user, null, $content);
+                    $pm->store($comment);
+                }
+            }
             header('Location: /logBook/Research/postDetail/' . $IDpost);
         }else{
             header('Location: /logBook/User/login');
@@ -413,39 +418,41 @@ class CPost{
     static function like($IDpost,$value){
         if (CUser::isLogged()) {
             USession::getInstance();
-            $user = unserialize(USession::getElement('user'));
+            $pm = FPersistentManager::getInstance();
+            $exist = $pm->exist("IDpost", $IDpost, FPost::getClass());
+            if ($exist){
+                $user = unserialize(USession::getElement('user'));
             if ($value == 1 || $value == -1) {
-                $reaction = new ELike($value,$user->getUserID(), $IDpost);
-                $pm = FPersistentManager::getInstance();
+                $reaction = new ELike($value, $user->getUserID(), $IDpost);
+
                 $result = $pm->load('IDuser', $user->getUserID(), FLike::getClass());
                 var_dump($result);
                 if ($result == null) {
                     $pm->store($reaction);
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
                 } else {
-                    if(is_object($result)){
+                    if (is_object($result)) {
                         $pm->store($reaction);
                         header('Location: /logBook/Research/postDetail/' . $IDpost);
-                    }else {
-                        $exist=false;
+                    } else {
+                        $exist = false;
                         foreach ($result as $res) {
                             if ($res->getPostID() == $IDpost) {
-                                $exist=true;
+                                $exist = true;
                                 break;
                             }
                         }
-                        if($exist!=true){
+                        if ($exist != true) {
                             $pm->store($reaction);
                         }
                         header('Location: /logBook/Research/postDetail/' . $IDpost);
 
                     }
-                    }
                 }
-            else{
-                    header('Location: /logBook/Research/postDetail/' . $IDpost);
-                }
-
+            } else {
+                header('Location: /logBook/Research/postDetail/' . $IDpost);
+            }
+        }
         } else{
             header('Location: /logBook/Research/postDetail/' . $IDpost);
         }

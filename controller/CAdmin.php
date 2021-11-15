@@ -15,8 +15,8 @@ class CAdmin
     }
 
     /**
-     * @throws SmartyException
-     */
+* @throws SmartyException
+*/
     static function adminHome(){
         if(self::isAdminLogged()==true) {
             $pm = FPersistentManager::getInstance();
@@ -24,14 +24,14 @@ class CAdmin
             $image_reported = array();
             $image_banned = array();
             $array_banned = $pm->load("Banned", true, FUser::getClass());
-            if (is_object($array_banned)) {
+            if (!is_array($array_banned)) {
                 $array_b = array();
                 $array_b[] = $array_banned;
             } else {
                 $array_b = $array_banned;
             }
             $array_reported = $pm->load("Reported", true, FUser::getClass());
-            if (is_object($array_reported)) {
+            if (!is_array($array_reported)) {
                 $array_r = array();
                 $array_r[] = $array_reported;
             } else {
@@ -39,20 +39,24 @@ class CAdmin
             }
             if(isset($array_r)) {
                 foreach ($array_r as $a) {
-                    $id = $a->getImageID();
-                    $img = $pm->load("IDimage", $id, FImage::getClass());
-                    $image_reported[] = $img;
+                    if($a !=null){
+                        $id = $a->getImageID();
+                        $img = $pm->load("IDimage", $id, FImage::getClass());
+                        $image_reported[] = $img[0];
+                    }
                 }
             }
             if (isset($array_b[0])) {
                 foreach ($array_b as $a) {
-                    $id = $a->getImageID();
-                    $img = $pm->load("IDimage", $id, FImage::getClass());
-                    $image_banned[] = $img;
+                    if($a !=null){
+                        $id = $a->getImageID();
+                        $img = $pm->load("IDimage", $id, FImage::getClass());
+                        $image_banned[] = $img[0];
+                    }
                 }
             } else $array_b = array();
             $view->adminHomePage($array_b, $array_r, $image_reported, $image_banned);
-        }else header('Location: /logBook/User/home');
+        }else header('Location: /User/home');
 
     }
 

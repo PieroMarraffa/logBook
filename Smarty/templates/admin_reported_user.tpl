@@ -46,6 +46,7 @@
     {if $userReported}
         {if is_array($userReported)}
             {for $i=0 to count($userReported)-1}
+                {if $userReported[$i]}
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -63,6 +64,7 @@
                     </div>
                 </div>
             </div>
+                {/if}
             {/for}
         {/if}
     {/if}
@@ -73,6 +75,7 @@
     {if $userBanned}
         {if is_array($userBanned)}
             {for $i=0 to count($userBanned)-1}
+                {if $userBanned[$i]!=null}
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -90,6 +93,7 @@
                         </div>
                     </div>
                 </div>
+                {/if}
             {/for}
         {/if}
     {/if}

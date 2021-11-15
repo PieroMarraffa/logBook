@@ -20,24 +20,35 @@ class VAdmin
      * @throws SmartyException
      */
     public function adminHomepage( $array_banned,$array_reported,$image_reported,$image_banned){
-        list($typeR,$pic64R) = $this->SetImageRecensione($image_reported);
-        if ($typeR == null && $pic64R == null)
-            $this->smarty->assign('immagine_1', "no");
-        if (isset($image_reported)){
-            if (is_array($image_reported)) {
-                $this->smarty->assign('typeR', $typeR);
-                $this->smarty->assign('pic64R', $pic64R);
+        $typeR=array();
+        $pic64R=array();
+        $typeB=array();
+        $pic64B=array();
+        foreach($image_reported as $img){
+            if(isset($img)){
+                $typeR[]=$img->getType();
+                $pic64R[]=base64_encode($img->getImageFile());
+            }else{
+                $data = file_get_contents( './Smarty/immagini/user.png');
+                $pic64R[]= base64_encode($data);
+                $typeR[]= "image/png";
             }
         }
-        list($typeB,$pic64B) = $this->SetImageRecensione($image_banned);
-        if ($typeB == null && $pic64B == null)
-            $this->smarty->assign('immagine_1', "no");
-        if (isset($image_banned)){
-            if (is_array($image_banned)) {
-                $this->smarty->assign('typeB', $typeB);
-                $this->smarty->assign('pic64B', $pic64B);
+        $this->smarty->assign('typeR', $typeR);
+        $this->smarty->assign('pic64R', $pic64R);
+
+        foreach($image_banned as $img){
+            if($img!=null){
+                $typeB[]=$img->getType();
+                $pic64B[]=base64_encode($img->getImageFile());
+            }else{
+                $data = file_get_contents( './Smarty/immagini/user.png');
+                $pic64B[]= base64_encode($data);
+                $typeB[]= "image/png";
             }
         }
+        $this->smarty->assign('typeB', $typeB);
+        $this->smarty->assign('pic64B', $pic64B);
         $this->smarty->assign('userReported', $array_reported);
         $this->smarty->assign('userBanned', $array_banned);
         $this->smarty->display('admin_reported_user.tpl');

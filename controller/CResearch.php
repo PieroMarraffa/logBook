@@ -117,21 +117,24 @@ class CResearch
         $pm = FPersistentManager::getInstance();
         $view=new VResearch();
         if(UServer::getRequestMethod() == "GET") {
-            $post = $pm->load("IDpost", $id, FPost::getClass());
-            if($post->getDeleted()!=true){
-                $author=$pm->load("IDuser",$post->getUserID(),FUser::getClass());
-                $travel=$pm->load("IDpost",$post->getPostID(),FTravel::getClass());
-                $images=$pm->load("IDtravel",$travel->getTravelID(),FImage::getClass());
-                $experience=$post->getTravel()->getExperienceList();
-                if (is_object($experience)) {
-                    $array_e = array();
-                    $array_e[] = $experience;
-                } else $array_e = $experience;
-                $array_place=array();
-                foreach ($array_e as $e){
-                    $array_place[]=$e->getPlace();
+            $exist = $pm->exist("IDpost", $id, FPost::getClass());
+            if ($exist) {
+                $post = $pm->load("IDpost", $id, FPost::getClass());
+                if ($post->getDeleted() != true) {
+                    $author = $pm->load("IDuser", $post->getUserID(), FUser::getClass());
+                    $travel = $pm->load("IDpost", $post->getPostID(), FTravel::getClass());
+                    $images = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
+                    $experience = $post->getTravel()->getExperienceList();
+                    if (is_object($experience)) {
+                        $array_e = array();
+                        $array_e[] = $experience;
+                    } else $array_e = $experience;
+                    $array_place = array();
+                    foreach ($array_e as $e) {
+                        $array_place[] = $e->getPlace();
+                    }
+                    $view->post($post, $author, $array_place, $images);
                 }
-                $view->post($post,$author,$array_place,$images);
             }
             else{
                 header("Location: /logBook/User/home");

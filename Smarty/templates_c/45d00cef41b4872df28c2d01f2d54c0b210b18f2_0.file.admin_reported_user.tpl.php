@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 13:34:00
+/* Smarty version 3.1.33, created on 2021-11-15 14:22:14
   from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6183d338683b93_22230867',
+  'unifunc' => 'content_61925f06947265_36602888',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '45d00cef41b4872df28c2d01f2d54c0b210b18f2' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_user.tpl',
-      1 => 1636029049,
+      1 => 1636982532,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6183d338683b93_22230867 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61925f06947265_36602888 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('immagine', (($tmp = @$_smarty_tpl->tpl_vars['immagine']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['immagine_1']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
@@ -75,6 +75,7 @@ $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderin
 if ($_smarty_tpl->tpl_vars['i']->total > 0) {
 for ($_smarty_tpl->tpl_vars['i']->value = 0, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
 $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                <?php if ($_smarty_tpl->tpl_vars['userReported']->value[$_smarty_tpl->tpl_vars['i']->value]) {?>
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -97,6 +98,7 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
                     </div>
                 </div>
             </div>
+                <?php }?>
             <?php }
 }
 ?>
@@ -113,6 +115,7 @@ $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderin
 if ($_smarty_tpl->tpl_vars['i']->total > 0) {
 for ($_smarty_tpl->tpl_vars['i']->value = 0, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
 $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                <?php if ($_smarty_tpl->tpl_vars['userBanned']->value[$_smarty_tpl->tpl_vars['i']->value] != null) {?>
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -134,6 +137,7 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
                         </div>
                     </div>
                 </div>
+                <?php }?>
             <?php }
 }
 ?>
