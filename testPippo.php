@@ -24,27 +24,11 @@ require '../logBook/entity/EUser.php';
 
 class testPippo{
     public static function test(){
-            $pm = FPersistentManager::getInstance();
-            $pm->deleteAllFromPlaceToUser(3);
-            $listaPlaceID = $pm->loadAllPlaceIDByUser(3);
-            $listaPlaceIDDaSalvare[0] = $listaPlaceID[0];
-            foreach ($listaPlaceID as $id){
-                $salvabile = false;
-                foreach ($listaPlaceIDDaSalvare as $s){
-                    if ($id != $s){
-                        $salvabile=true;
-                    }
-                }
-                if ($salvabile == true){
-                    $listaPlaceIDDaSalvare[] = $id;
-                }
-            }
-            foreach ($listaPlaceIDDaSalvare as $s){
-                $pm->storePlaceToUser(3, $s);
-            }
-            echo var_dump($listaPlaceIDDaSalvare);
-        }
-
+        $pm = FPersistentManager::getInstance();
+        $travel = $pm->loadTravelByPost(68);
+        $arrayOriginalExperience = $travel->getExperienceList();
+        echo var_dump($arrayOriginalExperience);
+    }
 }
 
 testPippo::test();
