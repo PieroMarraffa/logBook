@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-15 15:22:16
+/* Smarty version 3.1.33, created on 2021-11-15 16:07:30
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61926d18b93380_38773302',
+  'unifunc' => 'content_619277b24158f6_18311322',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1636986119,
+      1 => 1636988838,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61926d18b93380_38773302 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619277b24158f6_18311322 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -47,7 +47,7 @@ function content_61926d18b93380_38773302 (Smarty_Internal_Template $_smarty_tpl)
  src="/logBook/Smarty/js/crea_post.js"><?php echo '</script'; ?>
 >
 </head>
-<body>
+<body onload="creaExperience()">
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -88,7 +88,7 @@ function content_61926d18b93380_38773302 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <div class="col-md-8">
 
-                            <div class="container py-3" id="container">
+                            <div class="container py-3"  id="container">
                             </div>
 
                         </div>
@@ -108,7 +108,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 ?>
                     <div class="row align-content-md-center py-3">
                         <div class="col-md-8 align-content-center">
-                            <img class="card-img-top w-100  " src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                            <img class="card-img-top w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 '  alt="...">
                         </div>

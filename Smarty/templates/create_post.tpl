@@ -20,7 +20,7 @@
     </script>
     <script src="/logBook/Smarty/js/crea_post.js"></script>
 </head>
-<body>
+<body onload="creaExperience()">
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -60,14 +60,14 @@
                         </div>
                         <div class="col-md-8">
 
-                            <div class="container py-3" id="container">
+                            <div class="container py-3"  id="container">
                             </div>
 
                         </div>
             </div>
         </div>
         {else}
-        <input type="text" name="title" required id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
 
         <div class="py-3">
             {if isset($image)}
@@ -297,7 +297,7 @@
                             "<div class='card-body'>" +
                             "<textarea class='form-control' required name='description[]' maxlength='499' rows='6' placeholder='Insert description here'></textarea>" +
                             "</div><div align='end'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'>- Delete Experience</a>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-danger '  onclick='remove(" + numCode + ")' href='#experiences'> - Delete Experience</a>" +
                             "</div></div>";
 
                         document.getElementById("container").appendChild(nuovo_elemento);
