@@ -73,7 +73,6 @@ class CPost{
                         $immagini = $pm->load('IDtravel', $travelID, FImage::getClass());
                         foreach ($immagini as $item){
                             if ($item->getImageID() < 0){
-                                echo 'DIo Bastardo';
                                 $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
                             }
                         }
@@ -307,7 +306,6 @@ class CPost{
                 $reaction = new ELike($value,$user->getUserID(), $IDpost);
                 $pm = FPersistentManager::getInstance();
                 $result = $pm->load('IDuser', $user->getUserID(), FLike::getClass());
-                var_dump($result);
                 if ($result == null) {
                     $pm->store($reaction);
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
