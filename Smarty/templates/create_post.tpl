@@ -67,7 +67,7 @@
             </div>
         </div>
         {else}
-        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+        <input type="text" name="title" required id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
 
         <div class="py-3">
             {if isset($image)}
@@ -89,13 +89,13 @@
                 {foreach $array_experience as $exp}
                     <div class="card">
                         <div class="card-header">
-                            <textarea class="form-control" name="titleExperience[]" rows="1" maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
+                            <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
                             <div class="row py-2">
                                 <div class="col-md-3">
-                                    <input type="date" name="startDate[]" class="px-2" value="{$exp->getStartDay()}">
+                                    <input type="date" name="startDate[]" class="px-2" required value="{$exp->getStartDay()}">
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="date" name="endDate[]" class="px-2" value="{$exp->getEndDay()}">
+                                    <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                 </div>
                                 <div class="col-md-3">
                                     <select class="btn btn-primary" name="place[]">
@@ -185,7 +185,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <textarea class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
+                            <textarea required class="form-control" name="description[]" maxlength="499" rows="6" placeholder="Insert description here">{$exp->getDescription()}</textarea>
                         </div>
                         <div align="end">
                             <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>

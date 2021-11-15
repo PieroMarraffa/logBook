@@ -41,7 +41,7 @@
     </div>
 </nav>
 <!-- Masthead-->
-<header class="masthead bgimg">
+<header class="masthead bgimg ">
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-6">
