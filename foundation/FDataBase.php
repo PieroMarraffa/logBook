@@ -156,7 +156,7 @@ class FDataBase
     {
         try {
             $this->database->beginTransaction();
-            $query = "UPDATE " . $class::getTable() . " SET " . $field . "='" . $newvalue . "' WHERE " . $pk . "='" . $id . "';";
+            $query = "UPDATE " . $class::getTable() . " SET " . $field . "='" . addslashes($newvalue) . "' WHERE " . $pk . "='" . $id . "';";
             $stmt = $this->database->prepare($query);
             $stmt->execute();
             $this->database->commit();
