@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-17 02:15:31
+/* Smarty version 3.1.33, created on 2021-11-17 03:46:41
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619457b3139b67_40135203',
+  'unifunc' => 'content_61946d11823182_82699706',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637111730,
+      1 => 1637117198,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619457b3139b67_40135203 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61946d11823182_82699706 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -50,42 +50,6 @@ function content_619457b3139b67_40135203 (Smarty_Internal_Template $_smarty_tpl)
  src="https://unpkg.com/axios/dist/axios.min.js"><?php echo '</script'; ?>
 >
 </head>
-
-<?php echo '<script'; ?>
->
-    function geocode(){
-
-        var location = document.getElementById('location-input').value;
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-                address:location,
-                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
-            }
-        })
-            .then(function (response){
-                console.log(response);
-
-                var formattedAddress = response.data.results[0].formatted_address;
-
-                document.getElementById('testo').innerHTML =
-                    "<li class='list-group-item'>" + formattedAddress + "</li>"
-                ;
-                var lat = response.data.results[0].geometry.location.lat;
-                var lng = response.data.results[0].geometry.location.lng;
-
-                document.getElementById('testo').innerHTML =
-                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
-                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
-                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
-                ;
-
-            })
-            .catch(function (error){
-                console.log(error);
-            })
-    }
-<?php echo '</script'; ?>
->
 
 <?php if ($_smarty_tpl->tpl_vars['creaPost']->value == true) {?>
 <body onload="creaExperience()">
@@ -208,7 +172,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 "/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Add Place</a>
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Verify Place</a>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo">
@@ -254,45 +218,14 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         var d1 = new Date(document.getElementById('date1'+ numCode).value);
                         var d2 = new Date(document.getElementById('date2'+ numCode).value);
 
-                        if (d2.getDate()<d1.getDate()) {
-                            alert("You cannot enter an end date that is earlier than the start date");
-                            document.getElementById('date2'+ numCode).value= null;
-                        }
-                    }
-
-                    function geocoding(valore){
-                        document.getElementById('testo').innerHTML =
-                            "<li class='list-group-item'> ciaoooo </li>"
-                        ;
-
-                        var location = valore;
-                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                            params: {
-                                address:location,
-                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+                        if(d2.getFullYear()<=d1.getFullYear()) {
+                            if(d2.getMonth()<=d1.getMonth()) {
+                                if (d2.getDate() <=d1.getDate()) {
+                                    alert("You cannot enter an end date that is earlier than the start date");
+                                    document.getElementById('date2' + numCode).value = null;
+                                }
                             }
-                        })
-                            .then(function (response){
-                                console.log(response);
-
-                                var formattedAddress = response.data.results[0].formatted_address;
-
-                                document.getElementById('testo').innerHTML =
-                                    "<li class='list-group-item'>" + formattedAddress + "</li>"
-                                ;
-                                var lat = response.data.results[0].geometry.location.lat;
-                                var lng = response.data.results[0].geometry.location.lng;
-
-                                document.getElementById('testo').innerHTML =
-                                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
-                                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
-                                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
-                                ;
-
-                            })
-                            .catch(function (error){
-                                console.log(error);
-                            })
+                        }
                     }
 
                     function creaExperience() {
@@ -310,10 +243,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='text' class='form-control' id='location-input' required name='placeName[]' onchange='geocode()' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
+                            "<input type='text' class='form-control' id='location-input"+numCode+"' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
                             "</div>" +
                             "<div class='col-md-3'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode()'>Add Place</a>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
+                            "</div>" +
+                            "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +

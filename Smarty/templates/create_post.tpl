@@ -22,40 +22,6 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
-<script>
-    function geocode(){
-
-        var location = document.getElementById('location-input').value;
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-                address:location,
-                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
-            }
-        })
-            .then(function (response){
-                console.log(response);
-
-                var formattedAddress = response.data.results[0].formatted_address;
-
-                document.getElementById('testo').innerHTML =
-                    "<li class='list-group-item'>" + formattedAddress + "</li>"
-                ;
-                var lat = response.data.results[0].geometry.location.lat;
-                var lng = response.data.results[0].geometry.location.lng;
-
-                document.getElementById('testo').innerHTML =
-                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
-                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
-                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
-                ;
-
-            })
-            .catch(function (error){
-                console.log(error);
-            })
-    }
-</script>
-
 {if $creaPost == true}
 <body onload="creaExperience()">
 <!-- Navigation-->
@@ -155,7 +121,7 @@
                                                     <input type="text" name="placeName[]" id="location-input" class="form-control" value="{$exp->getPlace()->getName()}"/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Add Place</a>
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Verify Place</a>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo">
@@ -204,41 +170,6 @@
                         }
                     }
 
-                    function geocoding(valore){
-                        document.getElementById('testo').innerHTML =
-                            "<li class='list-group-item'> ciaoooo </li>"
-                        ;
-
-                        var location = valore;
-                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                            params: {
-                                address:location,
-                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
-                            }
-                        })
-                            .then(function (response){
-                                console.log(response);
-
-                                var formattedAddress = response.data.results[0].formatted_address;
-
-                                document.getElementById('testo').innerHTML =
-                                    "<li class='list-group-item'>" + formattedAddress + "</li>"
-                                ;
-                                var lat = response.data.results[0].geometry.location.lat;
-                                var lng = response.data.results[0].geometry.location.lng;
-
-                                document.getElementById('testo').innerHTML =
-                                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
-                                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
-                                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
-                                ;
-
-                            })
-                            .catch(function (error){
-                                console.log(error);
-                            })
-                    }
-
                     function creaExperience() {
                         nuovo_elemento = document.createElement("div");
                         var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
@@ -254,10 +185,12 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='text' class='form-control' id='location-input' required name='placeName[]' onchange='geocode()' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
+                            "<input type='text' class='form-control' id='location-input"+numCode+"' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
                             "</div>" +
                             "<div class='col-md-3'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode()'>Add Place</a>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
+                            "</div>" +
+                            "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +

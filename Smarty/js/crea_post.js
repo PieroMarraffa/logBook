@@ -79,9 +79,9 @@
     }
 
 
-    function geocode(){
+    function geocode(num){
 
-        var location = document.getElementById('location-input').value;
+        var location = document.getElementById("location-input" + num).value;
         axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
         address:location,
@@ -92,14 +92,10 @@
         console.log(response);
 
         var formattedAddress = response.data.results[0].formatted_address;
-
-        document.getElementById('testo').innerHTML =
-        "<li class='list-group-item'>" + formattedAddress + "</li>"
-        ;
         var lat = response.data.results[0].geometry.location.lat;
         var lng = response.data.results[0].geometry.location.lng;
 
-        document.getElementById('testo').innerHTML =
+        document.getElementById('testo' + num).innerHTML =
         "<li class='list-group-item'>" + formattedAddress + "</li>"+
         "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
         "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
