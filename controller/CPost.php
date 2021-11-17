@@ -31,6 +31,10 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
+                        echo var_dump($array);
+                        if (empty($array)){
+                            header('Location: /logBook/User/profile');
+                        }
                         foreach ($array["results"][0]["address_components"] as $component) {
                             if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
                                 $countryName = $component["long_name"];
@@ -99,6 +103,10 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
+                        echo var_dump($array);
+                        if (empty($array)){
+                            header('Location: /logBook/User/profile');
+                        }
                         foreach ($array["results"][0]["address_components"] as $component) {
                             if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
                                 $countryName = $component["long_name"];
@@ -166,7 +174,7 @@ class CPost{
                         break;
                 }
             }
-            header('Location: /logBook/User/profile');
+            //header('Location: /logBook/User/profile');
         }
     }
 

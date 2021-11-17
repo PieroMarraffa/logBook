@@ -57,6 +57,7 @@ class CResearch
                 } else header("Location: /logBook/User/home");
             } elseif ($_POST['search'] == 2) {
                 if ($_POST['research'] != "") {
+
                     $ad = explode(' ', $_POST['research']);
                     $address = implode('+', $ad);
                     $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");

@@ -91,15 +91,28 @@
         .then(function (response){
         console.log(response);
 
-        var formattedAddress = response.data.results[0].formatted_address;
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
+        var status = response.data.status;
+        if (status == "ZERO_RESULTS"){
+                var stat = "PLACE NOT FOUND";
 
-        document.getElementById('testo' + num).innerHTML =
-        "<li class='list-group-item'>" + formattedAddress + "</li>"+
-        "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
-        "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
-        ;
+            document.getElementById('testo' + num).innerHTML =
+                "<li class='list-group-item'>" + stat + "</li>"
+            ;
+            }
+        else {
+            var formattedAddress = response.data.results[0].formatted_address;
+            var lat = response.data.results[0].geometry.location.lat;
+            var lng = response.data.results[0].geometry.location.lng;
+
+            document.getElementById('testo' + num).innerHTML =
+                "<li class='list-group-item'>" + formattedAddress + "</li>" +
+                "<li class='list-group-item'>" + lat + "</li>" +
+                "<li class='list-group-item'>" + lng + "</li>"
+            ;
+        }
+        console.log(status);
+
+
 
     })
         .catch(function (error){
