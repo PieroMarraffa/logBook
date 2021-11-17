@@ -150,10 +150,6 @@ class FUser extends FDataBase
     /** Inserisce nella tabella place_to_user l'associazione tra l'utente associata a idUser e
      *il posto associato a $idPlace
      */
-    public static function storePlaceAssociatedToUser($idPLace,$idUser){
-        $database=FDataBase::getInstance();
-        $database->storePlaceToUser($idPLace,$idUser);
-    }
 
     public static function loadCommentReportedFromUser($idUser){
         $database=FDataBase::getInstance();

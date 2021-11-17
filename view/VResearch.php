@@ -61,7 +61,7 @@ class VResearch
     /**
      * @throws SmartyException
      */
-    public function search_place($place,$array_post,$array_image){
+    public function search_place($place,$array_post,$array_image, $research){
 
         if(CUser::isLogged()){
             $this->smarty->assign('userlogged',"loggato");
@@ -70,7 +70,8 @@ class VResearch
         $this->smarty->assign('username',$user->getUserName());}
         $this->smarty->assign('Place',$place);
         $this->smarty->assign('TitlePlace',$place->getName());
-        $this->smarty->assign('Category',$place->getCategory());
+        $this->smarty->assign('Category',$place->getCountryName());
+        $this->smarty->assign('research',$research);
         if(is_object($array_post)){
             $array_p=array();
             $array_p[]=$array_post;

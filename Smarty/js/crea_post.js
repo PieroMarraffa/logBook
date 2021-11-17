@@ -78,3 +78,35 @@
             return false;
     }
 
+
+    function geocode(){
+
+        var location = document.getElementById('location-input').value;
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+        address:location,
+        key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+    }
+    })
+        .then(function (response){
+        console.log(response);
+
+        var formattedAddress = response.data.results[0].formatted_address;
+
+        document.getElementById('testo').innerHTML =
+        "<li class='list-group-item'>" + formattedAddress + "</li>"
+        ;
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+
+        document.getElementById('testo').innerHTML =
+        "<li class='list-group-item'>" + formattedAddress + "</li>"+
+        "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
+        "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
+        ;
+
+    })
+        .catch(function (error){
+        console.log(error);
+    })
+    }

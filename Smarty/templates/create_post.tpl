@@ -19,10 +19,44 @@
         document.addEventListener("DOMContentLoaded", ready);
     </script>
     <script src="/logBook/Smarty/js/crea_post.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
-{if $creaPost == true}
+<script>
+    function geocode(){
 
+        var location = document.getElementById('location-input').value;
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+            params: {
+                address:location,
+                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+            }
+        })
+            .then(function (response){
+                console.log(response);
+
+                var formattedAddress = response.data.results[0].formatted_address;
+
+                document.getElementById('testo').innerHTML =
+                    "<li class='list-group-item'>" + formattedAddress + "</li>"
+                ;
+                var lat = response.data.results[0].geometry.location.lat;
+                var lng = response.data.results[0].geometry.location.lng;
+
+                document.getElementById('testo').innerHTML =
+                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
+                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
+                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
+                ;
+
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }
+</script>
+
+{if $creaPost == true}
 <body onload="creaExperience()">
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
@@ -118,90 +152,13 @@
                                                     <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <select class="btn btn-primary" name="place[]">
-                                                        {if isset($arrayMete)}
-                                                            <optgroup label="Tourist Destination">
-                                                                {if count($arrayMete) == 1}
-                                                                    {if $exp->getPlace()->getPlaceID() == $arrayMete->getPlaceID()}
-                                                                        <option selected value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
-                                                                    {else}
-                                                                        <option value="{$arrayMete->getPlaceID()}">{$arrayMete->getName()}</option>
-                                                                    {/if}
-                                                                {else}
-                                                                    {foreach $arrayMete as $mete}
-                                                                        {if $exp->getPlace()->getPlaceID() == $mete->getPlaceID()}
-                                                                            <option selected value="{$mete->getPlaceID()}">{$mete->getName()}</option>
-                                                                        {else}
-                                                                            <option value="{$mete->getPlaceID()}">{$mete->getName()}</option>
-                                                                        {/if}
-                                                                    {/foreach}
-                                                                {/if}
-                                                            </optgroup>
-                                                        {/if}
-
-                                                        {if isset($arrayCity)}
-                                                            <optgroup label="Cities">
-                                                                {if count($arrayCity) == 1}
-                                                                    {if $exp->getPlace()->getPlaceID() == $arrayCity->getPlaceID()}
-                                                                        <option selected value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
-                                                                    {else}
-                                                                        <option value="{$arrayCity->getPlaceID()}">{$arrayCity->getName()}</option>
-                                                                    {/if}
-                                                                {else}
-                                                                    {foreach $arrayCity as $city}
-                                                                        {if $exp->getPlace()->getPlaceID() == $city->getPlaceID()}
-                                                                            <option selected value="{$city->getPlaceID()}">{$city->getName()}</option>
-                                                                        {else}
-                                                                            <option value="{$city->getPlaceID()}">{$city->getName()}</option>
-                                                                        {/if}
-                                                                    {/foreach}
-                                                                {/if}
-                                                            </optgroup>
-                                                        {/if}
-
-                                                        {if isset($arrayRegion)}
-                                                            <optgroup label="Regions">
-                                                            {if count($arrayRegion) == 1}
-                                                                {if $exp->getPlace()->getPlaceID() == $arrayRegion->getPlaceID()}
-                                                                    <option selected value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
-                                                                {else}
-                                                                    <option value="{$arrayRegion->getPlaceID()}">{$arrayRegion->getName()}</option>
-                                                                {/if}
-                                                            {else}
-                                                                {foreach $arrayRegion as $region}
-                                                                    {if $exp->getPlace()->getPlaceID() == $region->getPlaceID()}
-                                                                        <option selected value="{$region->getPlaceID()}">{$region->getName()}</option>
-                                                                    {else}
-                                                                        <option value="{$region->getPlaceID()}">{$region->getName()}</option>
-                                                                    {/if}
-                                                                {/foreach}
-                                                            {/if}
-                                                            </optgroup>
-                                                        {/if}
-
-                                                        {if isset($arrayState)}
-                                                            <optgroup label="Stetes">
-                                                            {if count($arrayState) == 1}
-                                                                {if $exp->getPlace()->getPlaceID() == $arrayState->getPlaceID()}
-                                                                    <option selected value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
-                                                                {else}
-                                                                    <option value="{$arrayState->getPlaceID()}">{$arrayState->getName()}</option>
-                                                                {/if}
-                                                            {else}
-                                                                {foreach $arrayState as $state}
-                                                                    {if $exp->getPlace()->getPlaceID() == $state->getPlaceID()}
-                                                                        <option selected value="{$state->getPlaceID()}">{$state->getName()}</option>
-                                                                    {else}
-                                                                        <option value="{$state->getPlaceID()}">{$state->getName()}</option>
-                                                                    {/if}
-                                                                {/foreach}
-                                                            {/if}
-                                                            </optgroup>
-                                                        {/if}
-                                                    </select>
+                                                    <input type="text" name="placeName[]" id="location-input" class="form-control" value="{$exp->getPlace()->getName()}"/>
                                                 </div>
                                                 <div class="col-md-3">
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Add Place</a>
                                                 </div>
+                                            </div>
+                                            <div class="row py-2" id="testo">
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -247,6 +204,41 @@
                         }
                     }
 
+                    function geocoding(valore){
+                        document.getElementById('testo').innerHTML =
+                            "<li class='list-group-item'> ciaoooo </li>"
+                        ;
+
+                        var location = valore;
+                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                            params: {
+                                address:location,
+                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+                            }
+                        })
+                            .then(function (response){
+                                console.log(response);
+
+                                var formattedAddress = response.data.results[0].formatted_address;
+
+                                document.getElementById('testo').innerHTML =
+                                    "<li class='list-group-item'>" + formattedAddress + "</li>"
+                                ;
+                                var lat = response.data.results[0].geometry.location.lat;
+                                var lng = response.data.results[0].geometry.location.lng;
+
+                                document.getElementById('testo').innerHTML =
+                                    "<li class='list-group-item'>" + formattedAddress + "</li>"+
+                                    "<li class='list-group-item' name='lat[]'>Latitudine: " + lat +"</li>"+
+                                    "<li class='list-group-item' name='lng[]'>Longitudine: " + lng +"</li>"
+                                ;
+
+                            })
+                            .catch(function (error){
+                                console.log(error);
+                            })
+                    }
+
                     function creaExperience() {
                         nuovo_elemento = document.createElement("div");
                         var numCode = parseInt(document.getElementById("container").childNodes.length + 1);
@@ -262,57 +254,10 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<select class='btn btn-primary' name='place[]'>" +
-
-                            "{if isset($arrayMete)}" +
-                            "<optgroup label='Tourist Destinations'>" +
-                            "{if count($arrayMete) == 1}" +
-                            "<option value='{$arrayMete->getPlaceID()}'>{$arrayMete->getName()}</option>" +
-                            "{else}" +
-                            "{foreach $arrayMete as $m}" +
-                            "<option value='{$m->getPlaceID()}'>{$m->getName()}</option>" +
-                            "{/foreach}"+
-                            "{/if}" +
-                            "</optgroup>" +
-                            "{/if}" +
-
-                            "{if isset($arrayCity)}" +
-                            "<optgroup label='Cities'>" +
-                            "{if count($arrayCity) == 1}" +
-                            "<option value='{$arrayCity->getPlaceID()}'>{$arrayCity->getName()}</option>" +
-                            "{else}" +
-                            "{foreach $arrayCity as $city}" +
-                            "<option value='{$city->getPlaceID()}'>{$city->getName()}</option>" +
-                            "{/foreach}"+
-                            "{/if}" +
-                            "</optgroup>" +
-                            "{/if}" +
-
-                            "{if isset($arrayRegion)}" +
-                            "<optgroup label='Regions'>" +
-                            "{if count($arrayRegion) == 1}" +
-                            "<option value='{$arrayRegion->getPlaceID()}'>{$arrayRegion->getName()}</option>" +
-                            "{else}" +
-                            "{foreach $arrayRegion as $region}" +
-                            "<option value='{$region->getPlaceID()}'>{$region->getName()}</option>" +
-                            "{/foreach}"+
-                            "{/if}" +
-                            "</optgroup>" +
-                            "{/if}" +
-
-                            "{if isset($arrayState)}" +
-                            "<optgroup label='States'>" +
-                            "{if count($arrayState) == 1}" +
-                            "<option value='{$arrayState->getPlaceID()}'>{$arrayState->getName()}</option>" +
-                            "{else}" +
-                            "{foreach $arrayState as $state}" +
-                            "<option value='{$state->getPlaceID()}'>{$state->getName()}</option>" +
-                            "{/foreach}"+
-                            "{/if}" +
-                            "</optgroup>" +
-                            "{/if}" +
-
-                            "</select>" +
+                            "<input type='text' class='form-control' id='location-input' required name='placeName[]' onchange='geocode()' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
+                            "</div>" +
+                            "<div class='col-md-3'>" +
+                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode()'>Add Place</a>" +
                             "</div>" +
                             "<div class='col-md-3'></div></div></div>" +
                             "<div class='card-body'>" +

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-05 22:17:10
+/* Smarty version 3.1.33, created on 2021-11-17 02:28:13
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61859f56959e65_16668134',
+  'unifunc' => 'content_61945aad7a6ac0_86518299',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b4cc097ccd2e02ee17c231a024e68326c41956a8' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl',
-      1 => 1635789457,
+      1 => 1637112481,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61859f56959e65_16668134 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61945aad7a6ac0_86518299 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -102,14 +102,10 @@ function content_61859f56959e65_16668134 (Smarty_Internal_Template $_smarty_tpl)
 
                 function initialize() {
                     var map = new google.maps.Map(document.getElementById('map'), {
-                        <?php if ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "città") {?>
+                        <?php if ($_smarty_tpl->tpl_vars['Place']->value->getName() != $_smarty_tpl->tpl_vars['Place']->value->getCountryName()) {?>
                         zoom: 13,
-                        <?php } elseif ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "meta turistica") {?>
-                        zoom: 15,
-                        <?php } elseif ($_smarty_tpl->tpl_vars['Place']->value->getCategory() == "nazione") {?>
-                        zoom: 6,
                         <?php } else { ?>
-                        zoom:10,
+                        zoom:6,
                         <?php }?>
                         center: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLatitude();?>
 ,<?php echo $_smarty_tpl->tpl_vars['Place']->value->getLongitude();?>
@@ -147,13 +143,18 @@ function content_61859f56959e65_16668134 (Smarty_Internal_Template $_smarty_tpl)
         </div>
         <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start dimension_title testo1"><b><?php echo $_smarty_tpl->tpl_vars['Place']->value->getName();?>
+                <p class="text-white align-content-start dimension_title testo1"><b><?php echo $_smarty_tpl->tpl_vars['research']->value;?>
  </b></p>
             </div>
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start testo2"><?php echo $_smarty_tpl->tpl_vars['Place']->value->getCategory();?>
+                <p class="text-white align-content-start testo2"><?php echo $_smarty_tpl->tpl_vars['Place']->value->getCountryName();?>
 </p>
             </div>
+            <?php if (!isset($_smarty_tpl->tpl_vars['arrayPostPlace']->value)) {?>
+            <div class="d-flex w-100 justify-content-between">
+                <p class="text-white align-content-start testo2">No results for this place</p>
+            </div>
+            <?php }?>
         </div>
     </div>
 </header>

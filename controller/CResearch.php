@@ -57,68 +57,61 @@ class CResearch
                 } else header("Location: /logBook/User/home");
             } elseif ($_POST['search'] == 2) {
                 if ($_POST['research'] != "") {
-                    $place = $pm->load("Name", $_POST['research'], FPlace::getClass());
-                    if ($place != null) {
-                        $placeFigli = $pm->load('IDpadre', $place->getPlaceID(), FPlace::getClass());
-                        $post = $pm->loadPostByPlace($place->getPlaceID());
-                        $array_posts = array();
-                        if ($post != null) {
-                            if (is_object($post)) {
-                                $array_p = array();
-                                $array_p[] = $post;
-                            } else $array_p = $post;
-                            foreach ($array_p as $p) {
-                                if ($p != null) {
-                                    if ($p->getDeleted() != true) {
-                                        $array_posts[] = $p;
-                                    }
-                                }
-                            }
+                    $ad = explode(' ', $_POST['research']);
+                    $address = implode('+', $ad);
+                    $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
+                    $array = json_decode($json, true);
+                    foreach ($array["results"][0]["address_components"] as $component){
+                        if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                            $countryName = $component["long_name"];
                         }
-                        if($placeFigli!=null) {
-                            foreach ($placeFigli as $p) {
-                                if ($p != null) {
-                                    $post = $pm->loadPostByPlace($p->getPlaceID());
-                                    if ($post != null) {
-                                        if (is_object($post)) {
-                                            $array_p = array();
-                                            $array_p[] = $post;
-                                        } else $array_p = $post;
-                                        foreach ($array_p as $pl) {
-                                            if ($pl != null) {
-                                                if ($pl->getDeleted() != true) {
-                                                    $array_posts[] = $pl;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                    }
+                    foreach ($array["results"][0]["address_components"] as $component){
+                        $assigned = false;
+                        if ($component["types"][0] == "locality"){
+                            $localityName = $component["long_name"];
+                            $assigned = true;
+                            break;
+                        } elseif($array["results"][0]["formatted_address"] == $countryName){
+                            $localityName = $countryName;
+                            $assigned = true;
+                            break;
                         }
+                    }
+                    if ($assigned == false){
+                        $localityName = explode(', ', $array["results"][0]["formatted_address"])[0];
+                    }
+                    $lat = $array["results"][0]["geometry"]["location"]["lat"];
+                    $lng = $array["results"][0]["geometry"]["location"]["lng"];
+                    $place = new EPlace($lat, $lng, $localityName, $countryName);
+                    if ($_POST['research'] == $countryName){
+                        $post = $pm->loadPostByPlaceCountryName($countryName);
                         $image = array();
-                        $arrayPost[0] = $array_posts[0];
-                        foreach ($array_posts as $r){
-                            $add = true;
-                            foreach ($arrayPost as $f){
-                                if($r->getPostID() == $f->getPostID()){
-                                    $add = false;
-                                }
-                            }
-                            if ($add == true){
-                                $arrayPost[] = $r;
-                            }
-                        }
-                        if(isset($arrayPost[0])){
-                            foreach ($arrayPost as $r) {
+                        if(isset($post[0])){
+                            foreach ($post as $r) {
                                 $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
                                 $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
                                 $image[] = $i;
                             }
                         }
-                        $view->search_place($place, $arrayPost, $image);
-                    } else {
-                        $view->search_error($research);
+                        $view->search_place($place, $post, $image, $_POST['research']);
+                    } else{
+                        $post = $pm->loadPostByProssimity($lat, $lng, 0.5);
+                        if ($post == NULL){
+                            $view->search_error($_POST['research']);
+                        } else {
+                            $image = array();
+                            if (isset($post[0])) {
+                                foreach ($post as $r) {
+                                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
+                                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                    $image[] = $i;
+                                }
+                            }
+                            $view->search_place($place, $post, $image, $_POST['research']);
+                        }
                     }
+
                 } else header("Location: /logBook/User/home");
             }
         }else header("Location: /logBook/User/home");

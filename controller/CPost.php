@@ -18,7 +18,7 @@ class CPost{
                     $arrayExperienceTitle = $_POST['titleExperience'];
                     $arrayStartDay = $_POST['startDate'];
                     $arrayEndDay = $_POST['endDate'];
-                    $arrayPlaceID = $_POST['place'];
+                    $arrayPlaceName = $_POST['placeName'];
                     $arrayDescription = $_POST['description'];
                     $ExpList = array();
                     for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
@@ -26,11 +26,22 @@ class CPost{
                         $EstartDate = $arrayStartDay[$i];
                         $EfinishDate = $arrayEndDay[$i];
                         $Edescriprion = $arrayDescription[$i];
-                        $EplaceID = $arrayPlaceID[$i];
-                        $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+
+                        $ad = explode(' ', $arrayPlaceName[$i]);
+                        $address = implode('+', $ad);
+                        $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
+                        $array = json_decode($json, true);
+                        foreach ($array["results"][0]["address_components"] as $component) {
+                            if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
+                                $countryName = $component["long_name"];
+                            }
+                        }
+                        $lat = $array["results"][0]["geometry"]["location"]["lat"];
+                        $lng = $array["results"][0]["geometry"]["location"]["lng"];
+                        $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
+
                         if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
                             $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                            $exp->setPlaceID($EplaceID);
                             $ExpList[] = $exp;
                         }
 
@@ -47,7 +58,22 @@ class CPost{
                     $postID = $pm->store($post);
                     $travel->setPostID($postID);
                     $travelID = $pm->store($travel);
+
                     foreach ($ExpList as $exp) {
+
+                        $toSave = true;
+                        $allPlaces = $pm->loadAll(FPlace::getClass());
+                        foreach ($allPlaces as $ap){
+                            if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()){
+                                $exp->setPlace($ap);
+                                $toSave = false;
+                            }
+                        }
+                        if ($toSave == true){
+                            $placeID = FPlace::store($exp->getPlace());
+                            $exp->setPlaceID($placeID);
+                        }
+
                         $exp->setTravelID($travelID);
                         $pm->store($exp);
                     }
@@ -60,7 +86,7 @@ class CPost{
                     $arrayExperienceTitle = $_POST['titleExperience'];
                     $arrayStartDay = $_POST['startDate'];
                     $arrayEndDay = $_POST['endDate'];
-                    $arrayPlaceID = $_POST['place'];
+                    $arrayPlaceName = $_POST['placeName'];
                     $arrayDescription = $_POST['description'];
                     $ExpList = array();
                     for ($i = 0; $i < count($arrayExperienceTitle); $i++) {
@@ -68,11 +94,22 @@ class CPost{
                         $EstartDate = $arrayStartDay[$i];
                         $EfinishDate = $arrayEndDay[$i];
                         $Edescriprion = $arrayDescription[$i];
-                        $EplaceID = $arrayPlaceID[$i];
-                        $Eplace = $pm->load("IDplace", $EplaceID, FPlace::getClass());
+
+                        $ad = explode(' ', $arrayPlaceName[$i]);
+                        $address = implode('+', $ad);
+                        $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
+                        $array = json_decode($json, true);
+                        foreach ($array["results"][0]["address_components"] as $component) {
+                            if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
+                                $countryName = $component["long_name"];
+                            }
+                        }
+                        $lat = $array["results"][0]["geometry"]["location"]["lat"];
+                        $lng = $array["results"][0]["geometry"]["location"]["lng"];
+                        $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
+
                         if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
                             $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                            $exp->setPlaceID($EplaceID);
                             $ExpList[] = $exp;
                         }
 
@@ -87,6 +124,19 @@ class CPost{
                     $travelID = $travel->getTravelID();
 
                     foreach ($ExpList as $exp) {
+
+                        $toSave = true;
+                        $allPlaces = $pm->loadAll(FPlace::getClass());
+                        foreach ($allPlaces as $ap){
+                            if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()){
+                                $exp->setPlace($ap);
+                                $toSave = false;
+                            }
+                        }
+                        if ($toSave == true){
+                            $placeID = FPlace::store($exp->getPlace());
+                            $exp->setPlaceID($placeID);
+                        }
                         $exp->setTravelID($travelID);
                         $pm->store($exp);
                     }
@@ -126,13 +176,7 @@ class CPost{
     public static function create_post(){
         if(CUser::isLogged()) {
             $view = new VPost();
-            $pm = FPersistentManager::getInstance();
-            $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
-            $arrayCity = $pm->load('category', 'città', FPlace::getClass());
-            $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
-            $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
-            $arrayPlace=$pm->loadAll(FPlace::getClass());
-            $view->create_post($arrayPlace, $arrayCity, $arrayRegions, $arrayState, $arrayMete, true, NULL);
+            $view->create_post(true, NULL);
         }else{
             header('Location: /logBook/User/login');
         }
@@ -249,12 +293,7 @@ class CPost{
                     }
                 }
                 $numero = 2;
-                $arrayMete = $pm->load('category', 'meta turistica', FPlace::getClass());
-                $arrayCity = $pm->load('category', 'città', FPlace::getClass());
-                $arrayRegions = $pm->load('category', 'regione', FPlace::getClass());
-                $arrayState = $pm->load('category', 'nazione', FPlace::getClass());
-                $arrayPlace = $pm->loadAll(FPlace::getClass());
-                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $arrayPlace, $postID, $imageDaVedere, $arrayCity, $arrayRegions, $arrayState, $arrayMete, false);
+                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $postID, $imageDaVedere,false);
             } else{
                 header('Location: /logBook/User/home');
             }

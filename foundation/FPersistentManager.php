@@ -196,14 +196,6 @@ class FPersistentManager
         return FUser::existAssociationUserPlace($idUser, $idPlace);
     }
 
-    public static function storePlaceToPost($idPost,$idPlace){
-        FPost::storePlaceAssociatedToPost($idPlace,$idPost);
-    }
-
-    public static function storePlaceToUser($idUser,$idPlace){
-        FUser::storePlaceAssociatedToUser($idPlace,$idUser);
-    }
-
     public static function loadCommentReportedByUser($idUser){
         $result=FUser::loadCommentReportedFromUser($idUser);
         return $result;
@@ -248,6 +240,12 @@ class FPersistentManager
         $result=FPost::updatePlaceAssociatedToPost($idPost,$idPlace);
         return $result;
 
+    }
+
+
+    public static function loadPlaceProssimity($lat, $lng, $prossimity){
+        $result= FPlace::loadPlaceProssimity($lat, $lng, $prossimity);
+        return $result;
     }
 
 
@@ -343,22 +341,6 @@ class FPersistentManager
         FPost::deleteFromReaction($idPost);
     }
 
-    public static function deleteFromPlaceToPost($idPost){
-        FPost::deleteFromPlaceToPost($idPost);
-    }
-
-    public static function deleteOneFromPlaceToPost($idPost, $idPlace){
-        FPost::deleteOneFromPlaceToPost($idPost, $idPlace);
-    }
-
-    public static function deleteOneFromPlaceToUser($userID, $placeID){
-        FPost::deleteOneFromPlaceToUser($userID, $placeID);
-    }
-
-    public static function deleteAllFromPlaceToUser($userID){
-        FPost::deleteAllFromPlaceToUser($userID);
-    }
-
 
     public static function loadPlaceByUser($idUser){
         $place=array();
@@ -407,5 +389,241 @@ class FPersistentManager
                 }
         }
         return $res;
+    }
+
+    public static function loadPostByPlaceCountryName($cn){
+        $place = self::load('CountryName', $cn, FPlace::getClass());
+        if (is_array($place)) {
+            foreach ($place as $p){
+                $result = self::load('IDplace',$p->getPlaceID(), FExperience::getClass());
+                if (is_array($result)){
+                    foreach ($result as $r){
+                        $experience[] = $r;
+                    }
+                } else{
+                    $experience[] = $result;
+                }
+            }
+            if (is_array($experience)){
+                foreach ($experience as $e){
+                    $travel[] = self::loadTravelByExperience($e);
+                }
+                if (is_array($travel)){
+                    foreach ($travel as $t){
+                        $post[] = self::loadPostByTravel($t);
+                    }
+                    if (is_array($post)){
+                        $pf[] = $post[0];
+                        foreach ($post as $p){
+                            $assignable = true;
+                            foreach ($pf as $f){
+                                if ($p->getPostID() == $f->getPostID()){
+                                    $assignable = false;
+                                }
+                            }
+                            if ($assignable == true){
+                                $pf[] = $p;
+                            }
+                        }
+                        return $pf;
+                    }
+                }
+                else{
+                    if ($travel != NULL){
+                        $post = self::loadPostByTravel($travel);
+                        if ($post != NULL){
+                            return $post;
+                        }
+                    }
+                }
+            } else{
+                if ($experience != NULL) {
+                    $travel = self::loadTravelByExperience($experience);
+                    if ($travel != NULL){
+                        $post = self::loadPostByTravel($travel);
+                        if ($post != NULL){
+                            return $post;
+                        }
+                    }
+                }
+            }
+        } else{
+            if ($place != NULL){
+                $experience = self::loadExperienceByPlaceID($place->getPlaceID());
+                if (is_array($experience)){
+                    foreach ($experience as $e){
+                        $travel[] = self::loadTravelByExperience($e);
+                    }
+                    if (is_array($travel)){
+                        foreach ($travel as $t){
+                            $post[] = self::loadPostByTravel($t);
+                        }
+                        if (is_array($post)){
+                            $pf[] = $post[0];
+                            foreach ($post as $p){
+                                $assignable = true;
+                                foreach ($pf as $f){
+                                    if ($p->getPostID() == $f->getPostID()){
+                                        $assignable = false;
+                                    }
+                                }
+                                if ($assignable == true){
+                                    $pf[] = $p;
+                                }
+                            }
+                            return $pf;
+                        }
+                    }
+                    else{
+                        if ($travel != NULL){
+                            $post = self::loadPostByTravel($travel);
+                            if ($post != NULL){
+                                return $post;
+                            }
+                        }
+                    }
+                } else{
+                    if ($experience != NULL) {
+                        $travel = self::loadTravelByExperience($experience);
+                        if ($travel != NULL){
+                            $post = self::loadPostByTravel($travel);
+                            if ($post != NULL){
+                                return $post;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static function loadPostByProssimity($lat, $lng, $prossimity){
+        $place = self::loadPlaceProssimity($lat, $lng, $prossimity);
+        if (is_array($place)) {
+            foreach ($place as $p){
+                $result = self::load('IDplace',$p->getPlaceID(), FExperience::getClass());
+                if (is_array($result)){
+                    foreach ($result as $r){
+                        $experience[] = $r;
+                    }
+                } else{
+                    $experience[] = $result;
+                }
+            }
+            if (is_array($experience)){
+                foreach ($experience as $e){
+                    $travel[] = self::loadTravelByExperience($e);
+                }
+                if (is_array($travel)){
+                    foreach ($travel as $t){
+                        $post[] = self::loadPostByTravel($t);
+                    }
+                    if (is_array($post)){
+                        $pf[] = $post[0];
+                        foreach ($post as $p){
+                            $assignable = true;
+                            foreach ($pf as $f){
+                                if ($p->getPostID() == $f->getPostID()){
+                                    $assignable = false;
+                                }
+                            }
+                            if ($assignable == true){
+                                $pf[] = $p;
+                            }
+                        }
+                        return $pf;
+                    } else{
+                        return $post;
+                    }
+                }
+                else{
+                    if ($travel != NULL){
+                        $post = self::loadPostByTravel($travel);
+                        if ($post != NULL){
+                            return $post;
+                        }
+                    }
+                }
+            } else{
+                if ($experience != NULL) {
+                    $travel = self::loadTravelByExperience($experience);
+                    if ($travel != NULL){
+                        $post = self::loadPostByTravel($travel);
+                        if ($post != NULL){
+                            return $post;
+                        }
+                    }
+                }
+            }
+        } else{
+            if ($place != NULL){
+                $experience = self::loadExperienceByPlaceID($place->getPlaceID());
+                if (is_array($experience)){
+                    foreach ($experience as $e){
+                        $travel[] = self::loadTravelByExperience($e);
+                    }
+                    if (is_array($travel)){
+                        foreach ($travel as $t){
+                            $post[] = self::loadPostByTravel($t);
+                        }
+                        if (is_array($post)){
+                            $pf[] = $post[0];
+                            foreach ($post as $p){
+                                $assignable = true;
+                                foreach ($pf as $f){
+                                    if ($p->getPostID() == $f->getPostID()){
+                                        $assignable = false;
+                                    }
+                                }
+                                if ($assignable == true){
+                                    $pf[] = $p;
+                                }
+                            }
+                            return $pf;
+                        } else{
+                            return $post;
+                        }
+                    }
+                    else{
+                        if ($travel != NULL){
+                            $post = self::loadPostByTravel($travel);
+                            if ($post != NULL){
+                                return $post;
+                            }
+                        }
+                    }
+                } else{
+                    if ($experience != NULL) {
+                        $travel = self::loadTravelByExperience($experience);
+                        if ($travel != NULL){
+                            $post = self::loadPostByTravel($travel);
+                            if ($post != NULL){
+                                return $post;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return NULL;
+    }
+
+
+    public static function loadExperienceByPlaceID($id){
+        $experience=self::load('IDplace',$id, FExperience::getClass());
+        return $experience;
+    }
+
+
+    public static function loadTravelByExperience(EExperience $ex){
+        $travel = self::load('IDtravel',$ex->getTravelID(), FTravel::getClass());
+        return $travel;
+    }
+
+
+    public static function loadPostByTravel(ETravel $t){
+        $post = self::load('IDpost',$t->getPostID(), FPost::getClass());
+        return $post;
     }
 }

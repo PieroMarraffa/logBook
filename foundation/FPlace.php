@@ -7,18 +7,16 @@ class FPlace extends FDataBase
 
     public static $table="place";
 
-    public static $value="(:IDplace,:IDpadre, :Latitude,:Longitude,:Category,:Name)";
+    public static $value="(:IDplace,:Latitude,:Longitude,:Name,:CountryName)";
 
     public function __constructor(){}
 
     public static function bind($statement,EPlace $place){
         $statement->bindValue(":IDplace",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDpadre",$place->getPadreID(), PDO::PARAM_INT);
-        $statement->bindValue(":Latitude",$place->getLatitude(), PDO::PARAM_INT);
-        $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_INT);
-        $statement->bindValue(":Category",$place->getCategory(), PDO::PARAM_STR);
+        $statement->bindValue(":Latitude",$place->getLatitude(), PDO::PARAM_STR);
+        $statement->bindValue(":Longitude",$place->getLongitude(), PDO::PARAM_STR);
         $statement->bindValue(":Name",$place->getName(), PDO::PARAM_STR);
-
+        $statement->bindValue(":CountryName",$place->getCountryName(), PDO::PARAM_STR);
     }
 
     /**
@@ -79,14 +77,14 @@ class FPlace extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['IDpadre'], $result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place = new EPlace($result['Latitude'],$result['Longitude'],$result['Name'], $result['CountryName']);
             $place->setPlaceID($result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['IDpadre'], $result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[] = new EPlace($result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Name'], $result[$i]['CountryName']);
                     $place[$i]->setPlaceID($result[$i]['IDplace']);
 
                 }
@@ -101,19 +99,41 @@ class FPlace extends FDataBase
         $result=$database->getAllByTable(self::getTable());
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['IDpadre'], $result['Name'],$result['Latitude'],$result['Longitude'],$result['Category']);
+            $place = new EPlace($result['Latitude'],$result['Longitude'],$result['Name'], $result['CountryName']);
             $place->setPlaceID($result['IDplace']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $place = array();
                 for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['IDpadre'], $result[$i]['Name'],$result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Category']);
+                    $place[] = new EPlace($result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Name'], $result[$i]['CountryName']);
                     $place[$i]->setPlaceID($result[$i]['IDplace']);
                 }
             }
         }
         return $place;
+    }
+
+    public function loadPlaceProssimity($lat, $lng, $prossimity){
+        $database = FDataBase::getInstance();
+        $resultTot=$database->loadPlaceProssimity($lat, $lng, $prossimity);
+        $rows_number = $resultTot[1];
+        $result = $resultTot[0];
+        if(($result != null) && ($rows_number == 1)) {
+            $place = new EPlace($result['Latitude'],$result['Longitude'],$result['Name'], $result['CountryName']);
+            $place->setPlaceID($result['IDplace']);
+            return $place;
+        }
+        else {
+            if(($result != null) && ($rows_number > 1)){
+                $place = array();
+                for($i = 0; $i < count($result); $i++){
+                    $place[] = new EPlace($result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Name'], $result[$i]['CountryName']);
+                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+                }
+                return $place;
+            }
+        }
     }
 
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true

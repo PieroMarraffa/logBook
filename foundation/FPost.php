@@ -287,14 +287,6 @@ class FPost
         return $post;
     }
 
-
-    public static function updatePlaceAssociatedToPost($idPost,$idPlace){
-        $database=FDataBase::getInstance();
-        $result=$database->updatePlaceToPost($idPost,$idPlace,2);
-        return $result;
-
-    }
-
     /**
      * @throws Exception
      */
@@ -388,12 +380,6 @@ class FPost
         self::store($post);
     }
 
-
-    static function storePlaceAssociatedToPost($idPlace,$idPost){
-        $database=FDataBase::getInstance();
-        $database->storePlaceToPost($idPlace,$idPost);
-    }
-
     static function existAssociationPostPlace($idPost, $idPlace){
         $result = self::loadPlaceByPost($idPost);
         if ($result == null) {return false;}
@@ -440,30 +426,6 @@ class FPost
     public static function deleteFromReaction($idPost){
         $database=FDataBase::getInstance();
         $database->deleteFromPostReaction($idPost);
-    }
-
-
-    public static function deleteFromPlaceToPost($idPost){
-        $database=FDataBase::getInstance();
-        $database->deleteFromPlaceToPost($idPost);
-    }
-
-
-    public static function deleteOneFromPlaceToPost($idPost, $idPlace){
-        $database=FDataBase::getInstance();
-        $database->deleteOneFromPlaceToPost($idPost, $idPlace);
-    }
-
-
-    public static function deleteOneFromPlaceToUser($userID, $placeID){
-        $database=FDataBase::getInstance();
-        $database->deleteOneFromPlaceToUser($userID, $placeID);
-    }
-
-
-    public static function deleteAllFromPlaceToUser($userID){
-        $database=FDataBase::getInstance();
-        $database->deleteAllFromPlaceToUser($userID);
     }
 
 }

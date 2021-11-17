@@ -411,6 +411,33 @@ class FDataBase
     }
 
 
+    public function loadPlaceProssimity($lat, $lng, $prossimity){
+        try{
+            $query="SELECT * FROM place WHERE Latitude >= " . $lat . "-" . $prossimity ." AND Latitude <= " . $lat . "+" . $prossimity . " AND Longitude >= " . $lng . "-" . $prossimity . " AND Longitude <= " . $lng . "+" . $prossimity . ";";
+            $statement= $this->database->prepare($query);
+            $statement->execute();
+            $num=$statement->rowCount();
+            if($num == 0){
+                $result=null;
+            }
+            elseif ($num ==1){
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+            }else{
+                $result=array();
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
+                while ($row = $statement->fetch()) {
+                    $result[] = $row;
+                }
+            }
+            $this->closeDbConnection();
+            return [$result, $num];
+        }catch (PDOException $e){
+            echo "ERROR" . $e->getMessage();
+            return null;
+        }
+    }
+
+
     public function loadCommentReportedbyUser($idUser){
         try{
             $query="SELECT * FROM comment_reported_by_user WHERE IDuser ='". $idUser . "';";
@@ -679,34 +706,6 @@ class FDataBase
 
 /** metodi per aggiungere elementi alle classi intermedie del database */
 
-    public function storePlaceToPost($idPlace,$idPost){
-        try{
-            $this->database->beginTransaction();
-            $this->database->query("INSERT INTO place_to_post (IDplace,IDpost) VALUES(" . $idPlace . ",". $idPost.");" );
-            $this->database->commit();
-            $this->closeDbConnection();
-            return true;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            $this->database->rollBack();
-            return false;
-        }
-    }
-
-    public function storePlaceToUser($idPlace,$idUser){
-        try{
-            $this->database->beginTransaction();
-            $this->database->query("INSERT INTO place_to_user (IDplace,IDuser) VALUES(" . $idPlace . ",". $idUser.");" );
-            $this->database->commit();
-            $this->closeDbConnection();
-            return true;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            $this->database->rollBack();
-            return false;
-        }
-    }
-
 
     public function storeCommentReportedByUser($idComment,$idUser){
         try{
@@ -738,68 +737,6 @@ class FDataBase
 
 
 //---------------------UPDATE IN TABELLE CONTENITORE INTERMEDIE--------------------
-
-    /**
-     * @param $idPlace
-     * @param $idPost
-     * @param $valoreDaModificare 1 se vuoi modificare il primo 2 se vuoi modificare il secondo
-     * @return bool
-     */
-    public function updatePlaceToPost($idPlace,$idPost,$valoreDaModificare){
-        try{
-            if($valoreDaModificare==1){
-                $exist=self::existInDB("place_to_post","IDpost",$idPost);
-                if($exist){
-                    $this->database->beginTransaction();
-            $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDpost = ". $idPost .";" );}}
-            elseif($valoreDaModificare==2){
-                $exist=self::existInDB("place_to_post","IDplace",$idPlace);
-                if($exist){
-                    $this->database->beginTransaction();
-            $id=$this->database->query(" UPDATE place_to_post SET IDpost = ". $idPost. " WHERE IDplace = ". $idPlace .";" );}}
-            else{return null;}
-            $this->database->commit();
-            $this->closeDbConnection();
-            return true;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            $this->database->rollBack();
-            return false;
-        }
-    }
-
-    /**
-     * @param $idPlace
-     * @param $idUser
-     * @param $valoreDaModificare
-     * @return bool|null
-     */
-    public function updatePlaceToUser($idPlace,$idUser,$valoreDaModificare){
-        try{
-
-            if($valoreDaModificare==1){
-                $exist=self::existInDB("place_to_user","IDuser",$idUser);
-                if($exist){
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE place_to_post SET IDplace= ". $idPlace. " WHERE IDuser = ". $idUser .";" );}}
-            elseif($valoreDaModificare==2){
-                $exist=self::existInDB("place_to_user","IDplace",$idPlace);
-                if($exist){
-                $this->database->beginTransaction();
-                $id=$this->database->query(" UPDATE place_to_post SET IDuser = ". $idUser. " WHERE IDplace = ". $idPlace .";" );}}
-            else{return null;}
-            $this->database->commit();
-            $this->closeDbConnection();
-            return true;
-        }catch(PDOException $e){
-            echo "ERROR " . $e->getMessage();
-            $this->database->rollBack();
-            return false;
-        }
-    }
-
-
-
 
     public function updateCommentReportedByUser($idComment,$idUser,$valoreDaModificare){
         try{
@@ -894,82 +831,6 @@ class FDataBase
         try{
             $this->database->beginTransaction();
             $query = "DELETE FROM reaction WHERE IDpost = '" . $idPost ."';";
-            $statement = $this->database->prepare($query);
-            $statement->execute();
-            $this->database->commit();
-            $this->closeDbConnection();
-            $result = true;
-
-        }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
-            $this->database->rollBack();
-            $result= false;
-        }
-        return $result;
-    }
-
-
-    public function deleteFromPlaceToPost($idPost){
-        try{
-            $this->database->beginTransaction();
-            $query = "DELETE FROM place_to_post WHERE IDpost = '" . $idPost ."';";
-            $statement = $this->database->prepare($query);
-            $statement->execute();
-            $this->database->commit();
-            $this->closeDbConnection();
-            $result = true;
-
-        }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
-            $this->database->rollBack();
-            $result= false;
-        }
-        return $result;
-    }
-
-
-    public function deleteOneFromPlaceToPost($idPost, $idPlace){
-        try{
-            $this->database->beginTransaction();
-            $query = "DELETE FROM place_to_post WHERE IDpost = '" . $idPost ."' && IDplace = '" . $idPlace . "';";
-            $statement = $this->database->prepare($query);
-            $statement->execute();
-            $this->database->commit();
-            $this->closeDbConnection();
-            $result = true;
-
-        }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
-            $this->database->rollBack();
-            $result= false;
-        }
-        return $result;
-    }
-
-
-    public function deleteOneFromPlaceToUser($idUser, $idPlace){
-        try{
-            $this->database->beginTransaction();
-            $query = "DELETE FROM place_to_user WHERE IDuser = '" . $idUser ."' && IDplace = '" . $idPlace . "';";
-            $statement = $this->database->prepare($query);
-            $statement->execute();
-            $this->database->commit();
-            $this->closeDbConnection();
-            $result = true;
-
-        }catch(PDOException $e){
-            echo "ERROR" . $e->getMessage();
-            $this->database->rollBack();
-            $result= false;
-        }
-        return $result;
-    }
-
-
-    public function deleteAllFromPlaceToUser($idUser){
-        try{
-            $this->database->beginTransaction();
-            $query = "DELETE FROM place_to_user WHERE IDuser = '" . $idUser ."';";
             $statement = $this->database->prepare($query);
             $statement->execute();
             $this->database->commit();

@@ -73,14 +73,10 @@
 
                 function initialize() {
                     var map = new google.maps.Map(document.getElementById('map'), {
-                        {if $Place->getCategory()=="città"}
+                        {if $Place->getName()!= $Place->getCountryName()}
                         zoom: 13,
-                        {elseif $Place->getCategory()=="meta turistica"}
-                        zoom: 15,
-                        {elseif $Place->getCategory()=="nazione"}
-                        zoom: 6,
                         {else}
-                        zoom:10,
+                        zoom:6,
                         {/if}
                         center: new google.maps.LatLng({$Place->getLatitude()},{$Place->getLongitude()}),
                         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -113,11 +109,16 @@
         </div>
         <div class="col-md-5 justify-content-end px-5 my-5 py-5">
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start dimension_title testo1"><b>{$Place->getName()} </b></p>
+                <p class="text-white align-content-start dimension_title testo1"><b>{$research} </b></p>
             </div>
             <div class="d-flex w-100 justify-content-between">
-                <p class="text-white align-content-start testo2">{$Place->getCategory()}</p>
+                <p class="text-white align-content-start testo2">{$Place->getCountryName()}</p>
             </div>
+            {if !isset($arrayPostPlace)}
+            <div class="d-flex w-100 justify-content-between">
+                <p class="text-white align-content-start testo2">No results for this place</p>
+            </div>
+            {/if}
         </div>
     </div>
 </header>
