@@ -114,9 +114,9 @@ class FPlace extends FDataBase
         return $place;
     }
 
-    public function loadPlaceProssimity($lat, $lng, $prossimity){
+    public static function loadPlaceProssimit($lat,$lng,$prossimity){
         $database = FDataBase::getInstance();
-        $resultTot=$database->loadPlaceProssimity($lat, $lng, $prossimity);
+        $resultTot = $database->loadPlaceProssimity($lat, $lng, $prossimity);
         $rows_number = $resultTot[1];
         $result = $resultTot[0];
         if(($result != null) && ($rows_number == 1)) {
@@ -134,6 +134,7 @@ class FPlace extends FDataBase
                 return $place;
             }
         }
+        return null;
     }
 
     /** Se il valore passato in ingresso è maggiore di 0 rstituisce true

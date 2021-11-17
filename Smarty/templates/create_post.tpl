@@ -201,7 +201,7 @@
 
                         document.getElementById("container").appendChild(nuovo_elemento);
                         obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
-                        obj.style.height = "450px";
+                        obj.style.height = "700px";
                         obj.style.width = "1000px";
                     }
 

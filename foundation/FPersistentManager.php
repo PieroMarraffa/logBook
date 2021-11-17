@@ -231,20 +231,10 @@ class FPersistentManager
         return $result;
     }
 
-    public static function updateExperienceAssociatedToPost($idExperience,$idPlace){
-        $result=FExperience::updateExperienceAssociatedToPost($idExperience,$idPlace);
-        return $result;
-    }
-
-    public static function updatePlaceAssociatedToPost($idPost,$idPlace){
-        $result=FPost::updatePlaceAssociatedToPost($idPost,$idPlace);
-        return $result;
-
-    }
 
 
     public static function loadPlaceProssimity($lat, $lng, $prossimity){
-        $result= FPlace::loadPlaceProssimity($lat, $lng, $prossimity);
+        $result= FPlace::loadPlaceProssimit($lat, $lng, $prossimity);
         return $result;
     }
 

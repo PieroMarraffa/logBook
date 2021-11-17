@@ -411,6 +411,7 @@ class FDataBase
     }
 
 
+
     public function loadPlaceProssimity($lat, $lng, $prossimity){
         try{
             $query="SELECT * FROM place WHERE Latitude >= " . $lat . "-" . $prossimity ." AND Latitude <= " . $lat . "+" . $prossimity . " AND Longitude >= " . $lng . "-" . $prossimity . " AND Longitude <= " . $lng . "+" . $prossimity . ";";
