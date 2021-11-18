@@ -72,34 +72,38 @@ class VResearch
         $this->smarty->assign('TitlePlace',$place->getName());
         $this->smarty->assign('Category',$place->getCountryName());
         $this->smarty->assign('research',$research);
-        if(is_object($array_post)){
-            $array_p=array();
-            $array_p[]=$array_post;
-        }
-        elseif(is_array($array_post)) $array_p=$array_post;
-        else $array_p=null;
-        $typeImg=array();
-        $pic64Img=array();
-        foreach ($array_image as $im) {
-            if($im!=null) {
-                if(count($im)==1){
-                    $typeImg[] = $im[0]->getType();
-                    $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+        if ($array_post == NULL){
+            $this->smarty->assign('arrayPostPlace',NULL);
+            $this->smarty->display('list_post_place.tpl');
+        } else{
+            if(is_object($array_post)){
+                $array_p=array();
+                $array_p[]=$array_post;
+            }
+            elseif(is_array($array_post)) $array_p=$array_post;
+            $typeImg=array();
+            $pic64Img=array();
+            foreach ($array_image as $im) {
+                if($im!=null) {
+                    if(count($im)==1){
+                        $typeImg[] = $im[0]->getType();
+                        $pic64Img[] =  base64_encode($im[0]->getImageFile());}
+                    else{
+                        $typeImg[] = $im[0]->getType();
+                        $pic64Img[] =  $im[0]->getImageFile();
+                    }
+                }
                 else{
-                    $typeImg[] = $im[0]->getType();
-                    $pic64Img[] =  $im[0]->getImageFile();
+                    $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
+                    $pic64Img[]= base64_encode($data);
+                    $typeImg[] = "image/jpg";
                 }
             }
-            else{
-                $data = file_get_contents( $_SERVER['DOCUMENT_ROOT'] . '/logBook/Smarty/immagini/default_post.jpg');
-                $pic64Img[]= base64_encode($data);
-                $typeImg[] = "image/jpg";
-            }
+            $this->smarty->assign('typeImg',$typeImg);
+            $this->smarty->assign('pic64Img',$pic64Img);
+            $this->smarty->assign('arrayPostPlace',$array_p);
+            $this->smarty->display('list_post_place.tpl');
         }
-        $this->smarty->assign('typeImg',$typeImg);
-        $this->smarty->assign('pic64Img',$pic64Img);
-        $this->smarty->assign('arrayPostPlace',$array_p);
-        $this->smarty->display('list_post_place.tpl');
     }
 
     /**

@@ -61,28 +61,43 @@ class CResearch
                     $address = implode('+', $ad);
                     $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                     $array = json_decode($json, true);
-                    foreach ($array["results"][0]["address_components"] as $component){
+                    $result = array();
+                    if (count($array["results"]) == 1){
+                        $result = $array["results"][0];
+                    } elseif (count($array["results"]) == 0){
+                        $view->search_error($_POST['research']);
+                    } else{
+                        foreach ($array["results"] as $r){
+                            foreach ($r["address_components"] as $component){
+                                if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                                    $result = $r;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    foreach ($result["address_components"] as $component){
                         if ($component["types"][0] == "country" && $component["types"][0] != NULL){
                             $countryName = $component["long_name"];
                         }
                     }
-                    foreach ($array["results"][0]["address_components"] as $component){
+                    foreach ($result["address_components"] as $component){
                         $assigned = false;
                         if ($component["types"][0] == "locality"){
                             $localityName = $component["long_name"];
                             $assigned = true;
                             break;
-                        } elseif($array["results"][0]["formatted_address"] == $countryName){
+                        } elseif($result["formatted_address"] == $countryName){
                             $localityName = $countryName;
                             $assigned = true;
                             break;
                         }
                     }
                     if ($assigned == false){
-                        $localityName = explode(', ', $array["results"][0]["formatted_address"])[0];
+                        $localityName = explode(', ', $result["formatted_address"])[0];
                     }
-                    $lat = $array["results"][0]["geometry"]["location"]["lat"];
-                    $lng = $array["results"][0]["geometry"]["location"]["lng"];
+                    $lat = $result["geometry"]["location"]["lat"];
+                    $lng = $result["geometry"]["location"]["lng"];
                     $place = new EPlace($lat, $lng, $localityName, $countryName);
                     if ($_POST['research'] == $countryName){
                         $post = $pm->loadPostByPlaceCountryName($countryName);
@@ -98,7 +113,7 @@ class CResearch
                     } else{
                         $post = $pm->loadPostByProssimity($lat, $lng, 0.5);
                         if ($post == NULL){
-                            $view->search_error($_POST['research']);
+                            $view->search_place($place, $post, NULL, $_POST['research']);
                         } else {
                             $image = array();
                             if (isset($post[0])) {
