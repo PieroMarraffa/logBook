@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-15 10:04:18
+/* Smarty version 3.1.33, created on 2021-11-18 14:46:49
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61922292b8b1b0_79991599',
+  'unifunc' => 'content_619659490cd230_30464482',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1636913965,
+      1 => 1637243203,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61922292b8b1b0_79991599 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619659490cd230_30464482 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -106,9 +106,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
         <div class="col mb-5" >
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['array_post_home']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                    <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" alt="...">
+' height="300" alt="..."></a>
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">

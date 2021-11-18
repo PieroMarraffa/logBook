@@ -126,7 +126,8 @@
                         <div class="col md-4" >
                             <div class="card mb-4">
                                 <!-- Profile image-->
-                                <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
+                                <a href="/logBook/Research/postDetail/{$postList[$i]->getPostID()}">
+                                    <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="..."></a>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">

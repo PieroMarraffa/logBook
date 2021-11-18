@@ -134,7 +134,8 @@
         <div class="col md-4" >
             <div class="card mb-4">
                 <!-- Profile image-->
-                <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="...">
+                <a href="/logBook/Research/postDetail/{$arrayPostPlace[$i]->getPostID()}">
+                    <img class="card-img-top" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" width="400" alt="..."></a>
                 <div class="card-body">
                                 <div class="small text-muted">{$arrayPostPlace[$i]->getCreationDate()}</div>
                                 <h2 class="card-title h4">{$arrayPostPlace[$i]->getTitle()}</h2>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 15:28:49
+/* Smarty version 3.1.33, created on 2021-11-18 14:50:12
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61814b218f4587_30043686',
+  'unifunc' => 'content_61965a14d03f37_68998377',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '30e579fc7780571d9c79807aa6ba4de99740fa9c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile_user.tpl',
-      1 => 1635863326,
+      1 => 1637243369,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61814b218f4587_30043686 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61965a14d03f37_68998377 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -59,10 +59,10 @@ function content_61814b218f4587_30043686 (Smarty_Internal_Template $_smarty_tpl)
 <body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
+    <div class="col-md-6">
         <a class="navbar-brand" href="/logBook/User/home"><img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="300" height="90"></a>
     </div>
-    <div class="col-auto" align="end">
+    <div class="col-auto">
         <?php if ($_smarty_tpl->tpl_vars['userlogged']->value != 'nouser') {?>
             <a class="btn btn-primary" href="/logBook/User/profile"><?php echo $_smarty_tpl->tpl_vars['username']->value;?>
 </a>
@@ -77,7 +77,7 @@ function content_61814b218f4587_30043686 (Smarty_Internal_Template $_smarty_tpl)
     <div id="map"></div>
 
     <?php echo '<script'; ?>
- async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2HIpCzLZoSwRY40cE5YmbjQUHLJwfU8c&callback=initialize"> <?php echo '</script'; ?>
 >
 
     <?php echo '<script'; ?>
@@ -178,9 +178,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                         <div class="col md-4" >
                             <div class="card mb-4">
                                 <!-- Profile image-->
-                                <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                                <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                                    <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" width="400" alt="...">
+' height="300" width="400" alt="..."></a>
                                 <!-- Product details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">

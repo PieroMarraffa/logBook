@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 14:08:17
+/* Smarty version 3.1.33, created on 2021-11-18 14:48:19
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619650418a9f41_26357794',
+  'unifunc' => 'content_619659a3def503_35669565',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1637226565,
+      1 => 1637243292,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619650418a9f41_26357794 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619659a3def503_35669565 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -175,9 +175,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
         <div class="col md-4" >
             <div class="card mb-4">
                 <!-- Profile image-->
-                <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                    <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" width="400" alt="...">
+' height="300" width="400" alt="..."></a>
                 <div class="card-body">
                                 <div class="small text-muted"><?php echo $_smarty_tpl->tpl_vars['arrayPostPlace']->value[$_smarty_tpl->tpl_vars['i']->value]->getCreationDate();?>
 </div>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 10:08:06
+/* Smarty version 3.1.33, created on 2021-11-18 14:49:53
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619617f6e6f844_83208029',
+  'unifunc' => 'content_61965a015e1677_46817635',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1637226481,
+      1 => 1637243369,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619617f6e6f844_83208029 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61965a015e1677_46817635 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,9 +164,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                 <div class="col md-4" >
                     <div class="card mb-4">
                         <!-- Profile image-->
-                        <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                        <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                            <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" width="400" alt="...">
+' height="300" width="400" alt="..."></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">

@@ -75,7 +75,8 @@
         <div class="col mb-5" >
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" alt="...">
+                <a href="/logBook/Research/postDetail/{$array_post_home[$i]->getPostID()}">
+                    <img class="w-100" src='data:{$typeImg[$i]};charset=utf-8;base64,{$pic64Img[$i]}' height="300" alt="..."></a>
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
