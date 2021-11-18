@@ -31,55 +31,57 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
-                        echo var_dump($array);
-                        if (empty($array)){
-                            header('Location: /logBook/User/profile');
-                        }
-                        foreach ($array["results"][0]["address_components"] as $component) {
-                            if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
-                                $countryName = $component["long_name"];
+                        if ($array["status"] == "ZERO_RESULTS") {
+
+                        } else {
+                            $array = json_decode($json, true);
+
+                            foreach ($array["results"][0]["address_components"] as $component) {
+                                if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
+                                    $countryName = $component["long_name"];
+                                }
+                            }
+                            $lat = $array["results"][0]["geometry"]["location"]["lat"];
+                            $lng = $array["results"][0]["geometry"]["location"]["lng"];
+                            $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
+
+                            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                                $ExpList[] = $exp;
+                            }
+
+                            $title = $_POST['title'];
+                            $TravelDays = FTravel::lowerAndHigherDate($ExpList);
+                            $DayOne = $TravelDays[0];
+                            $LastDay = $TravelDays[1];
+                            $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
+                            $date = date("Y-m-d h:i:s");
+                            $userID = $user->getUserID();
+                            $deleted = 0;
+                            $post = new EPost(array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+                            $postID = $pm->store($post);
+                            $travel->setPostID($postID);
+                            $travelID = $pm->store($travel);
+
+                            foreach ($ExpList as $exp) {
+
+                                $toSave = true;
+                                $allPlaces = $pm->loadAll(FPlace::getClass());
+                                foreach ($allPlaces as $ap) {
+                                    if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
+                                        $exp->setPlace($ap);
+                                        $toSave = false;
+                                    }
+                                }
+                                if ($toSave == true) {
+                                    $placeID = FPlace::store($exp->getPlace());
+                                    $exp->setPlaceID($placeID);
+                                }
+
+                                $exp->setTravelID($travelID);
+                                $pm->store($exp);
                             }
                         }
-                        $lat = $array["results"][0]["geometry"]["location"]["lat"];
-                        $lng = $array["results"][0]["geometry"]["location"]["lng"];
-                        $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
-
-                        if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
-                            $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                            $ExpList[] = $exp;
-                        }
-
-                    }
-                    $title = $_POST['title'];
-                    $TravelDays = FTravel::lowerAndHigherDate($ExpList);
-                    $DayOne = $TravelDays[0];
-                    $LastDay = $TravelDays[1];
-                    $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
-                    $date = date("Y-m-d h:i:s");
-                    $userID = $user->getUserID();
-                    $deleted = 0;
-                    $post = new EPost(array(), array(), $date, $travel, $deleted, array(), array(), $userID);
-                    $postID = $pm->store($post);
-                    $travel->setPostID($postID);
-                    $travelID = $pm->store($travel);
-
-                    foreach ($ExpList as $exp) {
-
-                        $toSave = true;
-                        $allPlaces = $pm->loadAll(FPlace::getClass());
-                        foreach ($allPlaces as $ap){
-                            if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()){
-                                $exp->setPlace($ap);
-                                $toSave = false;
-                            }
-                        }
-                        if ($toSave == true){
-                            $placeID = FPlace::store($exp->getPlace());
-                            $exp->setPlaceID($placeID);
-                        }
-
-                        $exp->setTravelID($travelID);
-                        $pm->store($exp);
                     }
                 }
 
@@ -103,7 +105,6 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
-                        echo var_dump($array);
                         if (empty($array)){
                             header('Location: /logBook/User/profile');
                         }

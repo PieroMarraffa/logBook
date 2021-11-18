@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-17 11:47:40
+/* Smarty version 3.1.33, created on 2021-11-18 12:31:53
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6194ddcc91fe39_47423089',
+  'unifunc' => 'content_619639a95a4003_29626675',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637146029,
+      1 => 1637234178,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6194ddcc91fe39_47423089 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619639a95a4003_29626675 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -220,7 +220,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
                         if(d2.getFullYear()<=d1.getFullYear()) {
                             if(d2.getMonth()<=d1.getMonth()) {
-                                if (d2.getDate() <=d1.getDate()) {
+                                if (d2.getDate() <d1.getDate()) {
                                     alert("You cannot enter an end date that is earlier than the start date");
                                     document.getElementById('date2' + numCode).value = null;
                                 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-15 09:35:35
+/* Smarty version 3.1.33, created on 2021-11-18 12:33:32
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61921bd79c0888_78263945',
+  'unifunc' => 'content_61963a0cbd5c31_90915374',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1636811628,
+      1 => 1637234178,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61921bd79c0888_78263945 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61963a0cbd5c31_90915374 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -257,7 +257,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     <div id="map"></div>
 
                     <?php echo '<script'; ?>
- async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgGqDyRzOb655kefklsqI12vpj2idk8Es&callback=initialize"> <?php echo '</script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2HIpCzLZoSwRY40cE5YmbjQUHLJwfU8c&callback=initialize"> <?php echo '</script'; ?>
 >
 
                     <?php echo '<script'; ?>
