@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 14:32:37
+/* Smarty version 3.1.33, created on 2021-11-18 19:17:28
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619655f599fb44_06070082',
+  'unifunc' => 'content_619698b8afd856_73945135',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1637242355,
+      1 => 1637259446,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619655f599fb44_06070082 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619698b8afd856_73945135 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -170,14 +170,17 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" name="placeName[]" id="location-input" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
+                                                    <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
 "/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Verify Place</a>
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+)">Verify Place</a>
                                                 </div>
                                             </div>
-                                            <div class="row py-2" id="testo">
+                                            <div class="row py-2" id="testo<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+">
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -208,6 +211,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                         </div>
 <?php }?>
+            <input type="text" id="coso">
         <div class="col-md-3 fisso" >
             <div align="center">
                 <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
@@ -215,6 +219,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             </div>
             <div class="card">
             <div class="row">
+
                 <?php echo '<script'; ?>
  id="creaExperience">
 
@@ -247,7 +252,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='text' class='form-control' id='location-input"+numCode+"' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
+                            "<input type='text' id='location-input"+numCode+"' class='form-control'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='col-md-3'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
@@ -267,6 +272,34 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         obj.style.width = "1000px";
                     }
 
+                <?php echo '</script'; ?>
+>
+                <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places&callback=initAutocomplete"> <?php echo '</script'; ?>
+>
+                <?php echo '<script'; ?>
+>
+                    let autocomplete;
+                    function initAutocomplete(){
+                        autocomplete=new google.maps.places.Autocomplete(
+                            document.getElementById('coso'),
+                            {   types:['establishment'],
+                                componentRestriction: { 'country':['AU']},
+                                fields: ['place_id','geometry','name']
+                            });
+                        autocomplete.addEventListener('place_changed', onPlaceChanged());
+                    }
+
+                    function onPlaceChanged(){
+                        var place=autocomplete.getPlace();
+
+                        if(!place.geometry){
+                            document.getElementById('coso').placeholder='Enter a place';
+                        }
+                        else{
+                            document.getElementById('details').value=place.name;
+                        }
+                    }
                 <?php echo '</script'; ?>
 >
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>

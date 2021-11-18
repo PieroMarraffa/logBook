@@ -151,6 +151,7 @@
                         </div>
                         </div>
 {/if}
+            <input type="text" id="coso">
         <div class="col-md-3 fisso" >
             <div align="center">
                 <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
@@ -158,6 +159,7 @@
             </div>
             <div class="card">
             <div class="row">
+
                 <script id="creaExperience">
 
                     function defaultDate(numCode){
@@ -189,7 +191,7 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='text' class='form-control' id='location-input"+numCode+"' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'></textarea>" +
+                            "<input type='text' id='location-input"+numCode+"' class='form-control'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='col-md-3'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
@@ -209,6 +211,30 @@
                         obj.style.width = "1000px";
                     }
 
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places&callback=initAutocomplete"> </script>
+                <script>
+                    let autocomplete;
+                    function initAutocomplete(){
+                        autocomplete=new google.maps.places.Autocomplete(
+                            document.getElementById('coso'),
+                            {   types:['establishment'],
+                                componentRestriction: { 'country':['AU']},
+                                fields: ['place_id','geometry','name']
+                            });
+                        autocomplete.addEventListener('place_changed', onPlaceChanged());
+                    }
+
+                    function onPlaceChanged(){
+                        var place=autocomplete.getPlace();
+
+                        if(!place.geometry){
+                            document.getElementById('coso').placeholder='Enter a place';
+                        }
+                        else{
+                            document.getElementById('details').value=place.name;
+                        }
+                    }
                 </script>
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
             </div>
