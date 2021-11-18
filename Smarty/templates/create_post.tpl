@@ -162,7 +162,7 @@
 
                         if(d2.getFullYear()<=d1.getFullYear()) {
                             if(d2.getMonth()<=d1.getMonth()) {
-                                if (d2.getDate() <=d1.getDate()) {
+                                if (d2.getDate() <d1.getDate()) {
                                     alert("You cannot enter an end date that is earlier than the start date");
                                     document.getElementById('date2' + numCode).value = null;
                                 }
