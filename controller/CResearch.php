@@ -111,7 +111,7 @@ class CResearch
                         }
                         $view->search_place($place, $post, $image, $_POST['research']);
                     } else{
-                        $post = $pm->loadPostByProssimity($lat, $lng, 0.5);
+                        $post = $pm->loadPostByProssimity($lat, $lng, 0.1);
                         if ($post == NULL){
                             $view->search_place($place, $post, NULL, $_POST['research']);
                         } else {
