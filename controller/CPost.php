@@ -34,18 +34,35 @@ class CPost{
                         if ($array["status"] == "ZERO_RESULTS") {
 
                         } else {
-                            foreach ($array["results"][0]["address_components"] as $component) {
-                                if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
-                                    $countryName = $component["long_name"];
+                            $result = array();
+                            if (count($array["results"]) == 1){
+                                $result = $array["results"][0];
+                            } elseif (count($array["results"]) == 0){
+
+                            } else{
+                                foreach ($array["results"] as $r){
+                                    foreach ($r["address_components"] as $component){
+                                        if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                                            $result = $r;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                            $lat = $array["results"][0]["geometry"]["location"]["lat"];
-                            $lng = $array["results"][0]["geometry"]["location"]["lng"];
-                            $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
+                            if ($result != NULL){
+                                foreach ($result["address_components"] as $component) {
+                                    if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
+                                        $countryName = $component["long_name"];
+                                    }
+                                }
+                                $lat = $result["geometry"]["location"]["lat"];
+                                $lng = $result["geometry"]["location"]["lng"];
+                                $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
 
-                            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
-                                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                                $ExpList[] = $exp;
+                                if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                                    $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                                    $ExpList[] = $exp;
+                                }
                             }
                         }
                     }
@@ -105,18 +122,35 @@ class CPost{
                         if ($array["status"] == "ZERO_RESULTS") {
 
                         } else{
-                            foreach ($array["results"][0]["address_components"] as $component) {
-                                if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
-                                    $countryName = $component["long_name"];
+                            $result = array();
+                            if (count($array["results"]) == 1){
+                                $result = $array["results"][0];
+                            } elseif (count($array["results"]) == 0){
+
+                            } else{
+                                foreach ($array["results"] as $r){
+                                    foreach ($r["address_components"] as $component){
+                                        if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                                            $result = $r;
+                                            break;
+                                        }
+                                    }
                                 }
                             }
-                            $lat = $array["results"][0]["geometry"]["location"]["lat"];
-                            $lng = $array["results"][0]["geometry"]["location"]["lng"];
-                            $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
+                            if ($result != NULL){
+                                foreach ($result["address_components"] as $component) {
+                                    if ($component["types"][0] == "country" && $component["types"][0] != NULL) {
+                                        $countryName = $component["long_name"];
+                                    }
+                                }
+                                $lat = $result["geometry"]["location"]["lat"];
+                                $lng = $result["geometry"]["location"]["lng"];
+                                $Eplace = new EPlace($lat, $lng, $arrayPlaceName[$i], $countryName);
 
-                            if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
-                                $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
-                                $ExpList[] = $exp;
+                                if ($Etitle != '' && $EstartDate != '' && $EfinishDate != '' && $Edescriprion != '') {
+                                    $exp = new EExperience(0, $EstartDate, $EfinishDate, $Etitle, $Eplace, $Edescriprion);
+                                    $ExpList[] = $exp;
+                                }
                             }
                         }
                     }
