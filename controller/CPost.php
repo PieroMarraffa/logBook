@@ -175,7 +175,7 @@ class CPost{
                         break;
                 }
             }
-            //header('Location: /logBook/User/profile');
+            header('Location: /logBook/User/profile');
         }
     }
 
