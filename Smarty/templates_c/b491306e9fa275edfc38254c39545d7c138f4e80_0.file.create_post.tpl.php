@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-17 19:39:02
+/* Smarty version 3.1.33, created on 2021-11-18 14:32:37
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61954c46576324_15946789',
+  'unifunc' => 'content_619655f599fb44_06070082',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1637174337,
+      1 => 1637242355,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61954c46576324_15946789 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619655f599fb44_06070082 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -149,12 +149,14 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                     </div>
                         <?php if ($_smarty_tpl->tpl_vars['array_experience']->value) {?>
                             <?php if (is_array($_smarty_tpl->tpl_vars['array_experience']->value)) {?>
+                                <div class="col-md-11">
                                 <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['array_experience']->value, 'exp');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ?>
-                                    <div class="card">
+                                    <div class="row my-5">
+                                    <div class="card my-5">
                                         <div class="card-header">
                                             <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here"><?php echo $_smarty_tpl->tpl_vars['exp']->value->getTitle();?>
 </textarea>
@@ -188,10 +190,12 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ">- Delete Experience</a>
                                         </div>
                                     </div>
+                                    </div>
                                 <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                                </div>
                             <?php }?>
                         <?php }?>
                         <div class="col-md-8">

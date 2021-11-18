@@ -66,6 +66,7 @@ class CResearch
                         $result = $array["results"][0];
                     } elseif (count($array["results"]) == 0){
                         $view->search_error($_POST['research']);
+                        return true;
                     } else{
                         foreach ($array["results"] as $r){
                             foreach ($r["address_components"] as $component){

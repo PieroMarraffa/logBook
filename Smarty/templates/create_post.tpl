@@ -106,8 +106,10 @@
                     </div>
                         {if $array_experience}
                             {if is_array($array_experience)}
+                                <div class="col-md-11">
                                 {foreach $array_experience as $exp}
-                                    <div class="card">
+                                    <div class="row my-5">
+                                    <div class="card my-5">
                                         <div class="card-header">
                                             <textarea class="form-control" name="titleExperience[]" rows="1" required maxlength="49" placeholder="Insert experience title here">{$exp->getTitle()}</textarea>
                                             <div class="row py-2">
@@ -134,7 +136,9 @@
                                             <a type="button" class="my-3 mx-3 btn btn-danger" href="/logBook/Post/deleteExistingExperience/{$exp->getExperienceID()}/{$postID}">- Delete Experience</a>
                                         </div>
                                     </div>
+                                    </div>
                                 {/foreach}
+                                </div>
                             {/if}
                         {/if}
                         <div class="col-md-8">
