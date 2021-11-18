@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 12:31:53
+/* Smarty version 3.1.33, created on 2021-11-18 14:42:17
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619639a95a4003_29626675',
+  'unifunc' => 'content_619658394081b6_18584828',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637234178,
+      1 => 1637242937,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619639a95a4003_29626675 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619658394081b6_18584828 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -168,14 +168,17 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" name="placeName[]" id="location-input" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
+                                                    <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
 "/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Verify Place</a>
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+)">Verify Place</a>
                                                 </div>
                                             </div>
-                                            <div class="row py-2" id="testo">
+                                            <div class="row py-2" id="testo<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+">
                                             </div>
                                         </div>
                                         <div class="card-body">

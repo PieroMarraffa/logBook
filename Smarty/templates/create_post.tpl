@@ -120,13 +120,13 @@
                                                     <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" name="placeName[]" id="location-input" class="form-control" value="{$exp->getPlace()->getName()}"/>
+                                                    <input type="text" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" value="{$exp->getPlace()->getName()}"/>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode()">Verify Place</a>
+                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode({$exp->getExperienceID()})">Verify Place</a>
                                                 </div>
                                             </div>
-                                            <div class="row py-2" id="testo">
+                                            <div class="row py-2" id="testo{$exp->getExperienceID()}">
                                             </div>
                                         </div>
                                         <div class="card-body">

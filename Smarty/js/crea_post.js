@@ -100,9 +100,20 @@
             ;
             }
         else {
-            var formattedAddress = response.data.results[0].formatted_address;
-            var lat = response.data.results[0].geometry.location.lat;
-            var lng = response.data.results[0].geometry.location.lng;
+            var result = response.data.results;
+            var element = 0;
+            if (result.length > 1){
+                for (let i = 0; i < result.length; i++) {
+                    for (let j = 0; j < result[i].address_components.length; j++){
+                        if (result[i].address_components[j].types[0] === "country"){
+                            element = i;
+                        }
+                    }
+                }
+            }
+            var formattedAddress = response.data.results[element].formatted_address;
+            var lat = response.data.results[element].geometry.location.lat;
+            var lng = response.data.results[element].geometry.location.lng;
 
             document.getElementById('testo' + num).innerHTML =
                 "<li class='list-group-item'>" + formattedAddress + "</li>" +
