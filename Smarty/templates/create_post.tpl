@@ -120,7 +120,7 @@
                                                     <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <input type="text" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" value="{$exp->getPlace()->getName()}"/>
+                                                    <input type="text" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" onclick='initAutocomplete({$exp->getExperienceID()})' value="{$exp->getPlace()->getName()}"/>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode({$exp->getExperienceID()})">Verify Place</a>
@@ -151,7 +151,6 @@
                         </div>
                         </div>
 {/if}
-            <input type="text" id="coso">
         <div class="col-md-3 fisso" >
             <div align="center">
                 <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
@@ -191,7 +190,7 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
-                            "<input type='text' id='location-input"+numCode+"' class='form-control'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
+                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='col-md-3'>" +
                             "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
@@ -215,11 +214,12 @@
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places&callback=initAutocomplete"> </script>
                 <script>
                     let autocomplete;
-                    function initAutocomplete(){
+
+                    function initAutocomplete(numCode){
                         autocomplete=new google.maps.places.Autocomplete(
-                            document.getElementById('coso'),
+                            document.getElementById('location-input' + numCode),
                             {   types:['establishment'],
-                                componentRestriction: { 'country':['AU']},
+                                componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
                         autocomplete.addEventListener('place_changed', onPlaceChanged());
@@ -229,11 +229,64 @@
                         var place=autocomplete.getPlace();
 
                         if(!place.geometry){
-                            document.getElementById('coso').placeholder='Enter a place';
+                            document.getElementById('location-input' + numCode).placeholder='Enter a place';
                         }
                         else{
                             document.getElementById('details').value=place.name;
                         }
+                    }
+                </script>
+                <script id="geocode">
+                    function geocode(num){
+
+                        var location = document.getElementById("location-input" + num).value;
+                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                            params: {
+                                address:location,
+                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+                            }
+                        })
+                            .then(function (response){
+                                console.log(response);
+
+                                var status = response.data.status;
+                                if (status == "ZERO_RESULTS"){
+                                    var stat = "PLACE NOT FOUND";
+
+                                    document.getElementById('testo' + num).innerHTML =
+                                        "<li class='list-group-item'>" + stat + "</li>"
+                                    ;
+                                }
+                                else {
+                                    var result = response.data.results;
+                                    var element = 0;
+                                    if (result.length > 1){
+                                        for (let i = 0; i < result.length; i++) {
+                                            for (let j = 0; j < result[i].address_components.length; j++){
+                                                if (result[i].address_components[j].types[0] === "country"){
+                                                    element = i;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    var formattedAddress = response.data.results[element].formatted_address;
+                                    var lat = response.data.results[element].geometry.location.lat;
+                                    var lng = response.data.results[element].geometry.location.lng;
+
+                                    document.getElementById('testo' + num).innerHTML =
+                                        "<li class='list-group-item'>" + formattedAddress + "</li>" +
+                                        "<li class='list-group-item'>" + lat + "</li>" +
+                                        "<li class='list-group-item'>" + lng + "</li>"
+                                    ;
+                                }
+                                console.log(status);
+
+
+
+                            })
+                            .catch(function (error){
+                                console.log(error);
+                            })
                     }
                 </script>
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
