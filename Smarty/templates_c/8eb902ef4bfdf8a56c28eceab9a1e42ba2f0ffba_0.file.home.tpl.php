@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-13 19:17:31
+/* Smarty version 3.1.33, created on 2021-11-20 12:20:06
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6190013b84f374_49811542',
+  'unifunc' => 'content_6198d9e6a0cd55_11153915',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8eb902ef4bfdf8a56c28eceab9a1e42ba2f0ffba' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/home.tpl',
-      1 => 1636817155,
+      1 => 1637407205,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6198d9e6a0cd55_11153915 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -53,7 +53,7 @@ function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl)
         }
     </style>
 </head>
-<body>
+<body onload="uSearchBar('')">
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -67,7 +67,7 @@ function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl)
     </div>
 </nav>
 <!-- Masthead-->
-<header class="masthead bgimg">
+<header class="masthead bgimg " >
     <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-xl-6">
@@ -76,15 +76,7 @@ function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl)
                     <h1 class="mb-5 text-light" ><b>Go wherever you want...</b></h1>
                     <form method="post" id="form_research" action="/logBook/Research/find">
                         <div class="row">
-                            <div class="input-group">
-                                <input class="form-control" name="research" id="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <label>
-                                    <select class="btn btn-primary" name="search">
-                                        <option value="1" id="1" >Search for user</option>
-                                        <option value="2" id="2" >Search for place</option>
-                                    </select>
-                                </label>
-                                <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
+                            <div class="input-group" id="container">
                             </div>
                         </div>
                     </form>
@@ -92,6 +84,75 @@ function content_6190013b84f374_49811542 (Smarty_Internal_Template $_smarty_tpl)
             </div>
         </div>
     </div>
+    <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places"> <?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+>
+        let autocomplete;
+
+        function uSearchBar(valore){
+            nuovo_elemento = document.getElementById("container");
+            nuovo_elemento.innerHTML =
+                "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
+                "<label>" +
+                "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
+                "<option value='1' id='1' selected>Search for user</option>" +
+                "<option value='2' id='2' >Search for place</option>" +
+                "</select>" +
+                "</label>" +
+                "<button class='btn btn-primary' type='submit' form='form_research' value='Submit'>Go!</button>"
+        }
+
+        function pSearchBar(valore){
+            nuovo_elemento = document.getElementById("container");
+            nuovo_elemento.innerHTML =
+                "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
+                "<label>" +
+                "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
+                "<option value='1' id='1' >Search for user</option>" +
+                "<option value='2' id='2' selected>Search for place</option>" +
+                "</select>" +
+                "</label>" +
+                "<button class='btn btn-primary' type='submit' form='form_research' value='Submit'>Go!</button>"
+        }
+
+        function getValue(){
+            var e = document.getElementById("ddlSearchBy");
+            var strUser = e.value;
+            console.log(strUser);
+            if (strUser == 2){
+                valore = document.getElementById("research").value;
+                console.log(valore);
+                pSearchBar(valore);
+            } else {
+                valore = document.getElementById("research").value;
+                console.log(valore);
+                uSearchBar(valore);
+            }
+        }
+
+        function initAutocomplete(){
+            autocomplete=new google.maps.places.Autocomplete(
+                document.getElementById('research'),
+                {   componentRestriction: { 'country':['IT']},
+                    fields: ['place_id','geometry','name']
+                });
+            autocomplete.addEventListener('place_changed', onPlaceChanged());
+        }
+
+        function onPlaceChanged(){
+            var place=autocomplete.getPlace();
+
+            if(!place.geometry){
+                document.getElementById('research').placeholder='Enter a place';
+            }
+            else{
+                document.getElementById('details').value=place.name;
+            }
+        }
+    <?php echo '</script'; ?>
+>
 </header>
 <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start">
@@ -106,9 +167,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
         <div class="col mb-5" >
             <div class="card h-100">
                 <!-- Profile image-->
-                <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['array_post_home']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                    <img class="w-100" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" alt="...">
+' height="300" alt="..."></a>
                 <!-- Product details-->
                 <div class="card-body p-4">
                     <div class="text-center">
