@@ -119,11 +119,8 @@
                                                 <div class="col-md-3">
                                                     <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-6">
                                                     <input type="text" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" onclick='initAutocomplete({$exp->getExperienceID()})' value="{$exp->getPlace()->getName()}"/>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode({$exp->getExperienceID()})">Verify Place</a>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo{$exp->getExperienceID()}">
@@ -189,11 +186,8 @@
                             "<input type='date' required name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
-                            "</div><div class='col-md-3'>" +
+                            "</div><div class='col-md-6'>" +
                             "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
-                            "</div>" +
-                            "<div class='col-md-3'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
@@ -233,59 +227,6 @@
                         else{
                             document.getElementById('details').value=place.name;
                         }
-                    }
-                </script>
-                <script id="geocode">
-                    function geocode(num){
-
-                        var location = document.getElementById("location-input" + num).value;
-                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                            params: {
-                                address:location,
-                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
-                            }
-                        })
-                            .then(function (response){
-                                console.log(response);
-
-                                var status = response.data.status;
-                                if (status == "ZERO_RESULTS"){
-                                    var stat = "PLACE NOT FOUND";
-
-                                    document.getElementById('testo' + num).innerHTML =
-                                        "<li class='list-group-item'>" + stat + "</li>"
-                                    ;
-                                }
-                                else {
-                                    var result = response.data.results;
-                                    var element = 0;
-                                    if (result.length > 1){
-                                        for (let i = 0; i < result.length; i++) {
-                                            for (let j = 0; j < result[i].address_components.length; j++){
-                                                if (result[i].address_components[j].types[0] === "country"){
-                                                    element = i;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    var formattedAddress = response.data.results[element].formatted_address;
-                                    var lat = response.data.results[element].geometry.location.lat;
-                                    var lng = response.data.results[element].geometry.location.lng;
-
-                                    document.getElementById('testo' + num).innerHTML =
-                                        "<li class='list-group-item'>" + formattedAddress + "</li>" +
-                                        "<li class='list-group-item'>" + lat + "</li>" +
-                                        "<li class='list-group-item'>" + lng + "</li>"
-                                    ;
-                                }
-                                console.log(status);
-
-
-
-                            })
-                            .catch(function (error){
-                                console.log(error);
-                            })
                     }
                 </script>
                 <a type="button" class="btn btn-primary " onclick="creaExperience()" href="#bottomPage">+ Add Experience</a>
