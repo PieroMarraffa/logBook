@@ -218,8 +218,7 @@
                     function initAutocomplete(numCode){
                         autocomplete=new google.maps.places.Autocomplete(
                             document.getElementById('location-input' + numCode),
-                            {   types:['establishment'],
-                                componentRestriction: { 'country':['IT']},
+                            {   componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
                         autocomplete.addEventListener('place_changed', onPlaceChanged());
