@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 19:17:28
+/* Smarty version 3.1.33, created on 2021-11-22 17:54:07
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619698b8afd856_73945135',
+  'unifunc' => 'content_619bcb2f908249_92664300',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1637259446,
+      1 => 1637599562,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619698b8afd856_73945135 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619bcb2f908249_92664300 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -118,7 +118,7 @@ function content_619698b8afd856_73945135 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="card">
 
                     <div class="col-md-11 py-4">
-                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
+                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
 ">
 
                         <div class="py-3">
@@ -169,14 +169,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
                                                     <input type="date" name="endDate[]" class="px-2"  required value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getEndDay();?>
 ">
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-6">
                                                     <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
+" class="form-control" onclick='initAutocomplete(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+)' value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
 "/>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-)">Verify Place</a>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
@@ -211,7 +208,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                         </div>
 <?php }?>
-            <input type="text" id="coso">
         <div class="col-md-3 fisso" >
             <div align="center">
                 <a type="button" href="#headPage"><img src="/logBook/Smarty/immagini/buttonUp.png" width="100" height="100" class="d-inline-block" alt=""></a>
@@ -251,11 +247,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "<input type='date' required name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
-                            "</div><div class='col-md-3'>" +
-                            "<input type='text' id='location-input"+numCode+"' class='form-control'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
-                            "</div>" +
-                            "<div class='col-md-3'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
+                            "</div><div class='col-md-6'>" +
+                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
@@ -280,11 +273,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <?php echo '<script'; ?>
 >
                     let autocomplete;
-                    function initAutocomplete(){
+
+                    function initAutocomplete(numCode){
                         autocomplete=new google.maps.places.Autocomplete(
-                            document.getElementById('coso'),
-                            {   types:['establishment'],
-                                componentRestriction: { 'country':['AU']},
+                            document.getElementById('location-input' + numCode),
+                            {   componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
                         autocomplete.addEventListener('place_changed', onPlaceChanged());
@@ -294,7 +287,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         var place=autocomplete.getPlace();
 
                         if(!place.geometry){
-                            document.getElementById('coso').placeholder='Enter a place';
+                            document.getElementById('location-input' + numCode).placeholder='Enter a place';
                         }
                         else{
                             document.getElementById('details').value=place.name;

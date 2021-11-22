@@ -34,7 +34,7 @@ class VPost
     /**
      * @throws SmartyException
      */
-    public function modify_post($travel, $arrayExp, $numero, $postID, $image, $creaPost){
+    public function modify_post($post, $arrayExp, $numero, $postID, $image, $creaPost){
         $typeImg=array();
         $pic64Img=array();
         if(count($image)==1) {
@@ -52,7 +52,7 @@ class VPost
         $this->smarty->assign('image', $image);
         $this->smarty->assign('typeImg', $typeImg);
         $this->smarty->assign('pic64Img', $pic64Img);
-        $this->smarty->assign('travelTitle', $travel->getTitle());
+        $this->smarty->assign('Title', $post->getTitle());
         $this->smarty->assign('array_experience', $arrayExp);
         $this->smarty->assign('numero', $numero);
         $this->smarty->assign('postID', $postID);

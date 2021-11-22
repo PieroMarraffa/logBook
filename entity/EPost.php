@@ -8,19 +8,23 @@ class EPost implements Countable
     private $commentList;
     private $likeList;
     private $creationDate;
-    private $travel;
     private $postID;
     private $deleted;
     private $nLike;
     private $nDisLike;
     private $userID;
+    private $title;
+    private $experienceList;
+    private $startDate;
+    private $finishDate;
+
+
 
     /**
      * EPost constructor.
      * @param $commentList
      * @param $likeList
      * @param $creationDate
-     * @param $travel
      * @param $postID
      * @param $deleted
      * @param $nLike
@@ -28,17 +32,84 @@ class EPost implements Countable
      * @param $userID
      * @throws Exception
      */
-    public function __construct($commentList, $likeList, $creationDate,ETravel $travel, $deleted, $nLike, $nDisLike, $userID)
+    public function __construct($commentList, $likeList, $creationDate, $deleted, $nLike, $nDisLike, $userID,$title, $experienceList, $startDate, $finishDate)
     {
 
         $this->commentList = $commentList;
         $this->likeList = $likeList;
         $this->creationDate = $creationDate;
-        $this->travel = new ETravel( $travel->getPostID(),$travel->getTitle(), $travel->getExperienceList(), $travel->getStartDate(), $travel->getFinishDate());
+        $this->title=$title;
+        $this->startDate = $startDate;
+        $this->finishDate = $finishDate;
+        $this->experienceList = $experienceList;
         $this->deleted = $deleted;
         $this->nLike = $nLike;
         $this->nDisLike = $nDisLike;
         $this->userID = $userID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExperienceList()
+    {
+        return $this->experienceList;
+    }
+
+    /**
+     * @param mixed $experienceList
+     */
+    public function setExperienceList($experienceList): void
+    {
+        $this->experienceList = $experienceList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCommentList()
+    {
+        return $this->commentList;
+    }
+
+    /**
+     * @param mixed $commentList
+     */
+    public function setCommentList($commentList)
+    {
+        $this->commentList = $commentList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param mixed $startDate
+     */
+    public function setStartDate($startDate): void
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFinishDate()
+    {
+        return $this->finishDate;
+    }
+
+    /**
+     * @param mixed $finishDate
+     */
+    public function setFinishDate($finishDate): void
+    {
+        $this->finishDate = $finishDate;
     }
 
 
@@ -58,21 +129,6 @@ class EPost implements Countable
         $this->userID = $userID;
     }
 
-    /**
-     * @return ETravel
-     */
-    public function getTravel(): ETravel
-    {
-        return $this->travel;
-    }
-
-    /**
-     * @param ETravel $travel
-     */
-    public function setTravel(ETravel $travel): void
-    {
-        $this->travel = $travel;
-    }
 
     /**
      * @return mixed
@@ -122,14 +178,12 @@ class EPost implements Countable
         $this->deleted = $deleted;
     }
 
-
-
     /**
      * @return mixed
      */
     public function getTitle()
     {
-        return $this->travel->getTitle();
+        return $this->title;
     }
 
     /**
@@ -137,40 +191,9 @@ class EPost implements Countable
      */
     public function setTitle($title)
     {
-        $this->travel->setTitle($title);
+        $this->title=$title;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCommentList()
-    {
-        return $this->commentList;
-    }
-
-    /**
-     * @param mixed $commentList
-     */
-    public function setCommentList($commentList)
-    {
-        $this->commentList = $commentList;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLikeList()
-    {
-        return $this->likeList;
-    }
-
-    /**
-     * @param mixed $likeList
-     */
-    public function setLikeList($likeList)
-    {
-        $this->likeList = $likeList;
-    }
 
     /**
      * @return mixed

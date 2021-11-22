@@ -6,7 +6,7 @@ use Cassandra\Date;
 class EExperience
 {
     private $experienceID;
-    private $travelID;
+    private $postID;
     private $startDay;
     private $endDay;
     private $title;
@@ -27,9 +27,9 @@ class EExperience
      * @param $description
      */
 
-    public function __construct($travelID, $startDay, $endDay, $title, EPlace $place, $description)
+    public function __construct($postID, $startDay, $endDay, $title, EPlace $place, $description)
     {
-        $this->travelID=$travelID;
+        $this->postID=$postID;
         $this->startDay = $startDay;
         $this->endDay = $endDay;
         $this->title = $title;
@@ -42,17 +42,17 @@ class EExperience
     /**
      * @return mixed
      */
-    public function getTravelID()
+    public function getPostID()
     {
-        return $this->travelID;
+        return $this->postID;
     }
 
     /**
-     * @param mixed $travelID
+     * @param mixed $postID
      */
-    public function setTravelID($travelID): void
+    public function setPostID($postID): void
     {
-        $this->travelID = $travelID;
+        $this->postID = $postID;
     }
 
     /**

@@ -130,8 +130,7 @@ class VResearch
             $user=unserialize($u);
             $this->smarty->assign('username',$user);
         }
-        $travel = $post->getTravel();
-        $experience=$travel->getExperienceList();
+        $experience=$post->getExperienceList();
         $array_c=$post->getCommentList();
         $type=array();
         $pic64=array();
@@ -169,8 +168,8 @@ class VResearch
                 $type[]= "image/png";
             }
         }
-        $this->smarty->assign('startDate', $travel->getStartDate());
-        $this->smarty->assign('endDate', $travel->getFinishDate());
+        $this->smarty->assign('startDate', $post->getStartDate());
+        $this->smarty->assign('endDate', $post->getFinishDate());
         $this->smarty->assign('post', $post);
         $this->smarty->assign('typeImg', $typeImg);
         $this->smarty->assign('pic64Img', $pic64Img);

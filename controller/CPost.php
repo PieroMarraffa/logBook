@@ -67,17 +67,14 @@ class CPost{
                         }
                     }
                     $title = $_POST['title'];
-                    $TravelDays = FTravel::lowerAndHigherDate($ExpList);
+                    $TravelDays = FPost::lowerAndHigherDate($ExpList);
                     $DayOne = $TravelDays[0];
                     $LastDay = $TravelDays[1];
-                    $travel = new ETravel(0, $title, $ExpList, $DayOne, $LastDay);
                     $date = date("Y-m-d h:i:s");
                     $userID = $user->getUserID();
                     $deleted = 0;
-                    $post = new EPost(array(), array(), $date, $travel, $deleted, array(), array(), $userID);
+                    $post = new EPost(array(), array(), $date, $deleted, array(), array(), $userID,$title,$ExpList,$DayOne,$LastDay);
                     $postID = $pm->store($post);
-                    $travel->setPostID($postID);
-                    $travelID = $pm->store($travel);
 
                     foreach ($ExpList as $exp) {
 
@@ -94,7 +91,7 @@ class CPost{
                             $exp->setPlaceID($placeID);
                         }
 
-                        $exp->setTravelID($travelID);
+                        $exp->setPostID($postID);
                         $pm->store($exp);
                     }
                 }
@@ -154,14 +151,14 @@ class CPost{
                             }
                         }
                     }
-                    $travel = $pm->loadTravelByPost($postID);
+                    $post = $pm->load("IDpost",$postID,FPost::getClass());
                     $titlePost = $_POST['title'];
-                    $pm->update('Title', $titlePost, $travel->getTravelID(), FTravel::getClass());
-                    $arrayOriginalExperience = $travel->getExperienceList();
+                    $pm->update('Title', $titlePost, $post->getPostID(), FPost::getClass());
+                    $arrayOriginalExperience = $post->getExperienceList();
                     foreach ($arrayOriginalExperience as $expO) {
                         $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
                     }
-                    $travelID = $travel->getTravelID();
+                    $postID = $post->getPostID();
 
                     foreach ($ExpList as $exp) {
 
@@ -177,11 +174,11 @@ class CPost{
                             $placeID = FPlace::store($exp->getPlace());
                             $exp->setPlaceID($placeID);
                         }
-                        $exp->setTravelID($travelID);
+                        $exp->setPostID($postID);
                         $pm->store($exp);
                     }
 
-                    $immagini = $pm->load('IDtravel', $travelID, FImage::getClass());
+                    $immagini = $pm->load('IDpost', $postID, FImage::getClass());
                     foreach ($immagini as $item) {
                         if ($item->getImageID() < 0) {
                             $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
@@ -193,7 +190,7 @@ class CPost{
 
             for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
                 $nome_file = 'image' . $numImg;
-                $img = static::upload($travelID, $nome_file);
+                $img = static::upload($postID, $nome_file);
                 switch ($img) {
                     case "size":
                         //$view->registrationError("size");
@@ -233,13 +230,12 @@ class CPost{
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $travel = $pm->load('IDpost', $postID, FTravel::getClass());
+                $post = $pm->load('IDpost', $postID, FPost::getClass());
                 $pm->deleteFromPostReported($postID);
                 $pm->deleteFromReaction($postID);
                 $pm->delete('IDpost', $postID, FComment::getClass());
-                $pm->delete('IDtravel', $travel->getTravelID(), FExperience::getClass());
-                $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
-                $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
+                $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
+                $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
                 $pm->delete('IDpost', $postID, FPost::getClass());
 
                 header('Location: /logBook/User/profile');
@@ -251,6 +247,9 @@ class CPost{
         }
     }
 
+    /**
+     * @throws SmartyException
+     */
     public static function deleteExistingExperience($id, $postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
@@ -275,7 +274,7 @@ class CPost{
     /**
      * @throws SmartyException
      */
-    static function upload($travelID, $nome_file) {
+    static function upload($postID, $nome_file) {
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
             $max_size = 600000000;
@@ -290,7 +289,7 @@ class CPost{
                 $type = $_FILES[$nome_file]['type'];
                 $immagine = file_get_contents($_FILES[$nome_file]['tmp_name']);
                 $immagine = addslashes ($immagine);
-                $image= new EImage($immagine,$travelID,$size,$type);
+                $image= new EImage($immagine,$postID,$size,$type);
                 $pm->storeMedia($image,$nome_file);
                 $ris = "ok";
             }
@@ -317,9 +316,9 @@ class CPost{
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $travel = $pm->loadTravelByPost($postID);
-                $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
-                $arrayExperience = $travel->getExperienceList();
+                $post = $pm->load("IDpost",$postID,FPost::getClass());
+                $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                $arrayExperience = $post->getExperienceList();
                 $arrayExperienceDaVedere = array();
                 foreach ($arrayExperience as $exp){
                     if ($exp->getExperienceID() > 0){
@@ -333,7 +332,7 @@ class CPost{
                     }
                 }
                 $numero = 2;
-                $view->modify_post($travel, $arrayExperienceDaVedere, $numero, $postID, $imageDaVedere,false);
+                $view->modify_post($post, $arrayExperienceDaVedere, $numero, $postID, $imageDaVedere,false);
             } else{
                 header('Location: /logBook/User/home');
             }
@@ -353,9 +352,9 @@ class CPost{
             $pm = FPersistentManager::getInstance();
             $user = unserialize(USession::getElement('user'));
             if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $travel = $pm->loadTravelByPost($postID);
-                $image = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
-                $arrayExperience = $travel->getExperienceList();
+                $post = $pm->load("IDpost",$postID,FPost::getClass());
+                $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                $arrayExperience = $post->getExperienceList();
                 foreach ($arrayExperience as $exp) {
                     if ($exp->getExperienceID() < 0) {
                         $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());

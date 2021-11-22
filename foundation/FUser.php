@@ -181,22 +181,29 @@ class FUser extends FDataBase
         $database=FDataBase::getInstance();
         $result=$database->loadPostReportedbyUser($idUser);
         $rows_number = $database->interestedRowsInTable("post_reported_by_user","IDuser",$idUser);
-        if(($result != null) && ($rows_number == 1)) {
+        if(($result != null) && ($rows_number == 1)){
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
+            $experienceList=FExperience::load("IDpost",$result["IDpost"]);
+            $r=FPost::lowerAndHigherDate($experienceList);
+            $startDate=$r[0];
+            $finishDate=$r[1];
             $nLike=0;
             $nDislike=0;
-            if($Like!=null){
-            foreach ($Like as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
+            if ($likeList!=null){
+                if(is_object($likeList)){
+                    $likeLista=array();
+                    $likeLista[]=$likeList;
+                }else $likeLista=$likeList;
+                foreach ($likeLista as $l){
+                    if($l->getValue()==1){
+                        $nLike ++;
+                    }elseif ($l->getValue()==-1){
+                        $nDislike++;
+                    }
                 }
-            }}
-            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike,$result['IDuser']);
+            }
+            $post = new EPost($commentList,$likeList,$result['Date'],$result['Deleted'],$nLike,$nDislike, $result['IDuser'],$result['Title'],$experienceList,$startDate,$finishDate);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -205,20 +212,22 @@ class FUser extends FDataBase
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
+                    $experienceList=FExperience::load("IDpost",$result[$i]["IDpost"]);
+                    $r=FPost::lowerAndHigherDate($experienceList);
+                    $startDate=$r[0];
+                    $finishDate=$r[1];
                     $nLike=0;
                     $nDislike=0;
-                    foreach ($Like as $l){
-                        if($l->getValue()==1){
-                            $nLike ++;
-                        }elseif ($l->getValue()==-1){
-                            $nDislike++;
-                        }
-                    }
-                    $post[] = new EPost($commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike,$result[$i]['IDuser'],);
+                    if ($likeList!=null){
+                        foreach ($likeList as $l){
+                            if($l->getValue()==1){
+                                $nLike ++;
+                            }elseif ($l->getValue()==-1){
+                                $nDislike++;
+                            }
+                        }}
+                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser'],$result[$i]['Title'],$experienceList,$startDate,$finishDate);
                     $post[$i]->setPostID($result[$i]['IDpost']);
-
                 }
             }
         }
@@ -261,9 +270,9 @@ class FUser extends FDataBase
         }
     }
 
-    public static function checkCredentials($email, $password){
+    public static function checkCredentials($email){
         $database = FDataBase::getInstance();
-        $result = $database->verifiedAccess(FUser::$table,$email,$password);
+        $result = $database->verifiedAccess(FUser::$table,$email);
         if ($result != null){
             return false;
         } else{
@@ -289,27 +298,4 @@ class FUser extends FDataBase
         self::store($user);
     }
 
-    /** FAI IL METODO PER LA RICERCA DEGLI UTENTI IN BASE ALLA STRINGA INSERITA */
-
-    static function existAssociationUserPlace($idUser, $idPlace){
-        $result = self::loadPlaceByUser($idUser);
-        if ($result == null) {return false;}
-        elseif (count($result) == 1){
-            if ($result[0]->getPlaceID() == $idPlace){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        elseif (count($result) > 1){
-            foreach ($result as $res){
-                if ($res->getPlaceID() == $idPlace){
-                    return true;
-                }
-            }
-            return false;
-        }
-        return false;
-    }
 }

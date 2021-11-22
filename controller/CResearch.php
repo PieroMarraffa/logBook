@@ -105,8 +105,7 @@ class CResearch
                         $image = array();
                         if(isset($post[0])){
                             foreach ($post as $r) {
-                                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                                 $image[] = $i;
                             }
                         }
@@ -119,8 +118,7 @@ class CResearch
                             $image = array();
                             if (isset($post[0])) {
                                 foreach ($post as $r) {
-                                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                    $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                                     $image[] = $i;
                                 }
                             }
@@ -131,6 +129,7 @@ class CResearch
                 } else header("Location: /logBook/User/home");
             }
         }else header("Location: /logBook/User/home");
+        return true;
     }
 
     /**
@@ -145,9 +144,8 @@ class CResearch
                 $post = $pm->load("IDpost", $id, FPost::getClass());
                 if ($post->getDeleted() != true) {
                     $author = $pm->load("IDuser", $post->getUserID(), FUser::getClass());
-                    $travel = $pm->load("IDpost", $post->getPostID(), FTravel::getClass());
-                    $images = $pm->load("IDtravel", $travel->getTravelID(), FImage::getClass());
-                    $experience = $post->getTravel()->getExperienceList();
+                    $images = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $experience = $post->getExperienceList();
                     if (is_object($experience)) {
                         $array_e = array();
                         $array_e[] = $experience;
@@ -227,8 +225,7 @@ class CResearch
                         $image = array();
                         if ($arrayPost != null) {
                             foreach ($arrayPost as $r) {
-                                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                                 $image[] = $i;
                             }
                         }
@@ -250,8 +247,7 @@ class CResearch
                 }
                 $image = array();
                 foreach ($arrayPost as $r) {
-                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                    $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                     $image[] = $i;
                 }
                 $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
@@ -262,6 +258,9 @@ class CResearch
     }
 
 
+    /**
+     * @throws SmartyException
+     */
     static function report($id){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();

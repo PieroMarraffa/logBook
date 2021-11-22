@@ -7,7 +7,7 @@ class FPost
 
     public static $table = "post";
 
-    public static $value = "(:IDpost,:IDuser,:Date,:Deleted)";
+    public static $value = "(:IDpost,:IDuser,:Title,:Date,:Deleted)";
 
 
 
@@ -19,6 +19,7 @@ class FPost
     {
         $statement->bindValue(":IDpost", NULL, PDO::PARAM_INT);
         $statement->bindValue(":IDuser", $post->getUserID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":Title", $post->getTitle(), PDO::PARAM_STR);
         $statement->bindValue(":Date", $post->getCreationDate(), PDO::PARAM_STR);
         $statement->bindValue(":Deleted", $post->getDeleted(), PDO::PARAM_BOOL);
     }
@@ -86,7 +87,10 @@ class FPost
         if(($result != null) && ($rows_number == 1)) {
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
+            $experienceList=FExperience::load("IDpost",$result["IDpost"]);
+            $r=self::lowerAndHigherDate($experienceList);
+            $startDate=$r[0];
+            $finishDate=$r[1];
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
@@ -102,8 +106,7 @@ class FPost
                     }
                 }
             }
-            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
-            $post->getTravel()->setTravelID($travel->getTravelID());
+            $post = new EPost($commentList,$likeList,$result['Date'],$result['Deleted'],$nLike,$nDislike, $result['IDuser'],$result['Title'],$experienceList,$startDate,$finishDate);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -112,7 +115,10 @@ class FPost
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
+                    $experienceList=FExperience::load("IDpost",$result[$i]["IDpost"]);
+                    $r=self::lowerAndHigherDate($experienceList);
+                    $startDate=$r[0];
+                    $finishDate=$r[1];
                     $nLike=0;
                     $nDislike=0;
                     if ($likeList!=null){
@@ -123,12 +129,40 @@ class FPost
                             $nDislike++;
                         }
                     }}
-                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
+                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser'],$result[$i]['Title'],$experienceList,$startDate,$finishDate);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
         }
         return $post;
+    }
+
+    public static function lowerAndHigherDate($experienceList){
+        $controllo1="21001231";
+        $controllo2="00000000";
+        $dateArray = array();
+        foreach ($experienceList as $ex){
+            $data1 = $ex->getStartDay();
+            $data2 = $ex->getEndDay();
+            $d1 = explode('-', $data1);
+            $d2 = explode('-', $data2);
+            $d1 = $d1[0] . $d1[1] . $d1[2];
+            $d2 = $d2[0] . $d2[1] . $d2[2];
+            $dateArray[$d1] = $data1;
+            $dateArray[$d2] = $data2;
+        }
+        foreach ($dateArray as $d =>$data){
+            if ($controllo1 > $d){
+                $controllo1 = $data;
+            }
+        }
+        foreach ($dateArray as $d =>$data){
+            if ($controllo2 < $d){
+                $controllo2 = $data;
+            }
+        }
+        $return=array($controllo1,$controllo2);
+        return $return;
     }
 
 
@@ -170,8 +204,7 @@ class FPost
     public static function loadPlaceByPost($idPost){
         $place=array();
         $result=FPost::load('IDpost',$idPost);
-        $travel= $result->getTravel();
-        $experience= $travel->getExperienceList();
+        $experience= $result->getExperienceList();
         if($experience!=null){
             foreach ($experience as $e) {
                 $place[] = $e->getPlace();
@@ -242,45 +275,53 @@ class FPost
         $database=FDataBase::getInstance();
         $result = self::load("Deleted", true);
         $rows_number = $database->interestedRows(self::getClass(),"Deleted",true);
-        $database->closeDbConnection();
-        if(($result != null) && ($rows_number == 1)) {
+        if(($result != null) && ($rows_number == 1)){
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
+            $experienceList=FExperience::load("IDpost",$result["IDpost"]);
+            $r=self::lowerAndHigherDate($experienceList);
+            $startDate=$r[0];
+            $finishDate=$r[1];
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
-            foreach ($Like as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
+                if(is_object($likeList)){
+                    $likeLista=array();
+                    $likeLista[]=$likeList;
+                }else $likeLista=$likeList;
+                foreach ($likeLista as $l){
+                    if($l->getValue()==1){
+                        $nLike ++;
+                    }elseif ($l->getValue()==-1){
+                        $nDislike++;
+                    }
                 }
-            }}
-            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDpost']);
+            }
+            $post = new EPost($commentList,$likeList,$result['Date'],$result['Deleted'],$nLike,$nDislike, $result['IDuser'],$result['Title'],$experienceList,$startDate,$finishDate);
             $post->setPostID($result['IDpost']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 $post = array();
                 for($i = 0; $i < count($result); $i++){
-                    $commentList=FComment::load("IDpost",$result[$i]->getPostID());
-                    $likeList=FLike::load("IDpost",$result[$i]->getPostID());
-                    $travel=FTravel::load("IDpost",$result[$i]->getPostID());
-                    $Like=Flike::load("IDpost",$result[$i]->getPostID());
+                    $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
+                    $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
+                    $experienceList=FExperience::load("IDpost",$result[$i]["IDpost"]);
+                    $r=self::lowerAndHigherDate($experienceList);
+                    $startDate=$r[0];
+                    $finishDate=$r[1];
                     $nLike=0;
                     $nDislike=0;
                     if ($likeList!=null){
-                    foreach ($Like as $l){
-                        if($l->getValue()==1){
-                            $nLike ++;
-                        }elseif ($l->getValue()==-1){
-                            $nDislike++;
-                        }
-                    }}
-                    $post[] = new EPost($commentList,$likeList,$result[$i]->getCreationDate(),$travel,$result[$i]->getDeleted(),$nLike,$nDislike, $result[$i]->getUserID());
-                    $post[$i]->setPostID($result[$i]->getPostID());
+                        foreach ($likeList as $l){
+                            if($l->getValue()==1){
+                                $nLike ++;
+                            }elseif ($l->getValue()==-1){
+                                $nDislike++;
+                            }
+                        }}
+                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser'],$result[$i]['Title'],$experienceList,$startDate,$finishDate);
+                    $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
         }
@@ -294,22 +335,29 @@ class FPost
         $database = FDataBase::getInstance();
         $result=$database->getAllByTable(self::getTable());
         $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
+        if(($result != null) && ($rows_number == 1)){
             $commentList=FComment::load("IDpost",$result['IDpost']);
             $likeList=FLike::load("IDpost",$result['IDpost']);
-            $travel=FTravel::load("IDpost",$result['IDpost']);
-            $Like=Flike::load("IDpost",$result['IDpost']);
+            $experienceList=FExperience::load("IDpost",$result["IDpost"]);
+            $r=self::lowerAndHigherDate($experienceList);
+            $startDate=$r[0];
+            $finishDate=$r[1];
             $nLike=0;
             $nDislike=0;
             if ($likeList!=null){
-            foreach ($Like as $l){
-                if($l->getValue()==1){
-                    $nLike ++;
-                }elseif ($l->getValue()==-1){
-                    $nDislike++;
+                if(is_object($likeList)){
+                    $likeLista=array();
+                    $likeLista[]=$likeList;
+                }else $likeLista=$likeList;
+                foreach ($likeLista as $l){
+                    if($l->getValue()==1){
+                        $nLike ++;
+                    }elseif ($l->getValue()==-1){
+                        $nDislike++;
+                    }
                 }
-            }}
-            $post = new EPost($commentList,$likeList,$result['Date'],$travel,$result['Deleted'],$nLike,$nDislike, $result['IDuser']);
+            }
+            $post = new EPost($commentList,$likeList,$result['Date'],$result['Deleted'],$nLike,$nDislike, $result['IDuser'],$result['Title'],$experienceList,$startDate,$finishDate);
             $post->setPostID($result['IDpost']);
         }
         else {
@@ -318,19 +366,21 @@ class FPost
                 for($i = 0; $i < count($result); $i++){
                     $commentList=FComment::load("IDpost",$result[$i]['IDpost']);
                     $likeList=FLike::load("IDpost",$result[$i]['IDpost']);
-                    $travel=FTravel::load("IDpost",$result[$i]['IDpost']);
-                    $Like=Flike::load("IDpost",$result[$i]['IDpost']);
+                    $experienceList=FExperience::load("IDpost",$result[$i]["IDpost"]);
+                    $r=self::lowerAndHigherDate($experienceList);
+                    $startDate=$r[0];
+                    $finishDate=$r[1];
                     $nLike=0;
                     $nDislike=0;
                     if ($likeList!=null){
-                    foreach ($Like as $l){
-                        if($l->getValue()==1){
-                            $nLike ++;
-                        }elseif ($l->getValue()==-1){
-                            $nDislike++;
-                        }
-                    }}
-                    $post[] = new EPost($commentList,$likeList,$result[$i]['Date'],$travel,$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser']);
+                        foreach ($likeList as $l){
+                            if($l->getValue()==1){
+                                $nLike ++;
+                            }elseif ($l->getValue()==-1){
+                                $nDislike++;
+                            }
+                        }}
+                    $post[] = new EPost($commentList,$likeList, $result[$i]['Date'],$result[$i]['Deleted'],$nLike,$nDislike, $result[$i]['IDuser'],$result[$i]['Title'],$experienceList,$startDate,$finishDate);
                     $post[$i]->setPostID($result[$i]['IDpost']);
                 }
             }
@@ -374,11 +424,11 @@ class FPost
 
     /**
      * @throws Exception
-     */
+
     static function newPost($iduser,$data, $deleted){
         $post = new EPost(array(), array(), $data, null, $deleted, 0, 0 , $iduser);
         self::store($post);
-    }
+    }*/
 
     static function existAssociationPostPlace($idPost, $idPlace){
         $result = self::loadPlaceByPost($idPost);
@@ -399,6 +449,7 @@ class FPost
             }
             return false;
         }
+        return false;
     }
 
     public static function loadReportedPosts()

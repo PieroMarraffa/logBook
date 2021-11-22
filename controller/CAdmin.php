@@ -41,7 +41,11 @@ class CAdmin
                     if($a !=null){
                         $id = $a->getImageID();
                         $img = $pm->load("IDimage", $id, FImage::getClass());
-                        $image_reported[] = $img[0];
+                        if(isset($img[0])) {
+                            $image_reported[] = $img[0];
+                        }else{
+                            $image_reported[] = null;
+                        }
                     }
                 }
             }
@@ -193,8 +197,7 @@ class CAdmin
             $image=array();
             if($result!=null) {
                 foreach ($result as $r) {
-                    $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                    $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                    $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                     $image[] = $i;
                 }
             }
@@ -208,13 +211,12 @@ class CAdmin
     static function deletePost($postID){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $travel = $pm->load('IDpost', $postID, FTravel::getClass());
+            $post = $pm->load('IDpost', $postID, FPost::getClass());
             $pm->deleteFromPostReported($postID);
             $pm->deleteFromReaction($postID);
             $pm->delete('IDpost', $postID, FComment::getClass());
-            $pm->delete('IDtravel', $travel->getTravelID(), FExperience::getClass());
-            $pm->delete('IDtravel', $travel->getTravelID(), FImage::getClass());
-            $pm->delete('IDtravel', $travel->getTravelID(), FTravel::getClass());
+            $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
+            $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
             $pm->delete('IDpost', $postID, FPost::getClass());
             header('Location: /logBook/Admin/reportedPosts');
         }else header('Location: /logBook/User/home');

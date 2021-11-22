@@ -7,7 +7,7 @@ class FImage extends FDataBase
 
     public static $table="image";
 
-    public static $value="(:IDimage,:IDtravel,:ImageFile,:Size,:Type)";
+    public static $value="(:IDimage,:IDpost,:ImageFile,:Size,:Type)";
 
     public function __constructor(){}
 
@@ -16,7 +16,7 @@ class FImage extends FDataBase
         $path = $_FILES[$nome_file]['tmp_name'];
         $file=fopen($path,'rb') or die ("Attenzione! Impossibile da aprire!");
         $statement->bindValue(":IDimage",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDtravel",$image->getTravelID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDpost",$image->getPostID(), PDO::PARAM_INT);   //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":ImageFile",fread($file,filesize($path)), PDO::PARAM_LOB);
         $statement->bindValue(":Size",$image->getSize(), PDO::PARAM_INT); /** AGGIUNGERE UN CONTROLLO PER LA DIMENSIONE DELL'IMMAGINE LATO CONTROLL*/
         $statement->bindValue(":Type",$image->getType(), PDO::PARAM_STR);
@@ -81,13 +81,13 @@ class FImage extends FDataBase
         $result= $database->loadById(self::getTable(),$field,$id);
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
-            $image[] = new EImage( $result['ImageFile'],$result['IDtravel'],$result['Size'],$result['Type']);
+            $image[] = new EImage( $result['ImageFile'],$result['IDpost'],$result['Size'],$result['Type']);
             $image[0]->setImageID($result['IDimage']);
         }
         else {
             if(($result != null) && ($rows_number > 1)){
                 for($i = 0; $i < count($result); $i++){
-                    $image[]= new EImage( base64_encode($result[$i]['ImageFile']),$result[$i]['IDtravel'],$result[$i]['Size'],$result[$i]['Type']);
+                    $image[]= new EImage( base64_encode($result[$i]['ImageFile']),$result[$i]['IDpost'],$result[$i]['Size'],$result[$i]['Type']);
                     $image[$i]->setImageID($result[$i]['IDimage']);
                 }
             }

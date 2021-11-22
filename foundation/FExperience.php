@@ -7,13 +7,13 @@ class FExperience extends FDataBase
 
     private static $table="experience";
 
-    private static $value="(:IDexperience,:IDtravel,:IDplace,:StartDay,:EndDay,:Title,:Description)";
+    private static $value="(:IDexperience,:IDpost,:IDplace,:StartDay,:EndDay,:Title,:Description)";
 
     public function __constructor(){}
 
     public static function bind($statement,EExperience $experience){
         $statement->bindValue(":IDexperience",NULL, PDO::PARAM_INT);
-        $statement->bindValue(":IDtravel",$experience->getTravelID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
+        $statement->bindValue(":IDpost",$experience->getPostID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":IDplace",$experience->getPlaceID(), PDO::PARAM_INT); //DEVE ESSERE PRESO DALLA CLASSE CONTROL RELATIVA ALLA CREAZIONE DELL'ESPERIENZA
         $statement->bindValue(":StartDay",$experience->getStartDay(), PDO::PARAM_STR);
         $statement->bindValue(":EndDay",$experience->getEndDay(), PDO::PARAM_STR);
@@ -79,7 +79,7 @@ class FExperience extends FDataBase
         $rows_number = $database->interestedRows(static::getClass(), $field, $id);
         if(($result != null) && ($rows_number == 1)) {
             $place = FPlace::load('IDplace', $result['IDplace']);
-            $experience []= new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
+            $experience []= new EExperience($result['IDpost'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
             $experience[0]->setExperienceID($result['IDexperience']);
             $experience[0]->setPlaceID($result['IDplace']);
         }
@@ -88,7 +88,7 @@ class FExperience extends FDataBase
 
                 for($i = 0; $i < count($result); $i++){
                     $place = FPlace::load('IDplace', $result[$i]['IDplace']);
-                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
+                    $experience[] = new EExperience($result[$i]['IDpost'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
                     $experience[$i]->setExperienceID($result[$i]['IDexperience']);
                     $experience[$i]->setPlaceID($result[$i]['IDplace']);
                 }
@@ -104,7 +104,7 @@ class FExperience extends FDataBase
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
             $place = FPlace::load('IDplace', $result['IDplace']);
-            $experience []= new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
+            $experience []= new EExperience($result['IDpost'], $result['StartDay'], $result['EndDay'],$result['Title'],$place, $result['Description']);
             $experience[0]->setExperienceID($result['IDexperience']);
             $experience[0]->setPlaceID($result['IDplace']);
         }
@@ -113,7 +113,7 @@ class FExperience extends FDataBase
                 $experience = array();
                 for($i = 0; $i < count($result); $i++){
                     $place = FPlace::load('IDplace', $result[$i]['IDplace']);
-                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
+                    $experience[] = new EExperience($result[$i]['IDpost'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$place, $result[$i]['Description']);
                     $experience[$i]->setExperienceID($result[$i]['IDexperience']);
                     $experience[$i]->setPlaceID($result[$i]['IDplace']);
                 }
@@ -135,14 +135,14 @@ class FExperience extends FDataBase
      */
 
 
-    public static function loadByTravel($idTravel){
-        $field="IDtravel";
+    public static function loadByPost($idPost){
+        $field="IDpost";
         $database=FDataBase::getInstance();
-        $result= $database->loadById(self::getTable(),$field,$idTravel);
+        $result= $database->loadById(self::getTable(),$field,$idPost);
         $rows_number = count($result);
         if(($result != null) && ($rows_number == 1)) {
             $placeList=FExperience::loadPlaceByExperience($result['IDexperience']);
-            $experience = new EExperience($result['IDtravel'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
+            $experience = new EExperience($result['IDpost'], $result['StartDay'], $result['EndDay'],$result['Title'],$placeList, $result['Description']);
             $experience->setExperienceID($result['IDexperience']);
         }
         else {
@@ -150,7 +150,7 @@ class FExperience extends FDataBase
                 $experience = array();
                 for($i = 0; $i < count($result); $i++){
                     $placeList=FExperience::loadPlaceByExperience($result[$i]['IDexperience']);
-                    $experience[] = new EExperience($result[$i]['IDtravel'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
+                    $experience[] = new EExperience($result[$i]['IDpost'], $result[$i]['StartDay'], $result[$i]['EndDay'],$result[$i]['Title'],$placeList, $result[$i]['Description']);
                     $experience[$i]->setExperienceID($result[$i]['IDexperience']);
                 }
             }

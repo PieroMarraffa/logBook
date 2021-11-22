@@ -13,8 +13,7 @@ class CUser
         $image=array();
         foreach ($result as $r){
             if(isset($r)) {
-                $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                 $image[] = $i;
             }
         }
@@ -160,8 +159,7 @@ class CUser
                 if($arrayPost!=null) {
                     foreach ($arrayPost as $r) {
                         if($r !=null) {
-                            $t = $pm->load("IDpost", $r->getPostID(), FTravel::getClass());
-                            $i = $pm->load("IDtravel", $t->getTravelID(), FImage::getClass());
+                            $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                             $image[] = $i;
                         }
                     }
@@ -326,7 +324,7 @@ class CUser
             }
             elseif (isset($_FILES['file'])){
                 $id=$user->getUserID();
-                $array_immagini=$pm->load("IDtravel",null,FImage::getClass());
+                $array_immagini=$pm->load("IDpost",null,FImage::getClass());
                 foreach ($array_immagini as $a){
                     if($a['IDuser']==$id){
                         $pm->delete("IDimage",$a->getImageID(),FImage::getClass());

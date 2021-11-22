@@ -87,7 +87,7 @@
                 <div class="card">
 
                     <div class="col-md-11 py-4">
-                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$travelTitle}">
+                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="{$Title}">
 
                         <div class="py-3">
                             {if isset($image)}
