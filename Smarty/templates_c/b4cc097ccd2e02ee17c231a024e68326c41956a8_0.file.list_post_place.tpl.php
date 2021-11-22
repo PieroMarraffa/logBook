@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-20 12:31:08
+/* Smarty version 3.1.33, created on 2021-11-22 14:02:59
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6198dc7cdb08d0_00879762',
+  'unifunc' => 'content_619b95030edb67_70218228',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b4cc097ccd2e02ee17c231a024e68326c41956a8' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/list_post_place.tpl',
-      1 => 1637407855,
+      1 => 1637586150,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6198dc7cdb08d0_00879762 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619b95030edb67_70218228 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -54,7 +54,7 @@ function content_6198dc7cdb08d0_00879762 (Smarty_Internal_Template $_smarty_tpl)
         }
     </style>
 </head>
-<body onload="uSearchBar('')">
+<body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -65,6 +65,14 @@ function content_6198dc7cdb08d0_00879762 (Smarty_Internal_Template $_smarty_tpl)
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
                     <div class="input-group" id="container">
+                        <input class="form-control" name="research" id="research" type="text" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
+                        <label>
+                            <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
+                                <option value="1" id="1" selected>Search for user</option>
+                                <option value="2" id="2" >Search for place</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                     </div>
                 </div>
                 <?php echo '<script'; ?>

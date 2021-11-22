@@ -22,7 +22,7 @@
         document.addEventListener("DOMContentLoaded", ready);
     </script>
 </head>
-<body onload="uSearchBar('')">
+<body>
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
@@ -33,6 +33,14 @@
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
                     <div class="input-group" id="container">
+                        <input class="form-control" name="research" id="research" type="text" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
+                        <label>
+                            <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
+                                <option value="1" id="1" selected>Search for user</option>
+                                <option value="2" id="2" >Search for place</option>
+                            </select>
+                        </label>
+                        <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                     </div>
                 </div>
                 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places"> </script>
