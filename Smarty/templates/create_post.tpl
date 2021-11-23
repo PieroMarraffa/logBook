@@ -215,10 +215,10 @@
                             {   componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
-                        autocomplete.addEventListener('place_changed', onPlaceChanged());
+                        autocomplete.addEventListener('place_changed');
                     }
 
-                    function onPlaceChanged(){
+                    function onPlaceChanged(numCode){
                         var place=autocomplete.getPlace();
 
                         if(!place.geometry){

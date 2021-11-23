@@ -56,13 +56,11 @@
         })
             .then(function (response){
                 console.log(response);
+                print("ciaoooooooo");
                 var status = response.data.status;
-                if (status == "ZERO_RESULTS"){
+                if (status === "ZERO_RESULTS"){
                     var stat = "PLACE NOT FOUND";
-
-                    document.getElementById('testo' + num).innerHTML =
-                        "<li class='list-group-item'>" + stat + "</li>"
-                    ;
+                    alert("This place was not found");
                 }
                 console.log(status);
             })

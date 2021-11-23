@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 14:49:53
+/* Smarty version 3.1.33, created on 2021-11-23 16:26:57
   from 'C:\xampp\htdocs\logBook\Smarty\templates\profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61965a015e1677_46817635',
+  'unifunc' => 'content_619d0841782098_99653350',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9657d6d92daaf7a98b91025218cac7601121fddc' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\profile.tpl',
-      1 => 1637243369,
+      1 => 1637681214,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61965a015e1677_46817635 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619d0841782098_99653350 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,12 +69,14 @@ function content_61965a015e1677_46817635 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
+
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
                 center: new google.maps.LatLng(30,0),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+
             var locations = [];
             <?php if (isset($_smarty_tpl->tpl_vars['array_place']->value)) {?>
             <?php
@@ -82,43 +84,39 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
 ?>
-            marker = new google.maps.Marker({
+            var cont=0;
+            var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['a']->value->getLatitude();?>
 ,<?php echo $_smarty_tpl->tpl_vars['a']->value->getLongitude();?>
 ),
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
             });
+
+            locations.push(marker);
+
+            var contentString="<?php echo $_smarty_tpl->tpl_vars['a']->value->getName();?>
+";
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+
+            locations[cont].addListener("click", () =>{
+                infowindow.open({
+                    anchor: locations[cont],
+                    map,
+                    shouldFocus: false,
+                })
+            });
+            cont=cont ++;
             <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <?php }?>
-            var infowindow = new google.maps.InfoWindow();
 
-            var marker, i;
-
-            var iconBase = 'http://maps.google.com/mapfiles/ms/micons/';
-            var icons = [iconBase + 'red-dot.png',
-                iconBase + 'purple-pushpin.png',
-                iconBase + 'purple-pushpin.png'];
-
-
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    icon: icons[i]
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
             }
-        }
     <?php echo '</script'; ?>
 >
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->

@@ -40,47 +40,44 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2HIpCzLZoSwRY40cE5YmbjQUHLJwfU8c&callback=initialize"> </script>
 
     <script>
+
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
                 center: new google.maps.LatLng(30,0),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+
             var locations = [];
             {if isset($array_place)}
             {foreach $array_place as $a}
-            marker = new google.maps.Marker({
+            var cont=0;
+            var marker = new google.maps.Marker({
                 position: new google.maps.LatLng({$a->getLatitude()},{$a->getLongitude()}),
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
             });
+
+            locations.push(marker);
+
+            var contentString="{$a->getName()}";
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+
+            marker.addListener("click", () =>{
+                infowindow.open({
+                    anchor: locations[cont],
+                    map,
+                    shouldFocus: false,
+                })
+            });
+            cont=cont ++;
             {/foreach}
             {/if}
-            var infowindow = new google.maps.InfoWindow();
 
-            var marker, i;
-
-            var iconBase = 'http://maps.google.com/mapfiles/ms/micons/';
-            var icons = [iconBase + 'red-dot.png',
-                iconBase + 'purple-pushpin.png',
-                iconBase + 'purple-pushpin.png'];
-
-
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    icon: icons[i]
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
             }
-        }
     </script>
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->
 </header>
