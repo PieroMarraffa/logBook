@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-23 14:11:47
+/* Smarty version 3.1.33, created on 2021-11-23 15:10:43
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619ce8935936c3_05258241',
+  'unifunc' => 'content_619cf663413065_32004700',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637652365,
+      1 => 1637676643,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619ce8935936c3_05258241 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619cf663413065_32004700 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -172,7 +172,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
                                                 <div class="col-md-6">
                                                     <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " class="form-control" onclick='initAutocomplete(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-)' value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
+)' onchange="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+)" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
 "/>
                                                 </div>
                                             </div>
@@ -248,7 +249,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-6'>" +
-                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
+                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")' onchange='geocode(" + numCode +")' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +

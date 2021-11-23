@@ -43,3 +43,30 @@
             elem.parentNode.removeChild(elem);
             return false;
     }
+
+
+    function geocode(num){
+
+        var location = document.getElementById("location-input" + num).value;
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+            params: {
+                address:location,
+                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
+            }
+        })
+            .then(function (response){
+                console.log(response);
+                var status = response.data.status;
+                if (status == "ZERO_RESULTS"){
+                    var stat = "PLACE NOT FOUND";
+
+                    document.getElementById('testo' + num).innerHTML =
+                        "<li class='list-group-item'>" + stat + "</li>"
+                    ;
+                }
+                console.log(status);
+            })
+            .catch(function (error){
+                console.log(error);
+            })
+    }
