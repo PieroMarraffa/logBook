@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 21:22:39
+/* Smarty version 3.1.33, created on 2021-11-23 14:11:47
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6196b60fb2b3f0_92920512',
+  'unifunc' => 'content_619ce8935936c3_05258241',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637266935,
+      1 => 1637652365,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6196b60fb2b3f0_92920512 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619ce8935936c3_05258241 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -118,7 +118,7 @@ function content_6196b60fb2b3f0_92920512 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="card">
 
                     <div class="col-md-11 py-4">
-                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['travelTitle']->value;?>
+                        <input type="text" name="title" id="title" required class='mx-3 form-control bg-opacity-10' placeholder='Insert title here' size="100%" rows='1' value="<?php echo $_smarty_tpl->tpl_vars['Title']->value;?>
 ">
 
                         <div class="py-3">
@@ -169,15 +169,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
                                                     <input type="date" name="endDate[]" class="px-2"  required value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getEndDay();?>
 ">
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-6">
                                                     <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " class="form-control" onclick='initAutocomplete(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 )' value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
 "/>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <a type="button" class="my-3 mx-3 btn btn-primary" onclick="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
-)">Verify Place</a>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
@@ -251,11 +247,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "<input type='date' required name='startDate[]' id='date1"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
-                            "</div><div class='col-md-3'>" +
+                            "</div><div class='col-md-6'>" +
                             "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")'  required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
-                            "</div>" +
-                            "<div class='col-md-3'>" +
-                            "<a type='button' class='my-3 mx-3 btn btn-primary' onclick='geocode(" + numCode +")'>Verify Place</a>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
@@ -284,8 +277,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     function initAutocomplete(numCode){
                         autocomplete=new google.maps.places.Autocomplete(
                             document.getElementById('location-input' + numCode),
-                            {   types:['establishment'],
-                                componentRestriction: { 'country':['IT']},
+                            {   componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
                         autocomplete.addEventListener('place_changed', onPlaceChanged());
@@ -300,61 +292,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         else{
                             document.getElementById('details').value=place.name;
                         }
-                    }
-                <?php echo '</script'; ?>
->
-                <?php echo '<script'; ?>
- id="geocode">
-                    function geocode(num){
-
-                        var location = document.getElementById("location-input" + num).value;
-                        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                            params: {
-                                address:location,
-                                key:'AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw'
-                            }
-                        })
-                            .then(function (response){
-                                console.log(response);
-
-                                var status = response.data.status;
-                                if (status == "ZERO_RESULTS"){
-                                    var stat = "PLACE NOT FOUND";
-
-                                    document.getElementById('testo' + num).innerHTML =
-                                        "<li class='list-group-item'>" + stat + "</li>"
-                                    ;
-                                }
-                                else {
-                                    var result = response.data.results;
-                                    var element = 0;
-                                    if (result.length > 1){
-                                        for (let i = 0; i < result.length; i++) {
-                                            for (let j = 0; j < result[i].address_components.length; j++){
-                                                if (result[i].address_components[j].types[0] === "country"){
-                                                    element = i;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    var formattedAddress = response.data.results[element].formatted_address;
-                                    var lat = response.data.results[element].geometry.location.lat;
-                                    var lng = response.data.results[element].geometry.location.lng;
-
-                                    document.getElementById('testo' + num).innerHTML =
-                                        "<li class='list-group-item'>" + formattedAddress + "</li>" +
-                                        "<li class='list-group-item'>" + lat + "</li>" +
-                                        "<li class='list-group-item'>" + lng + "</li>"
-                                    ;
-                                }
-                                console.log(status);
-
-
-
-                            })
-                            .catch(function (error){
-                                console.log(error);
-                            })
                     }
                 <?php echo '</script'; ?>
 >

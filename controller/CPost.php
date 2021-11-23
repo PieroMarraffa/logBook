@@ -31,15 +31,11 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
-                        if ($array["status"] == "ZERO_RESULTS") {
-
-                        } else {
+                        if ($array["status"] != "ZERO_RESULTS") {
                             $result = array();
                             if (count($array["results"]) == 1){
                                 $result = $array["results"][0];
-                            } elseif (count($array["results"]) == 0){
-
-                            } else{
+                            } elseif (count($array["results"]) > 1){
                                 foreach ($array["results"] as $r){
                                     foreach ($r["address_components"] as $component){
                                         if ($component["types"][0] == "country" && $component["types"][0] != NULL){
@@ -66,33 +62,37 @@ class CPost{
                             }
                         }
                     }
-                    $title = $_POST['title'];
-                    $TravelDays = FPost::lowerAndHigherDate($ExpList);
-                    $DayOne = $TravelDays[0];
-                    $LastDay = $TravelDays[1];
-                    $date = date("Y-m-d h:i:s");
-                    $userID = $user->getUserID();
-                    $deleted = 0;
-                    $post = new EPost(array(), array(), $date, $deleted, array(), array(), $userID,$title,$ExpList,$DayOne,$LastDay);
-                    $postID = $pm->store($post);
+                    if (count($ExpList) > 0) {
+                        $title = $_POST['title'];
+                        $TravelDays = FPost::lowerAndHigherDate($ExpList);
+                        $DayOne = $TravelDays[0];
+                        $LastDay = $TravelDays[1];
+                        $date = date("Y-m-d h:i:s");
+                        $userID = $user->getUserID();
+                        $deleted = 0;
+                        $post = new EPost(array(), array(), $date, $deleted, array(), array(), $userID, $title, $ExpList, $DayOne, $LastDay);
+                        $postID = $pm->store($post);
 
-                    foreach ($ExpList as $exp) {
+                        foreach ($ExpList as $exp) {
 
-                        $toSave = true;
-                        $allPlaces = $pm->loadAll(FPlace::getClass());
-                        foreach ($allPlaces as $ap) {
-                            if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
-                                $exp->setPlace($ap);
-                                $toSave = false;
+                            $toSave = true;
+                            $allPlaces = $pm->loadAll(FPlace::getClass());
+                            foreach ($allPlaces as $ap) {
+                                if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
+                                    $exp->setPlace($ap);
+                                    $toSave = false;
+                                }
                             }
-                        }
-                        if ($toSave == true) {
-                            $placeID = FPlace::store($exp->getPlace());
-                            $exp->setPlaceID($placeID);
-                        }
+                            if ($toSave == true) {
+                                $placeID = FPlace::store($exp->getPlace());
+                                $exp->setPlaceID($placeID);
+                            }
 
-                        $exp->setPostID($postID);
-                        $pm->store($exp);
+                            $exp->setPostID($postID);
+                            $pm->store($exp);
+                        }
+                    } else{
+                        header('Location: /logBook/User/profile');
                     }
                 }
 
@@ -116,15 +116,11 @@ class CPost{
                         $address = implode('+', $ad);
                         $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
                         $array = json_decode($json, true);
-                        if ($array["status"] == "ZERO_RESULTS") {
-
-                        } else{
+                        if ($array["status"] != "ZERO_RESULTS") {
                             $result = array();
                             if (count($array["results"]) == 1){
                                 $result = $array["results"][0];
-                            } elseif (count($array["results"]) == 0){
-
-                            } else{
+                            } elseif (count($array["results"]) > 1){
                                 foreach ($array["results"] as $r){
                                     foreach ($r["address_components"] as $component){
                                         if ($component["types"][0] == "country" && $component["types"][0] != NULL){
@@ -151,38 +147,42 @@ class CPost{
                             }
                         }
                     }
-                    $post = $pm->load("IDpost",$postID,FPost::getClass());
-                    $titlePost = $_POST['title'];
-                    $pm->update('Title', $titlePost, $post->getPostID(), FPost::getClass());
-                    $arrayOriginalExperience = $post->getExperienceList();
-                    foreach ($arrayOriginalExperience as $expO) {
-                        $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
-                    }
-                    $postID = $post->getPostID();
+                    if (count($ExpList) > 0) {
+                        $post = $pm->load("IDpost", $postID, FPost::getClass());
+                        $titlePost = $_POST['title'];
+                        $pm->update('Title', $titlePost, $post->getPostID(), FPost::getClass());
+                        $arrayOriginalExperience = $post->getExperienceList();
+                        foreach ($arrayOriginalExperience as $expO) {
+                            $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
+                        }
+                        $postID = $post->getPostID();
 
-                    foreach ($ExpList as $exp) {
+                        foreach ($ExpList as $exp) {
 
-                        $toSave = true;
-                        $allPlaces = $pm->loadAll(FPlace::getClass());
-                        foreach ($allPlaces as $ap){
-                            if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()){
-                                $exp->setPlace($ap);
-                                $toSave = false;
+                            $toSave = true;
+                            $allPlaces = $pm->loadAll(FPlace::getClass());
+                            foreach ($allPlaces as $ap) {
+                                if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
+                                    $exp->setPlace($ap);
+                                    $toSave = false;
+                                }
+                            }
+                            if ($toSave == true) {
+                                $placeID = FPlace::store($exp->getPlace());
+                                $exp->setPlaceID($placeID);
+                            }
+                            $exp->setPostID($postID);
+                            $pm->store($exp);
+                        }
+
+                        $immagini = $pm->load('IDpost', $postID, FImage::getClass());
+                        foreach ($immagini as $item) {
+                            if ($item->getImageID() < 0) {
+                                $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
                             }
                         }
-                        if ($toSave == true){
-                            $placeID = FPlace::store($exp->getPlace());
-                            $exp->setPlaceID($placeID);
-                        }
-                        $exp->setPostID($postID);
-                        $pm->store($exp);
-                    }
-
-                    $immagini = $pm->load('IDpost', $postID, FImage::getClass());
-                    foreach ($immagini as $item) {
-                        if ($item->getImageID() < 0) {
-                            $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
-                        }
+                    } else{
+                        header('Location: /logBook/User/profile');
                     }
                 }
             }
