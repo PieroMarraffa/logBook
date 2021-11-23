@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 14:48:19
+/* Smarty version 3.1.33, created on 2021-11-23 12:08:57
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619659a3def503_35669565',
+  'unifunc' => 'content_619ccbc9b69278_35046093',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1637243292,
+      1 => 1637588078,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619659a3def503_35669565 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619ccbc9b69278_35046093 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -64,17 +64,86 @@ function content_619659a3def503_35669565 (Smarty_Internal_Template $_smarty_tpl)
         <div class="col-md-6 py-3">
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
-                    <div class="input-group">
-                        <input class="form-control" name="research" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                    <div class="input-group" id="container">
+                        <input class="form-control" name="research" id="research" type="text" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
                         <label>
-                            <select class="btn btn-primary" name="search">
-                                <option value="1">Search for user</option>
-                                <option value="2">Search for place</option>
+                            <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
+                                <option value="1" id="1" selected>Search for user</option>
+                                <option value="2" id="2" >Search for place</option>
                             </select>
                         </label>
-                        <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                        <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
                     </div>
                 </div>
+                <?php echo '<script'; ?>
+ async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVf05xLqt9omyf9N1ePbWCVuXeKFhOeos&libraries=places&callback=initialize"> <?php echo '</script'; ?>
+>
+                <?php echo '<script'; ?>
+>
+                    let autocomplete;
+
+                    function uSearchBar(valore){
+                        nuovo_elemento = document.getElementById("container");
+                        nuovo_elemento.innerHTML =
+                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
+                            "<label>" +
+                            "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
+                            "<option value='1' id='1' selected>Search for user</option>" +
+                            "<option value='2' id='2' >Search for place</option>" +
+                            "</select>" +
+                            "</label>" +
+                            "<button class='btn btn-primary' type='submit' form='form_research' value='Submit'>Go!</button>"
+                    }
+
+                    function pSearchBar(valore){
+                        nuovo_elemento = document.getElementById("container");
+                        nuovo_elemento.innerHTML =
+                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
+                            "<label>" +
+                            "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
+                            "<option value='1' id='1' >Search for user</option>" +
+                            "<option value='2' id='2' selected>Search for place</option>" +
+                            "</select>" +
+                            "</label>" +
+                            "<button class='btn btn-primary' type='submit' form='form_research' value='Submit'>Go!</button>"
+                    }
+
+                    function getValue(){
+                        var e = document.getElementById("ddlSearchBy");
+                        var strUser = e.value;
+                        console.log(strUser);
+                        if (strUser == 2){
+                            valore = document.getElementById("research").value;
+                            console.log(valore);
+                            pSearchBar(valore);
+                        } else {
+                            valore = document.getElementById("research").value;
+                            console.log(valore);
+                            uSearchBar(valore);
+                        }
+                    }
+
+                    function initAutocomplete(){
+                        autocomplete=new google.maps.places.Autocomplete(
+                            document.getElementById('research'),
+                            {   componentRestriction: { 'country':['IT']},
+                                fields: ['place_id','geometry','name']
+                            });
+                        autocomplete.addEventListener('place_changed', onPlaceChanged());
+                    }
+
+                    function onPlaceChanged(){
+                        var place=autocomplete.getPlace();
+
+                        if(!place.geometry){
+                            document.getElementById('research').placeholder='Enter a place';
+                        }
+                        else{
+                            document.getElementById('details').value=place.name;
+                        }
+                    }
+                <?php echo '</script'; ?>
+>
             </form>
         </div>
         <div class="col-auto">
@@ -92,11 +161,6 @@ function content_619659a3def503_35669565 (Smarty_Internal_Template $_smarty_tpl)
     <div class="row">
         <div class = "col-md-6">
             <div id="map"></div>
-
-            <?php echo '<script'; ?>
- async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2HIpCzLZoSwRY40cE5YmbjQUHLJwfU8c&callback=initialize"> <?php echo '</script'; ?>
->
-
             <?php echo '<script'; ?>
 >
 

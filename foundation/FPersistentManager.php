@@ -60,44 +60,6 @@ class FPersistentManager
         return FPost::loadAllPostIDByUser($idUser);
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function loadAllPlaceIDByUser($idUser){
-        $postID = self::loadAllPostIDByUser($idUser);
-        if(isset($postID)) {
-            if (count($postID) > 1) {
-                $travelID = array();
-                foreach ($postID as $p) {
-                    $travelID[] = self::loadTravelByPost($p)->getTravelID();
-                }
-                $placeID = array();
-                foreach ($travelID as $t) {
-                    $exp = self::loadExperienceByTravel($t);
-                    if (count($exp) > 1){
-                        foreach ($exp as $e) {
-                            $placeID[] = $e->getPlaceID();
-                        }
-                    } elseif (count($exp) == 1){
-                        $placeID = $exp[0]->getPlaceID();
-                    }
-                }
-                return $placeID;
-            }
-            elseif (count($postID) == 1){
-                $travelID = self::loadTravelByPost($postID)->getTravelID();
-                $exp = self::loadExperienceByTravel($travelID);
-                if (count($exp) > 1){
-                    foreach ($exp as $e) {
-                        $placeID[] = $e->getPlaceID();
-                    }
-                } elseif (count($exp) == 1){
-                    $placeID = $exp[0]->getPlaceID();
-                }
-                return $placeID;
-            }
-        }return null;
-    }
 
 
     public static function update($field, $newvalue, $val,$Fclass) {
@@ -105,25 +67,10 @@ class FPersistentManager
         if ($Fclass == "FExperience" || $Fclass == "FPlace" || $Fclass=="FComment" || $Fclass=="FImage" || $Fclass=="FLike" || $Fclass=="FPost" || $Fclass=="FUser" || $Fclass=="FTravel")//AGGIUNGI LE FOUNDATION MAN MANO
             $ris = $Fclass::update($field, $newvalue, $val);
         else
-            print ("METODO NON SUPPORTATO DALLA CLASSE");
+            echo "METODO NON SUPPORTATO DALLA CLASSE";
         return $ris;
     }
 
-
-    public static function loadExperienceByTravel($idTravel){
-        $result=FExperience::load("IDtravel",$idTravel);
-        return $result;
-    }
-
-
-    /**
-     * @throws Exception
-     */
-    public static function loadTravelByPost($idPost){
-        $result=null;
-        $result=FTravel::load("IDpost",$idPost);
-        return $result;
-    }
 
 
     /**
@@ -173,39 +120,6 @@ class FPersistentManager
         return $post->getUserID();
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function loadPostByPlaceName($name){
-        $place=FPlace::load("Name",$name);
-        $id=$place->getPlaceID();
-        $result = FPlace::loadPostByPlace($id);
-        return $result;
-    }
-
-    public static function loadUserByPlace($id){
-        $result =FPlace::loadUserByPlace($id);
-        return $result;
-    }
-
-    public static function existAssociationPostPlace($idPost,$idPlace){
-        return FPost::existAssociationPostPlace($idPost, $idPlace);
-    }
-
-    public static function existAssociationUserPlace($idUser,$idPlace){
-        return FUser::existAssociationUserPlace($idUser, $idPlace);
-    }
-
-    public static function loadCommentReportedByUser($idUser){
-        $result=FUser::loadCommentReportedFromUser($idUser);
-        return $result;
-
-    }
-
-    public static function loadPostReportedByUser($idUser){
-        $result=FUser::loadPostReportedFromUser($idUser);
-        return $result;
-    }
 
 
     public static function storeCommentReporter($idUser,$idComment){
@@ -285,39 +199,6 @@ class FPersistentManager
         return $result;
     }
 
-    public static function checkUserCredentials($em, $pw)
-    {
-        $logged = FUser::checkCredentials($em, $pw);
-        return $logged;
-    }
-
-    public static function checkAdminCredentials($em, $pw)
-    {
-        $logged = FAdmin::checkCredentials($em, $pw);
-        return $logged;
-    }
-
-    public static function checkExistingUser($email){
-        $taken = FUser::checkExistingUser($email);
-        return $taken;
-    }
-
-    public static function loadReportedPosts(){
-        return FPost::loadDeletedPosts();
-    }
-
-    public static function loadReportedComments(){
-        return FComment::loadReportedComments();
-    }
-
-    public static function loadReportedUsers(){
-        return FPost::loadDeletedPosts();
-    }
-
-
-    public static function reportPost($reportedPostId){
-        FPost::loadReportedPost($reportedPostId);
-    }
 
     public static function deleteFromCommentReported($idComment){
         FComment::deleteFromCommentReported($idComment);
@@ -351,35 +232,6 @@ class FPersistentManager
         return $place;
     }
 
-    /**
-     * @throws Exception
-     */
-    public static function loadPostByPlace($idPlace){
-        $result = array();
-        $experience=self::load('IDplace',$idPlace,FExperience::getClass());
-        $travel=array();
-        foreach ($experience as $e){
-            $travel[]=self::load('IDtravel',$e->getTravelID(),FTravel::getClass());
-        }
-        foreach ($travel as $t){
-            $result[]=self::load('IDpost',$t->getPostID(),FPost::getClass());
-        }
-        $res=array();
-        foreach ($result as $r){
-            $isIn=false;
-            foreach ($res as $re){
-                if($re->getPostID()==$r->getPostID()){
-                    $isIn=true;
-                    break;
-                }else $isIn=false;
-
-            }
-            if($isIn==false){
-                $res[]=$r;
-                }
-        }
-        return $res;
-    }
 
     public static function loadPostByPlaceCountryName($cn){
         $place = self::load('CountryName', $cn, FPlace::getClass());
@@ -396,11 +248,39 @@ class FPersistentManager
             }
             if (is_array($experience)){
                 foreach ($experience as $e){
-                    $travel[] = self::loadTravelByExperience($e);
+                    $post[] = self::loadPostByExperience($e);
                 }
-                if (is_array($travel)){
-                    foreach ($travel as $t){
-                        $post[] = self::loadPostByTravel($t);
+                if (is_array($post)){
+                    $pf[] = $post[0];
+                    foreach ($post as $p){
+                        $assignable = true;
+                        foreach ($pf as $f){
+                            if ($p->getPostID() == $f->getPostID()){
+                                $assignable = false;
+                            }
+                        }
+                        if ($assignable == true){
+                            $pf[] = $p;
+                        }
+                    }
+                    return $pf;
+                } else{
+                    return $post;
+                }
+            } else{
+                if ($experience != NULL) {
+                    $post = self::loadPostByExperience($experience[0]);
+                    if ($post != NULL){
+                        return $post;
+                    }
+                }
+            }
+        } else{
+            if ($place != NULL){
+                $experience = self::loadExperienceByPlaceID($place->getPlaceID());
+                if (is_array($experience)){
+                    foreach ($experience as $e){
+                        $post[] = self::loadPostByExperience($e);
                     }
                     if (is_array($post)){
                         $pf[] = $post[0];
@@ -416,70 +296,14 @@ class FPersistentManager
                             }
                         }
                         return $pf;
-                    }
-                }
-                else{
-                    if ($travel != NULL){
-                        $post = self::loadPostByTravel($travel);
-                        if ($post != NULL){
-                            return $post;
-                        }
-                    }
-                }
-            } else{
-                if ($experience != NULL) {
-                    $travel = self::loadTravelByExperience($experience);
-                    if ($travel != NULL){
-                        $post = self::loadPostByTravel($travel);
-                        if ($post != NULL){
-                            return $post;
-                        }
-                    }
-                }
-            }
-        } else{
-            if ($place != NULL){
-                $experience = self::loadExperienceByPlaceID($place->getPlaceID());
-                if (is_array($experience)){
-                    foreach ($experience as $e){
-                        $travel[] = self::loadTravelByExperience($e);
-                    }
-                    if (is_array($travel)){
-                        foreach ($travel as $t){
-                            $post[] = self::loadPostByTravel($t);
-                        }
-                        if (is_array($post)){
-                            $pf[] = $post[0];
-                            foreach ($post as $p){
-                                $assignable = true;
-                                foreach ($pf as $f){
-                                    if ($p->getPostID() == $f->getPostID()){
-                                        $assignable = false;
-                                    }
-                                }
-                                if ($assignable == true){
-                                    $pf[] = $p;
-                                }
-                            }
-                            return $pf;
-                        }
-                    }
-                    else{
-                        if ($travel != NULL){
-                            $post = self::loadPostByTravel($travel);
-                            if ($post != NULL){
-                                return $post;
-                            }
-                        }
+                    } else{
+                        return $post;
                     }
                 } else{
                     if ($experience != NULL) {
-                        $travel = self::loadTravelByExperience($experience);
-                        if ($travel != NULL){
-                            $post = self::loadPostByTravel($travel);
-                            if ($post != NULL){
-                                return $post;
-                            }
+                        $post = self::loadPostByExperience($experience[0]);
+                        if ($post != NULL){
+                            return $post;
                         }
                     }
                 }
@@ -503,12 +327,8 @@ class FPersistentManager
             }
             if (is_array($experience)){
                 foreach ($experience as $e){
-                    $travel[] = self::loadTravelByExperience($e);
+                    $post[] = self::loadPostByExperience($e);
                 }
-                if (is_array($travel)){
-                    foreach ($travel as $t){
-                        $post[] = self::loadPostByTravel($t);
-                    }
                     if (is_array($post)){
                         $pf[] = $post[0];
                         foreach ($post as $p){
@@ -526,23 +346,11 @@ class FPersistentManager
                     } else{
                         return $post;
                     }
-                }
-                else{
-                    if ($travel != NULL){
-                        $post = self::loadPostByTravel($travel);
-                        if ($post != NULL){
-                            return $post;
-                        }
-                    }
-                }
             } else{
                 if ($experience != NULL) {
-                    $travel = self::loadTravelByExperience($experience);
-                    if ($travel != NULL){
-                        $post = self::loadPostByTravel($travel);
-                        if ($post != NULL){
-                            return $post;
-                        }
+                    $post = self::loadPostByExperience($experience[0]);
+                    if ($post != NULL){
+                        return $post;
                     }
                 }
             }
@@ -551,46 +359,32 @@ class FPersistentManager
                 $experience = self::loadExperienceByPlaceID($place->getPlaceID());
                 if (is_array($experience)){
                     foreach ($experience as $e){
-                        $travel[] = self::loadTravelByExperience($e);
+                        $post[] = self::loadPostByExperience($e);
                     }
-                    if (is_array($travel)){
-                        foreach ($travel as $t){
-                            $post[] = self::loadPostByTravel($t);
-                        }
-                        if (is_array($post)){
+                    if(isset($post)) {
+                        if (is_array($post)) {
                             $pf[] = $post[0];
-                            foreach ($post as $p){
+                            foreach ($post as $p) {
                                 $assignable = true;
-                                foreach ($pf as $f){
-                                    if ($p->getPostID() == $f->getPostID()){
+                                foreach ($pf as $f) {
+                                    if ($p->getPostID() == $f->getPostID()) {
                                         $assignable = false;
                                     }
                                 }
-                                if ($assignable == true){
+                                if ($assignable == true) {
                                     $pf[] = $p;
                                 }
                             }
                             return $pf;
-                        } else{
+                        } else {
                             return $post;
-                        }
-                    }
-                    else{
-                        if ($travel != NULL){
-                            $post = self::loadPostByTravel($travel);
-                            if ($post != NULL){
-                                return $post;
-                            }
                         }
                     }
                 } else{
                     if ($experience != NULL) {
-                        $travel = self::loadTravelByExperience($experience);
-                        if ($travel != NULL){
-                            $post = self::loadPostByTravel($travel);
-                            if ($post != NULL){
-                                return $post;
-                            }
+                        $post = self::loadPostByExperience($experience[0]);
+                        if ($post != NULL){
+                            return $post;
                         }
                     }
                 }
@@ -606,14 +400,9 @@ class FPersistentManager
     }
 
 
-    public static function loadTravelByExperience(EExperience $ex){
-        $travel = self::load('IDtravel',$ex->getTravelID(), FTravel::getClass());
-        return $travel;
-    }
-
-
-    public static function loadPostByTravel(ETravel $t){
-        $post = self::load('IDpost',$t->getPostID(), FPost::getClass());
+    public static function loadPostByExperience(EExperience $ex){
+        $post = self::load('IDpost',$ex->getPostID(), FPost::getClass());
         return $post;
     }
+
 }
