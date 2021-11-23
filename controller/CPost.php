@@ -415,7 +415,9 @@ class CPost{
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
                 } else {
                     if (is_object($result)) {
-                        $pm->store($reaction);
+                        if ($result->getPostID() != $IDpost) {
+                            $pm->store($reaction);
+                        }
                         header('Location: /logBook/Research/postDetail/' . $IDpost);
                     } else {
                         $exist = false;
