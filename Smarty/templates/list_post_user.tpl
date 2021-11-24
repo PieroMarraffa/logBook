@@ -33,11 +33,11 @@
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
                     <div class="input-group" id="container">
-                        <input class="form-control" name="research" id="research" type="search" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
+                        <input class="form-control" name="research" id="research" type="search" placeholder="Enter place name" aria-label="Enter search term..." aria-describedby="button-search" onclick="initAutocomplete()"/>
                         <label>
                             <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
-                                <option value="1" id="1" selected>Search for user</option>
-                                <option value="2" id="2" >Search for place</option>
+                                <option value="1" id="1" >Search for user</option>
+                                <option value="2" id="2" selected>Search for place</option>
                             </select>
                         </label>
                         <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>

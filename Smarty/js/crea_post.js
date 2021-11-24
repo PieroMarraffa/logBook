@@ -55,6 +55,7 @@
             }
         })
             .then(function (response){
+                console.log(response);
                 var status = response.data.status;
                 if (status === "ZERO_RESULTS"){
                     alert("The place:'" + location + "' was not found in the database. Insert other place or the esperience won't be saved");
