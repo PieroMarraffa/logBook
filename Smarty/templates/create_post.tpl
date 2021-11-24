@@ -120,7 +120,7 @@
                                                     <input type="date" name="endDate[]" class="px-2"  required value="{$exp->getEndDay()}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" onclick='initAutocomplete({$exp->getExperienceID()})' onchange="geocode({$exp->getExperienceID()})" value="{$exp->getPlace()->getName()}"/>
+                                                    <input type="search" name="placeName[]" id="location-input{$exp->getExperienceID()}" class="form-control" onclick='initAutocomplete({$exp->getExperienceID()})' onchange="geocode({$exp->getExperienceID()})" value="{$exp->getPlace()->getName()}"/>
                                                 </div>
                                             </div>
                                             <div class="row py-2" id="testo{$exp->getExperienceID()}">
@@ -187,7 +187,7 @@
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-6'>" +
-                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")' onchange='geocode(" + numCode +")' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
+                            "<input type='search' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")' onchange='geocode(" + numCode +")' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +

@@ -33,7 +33,7 @@
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
                     <div class="input-group" id="container">
-                        <input class="form-control" name="research" id="research" type="text" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
+                        <input class="form-control" name="research" id="research" type="search" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
                         <label>
                             <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
                                 <option value="1" id="1" selected>Search for user</option>
@@ -50,7 +50,7 @@
                     function uSearchBar(valore){
                         nuovo_elemento = document.getElementById("container");
                         nuovo_elemento.innerHTML =
-                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
+                            "<input class='form-control' name='research' id='research' type='search' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
                             "<label>" +
                             "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
                             "<option value='1' id='1' selected>Search for user</option>" +
@@ -63,7 +63,7 @@
                     function pSearchBar(valore){
                         nuovo_elemento = document.getElementById("container");
                         nuovo_elemento.innerHTML =
-                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
+                            "<input class='form-control' name='research' id='research' type='search' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
                             "<label>" +
                             "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
                             "<option value='1' id='1' >Search for user</option>" +
