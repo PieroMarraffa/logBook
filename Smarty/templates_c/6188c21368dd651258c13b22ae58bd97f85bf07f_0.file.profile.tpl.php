@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 12:19:41
+/* Smarty version 3.1.33, created on 2021-11-24 10:12:31
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619636cd5e7068_55944362',
+  'unifunc' => 'content_619e01ffad2958_62861627',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6188c21368dd651258c13b22ae58bd97f85bf07f' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/profile.tpl',
-      1 => 1637234178,
+      1 => 1637745067,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619636cd5e7068_55944362 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619e01ffad2958_62861627 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,12 +69,14 @@ function content_619636cd5e7068_55944362 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php echo '<script'; ?>
 >
+
         function initialize() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 2.5,
                 center: new google.maps.LatLng(30,0),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+
             var locations = [];
             <?php if (isset($_smarty_tpl->tpl_vars['array_place']->value)) {?>
             <?php
@@ -82,43 +84,39 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['a']->value) {
 ?>
-            marker = new google.maps.Marker({
+            var cont=0;
+            var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(<?php echo $_smarty_tpl->tpl_vars['a']->value->getLatitude();?>
 ,<?php echo $_smarty_tpl->tpl_vars['a']->value->getLongitude();?>
 ),
                 map: map,
                 icon: 'http://maps.google.com/mapfiles/ms/micons/' + 'red-pushpin.png'
             });
+
+            locations.push(marker);
+
+            var contentString="<?php echo $_smarty_tpl->tpl_vars['a']->value->getName();?>
+";
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+
+            marker.addListener("click", () =>{
+                infowindow.open({
+                    anchor: locations[cont],
+                    map,
+                    shouldFocus: false,
+                })
+            });
+            cont=cont ++;
             <?php
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <?php }?>
-            var infowindow = new google.maps.InfoWindow();
 
-            var marker, i;
-
-            var iconBase = 'http://maps.google.com/mapfiles/ms/micons/';
-            var icons = [iconBase + 'red-dot.png',
-                iconBase + 'purple-pushpin.png',
-                iconBase + 'purple-pushpin.png'];
-
-
-            for (i = 0; i < locations.length; i++) {
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-                    map: map,
-                    icon: icons[i]
-                });
-
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        infowindow.setContent(locations[i][0]);
-                        infowindow.open(map, marker);
-                    }
-                })(marker, i));
             }
-        }
     <?php echo '</script'; ?>
 >
     <!--script di google maps per visualizzare tutti i posti dove è stato l'utente-->
@@ -164,9 +162,11 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
                 <div class="col md-4" >
                     <div class="card mb-4">
                         <!-- Profile image-->
-                        <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
+                        <a href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['postList']->value[$_smarty_tpl->tpl_vars['i']->value]->getPostID();?>
+">
+                            <img class="card-img-top" src='data:<?php echo $_smarty_tpl->tpl_vars['typeImg']->value[$_smarty_tpl->tpl_vars['i']->value];?>
 ;charset=utf-8;base64,<?php echo $_smarty_tpl->tpl_vars['pic64Img']->value[$_smarty_tpl->tpl_vars['i']->value];?>
-' height="300" width="400" alt="...">
+' height="300" width="400" alt="..."></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">

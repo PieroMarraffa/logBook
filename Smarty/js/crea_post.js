@@ -55,14 +55,11 @@
             }
         })
             .then(function (response){
-                console.log(response);
-                print("ciaoooooooo");
                 var status = response.data.status;
                 if (status === "ZERO_RESULTS"){
-                    var stat = "PLACE NOT FOUND";
-                    alert("This place was not found");
+                    alert("The place:'" + location + "' was not found in the database. Insert other place or the esperience won't be saved");
+                    document.getElementById("location-input" + num).value = null;
                 }
-                console.log(status);
             })
             .catch(function (error){
                 console.log(error);

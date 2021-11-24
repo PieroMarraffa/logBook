@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-23 15:10:43
+/* Smarty version 3.1.33, created on 2021-11-24 10:12:36
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619cf663413065_32004700',
+  'unifunc' => 'content_619e0204534e85_35834635',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8ab864f746eef411a7551085316efc8600a49aa4' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/create_post.tpl',
-      1 => 1637676643,
+      1 => 1637745067,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619cf663413065_32004700 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619e0204534e85_35834635 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -281,10 +281,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             {   componentRestriction: { 'country':['IT']},
                                 fields: ['place_id','geometry','name']
                             });
-                        autocomplete.addEventListener('place_changed', onPlaceChanged());
+                        autocomplete.addEventListener('place_changed');
                     }
 
-                    function onPlaceChanged(){
+                    function onPlaceChanged(numCode){
                         var place=autocomplete.getPlace();
 
                         if(!place.geometry){
