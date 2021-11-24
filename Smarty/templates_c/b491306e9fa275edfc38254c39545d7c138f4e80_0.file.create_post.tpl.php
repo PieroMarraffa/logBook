@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-23 16:51:58
+/* Smarty version 3.1.33, created on 2021-11-24 16:12:18
   from 'C:\xampp\htdocs\logBook\Smarty\templates\create_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619d0e1ee6f5c8_45452368',
+  'unifunc' => 'content_619e56525f6392_21781776',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b491306e9fa275edfc38254c39545d7c138f4e80' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\create_post.tpl',
-      1 => 1637682715,
+      1 => 1637766537,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619d0e1ee6f5c8_45452368 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619e56525f6392_21781776 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -170,7 +170,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['exp']->value) {
 ">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input type="text" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
+                                                    <input type="search" name="placeName[]" id="location-input<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 " class="form-control" onclick='initAutocomplete(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 )' onchange="geocode(<?php echo $_smarty_tpl->tpl_vars['exp']->value->getExperienceID();?>
 )" value="<?php echo $_smarty_tpl->tpl_vars['exp']->value->getPlace()->getName();?>
@@ -249,7 +249,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             "</div><div class='col-md-3'>" +
                             "<input type='date' required name='endDate[]' id='date2"+numCode +"' onchange='defaultDate("+numCode+")' class='px-2'>" +
                             "</div><div class='col-md-6'>" +
-                            "<input type='text' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")' onchange='geocode(" + numCode +")' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
+                            "<input type='search' id='location-input" + numCode +"' class='form-control' onclick='initAutocomplete(" + numCode +")' onchange='geocode(" + numCode +")' required name='placeName[]' rows='1' maxlength='49' placeholder='Insert Place Name'>" +
                             "</div>" +
                             "<div class='row py-2' id='testo" + numCode +"'>" +
                             "</div>" +
@@ -262,7 +262,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
                         document.getElementById("container").appendChild(nuovo_elemento);
                         obj = eval("document.getElementById(\"quadro" + parseInt(document.getElementById("container").childNodes.length) + "\")");
-                        obj.style.height = "700px";
+                        obj.style.height = "500px";
                         obj.style.width = "1000px";
                     }
 

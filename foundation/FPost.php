@@ -407,11 +407,21 @@ class FPost
         $allPosts = self::loadAllVisiblePost();
         $Post = array();
         $count=0;
-        for($j=0;$count<4;$j++) {
-            $n=rand(0,count($allPosts)-1);
-            if(!in_array($allPosts[$n],$Post)){
-                $Post[]=$allPosts[$n];
-                $count++;
+        $end=4;
+        if($allPosts!=null) {
+            if (is_array($allPosts)){
+                if (count($allPosts) < 4) {
+                    $end = count($allPosts);
+                }
+                for ($j = 0; $count < $end; $j++) {
+                    $n = rand(0, count($allPosts) - 1);
+                    if (!in_array($allPosts[$n], $Post)) {
+                        $Post[] = $allPosts[$n];
+                        $count++;
+                    }
+                }
+            }else{
+                $Post[] = $allPosts;
             }
         }
         return $Post;

@@ -303,7 +303,7 @@ class CUser
             }
             elseif (isset($_POST['new_password'])){
                 $id=$user->getUserID();
-                $pm->update('Password',$_POST['new_password'],$id,FUser::getClass());
+                $pm->update('Password',password_hash($_POST['new_password'], PASSWORD_BCRYPT),$id,FUser::getClass());
                 $u=$pm->load('IDuser',$id,FUser::getClass());
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);

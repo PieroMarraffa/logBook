@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-23 12:08:57
+/* Smarty version 3.1.33, created on 2021-11-24 15:28:58
   from 'C:\xampp\htdocs\logBook\Smarty\templates\list_post_place.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619ccbc9b69278_35046093',
+  'unifunc' => 'content_619e4c2a526035_65398650',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cb40c9ba7174c11e356b415886ae3e4cb3c4e06b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\list_post_place.tpl',
-      1 => 1637588078,
+      1 => 1637761291,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619ccbc9b69278_35046093 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619e4c2a526035_65398650 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -65,7 +65,7 @@ function content_619ccbc9b69278_35046093 (Smarty_Internal_Template $_smarty_tpl)
             <form method="post" id="form_research" action="/logBook/Research/find">
                 <div class="row">
                     <div class="input-group" id="container">
-                        <input class="form-control" name="research" id="research" type="text" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
+                        <input class="form-control" name="research" id="research" type="search" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search" onclick="userAutocomplete()"/>
                         <label>
                             <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
                                 <option value="1" id="1" selected>Search for user</option>
@@ -85,7 +85,7 @@ function content_619ccbc9b69278_35046093 (Smarty_Internal_Template $_smarty_tpl)
                     function uSearchBar(valore){
                         nuovo_elemento = document.getElementById("container");
                         nuovo_elemento.innerHTML =
-                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
+                            "<input class='form-control' name='research' id='research' type='search' value='" + valore + "' placeholder='Enter username' aria-label='Enter search term...' aria-describedby='button-search' />" +
                             "<label>" +
                             "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
                             "<option value='1' id='1' selected>Search for user</option>" +
@@ -98,7 +98,7 @@ function content_619ccbc9b69278_35046093 (Smarty_Internal_Template $_smarty_tpl)
                     function pSearchBar(valore){
                         nuovo_elemento = document.getElementById("container");
                         nuovo_elemento.innerHTML =
-                            "<input class='form-control' name='research' id='research' type='text' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
+                            "<input class='form-control' name='research' id='research' type='search' value='" + valore + "' placeholder='Enter place' aria-label='Enter search term...' aria-describedby='button-search' onclick='initAutocomplete()'/>" +
                             "<label>" +
                             "<select class='btn btn-primary' name='search' id='ddlSearchBy' onchange='getValue()'>" +
                             "<option value='1' id='1' >Search for user</option>" +

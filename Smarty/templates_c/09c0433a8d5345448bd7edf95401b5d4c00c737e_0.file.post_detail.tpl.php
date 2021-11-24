@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-18 10:09:33
+/* Smarty version 3.1.33, created on 2021-11-24 16:09:30
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6196184d22f650_94230348',
+  'unifunc' => 'content_619e55aa2bbd10_56052963',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1637226565,
+      1 => 1637766566,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6196184d22f650_94230348 (Smarty_Internal_Template $_smarty_tpl) {
+function content_619e55aa2bbd10_56052963 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -264,7 +264,7 @@ for ($_foo=true;$_smarty_tpl->tpl_vars['i']->value <= count($_smarty_tpl->tpl_va
 >
                         function initialize() {
                             var map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 2.5,
+                                zoom: 1.5,
                                 center: new google.maps.LatLng(30,0),
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             });

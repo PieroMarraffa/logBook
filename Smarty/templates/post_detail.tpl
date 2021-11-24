@@ -185,7 +185,7 @@
                     <script>
                         function initialize() {
                             var map = new google.maps.Map(document.getElementById('map'), {
-                                zoom: 2.5,
+                                zoom: 1.5,
                                 center: new google.maps.LatLng(30,0),
                                 mapTypeId: google.maps.MapTypeId.ROADMAP
                             });

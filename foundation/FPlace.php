@@ -97,21 +97,23 @@ class FPlace extends FDataBase
     public static function loadAll(){
         $database = FDataBase::getInstance();
         $result=$database->getAllByTable(self::getTable());
-        $rows_number = count($result);
-        if(($result != null) && ($rows_number == 1)) {
-            $place = new EPlace($result['Latitude'],$result['Longitude'],$result['Name'], $result['CountryName']);
-            $place->setPlaceID($result['IDplace']);
-        }
+        if($result==null){return null;}
         else {
-            if(($result != null) && ($rows_number > 1)){
-                $place = array();
-                for($i = 0; $i < count($result); $i++){
-                    $place[] = new EPlace($result[$i]['Latitude'],$result[$i]['Longitude'],$result[$i]['Name'], $result[$i]['CountryName']);
-                    $place[$i]->setPlaceID($result[$i]['IDplace']);
+            $rows_number = count($result);
+            if (($result != null) && ($rows_number == 1)) {
+                $place = new EPlace($result['Latitude'], $result['Longitude'], $result['Name'], $result['CountryName']);
+                $place->setPlaceID($result['IDplace']);
+            } else {
+                if (($result != null) && ($rows_number > 1)) {
+                    $place = array();
+                    for ($i = 0; $i < count($result); $i++) {
+                        $place[] = new EPlace($result[$i]['Latitude'], $result[$i]['Longitude'], $result[$i]['Name'], $result[$i]['CountryName']);
+                        $place[$i]->setPlaceID($result[$i]['IDplace']);
+                    }
                 }
             }
+            return $place;
         }
-        return $place;
     }
 
     public static function loadPlaceProssimit($lat,$lng,$prossimity){
