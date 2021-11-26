@@ -199,12 +199,14 @@ class CUser
             $view = new VUser();
             if ($verifiemail){
                 $view->registrationError("email");}
-            else{
-                $user = new EUser($_POST['email'],password_hash($_POST['password'], PASSWORD_BCRYPT),$_POST['name'],"", 0,$_POST['username'],false,false);
+            else {
+                $admin = $pm->loadAdmin('IDadmin', 1);
+                if ($_POST['email'] != $admin->getMail()){
+                    $user = new EUser($_POST['email'], password_hash($_POST['password'], PASSWORD_BCRYPT), $_POST['name'], "", 0, $_POST['username'], false, false);
                 if ($user != null) {
                     if (isset($_FILES['file'])) {
                         $nome_file = 'file';
-                        $img = static::upload($user,$nome_file);
+                        $img = static::upload($user, $nome_file);
                         switch ($img) {
                             case "size":
                                 $view->registrationError("size");
@@ -217,6 +219,10 @@ class CUser
                                 break;
                         }
                     }
+                }
+            }
+                else{
+                    $view->registrationError("email");
                 }
             }
         }else header('Location: /logBook/User/home');
