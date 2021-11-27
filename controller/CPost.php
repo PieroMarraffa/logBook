@@ -165,13 +165,18 @@ class CPost{
 
                             $toSave = true;
                             $allPlaces = $pm->loadAll(FPlace::getClass());
-                            foreach ($allPlaces as $ap) {
-                                if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
-                                    $exp->setPlace($ap);
-                                    $toSave = false;
+                            if($allPlaces!=null) {
+                                foreach ($allPlaces as $ap) {
+                                    if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
+                                        $exp->setPlace($ap);
+                                        $toSave = false;
+                                    }
                                 }
-                            }
-                            if ($toSave == true) {
+                                if ($toSave == true) {
+                                    $placeID = FPlace::store($exp->getPlace());
+                                    $exp->setPlaceID($placeID);
+                                }
+                            }else{
                                 $placeID = FPlace::store($exp->getPlace());
                                 $exp->setPlaceID($placeID);
                             }
