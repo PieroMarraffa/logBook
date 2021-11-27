@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-08 17:06:51
-  from 'C:\xampp\htdocs\logBook\Smarty\templates\registration.tpl' */
+/* Smarty version 3.1.33, created on 2021-11-27 13:32:08
+  from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/registration.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61894b1bb86d75_26502998',
+  'unifunc' => 'content_61a2254864ebe5_67834273',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'af4f3b7a4f3fe5dc859305394d6598eba9b9a5f1' => 
+    '414f0e0e8425629bc8649df2a521eae273233689' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\registration.tpl',
-      1 => 1636289819,
+      0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/registration.tpl',
+      1 => 1636330877,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61894b1bb86d75_26502998 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a2254864ebe5_67834273 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('errorSize', (($tmp = @$_smarty_tpl->tpl_vars['errorSize']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('errorType', (($tmp = @$_smarty_tpl->tpl_vars['errorType']->value)===null||$tmp==='' ? 'ok' : $tmp));

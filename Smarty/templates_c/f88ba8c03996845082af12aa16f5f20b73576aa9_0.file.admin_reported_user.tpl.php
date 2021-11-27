@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-02 15:57:59
+/* Smarty version 3.1.33, created on 2021-11-27 14:04:19
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/admin_reported_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_618151f7d61c30_72765062',
+  'unifunc' => 'content_61a22cd38b4398_65906516',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f88ba8c03996845082af12aa16f5f20b73576aa9' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/admin_reported_user.tpl',
-      1 => 1635431464,
+      1 => 1636989637,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_618151f7d61c30_72765062 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a22cd38b4398_65906516 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('immagine', (($tmp = @$_smarty_tpl->tpl_vars['immagine']->value)===null||$tmp==='' ? 'ok' : $tmp));
 $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['immagine_1']->value)===null||$tmp==='' ? 'ok' : $tmp));?>
@@ -52,15 +52,15 @@ $_smarty_tpl->_assignInScope('immagine_1', (($tmp = @$_smarty_tpl->tpl_vars['imm
 <!-- Navigation-->
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-        <div class="col-md-4">
+        <div class="col-md-auto">
         <img src="/logBook/Smarty/immagini/logo_logbook.PNG"  width="243" height="62" alt="..."></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_comment">Reported comments</a></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_posts" >Reported posts</a></div>
-        <div class="col-md-2">
-        <a href="/logBook/Admin/reported_user" >Reported user</a></div>
-        <div class="col-md-2">
+        <a href="/logBook/Admin/reportedComments"><div class="col-md-auto">
+        <b class="h5">Reported comments</b></div></a>
+        <a href="/logBook/Admin/reportedPosts" ><div class="col-md-auto">
+        <b class="h5">Reported posts</b></div></a>
+        <a href="/logBook/Admin/adminHome"><div class="col-md-auto">
+                <b class="h5">Reported user</b></div></a>
+        <div class="col-md-auto">
             <a class="btn btn-primary align-content-end" href="/logBook/Admin/adminLogout">Logout</a></div>
     </div>
 </nav>
@@ -75,6 +75,7 @@ $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderin
 if ($_smarty_tpl->tpl_vars['i']->total > 0) {
 for ($_smarty_tpl->tpl_vars['i']->value = 0, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
 $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                <?php if ($_smarty_tpl->tpl_vars['userReported']->value[$_smarty_tpl->tpl_vars['i']->value]) {?>
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -92,12 +93,12 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
 " id="bann" class="btn btn-primary mx-3">
                                      Bann</a><a href="/logBook/Admin/ignoreUser/<?php echo $_smarty_tpl->tpl_vars['userReported']->value[$_smarty_tpl->tpl_vars['i']->value]->getUserID();?>
 " id="ignore" class="btn btn-primary mx-3"> Ignore</a>
-                            <a class="btn btn-primary" href="/logBook/Research/postDetail/<?php echo $_smarty_tpl->tpl_vars['userReported']->value[$_smarty_tpl->tpl_vars['i']->value]->getUserID();?>
-"> Go to the Profile → </a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+                <?php }?>
             <?php }
 }
 ?>
@@ -114,6 +115,7 @@ $_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderin
 if ($_smarty_tpl->tpl_vars['i']->total > 0) {
 for ($_smarty_tpl->tpl_vars['i']->value = 0, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
 $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                <?php if ($_smarty_tpl->tpl_vars['userBanned']->value[$_smarty_tpl->tpl_vars['i']->value] != null) {?>
             <div class="col-md-4 my-4">
                 <div id="user" class="card">
                     <!-- INSERISCI L'IMMAGINE DELL'UTENTE-->
@@ -135,6 +137,7 @@ $_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 
                         </div>
                     </div>
                 </div>
+                <?php }?>
             <?php }
 }
 ?>

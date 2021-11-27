@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-04 13:32:51
-  from 'C:\xampp\htdocs\logBook\Smarty\templates\admin_reported_comment.tpl' */
+/* Smarty version 3.1.33, created on 2021-11-27 14:04:21
+  from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/admin_reported_comment.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_6183d2f346d150_92157121',
+  'unifunc' => 'content_61a22cd5771b84_96601321',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '19fa392c68705dd6677218ad77e272543581b459' => 
+    '92338a2a1b234312f07a70f7ada7a82694b42d0b' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\admin_reported_comment.tpl',
-      1 => 1636029049,
+      0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/admin_reported_comment.tpl',
+      1 => 1636048605,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6183d2f346d150_92157121 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a22cd5771b84_96601321 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
