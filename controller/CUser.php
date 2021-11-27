@@ -113,7 +113,7 @@ class CUser
                     } elseif ($user->isBanned() == true) {
                         $view->loginBann();
                     }
-                }
+                }else{$view->loginError();}
             } elseif ($adminEmail == $_POST['email'] && password_verify($_POST['password'],$adminPassword )) {
                 if (USession::getSessionStatus() == PHP_SESSION_NONE) {
                     USession::getInstance();

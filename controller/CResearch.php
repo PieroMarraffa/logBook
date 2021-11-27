@@ -177,7 +177,7 @@ class CResearch
                     $pm->storePostReporter($user->getUserID(),$idPost);
                 }elseif(!is_array($reporter)) {
                     if($reporter->getUserName()!=$reporter->getUserName()){
-                        $pm->storeCommentReporter($user->getUserID(),$idPost);
+                        $pm->storePostReporter($user->getUserID(),$idPost);
                     }
                 }else{
                     foreach($reporter as $r){
@@ -189,7 +189,7 @@ class CResearch
                         }
                     }
                     if($report==false){
-                        $pm->storeCommentReporter($user->getUserID(),$idPost);
+                        $pm->storePostReporter($user->getUserID(),$idPost);
                     }
                 }
                 header('Location: /logBook/Research/postDetail/'.$idPost .'');
@@ -279,8 +279,8 @@ class CResearch
                 $u = USession::getElement('user');
                 $user = unserialize($u);
                 $reporter = $pm->loadCommentReporter($idComment);
-                $post = $pm->load('IDpost', $idPost, FPost::getClass());
-                $utente = $pm->load('IDuser', $post->getUserID(), FUser::getClass());
+                $comment = $pm->load('IDcomment', $idComment, FComment::getClass());
+                $utente = $pm->load('IDuser', $comment->getAuthorID(), FUser::getClass());
                 if ($user->getMail() != $utente->getMail()){
                     if ($reporter == null) {
                         $pm->storeCommentReporter($user->getUserID(), $idComment);

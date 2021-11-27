@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-24 14:41:37
+/* Smarty version 3.1.33, created on 2021-11-26 16:19:55
   from 'C:\xampp\htdocs\logBook\Smarty\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_619e4111947108_20061324',
+  'unifunc' => 'content_61a0fb1b3fbd30_30333637',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '33f291d14566c9c34d46ff91c71490a51c902bbe' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\home.tpl',
-      1 => 1637761291,
+      1 => 1637773765,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_619e4111947108_20061324 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a0fb1b3fbd30_30333637 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -77,11 +77,11 @@ function content_619e4111947108_20061324 (Smarty_Internal_Template $_smarty_tpl)
                     <form method="post" id="form_research" action="/logBook/Research/find">
                         <div class="row">
                             <div class="input-group" id="container">
-                                <input class="form-control" name="research" id="research" type="search" placeholder="Enter username" aria-label="Enter search term..." aria-describedby="button-search"/>
+                                <input class="form-control" name="research" id="research" type="search" placeholder="Enter place name" aria-label="Enter search term..." onclick="initAutocomplete()" aria-describedby="button-search"/>
                                 <label>
                                     <select class="btn btn-primary" name="search" id="ddlSearchBy" onchange="getValue()">
-                                        <option value="1" id="1" selected>Search for user</option>
-                                        <option value="2" id="2" >Search for place</option>
+                                        <option value="1" id="1" >Search for user</option>
+                                        <option value="2" id="2" selected>Search for place</option>
                                     </select>
                                 </label>
                                 <button class="btn btn-primary" type="submit" form="form_research" value="Submit">Go!</button>
@@ -126,11 +126,9 @@ function content_619e4111947108_20061324 (Smarty_Internal_Template $_smarty_tpl)
                                 console.log(strUser);
                                 if (strUser == 2){
                                     valore = document.getElementById("research").value;
-                                    console.log(valore);
                                     pSearchBar(valore);
                                 } else {
                                     valore = document.getElementById("research").value;
-                                    console.log(valore);
                                     uSearchBar(valore);
                                 }
                             }
