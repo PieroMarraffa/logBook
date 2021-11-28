@@ -229,7 +229,11 @@ class CResearch
                         }
                         $image = array();
                         if ($arrayPost != null) {
-                            foreach ($arrayPost as $r) {
+                            if(!is_array($arrayPost)){
+                                $arrayP=array();
+                                $arrayP[]=$arrayPost;
+                            }else $arrayP=$arrayPost;
+                            foreach ($arrayP as $r) {
                                 $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                                 $image[] = $i;
                             }
@@ -251,7 +255,11 @@ class CResearch
                     }
                 }
                 $image = array();
-                foreach ($arrayPost as $r) {
+                    if(!is_array($arrayPost)){
+                        $arrayP=array();
+                        $arrayP[]=$arrayPost;
+                    }else $arrayP=$arrayPost;
+                    foreach ($arrayP as $r) {
                     $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                     $image[] = $i;
                 }
