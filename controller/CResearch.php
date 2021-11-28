@@ -169,30 +169,35 @@ class CResearch
     static function reportPost($idPost){
         $pm= FPersistentManager::getInstance();
         if(UServer::getRequestMethod()=='GET'){
-            if(CUser::isLogged()){
-                $u=USession::getElement('user');
-                $user=unserialize($u);
-                $reporter=$pm->loadPostReporter($idPost);
-                if($reporter==null){
-                    $pm->storePostReporter($user->getUserID(),$idPost);
-                }elseif(!is_array($reporter)) {
-                    if($reporter->getUserName()!=$reporter->getUserName()){
-                        $pm->storePostReporter($user->getUserID(),$idPost);
-                    }
-                }else{
-                    foreach($reporter as $r){
-                        if($r->getUserName()==$user->getUserName()){
-                            $report=true;
-                            break;
-                        }else{
-                            $report=false;
+            if(CUser::isLogged()) {
+                $u = USession::getElement('user');
+                $user = unserialize($u);
+                $reporter = $pm->loadPostReporter($idPost);
+                $post = $pm->load("IDpost", $idPost, FPost::getClass());
+                $utente = $pm->load("IDuser", $post->getUserID(), FUser::getClass());
+                if ($utente->getMail() != $user->getMail()){
+                    if ($reporter == null) {
+                        $pm->storePostReporter($user->getUserID(), $idPost);
+                    } elseif (!is_array($reporter)) {
+                        if ($reporter->getUserName() != $reporter->getUserName()) {
+                            $pm->storePostReporter($user->getUserID(), $idPost);
+                        }
+                    } else {
+                        foreach ($reporter as $r) {
+                            if ($r->getUserName() == $user->getUserName()) {
+                                $report = true;
+                                break;
+                            } else {
+                                $report = false;
+                            }
+                        }
+                        if ($report == false) {
+                            $pm->storePostReporter($user->getUserID(), $idPost);
                         }
                     }
-                    if($report==false){
-                        $pm->storePostReporter($user->getUserID(),$idPost);
-                    }
+                    header('Location: /logBook/Research/postDetail/' . $idPost . '');
                 }
-                header('Location: /logBook/Research/postDetail/'.$idPost .'');
+                else{header('Location: /logBook/Research/postDetail/' . $idPost . '');}
             }else header('Location: /logBook/User/home');
         }
     }
@@ -264,8 +269,16 @@ class CResearch
     static function report($id){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $pm->update("Reported", 1, $id, FUser::getClass());
-            header('Location: /logBook/Research/profileDetail/' . $id);
+            USession::getInstance();
+            $u = USession::getElement('user');
+            $utente = unserialize($u);
+            $exist=$pm->exist("IDuser",$id,FUser::getClass());
+            if($exist) {
+                if ($utente->getUserID() != $id) {
+                    $pm->update("Reported", 1, $id, FUser::getClass());
+                    header('Location: /logBook/Research/profileDetail/' . $id);
+                } else header('Location: /logBook/Research/profileDetail/' . $id);
+            }else header('Location: /logBook/User/home');
         }else header('Location: /logBook/Research/profileDetail/' . $id);
     }
 
@@ -278,31 +291,34 @@ class CResearch
             if(CUser::isLogged()) {
                 $u = USession::getElement('user');
                 $user = unserialize($u);
-                $reporter = $pm->loadCommentReporter($idComment);
-                $comment = $pm->load('IDcomment', $idComment, FComment::getClass());
-                $utente = $pm->load('IDuser', $comment->getAuthorID(), FUser::getClass());
-                if ($user->getMail() != $utente->getMail()){
-                    if ($reporter == null) {
-                        $pm->storeCommentReporter($user->getUserID(), $idComment);
-                    } elseif (!is_array($reporter)) {
-                        if ($reporter->getMail() != $reporter->getMail()) {
+                $exist=$pm->exist("IDcomment",$idComment,FComment::getClass());
+                if($exist) {
+                    $reporter = $pm->loadCommentReporter($idComment);
+                    $comment = $pm->load('IDcomment', $idComment, FComment::getClass());
+                    $utente = $pm->load('IDuser', $comment->getAuthorID(), FUser::getClass());
+                    if ($user->getMail() != $utente->getMail()) {
+                        if ($reporter == null) {
                             $pm->storeCommentReporter($user->getUserID(), $idComment);
-                        }
-                    } else {
-                        foreach ($reporter as $r) {
-                            if ($r->getMail() == $user->getMail()) {
-                                $report = true;
-                                break;
-                            } else {
-                                $report = false;
+                        } elseif (!is_array($reporter)) {
+                            if ($reporter->getMail() != $reporter->getMail()) {
+                                $pm->storeCommentReporter($user->getUserID(), $idComment);
+                            }
+                        } else {
+                            foreach ($reporter as $r) {
+                                if ($r->getMail() == $user->getMail()) {
+                                    $report = true;
+                                    break;
+                                } else {
+                                    $report = false;
+                                }
+                            }
+                            if ($report == false) {
+                                $pm->storeCommentReporter($user->getUserID(), $idComment);
                             }
                         }
-                        if ($report == false) {
-                            $pm->storeCommentReporter($user->getUserID(), $idComment);
-                        }
                     }
-                }
-                header('Location: /logBook/Research/postDetail/'.$idPost .'');
+                    header('Location: /logBook/Research/postDetail/' . $idPost . '');
+                }else header('Location: /logBook/User/home');
             }else header('Location: /logBook/Research/postDetail/'.$idPost .'');
         }
     }

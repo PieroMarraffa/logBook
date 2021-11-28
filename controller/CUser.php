@@ -73,7 +73,6 @@ class CUser
                 if (isset($adm))
                     header('Location: /logBook/Admin/adminHome');
 
-                $view = new VUser();
                 header('Location: /logBook/User/home');
             }
             else{
@@ -119,10 +118,8 @@ class CUser
                     USession::getInstance();
                     $salvare = serialize($admin);
                     USession::setElement('admin', $salvare);
-
                     header('Location: /logBook/Admin/adminHome');
                 }
-
             } else {
                 $view->loginError();
             }
@@ -231,7 +228,7 @@ class CUser
     static function upload($user,$nome_file) {
         if(UServer::getRequestMethod()!='GET') {
             $pm = FPersistentManager::getInstance();
-            $max_size = 600000000;
+            $max_size = 600000;
             $result = is_uploaded_file($_FILES[$nome_file]['tmp_name']);
             if (!$result) {
                 //no immagine

@@ -237,18 +237,23 @@ class CPost{
         if(CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
+            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
             $user = unserialize(USession::getElement('user'));
-            if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $post = $pm->load('IDpost', $postID, FPost::getClass());
-                $pm->deleteFromPostReported($postID);
-                $pm->deleteFromReaction($postID);
-                $pm->delete('IDpost', $postID, FComment::getClass());
-                $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
-                $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
-                $pm->delete('IDpost', $postID, FPost::getClass());
+            if ($exist){
+                if ($user->getUserID() == $pm->getUserByPost($postID)) {
+                    $post = $pm->load('IDpost', $postID, FPost::getClass());
+                    $pm->deleteFromPostReported($postID);
+                    $pm->deleteFromReaction($postID);
+                    $pm->delete('IDpost', $postID, FComment::getClass());
+                    $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
+                    $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
+                    $pm->delete('IDpost', $postID, FPost::getClass());
 
-                header('Location: /logBook/User/profile');
-            } else{
+                    header('Location: /logBook/User/profile');
+                } else {
+                    header('Location: /logBook/User/home');
+                }
+            }else {
                 header('Location: /logBook/User/home');
             }
         }else{
@@ -262,8 +267,18 @@ class CPost{
     public static function deleteExistingExperience($id, $postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $pm->update('IDexperience', -$id, $id, FExperience::getClass());
-            self::modify_post($postID);
+            $exist1 = $pm->exist("IDpost", $postID, FPost::getClass());
+            if ($exist1) {
+                $exist2 = $pm->exist("IDexperience", $id, FExperience::getClass());
+                if ($exist2) {
+                    $pm->update('IDexperience', -$id, $id, FExperience::getClass());
+                    self::modify_post($postID);
+                }else {
+                    header('Location: /logBook/User/home');
+                }
+            }else {
+                header('Location: /logBook/User/home');
+            }
         }else header('Location: /logBook/User/login');
     }
 
@@ -274,8 +289,18 @@ class CPost{
     public static function deleteExistingImage($id, $postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $pm->update('IDimage', -$id, $id, FImage::getClass());
-            self::modify_post($postID);
+            $exist1 = $pm->exist("IDpost", $postID, FPost::getClass());
+            if ($exist1) {
+                $exist2 = $pm->exist("IDimage", $id, FImage::getClass());
+                if ($exist2) {
+                    $pm->update('IDimage', -$id, $id, FImage::getClass());
+                    self::modify_post($postID);
+                }else {
+                    header('Location: /logBook/User/home');
+                }
+            }else {
+                header('Location: /logBook/User/home');
+            }
         }else header('Location: /logBook/User/login');
     }
 
@@ -286,7 +311,7 @@ class CPost{
     static function upload($postID, $nome_file) {
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $max_size = 600000000;
+            $max_size = 6000000;
             $size = $_FILES[$nome_file]['size'];
             $type = $_FILES[$nome_file]['type'];
             if ($size > $max_size) {
@@ -323,26 +348,31 @@ class CPost{
             USession::getInstance();
             $view = new VPost();
             $pm = FPersistentManager::getInstance();
-            $user = unserialize(USession::getElement('user'));
-            if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $post = $pm->load("IDpost",$postID,FPost::getClass());
-                $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
-                $arrayExperience = $post->getExperienceList();
-                $arrayExperienceDaVedere = array();
-                foreach ($arrayExperience as $exp){
-                    if ($exp->getExperienceID() > 0){
-                        $arrayExperienceDaVedere[] = $exp;
+            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
+            if ($exist) {
+                $user = unserialize(USession::getElement('user'));
+                if ($user->getUserID() == $pm->getUserByPost($postID)) {
+                    $post = $pm->load("IDpost", $postID, FPost::getClass());
+                    $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $arrayExperience = $post->getExperienceList();
+                    $arrayExperienceDaVedere = array();
+                    foreach ($arrayExperience as $exp) {
+                        if ($exp->getExperienceID() > 0) {
+                            $arrayExperienceDaVedere[] = $exp;
+                        }
                     }
-                }
-                $imageDaVedere = array();
-                foreach ($image as $i){
-                    if($i->getImageID() > 0){
-                        $imageDaVedere[] = $i;
+                    $imageDaVedere = array();
+                    foreach ($image as $i) {
+                        if ($i->getImageID() > 0) {
+                            $imageDaVedere[] = $i;
+                        }
                     }
+                    $numero = 2;
+                    $view->modify_post($post, $arrayExperienceDaVedere, $numero, $postID, $imageDaVedere, false);
+                } else {
+                    header('Location: /logBook/User/home');
                 }
-                $numero = 2;
-                $view->modify_post($post, $arrayExperienceDaVedere, $numero, $postID, $imageDaVedere,false);
-            } else{
+            }else {
                 header('Location: /logBook/User/home');
             }
         }else{
@@ -359,22 +389,28 @@ class CPost{
         if(CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
-            $user = unserialize(USession::getElement('user'));
-            if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                $post = $pm->load("IDpost",$postID,FPost::getClass());
-                $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
-                $arrayExperience = $post->getExperienceList();
-                foreach ($arrayExperience as $exp) {
-                    if ($exp->getExperienceID() < 0) {
-                        $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
+            if ($exist) {
+                $user = unserialize(USession::getElement('user'));
+                if ($user->getUserID() == $pm->getUserByPost($postID)) {
+                    $post = $pm->load("IDpost",$postID,FPost::getClass());
+                    $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $arrayExperience = $post->getExperienceList();
+                    foreach ($arrayExperience as $exp) {
+                        if ($exp->getExperienceID() < 0) {
+                            $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+                        }
                     }
-                }
-                foreach ($image as $i){
-                    if ($i->getImageID() < 0){
-                        $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
+                    foreach ($image as $i){
+                        if ($i->getImageID() < 0){
+                            $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
+                        }
                     }
+                    header('Location: /logBook/Research/postDetail/' . $postID);
                 }
-                header('Location: /logBook/Research/postDetail/' . $postID);
+            }
+            else{
+                header('Location: /logBook/User/home');
             }
         }else{
             header('Location: /logBook/User/login');

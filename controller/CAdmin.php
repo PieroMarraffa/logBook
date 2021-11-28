@@ -59,7 +59,7 @@ class CAdmin
                 }
             } else $array_b = array();
             $view->adminHomePage($array_b, $array_r, $image_reported, $image_banned);
-        }else header('Location: /User/home');
+        }else header('Location: /logBook/User/home');
 
     }
 
@@ -77,31 +77,34 @@ class CAdmin
     static function banUser($userID){
         if(self::isAdminLogged()==true) {
             $pm = FPersistentManager::getInstance();
-            $pm->update("Reported",0,$userID,FUser::getClass());
-            $resultPost=$pm->load("IDuser",$userID,FPost::getClass());
-            if($resultPost!=null) {
-                if (!is_array($resultPost)) {
-                    $post = array();
-                    $post[] = $resultPost;
-                } else $post = $resultPost;
-                foreach ($post as $p) {
-                    $id = $p->getPostID();
-                    $pm->update("Deleted", 1, $id, FPost::getClass());
+            $exist=$pm->exist("IDuser",$userID,FUser::getClass());
+            if($exist) {
+                $pm->update("Reported", 0, $userID, FUser::getClass());
+                $resultPost = $pm->load("IDuser", $userID, FPost::getClass());
+                if ($resultPost != null) {
+                    if (!is_array($resultPost)) {
+                        $post = array();
+                        $post[] = $resultPost;
+                    } else $post = $resultPost;
+                    foreach ($post as $p) {
+                        $id = $p->getPostID();
+                        $pm->update("Deleted", 1, $id, FPost::getClass());
+                    }
                 }
-            }
-            $resultComment=$pm->load("IDuser",$userID,FComment::getClass());
-            if($resultComment!=null) {
-                if (!is_array($resultComment)) {
-                    $comment = array();
-                    $comment[] = $resultComment;
-                } else $comment = $resultComment;
-                foreach ($comment as $c) {
-                    $id = $c->getCommentID();
-                    $pm->update("Deleted", 1, $id, FComment::getClass());
+                $resultComment = $pm->load("IDuser", $userID, FComment::getClass());
+                if ($resultComment != null) {
+                    if (!is_array($resultComment)) {
+                        $comment = array();
+                        $comment[] = $resultComment;
+                    } else $comment = $resultComment;
+                    foreach ($comment as $c) {
+                        $id = $c->getCommentID();
+                        $pm->update("Deleted", 1, $id, FComment::getClass());
+                    }
                 }
-            }
-            $pm->update("Banned",1,$userID,FUser::getClass());
-            header('Location: /logBook/Admin/adminHome');
+                $pm->update("Banned", 1, $userID, FUser::getClass());
+                header('Location: /logBook/Admin/adminHome');
+            }else header('Location: /logBook/Admin/adminHome');
         }else header('Location: /logBook/User/home');
     }
 
@@ -111,39 +114,45 @@ class CAdmin
     static function ignoreUser($userID){
         if(self::isAdminLogged()==true) {
             $pm = FPersistentManager::getInstance();
-            $pm->update("Reported", 0, $userID, FUser::getClass());
-            header('Location: /logBook/Admin/adminHome');
+            $exist=$pm->exist("IDuser",$userID,FUser::getClass());
+            if($exist) {
+                $pm->update("Reported", 0, $userID, FUser::getClass());
+                header('Location: /logBook/Admin/adminHome');
+            }else header('Location: /logBook/Admin/adminHome');
         }else header('Location: /logBook/User/home');
     }
 
     static function restoreUser($userID){
         if(self::isAdminLogged()==true) {
             $pm = FPersistentManager::getInstance();
-            $pm->update("Reported", 0, $userID, FUser::getClass());
-            $resultPost = $pm->load("IDuser", $userID, FPost::getClass());
-            if ($resultPost != null) {
-                if (!is_array($resultPost)) {
-                    $post = array();
-                    $post[] = $resultPost;
-                } else $post = $resultPost;
-                foreach ($post as $p) {
-                    $id = $p->getPostID();
-                    $pm->update("Deleted", 0, $id, FPost::getClass());
+            $exist=$pm->exist("IDuser",$userID,FUser::getClass());
+            if($exist) {
+                $pm->update("Reported", 0, $userID, FUser::getClass());
+                $resultPost = $pm->load("IDuser", $userID, FPost::getClass());
+                if ($resultPost != null) {
+                    if (!is_array($resultPost)) {
+                        $post = array();
+                        $post[] = $resultPost;
+                    } else $post = $resultPost;
+                    foreach ($post as $p) {
+                        $id = $p->getPostID();
+                        $pm->update("Deleted", 0, $id, FPost::getClass());
+                    }
                 }
-            }
-            $resultComment = $pm->load("IDuser", $userID, FComment::getClass());
-            if ($resultComment != null) {
-                if (!is_array($resultComment)) {
-                    $comment = array();
-                    $comment[] = $resultComment;
-                } else $comment = $resultComment;
-                foreach ($comment as $c) {
-                    $id = $c->getCommentID();
-                    $pm->update("Deleted", 0, $id, FComment::getClass());
+                $resultComment = $pm->load("IDuser", $userID, FComment::getClass());
+                if ($resultComment != null) {
+                    if (!is_array($resultComment)) {
+                        $comment = array();
+                        $comment[] = $resultComment;
+                    } else $comment = $resultComment;
+                    foreach ($comment as $c) {
+                        $id = $c->getCommentID();
+                        $pm->update("Deleted", 0, $id, FComment::getClass());
+                    }
                 }
-            }
-            $pm->update("Banned", 0, $userID, FUser::getClass());
-            header('Location: /logBook/Admin/adminHome');
+                $pm->update("Banned", 0, $userID, FUser::getClass());
+                header('Location: /logBook/Admin/adminHome');
+            }else header('Location: /logBook/Admin/adminHome');
         }else header('Location: /logBook/User/home');
     }
 
@@ -171,20 +180,25 @@ class CAdmin
     static function deleteComment($id){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $pm->deleteComment($id);
-            $pm->deleteFromCommentReported($id);
-            header('Location: /logBook/Admin/reportedComments');
+            $exist=$pm->exist("IDcomment",$id,FComment::getClass());
+            if($exist) {
+                $pm->deleteComment($id);
+                $pm->deleteFromCommentReported($id);
+                header('Location: /logBook/Admin/reportedComments');
+            } else header('Location: /logBook/Admin/reportedComments');
         }else header('Location: /logBook/User/home');
     }
 
     static function ignoreComment($id){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $pm->deleteFromCommentReported($id);
-            header('Location: /logBook/Admin/reportedComments');
+            $exist=$pm->exist("IDcomment",$id,FComment::getClass());
+            if($exist) {
+                $pm->deleteFromCommentReported($id);
+                header('Location: /logBook/Admin/reportedComments');
+            } else header('Location: /logBook/Admin/reportedComments');
         }else header('Location: /logBook/User/home');
     }
-
 
     /**
      * @throws SmartyException
@@ -211,22 +225,28 @@ class CAdmin
     static function deletePost($postID){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $post = $pm->load('IDpost', $postID, FPost::getClass());
-            $pm->deleteFromPostReported($postID);
-            $pm->deleteFromReaction($postID);
-            $pm->delete('IDpost', $postID, FComment::getClass());
-            $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
-            $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
-            $pm->delete('IDpost', $postID, FPost::getClass());
-            header('Location: /logBook/Admin/reportedPosts');
+            $exist=$pm->exist("IDpost",$postID,FPost::getClass());
+            if($exist) {
+                $post = $pm->load('IDpost', $postID, FPost::getClass());
+                $pm->deleteFromPostReported($postID);
+                $pm->deleteFromReaction($postID);
+                $pm->delete('IDpost', $postID, FComment::getClass());
+                $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
+                $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
+                $pm->delete('IDpost', $postID, FPost::getClass());
+                header('Location: /logBook/Admin/reportedPosts');
+            }else header('Location: /logBook/Admin/reportedPosts');
         }else header('Location: /logBook/User/home');
     }
 
     static function ignorePost($id){
         if(self::isAdminLogged()==true) {
             $pm=FPersistentManager::getInstance();
-            $pm->deleteFromPostReported($id);
-            header('Location: /logBook/Admin/reportedPosts');
+            $exist=$pm->exist("IDpost",$id,FPost::getClass());
+            if($exist) {
+                $pm->deleteFromPostReported($id);
+                header('Location: /logBook/Admin/reportedPosts');
+            }else header('Location: /logBook/Admin/reportedPosts');
         }else header('Location: /logBook/User/home');
     }
 
