@@ -180,7 +180,7 @@ class CResearch
             $lat = $result["geometry"]["location"]["lat"];
             $lng = $result["geometry"]["location"]["lng"];
             $place = new EPlace($lat, $lng, $localityName, $countryName);
-            if ($_POST['research'] == $countryName){
+            if ($namePlace == $countryName){
                 $post = $pm->loadPostByPlaceCountryName($countryName);
                 $image = array();
                 if(isset($post[0])){
