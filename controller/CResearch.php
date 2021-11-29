@@ -132,6 +132,83 @@ class CResearch
         return true;
     }
 
+    static function findPlace($namePlace){
+        echo var_dump($namePlace);
+        $view = new VResearch();
+        $pm = FPersistentManager::getInstance();
+        if ($namePlace != "") {
+            $ad = explode(' ', $namePlace);
+            $address = implode('+', $ad);
+            $json = file_get_contents("https://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&key=AIzaSyD08h2askcbDIx7A8NU6G8CgprXCYpRtXw");
+            $array = json_decode($json, true);
+            $result = array();
+            if (count($array["results"]) == 1){
+                $result = $array["results"][0];
+            } elseif (count($array["results"]) == 0){
+                $view->search_error($_POST['research']);
+                return true;
+            } else{
+                foreach ($array["results"] as $r){
+                    foreach ($r["address_components"] as $component){
+                        if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                            $result = $r;
+                            break;
+                        }
+                    }
+                }
+            }
+            foreach ($result["address_components"] as $component){
+                if ($component["types"][0] == "country" && $component["types"][0] != NULL){
+                    $countryName = $component["long_name"];
+                }
+            }
+            foreach ($result["address_components"] as $component){
+                $assigned = false;
+                if ($component["types"][0] == "locality"){
+                    $localityName = $component["long_name"];
+                    $assigned = true;
+                    break;
+                } elseif($result["formatted_address"] == $countryName){
+                    $localityName = $countryName;
+                    $assigned = true;
+                    break;
+                }
+            }
+            if ($assigned == false){
+                $localityName = explode(', ', $result["formatted_address"])[0];
+            }
+            $lat = $result["geometry"]["location"]["lat"];
+            $lng = $result["geometry"]["location"]["lng"];
+            $place = new EPlace($lat, $lng, $localityName, $countryName);
+            if ($_POST['research'] == $countryName){
+                $post = $pm->loadPostByPlaceCountryName($countryName);
+                $image = array();
+                if(isset($post[0])){
+                    foreach ($post as $r) {
+                        $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                        $image[] = $i;
+                    }
+                }
+                $view->search_place($place, $post, $image, $namePlace);
+            } else{
+                $post = $pm->loadPostByProssimity($lat, $lng, 0.1);
+                if ($post == NULL){
+                    $view->search_place($place, $post, NULL, $namePlace);
+                } else {
+                    $image = array();
+                    if (isset($post[0])) {
+                        foreach ($post as $r) {
+                            $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                            $image[] = $i;
+                        }
+                    }
+                    $view->search_place($place, $post, $image, $namePlace);
+                }
+            }
+
+        } else header("Location: /logBook/User/home");
+    }
+
     /**
      * @throws SmartyException
      */
