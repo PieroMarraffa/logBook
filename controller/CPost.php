@@ -73,10 +73,10 @@ class CPost{
                         $post = new EPost(array(), array(), $date, $deleted, array(), array(), $userID, $title, $ExpList, $DayOne, $LastDay);
                         $postID = $pm->store($post);
 
+                        $allPlaces = $pm->loadAll(FPlace::getClass());
                         foreach ($ExpList as $exp) {
 
                             $toSave = true;
-                            $allPlaces = $pm->loadAll(FPlace::getClass());
                             if($allPlaces!=null) {
                                 foreach ($allPlaces as $ap) {
                                     if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
@@ -87,6 +87,7 @@ class CPost{
                                 if ($toSave == true) {
                                     $placeID = FPlace::store($exp->getPlace());
                                     $exp->setPlaceID($placeID);
+                                    $allPlaces[] = $exp->getPlace();
                                 }
                             }else{
                                 $placeID = FPlace::store($exp->getPlace());
@@ -161,10 +162,10 @@ class CPost{
                         }
                         $postID = $post->getPostID();
 
+                        $allPlaces = $pm->loadAll(FPlace::getClass());
                         foreach ($ExpList as $exp) {
 
                             $toSave = true;
-                            $allPlaces = $pm->loadAll(FPlace::getClass());
                             if($allPlaces!=null) {
                                 foreach ($allPlaces as $ap) {
                                     if ($ap->getLatitude() == $exp->getPlace()->getLatitude() && $ap->getLongitude() == $exp->getPlace()->getLongitude()) {
@@ -175,6 +176,7 @@ class CPost{
                                 if ($toSave == true) {
                                     $placeID = FPlace::store($exp->getPlace());
                                     $exp->setPlaceID($placeID);
+                                    $allPlaces[] = $exp->getPlace();
                                 }
                             }else{
                                 $placeID = FPlace::store($exp->getPlace());
