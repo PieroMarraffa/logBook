@@ -259,7 +259,7 @@ class CResearch
                         $arrayP=array();
                         $arrayP[]=$arrayPost;
                     }else $arrayP=$arrayPost;
-                    foreach ($arrayP as $r) {
+                foreach ($arrayP as $r) {
                     $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
                     $image[] = $i;
                 }

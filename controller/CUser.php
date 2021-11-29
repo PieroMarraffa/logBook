@@ -428,7 +428,6 @@ class CUser
             if (!$result) {
                 //no immagine
                 $ris = "ok";
-
             } else {
                 $size = $_FILES[$nome_file]['size'];
                 $type = $_FILES[$nome_file]['type'];
@@ -456,7 +455,8 @@ class CUser
             }
             return $ris;
         }
-        else{ header('Location: /logBook/User/profile');}
+        else{ header('Location: /logBook/User/profile');
+        }
     }
 
 

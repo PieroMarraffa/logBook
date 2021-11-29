@@ -112,8 +112,13 @@
                         {foreach $arrayExperience as $experience}
                         <div class="card my-3">
                             <div class="card-header">
+                                <div class="col-md-auto">
                                 <h4>{$experience->getTitle()}</h4>
                                 <div  class="text-muted fst-italic mb-2">From: {$experience->getStartDay()}   To: {$experience->getEndDay()}</div>
+                                </div>
+                                <div class="col-md-auto">
+                                    <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><b>{$experience->getPlace()->getName()}</b>
+                                </div>
                             </div>
                             <div class="card-body">
                                 {$experience->getDescription()}
