@@ -132,10 +132,10 @@ class CResearch
         return true;
     }
 
-    static function findPlace($namePlace){
-        echo var_dump($namePlace);
+    static function findPlace($IDPlace){
         $view = new VResearch();
         $pm = FPersistentManager::getInstance();
+        $namePlace = $pm->load('IDplace', $IDPlace, 'FPlace')->getName();
         if ($namePlace != "") {
             $ad = explode(' ', $namePlace);
             $address = implode('+', $ad);

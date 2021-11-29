@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-29 16:57:51
+/* Smarty version 3.1.33, created on 2021-11-29 17:09:49
   from '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61a4f87f5d0015_17957173',
+  'unifunc' => 'content_61a4fb4db69186_15726186',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4f80cc488a4fd502e0a992d3b1da7cb21b932e99' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/logBook/Smarty/templates/post_detail.tpl',
-      1 => 1638201454,
+      1 => 1638202187,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61a4f87f5d0015_17957173 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a4fb4db69186_15726186 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -175,7 +175,7 @@ foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
 </div>
                                     </div>
                                     <div class="col-md-auto">
-                                        <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><a href="/logBook/Research/findPlace/<?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getName();?>
+                                        <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><a href="/logBook/Research/findPlace/<?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getPlaceID();?>
 "><b><?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getName();?>
 </b></a>
                                     </div>

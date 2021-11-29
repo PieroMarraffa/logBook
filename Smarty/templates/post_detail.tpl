@@ -117,7 +117,7 @@
                                     <div  class="text-muted fst-italic mb-2">From: {$experience->getStartDay()}   To: {$experience->getEndDay()}</div>
                                     </div>
                                     <div class="col-md-auto">
-                                        <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><a href="/logBook/Research/findPlace/{$experience->getPlace()->getName()}"><b>{$experience->getPlace()->getName()}</b></a>
+                                        <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><a href="/logBook/Research/findPlace/{$experience->getPlace()->getPlaceID()}"><b>{$experience->getPlace()->getName()}</b></a>
                                     </div>
                                 </div>
                                 <div class="card-body">
