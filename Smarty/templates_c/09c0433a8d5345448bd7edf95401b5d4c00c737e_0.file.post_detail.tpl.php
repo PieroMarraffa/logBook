@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2021-11-29 15:49:04
+/* Smarty version 3.1.33, created on 2021-11-29 17:11:17
   from 'C:\xampp\htdocs\logBook\Smarty\templates\post_detail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_61a4e860ab3957_52284796',
+  'unifunc' => 'content_61a4fba5afa385_55968697',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09c0433a8d5345448bd7edf95401b5d4c00c737e' => 
     array (
       0 => 'C:\\xampp\\htdocs\\logBook\\Smarty\\templates\\post_detail.tpl',
-      1 => 1638197337,
+      1 => 1638202264,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_61a4e860ab3957_52284796 (Smarty_Internal_Template $_smarty_tpl) {
+function content_61a4fba5afa385_55968697 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <?php $_smarty_tpl->_assignInScope('userlogged', (($tmp = @$_smarty_tpl->tpl_vars['userlogged']->value)===null||$tmp==='' ? 'nouser' : $tmp));?>
 <html lang="en">
@@ -165,25 +165,26 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['experience']->value) {
 ?>
-                        <div class="card my-3">
-                            <div class="card-header">
-                                <div class="col-md-auto">
-                                <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
+                            <div class="card my-3">
+                                <div class="card-header">
+                                    <div class="col-md-auto">
+                                    <h4><?php echo $_smarty_tpl->tpl_vars['experience']->value->getTitle();?>
 </h4>
-                                <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
+                                    <div  class="text-muted fst-italic mb-2">From: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getStartDay();?>
    To: <?php echo $_smarty_tpl->tpl_vars['experience']->value->getEndDay();?>
 </div>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><a href="/logBook/Research/findPlace/<?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getPlaceID();?>
+"><b><?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getName();?>
+</b></a>
+                                    </div>
                                 </div>
-                                <div class="col-md-auto">
-                                    <img src="/logBook/Smarty/immagini/marker.png" width="25" height="25" class="d-inline-block" alt=""><b><?php echo $_smarty_tpl->tpl_vars['experience']->value->getPlace()->getName();?>
-</b>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
+                                <div class="card-body">
+                                    <?php echo $_smarty_tpl->tpl_vars['experience']->value->getDescription();?>
 
+                                </div>
                             </div>
-                        </div>
                         <?php
 }
 }

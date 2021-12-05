@@ -10,15 +10,14 @@ function convalidaForm(Form) {
         Form.password.select()
         return false
     }
-    /**if(Form.email.value==''){alert("Devi indicare un indirizzo email"); return false;}
-    if (/^\w+([\.-]?\w+)*\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(Form.email.value))
-    {
-        alert("L'indirizzo email che hai inserito e' valido")
+    var myRegEx = /^[A-z0-9\.\+_-]+@[A-z0-9\._-]+\.[A-z]{2,6}$/;
+    if ( myRegEx.test(Form.email.value) )
+        return true;
+    else{
+        alert('Indirizzo email non valido');
+        return false;
     }
-    else {
-        alert("L'indirizzo email che hai inserito non e' valido");
-    }
-    return false;*/
+
     return true;
 }
 
