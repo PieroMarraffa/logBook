@@ -16,7 +16,7 @@ class CResearch
             if ($_POST['search'] == 1) {
                 $post1 = array();
                 if ($_POST['research'] != "") {
-                    $result = $pm->load("Username", $_POST['research'], FUser::getClass());
+                    $result = $pm->load("Username", $_POST['research'], 'FUser');
                     $array_user = array();
                     if ($result != null) {
                         $array_u = array();
@@ -31,7 +31,7 @@ class CResearch
                     }
                     if ($array_user != null) {
                         foreach ($array_user as $a) {
-                            $post = $pm->load("IDuser", $a->getUserID(), FPost::getClass());
+                            $post = $pm->load("IDuser", $a->getUserID(), 'FPost');
                             $array_post = array();
                             if ($post != null) {
                                 if (is_object($post)) {
@@ -105,7 +105,7 @@ class CResearch
                         $image = array();
                         if(isset($post[0])){
                             foreach ($post as $r) {
-                                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                                $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                                 $image[] = $i;
                             }
                         }
@@ -118,7 +118,7 @@ class CResearch
                             $image = array();
                             if (isset($post[0])) {
                                 foreach ($post as $r) {
-                                    $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                                    $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                                     $image[] = $i;
                                 }
                             }
@@ -185,7 +185,7 @@ class CResearch
                 $image = array();
                 if(isset($post[0])){
                     foreach ($post as $r) {
-                        $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                        $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                         $image[] = $i;
                     }
                 }
@@ -198,7 +198,7 @@ class CResearch
                     $image = array();
                     if (isset($post[0])) {
                         foreach ($post as $r) {
-                            $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                            $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                             $image[] = $i;
                         }
                     }
@@ -216,12 +216,12 @@ class CResearch
         $pm = FPersistentManager::getInstance();
         $view=new VResearch();
         if(UServer::getRequestMethod() == "GET") {
-            $exist = $pm->exist("IDpost", $id, FPost::getClass());
+            $exist = $pm->exist("IDpost", $id, 'FPost');
             if ($exist) {
-                $post = $pm->load("IDpost", $id, FPost::getClass());
+                $post = $pm->load("IDpost", $id, 'FPost');
                 if ($post->getDeleted() != true) {
-                    $author = $pm->load("IDuser", $post->getUserID(), FUser::getClass());
-                    $images = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $author = $pm->load("IDuser", $post->getUserID(), 'FUser');
+                    $images = $pm->load("IDpost", $post->getPostID(), 'FImage');
                     $experience = $post->getExperienceList();
                     if (is_object($experience)) {
                         $array_e = array();
@@ -250,8 +250,8 @@ class CResearch
                 $u = USession::getElement('user');
                 $user = unserialize($u);
                 $reporter = $pm->loadPostReporter($idPost);
-                $post = $pm->load("IDpost", $idPost, FPost::getClass());
-                $utente = $pm->load("IDuser", $post->getUserID(), FUser::getClass());
+                $post = $pm->load("IDpost", $idPost, 'FPost');
+                $utente = $pm->load("IDuser", $post->getUserID(), 'FUser');
                 if ($utente->getMail() != $user->getMail()){
                     if ($reporter == null) {
                         $pm->storePostReporter($user->getUserID(), $idPost);
@@ -286,7 +286,7 @@ class CResearch
         $pm = FPersistentManager::getInstance();
         $view=new VResearch();
         if(UServer::getRequestMethod() == "GET") {
-            $user = $pm->load("IDuser", $id, FUser::getClass());
+            $user = $pm->load("IDuser", $id, 'FUser');
             if(CUser::isLogged()){
                 USession::getInstance();
                 $u = USession::getElement('user');
@@ -311,7 +311,7 @@ class CResearch
                                 $arrayP[]=$arrayPost;
                             }else $arrayP=$arrayPost;
                             foreach ($arrayP as $r) {
-                                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                                $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                                 $image[] = $i;
                             }
                         }
@@ -337,7 +337,7 @@ class CResearch
                         $arrayP[]=$arrayPost;
                     }else $arrayP=$arrayPost;
                 foreach ($arrayP as $r) {
-                    $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                    $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                     $image[] = $i;
                 }
                 $arrayPlace = $pm->loadPlaceByUser($user->getUserID());
@@ -357,10 +357,10 @@ class CResearch
             USession::getInstance();
             $u = USession::getElement('user');
             $utente = unserialize($u);
-            $exist=$pm->exist("IDuser",$id,FUser::getClass());
+            $exist=$pm->exist("IDuser",$id,'FUser');
             if($exist) {
                 if ($utente->getUserID() != $id) {
-                    $pm->update("Reported", 1, $id, FUser::getClass());
+                    $pm->update("Reported", 1, $id, 'FUser');
                     header('Location: /logBook/Research/profileDetail/' . $id);
                 } else header('Location: /logBook/Research/profileDetail/' . $id);
             }else header('Location: /logBook/User/home');
@@ -376,11 +376,11 @@ class CResearch
             if(CUser::isLogged()) {
                 $u = USession::getElement('user');
                 $user = unserialize($u);
-                $exist=$pm->exist("IDcomment",$idComment,FComment::getClass());
+                $exist=$pm->exist("IDcomment",$idComment,'FComment');
                 if($exist) {
                     $reporter = $pm->loadCommentReporter($idComment);
-                    $comment = $pm->load('IDcomment', $idComment, FComment::getClass());
-                    $utente = $pm->load('IDuser', $comment->getAuthorID(), FUser::getClass());
+                    $comment = $pm->load('IDcomment', $idComment, 'FComment');
+                    $utente = $pm->load('IDuser', $comment->getAuthorID(), 'FUser');
                     if ($user->getMail() != $utente->getMail()) {
                         if ($reporter == null) {
                             $pm->storeCommentReporter($user->getUserID(), $idComment);

@@ -405,4 +405,7 @@ class FPersistentManager
         return $post;
     }
 
+    public static function TavelDate($ExpList) {
+        return FPost::lowerAndHigherDate($ExpList);
+    }
 }

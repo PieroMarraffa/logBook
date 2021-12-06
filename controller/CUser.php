@@ -13,7 +13,7 @@ class CUser
         $image=array();
         foreach ($result as $r){
             if(isset($r)) {
-                $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                 $image[] = $i;
             }
         }
@@ -48,7 +48,7 @@ class CUser
         $user = unserialize(USession::getElement('user'));
         $pm=FPersistentManager::getInstance();
         $view=new VUser();
-        $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
+        $u=$pm->load("IDuser",$user->getUserID(),'FUser');
         if(isset($u)) {
             if ($u->isBanned() == true) {
                 USession::unsetSession();
@@ -156,7 +156,7 @@ class CUser
                 if($arrayPost!=null) {
                     foreach ($arrayPost as $r) {
                         if($r !=null) {
-                            $i = $pm->load("IDpost", $r->getPostID(), FImage::getClass());
+                            $i = $pm->load("IDpost", $r->getPostID(), 'FImage');
                             $image[] = $i;
                         }
                     }
@@ -292,12 +292,12 @@ class CUser
         elseif (UServer::getRequestMethod() =="POST"){
             if(isset($_POST['email'])){
                 $id=$user->getUserID();
-                $exist=$pm->exist('Email',$_POST['email'],FUser::getClass());
+                $exist=$pm->exist('Email',$_POST['email'],'FUser');
                 $admin=$pm->loadAdmin('IDadmin',1);
                 if(!$exist){
                     if($_POST['email']!=$admin->getMail()) {
-                        $pm->update('Email', $_POST['email'], $id, FUser::getClass());
-                        $u = $pm->load('IDuser', $id, FUser::getClass());
+                        $pm->update('Email', $_POST['email'], $id, 'FUser');
+                        $u = $pm->load('IDuser', $id, 'FUser');
                         $salvare = serialize($u);
                         USession::setElement('user', $salvare);
                     }
@@ -306,18 +306,18 @@ class CUser
             }
             elseif (isset($_POST['new_password'])){
                 $id=$user->getUserID();
-                $pm->update('Password',password_hash($_POST['new_password'], PASSWORD_BCRYPT),$id,FUser::getClass());
-                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $pm->update('Password',password_hash($_POST['new_password'], PASSWORD_BCRYPT),$id,'FUser');
+                $u=$pm->load('IDuser',$id,'FUser');
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
                 header('Location: /logBook/User/profile');
             }
             elseif (isset($_POST['username'])){
-                $exist=$pm->exist("Username",$_POST['username'],FUser::getClass());
+                $exist=$pm->exist("Username",$_POST['username'],'FUser');
                 if(!$exist){
                 $id=$user->getUserID();
-                $pm->update('Username',$_POST['username'],$id,FUser::getClass());
-                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $pm->update('Username',$_POST['username'],$id,'FUser');
+                $u=$pm->load('IDuser',$id,'FUser');
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
                 header('Location: /logBook/User/profile');}
@@ -327,10 +327,10 @@ class CUser
             }
             elseif (isset($_FILES['file'])){
                 $id=$user->getUserID();
-                $array_immagini=$pm->load("IDpost",null,FImage::getClass());
+                $array_immagini=$pm->load("IDpost",null,'FImage');
                 foreach ($array_immagini as $a){
                     if($a['IDuser']==$id){
-                        $pm->delete("IDimage",$a->getImageID(),FImage::getClass());
+                        $pm->delete("IDimage",$a->getImageID(),'FImage');
                     }
                 }
                     $nome_file = 'file';
@@ -349,8 +349,8 @@ class CUser
             }
             elseif (isset($_POST['description'])){
                 $id=$user->getUserID();
-                $pm->update('Description',$_POST['description'],$id,FUser::getClass());
-                $u=$pm->load('IDuser',$id,FUser::getClass());
+                $pm->update('Description',$_POST['description'],$id,'FUser');
+                $u=$pm->load('IDuser',$id,'FUser');
                 $salvare = serialize($u);
                 USession::setElement('user',$salvare);
                 header('Location: /logBook/User/profile');
@@ -442,8 +442,8 @@ class CUser
                     $immagine = addslashes($immagine);
                     $profile_image= new EImage($immagine,null,$size,$type);
                     $id=$pm->storeMedia($profile_image,$nome_file);
-                    $pm->update("Image",$id,$user->getUserID(),FUser::getClass());
-                    $u=$pm->load("IDuser",$user->getUserID(),FUser::getClass());
+                    $pm->update("Image",$id,$user->getUserID(),'FUser');
+                    $u=$pm->load("IDuser",$user->getUserID(),'FUser');
                     $salvare = serialize($u);
                     USession::setElement('user',$salvare);
                     $ris = "ok";

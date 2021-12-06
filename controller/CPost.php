@@ -64,7 +64,7 @@ class CPost{
                     }
                     if (count($ExpList) > 0) {
                         $title = $_POST['title'];
-                        $TravelDays = FPost::lowerAndHigherDate($ExpList);
+                        $TravelDays = $pm->TavelDate($ExpList);
                         $DayOne = $TravelDays[0];
                         $LastDay = $TravelDays[1];
                         $date = date("Y-m-d h:i:s");
@@ -73,7 +73,7 @@ class CPost{
                         $post = new EPost(array(), array(), $date, $deleted, array(), array(), $userID, $title, $ExpList, $DayOne, $LastDay);
                         $postID = $pm->store($post);
 
-                        $allPlaces = $pm->loadAll(FPlace::getClass());
+                        $allPlaces = $pm->loadAll('FPlace');
                         foreach ($ExpList as $exp) {
 
                             $toSave = true;
@@ -85,12 +85,12 @@ class CPost{
                                     }
                                 }
                                 if ($toSave == true) {
-                                    $placeID = FPlace::store($exp->getPlace());
+                                    $placeID = $pm->store($exp->getPlace());
                                     $exp->setPlaceID($placeID);
                                     $allPlaces[] = $exp->getPlace();
                                 }
                             }else{
-                                $placeID = FPlace::store($exp->getPlace());
+                                $placeID = $pm->store($exp->getPlace());
                                 $exp->setPlaceID($placeID);
                             }
                             $exp->setPostID($postID);
@@ -153,16 +153,16 @@ class CPost{
                         }
                     }
                     if (count($ExpList) > 0) {
-                        $post = $pm->load("IDpost", $postID, FPost::getClass());
+                        $post = $pm->load("IDpost", $postID, 'FPost');
                         $titlePost = $_POST['title'];
-                        $pm->update('Title', $titlePost, $post->getPostID(), FPost::getClass());
+                        $pm->update('Title', $titlePost, $post->getPostID(), 'FPost');
                         $arrayOriginalExperience = $post->getExperienceList();
                         foreach ($arrayOriginalExperience as $expO) {
-                            $pm->delete('IDexperience', $expO->getExperienceID(), FExperience::getClass());
+                            $pm->delete('IDexperience', $expO->getExperienceID(), 'FExperience');
                         }
                         $postID = $post->getPostID();
 
-                        $allPlaces = $pm->loadAll(FPlace::getClass());
+                        $allPlaces = $pm->loadAll('FPlace');
                         foreach ($ExpList as $exp) {
 
                             $toSave = true;
@@ -174,22 +174,22 @@ class CPost{
                                     }
                                 }
                                 if ($toSave == true) {
-                                    $placeID = FPlace::store($exp->getPlace());
+                                    $placeID = $pm->store($exp->getPlace());
                                     $exp->setPlaceID($placeID);
                                     $allPlaces[] = $exp->getPlace();
                                 }
                             }else{
-                                $placeID = FPlace::store($exp->getPlace());
+                                $placeID = $pm->store($exp->getPlace());
                                 $exp->setPlaceID($placeID);
                             }
                             $exp->setPostID($postID);
                             $pm->store($exp);
                         }
 
-                        $immagini = $pm->load('IDpost', $postID, FImage::getClass());
+                        $immagini = $pm->load('IDpost', $postID, 'FImage');
                         foreach ($immagini as $item) {
                             if ($item->getImageID() < 0) {
-                                $pm->delete('IDimage', $item->getImageID(), FImage::getClass());
+                                $pm->delete('IDimage', $item->getImageID(), 'FImage');
                             }
                         }
                     } else{
@@ -239,17 +239,17 @@ class CPost{
         if(CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
-            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
+            $exist = $pm->exist("IDpost", $postID, 'FPost');
             $user = unserialize(USession::getElement('user'));
             if ($exist){
                 if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                    $post = $pm->load('IDpost', $postID, FPost::getClass());
+                    $post = $pm->load('IDpost', $postID, 'FPost');
                     $pm->deleteFromPostReported($postID);
                     $pm->deleteFromReaction($postID);
-                    $pm->delete('IDpost', $postID, FComment::getClass());
-                    $pm->delete('IDpost', $post->getPostID(), FExperience::getClass());
-                    $pm->delete('IDpost', $post->getPostID(), FImage::getClass());
-                    $pm->delete('IDpost', $postID, FPost::getClass());
+                    $pm->delete('IDpost', $postID, 'FComment');
+                    $pm->delete('IDpost', $post->getPostID(), 'FExperience');
+                    $pm->delete('IDpost', $post->getPostID(), 'FImage');
+                    $pm->delete('IDpost', $postID, 'FPost');
 
                     header('Location: /logBook/User/profile');
                 } else {
@@ -269,11 +269,11 @@ class CPost{
     public static function deleteExistingExperience($id, $postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $exist1 = $pm->exist("IDpost", $postID, FPost::getClass());
+            $exist1 = $pm->exist("IDpost", $postID, 'FPost');
             if ($exist1) {
-                $exist2 = $pm->exist("IDexperience", $id, FExperience::getClass());
+                $exist2 = $pm->exist("IDexperience", $id, 'FExperience');
                 if ($exist2) {
-                    $pm->update('IDexperience', -$id, $id, FExperience::getClass());
+                    $pm->update('IDexperience', -$id, $id, 'FExperience');
                     self::modify_post($postID);
                 }else {
                     header('Location: /logBook/User/home');
@@ -291,11 +291,11 @@ class CPost{
     public static function deleteExistingImage($id, $postID){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $exist1 = $pm->exist("IDpost", $postID, FPost::getClass());
+            $exist1 = $pm->exist("IDpost", $postID, 'FPost');
             if ($exist1) {
-                $exist2 = $pm->exist("IDimage", $id, FImage::getClass());
+                $exist2 = $pm->exist("IDimage", $id, 'FImage');
                 if ($exist2) {
-                    $pm->update('IDimage', -$id, $id, FImage::getClass());
+                    $pm->update('IDimage', -$id, $id, 'FImage');
                     self::modify_post($postID);
                 }else {
                     header('Location: /logBook/User/home');
@@ -350,12 +350,12 @@ class CPost{
             USession::getInstance();
             $view = new VPost();
             $pm = FPersistentManager::getInstance();
-            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
+            $exist = $pm->exist("IDpost", $postID, 'FPost');
             if ($exist) {
                 $user = unserialize(USession::getElement('user'));
                 if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                    $post = $pm->load("IDpost", $postID, FPost::getClass());
-                    $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $post = $pm->load("IDpost", $postID, 'FPost');
+                    $image = $pm->load("IDpost", $post->getPostID(), 'FImage');
                     $arrayExperience = $post->getExperienceList();
                     $arrayExperienceDaVedere = array();
                     foreach ($arrayExperience as $exp) {
@@ -391,21 +391,21 @@ class CPost{
         if(CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
-            $exist = $pm->exist("IDpost", $postID, FPost::getClass());
+            $exist = $pm->exist("IDpost", $postID, 'FPost');
             if ($exist) {
                 $user = unserialize(USession::getElement('user'));
                 if ($user->getUserID() == $pm->getUserByPost($postID)) {
-                    $post = $pm->load("IDpost",$postID,FPost::getClass());
-                    $image = $pm->load("IDpost", $post->getPostID(), FImage::getClass());
+                    $post = $pm->load("IDpost",$postID,'FPost');
+                    $image = $pm->load("IDpost", $post->getPostID(), 'FImage');
                     $arrayExperience = $post->getExperienceList();
                     foreach ($arrayExperience as $exp) {
                         if ($exp->getExperienceID() < 0) {
-                            $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), FExperience::getClass());
+                            $pm->update('IDexperience', -$exp->getExperienceID(), $exp->getExperienceID(), 'FExperience');
                         }
                     }
                     foreach ($image as $i){
                         if ($i->getImageID() < 0){
-                            $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), FImage::getClass());
+                            $pm->update('IDimage', -$i->getImageID(), $i->getImageID(), 'FImage');
                         }
                     }
                     header('Location: /logBook/Research/postDetail/' . $postID);
@@ -426,7 +426,7 @@ class CPost{
     static function writeComment($IDpost){
         if(CUser::isLogged()) {
             $pm = FPersistentManager::getInstance();
-            $exist=$pm->exist("IDpost",$IDpost,FPost::getClass());
+            $exist=$pm->exist("IDpost",$IDpost,'FPost');
             if($exist) {
                 USession::getInstance();
                 $user = unserialize(USession::getElement('user'));
@@ -450,13 +450,13 @@ class CPost{
         if (CUser::isLogged()) {
             USession::getInstance();
             $pm = FPersistentManager::getInstance();
-            $exist = $pm->exist("IDpost", $IDpost, FPost::getClass());
+            $exist = $pm->exist("IDpost", $IDpost, 'FPost');
             if ($exist){
                 $user = unserialize(USession::getElement('user'));
             if ($value == 1 || $value == -1) {
                 $reaction = new ELike($value, $user->getUserID(), $IDpost);
 
-                $result = $pm->load('IDuser', $user->getUserID(), FLike::getClass());
+                $result = $pm->load('IDuser', $user->getUserID(), 'FLike');
                 if ($result == null) {
                     $pm->store($reaction);
                     header('Location: /logBook/Research/postDetail/' . $IDpost);
