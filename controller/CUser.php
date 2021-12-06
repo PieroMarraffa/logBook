@@ -7,6 +7,7 @@ class CUser
      * @throws SmartyException
      */
     static function home(){
+        if(!CAdmin::isAdminLogged()){
         $pm = FPersistentManager::getInstance();
         $view = new VUser();
         $result=$pm->loadPostHomePage();
@@ -18,6 +19,10 @@ class CUser
             }
         }
         $view->home($result,$image);
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
@@ -25,6 +30,7 @@ class CUser
      * @throws SmartyException
      */
     static function isLogged() {
+        if(!CAdmin::isAdminLogged()){
         $identificato = false;
         if (UCookie::getIsSet('PHPSESSID')) {
             if (session_status() == PHP_SESSION_NONE) {
@@ -39,12 +45,17 @@ class CUser
             self::isBanned();
         }
         return $identificato;
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function isBanned(){
+        if(!CAdmin::isAdminLogged()){
         $user = unserialize(USession::getElement('user'));
         $pm=FPersistentManager::getInstance();
         $view=new VUser();
@@ -57,6 +68,10 @@ class CUser
 
             }
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
 
@@ -64,6 +79,7 @@ class CUser
      * @throws SmartyException
      */
     static function login(){
+        if(!CAdmin::isAdminLogged()){
         $pm = FPersistentManager::getInstance();
         //se nell'url viene immesso il pattern /User/login
         if(UServer::getRequestMethod()=="GET"){   //Serve a controllare quello che viene scritto all'interno della url, se viene scritto nell'url può essere solo un reindirizzamento ad un'altra pagina
@@ -84,6 +100,10 @@ class CUser
         //Vuol dire che si sta cercando di accedere all'account premendo sul pulsante di login dopo aver inserito le credenziali
         elseif (UServer::getRequestMethod()=="POST")
             static::checkLogin();
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
 
@@ -131,6 +151,7 @@ class CUser
      * @throws SmartyException
      */
     static function profile(){
+        if(!CAdmin::isAdminLogged()){
         $view = new VUser();
         $pm = FPersistentManager::getInstance();
         if(UServer::getRequestMethod() == "GET") {
@@ -166,6 +187,10 @@ class CUser
             }
         } else
                 header('Location: /logBook/User/login');
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
 
@@ -173,6 +198,7 @@ class CUser
      * @throws SmartyException
      */
     static function registration(){
+        if(!CAdmin::isAdminLogged()){
         if(UServer::getRequestMethod()=="GET") {
             $view = new VUser();
             if (static::isLogged()) {
@@ -184,12 +210,17 @@ class CUser
         }else if(UServer::getRequestMethod()=="POST") {
             static::checkRegistration();
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function checkRegistration(){
+        if(!CAdmin::isAdminLogged()){
         if(UServer::getRequestMethod()!='GET') {
             $pm = FPersistentManager::getInstance();
             $verifiemail = $pm->exist("Email", $_POST['email'],"FUser");
@@ -223,9 +254,14 @@ class CUser
                 }
             }
         }else header('Location: /logBook/User/home');
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     static function upload($user,$nome_file) {
+        if(!CAdmin::isAdminLogged()){
         if(UServer::getRequestMethod()!='GET') {
             $pm = FPersistentManager::getInstance();
             $max_size = 600000;
@@ -261,6 +297,10 @@ class CUser
             }
             return $ris;
         }else header('Location: /logBook/User/home');
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
@@ -278,6 +318,7 @@ class CUser
      * @throws SmartyException
      */
     static function changeCredential(){
+        if(!CAdmin::isAdminLogged()){
         $pm = FPersistentManager::getInstance();
         $view = new VUser();
         USession::getInstance();
@@ -356,9 +397,14 @@ class CUser
                 header('Location: /logBook/User/profile');
             }
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     static function changePassword(){
+        if(!CAdmin::isAdminLogged()){
         $view=new VUser();
         if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
@@ -366,12 +412,17 @@ class CUser
             }else
                 header('Location: /logBook/User/login');
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function changeEmail(){
+        if(!CAdmin::isAdminLogged()){
         $view=new VUser();
         if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
@@ -379,12 +430,17 @@ class CUser
             }else
                 header('Location: /logBook/User/login');
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function changeUsername(){
+        if(!CAdmin::isAdminLogged()){
         $view=new VUser();
         if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
@@ -392,12 +448,17 @@ class CUser
             }else
                 header('Location: /logBook/User/login');
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function changeImage(){
+        if(!CAdmin::isAdminLogged()){
         $view=new VUser();
         if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
@@ -405,12 +466,17 @@ class CUser
             }else
                 header('Location: /logBook/User/login');
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     /**
      * @throws SmartyException
      */
     static function changeDescription(){
+        if(!CAdmin::isAdminLogged()){
         $view=new VUser();
         if (UServer::getRequestMethod() == "GET") {
             if (CUser::isLogged()) {
@@ -418,9 +484,14 @@ class CUser
             }else
                 header('Location: /logBook/User/login');
         }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
+        }
     }
 
     static function updateImage($user,$nome_file) {
+        if(!CAdmin::isAdminLogged()){
         if(UServer::getRequestMethod()!='GET'){
             $pm = FPersistentManager::getInstance();
             $max_size = 600000;
@@ -456,6 +527,10 @@ class CUser
             return $ris;
         }
         else{ header('Location: /logBook/User/profile');
+        }
+        }
+        else{
+            header('Location: /logBook/Admin/adminHome');
         }
     }
 

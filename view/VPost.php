@@ -40,7 +40,7 @@ class VPost
         if(count($image)==1) {
             foreach ($image as $im) {
                 $typeImg[] = $im->getType();
-                $pic64Img[] = base64_encode($im->getImageFile());
+                $pic64Img[] = $im->getImageFile();
             }
         }
         else{

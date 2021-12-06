@@ -364,7 +364,7 @@ class CResearch
                     header('Location: /logBook/Research/profileDetail/' . $id);
                 } else header('Location: /logBook/Research/profileDetail/' . $id);
             }else header('Location: /logBook/User/home');
-        }else header('Location: /logBook/Research/profileDetail/' . $id);
+        }else header('Location: /logBook/User/login');
     }
 
     /**

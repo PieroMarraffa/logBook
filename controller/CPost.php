@@ -486,7 +486,7 @@ class CPost{
             }
         }
         } else{
-            header('Location: /logBook/Research/postDetail/' . $IDpost);
+            header('Location: /logBook/User/login');
         }
     }
 

@@ -44,42 +44,52 @@ class CFrontController
                         //else if ($num == 6) $controller::$function($param[0], $param[1], $param[2], $param[3], $param[4], $param[5]);
 
                     } else {
+                        USession::getInstance();
+                        var_dump($_SESSION);
                         if (CUser::isLogged()) {
-                            $utente = unserialize(USession::getElement('user'));
-                            $adm = $pm->loadAdmin("Email", $utente->getMail());
-                            if (isset($adm))
-                                header('Location: /logBook/Admin/adminHome');
-                            else {
-                                header('Location: /logBook/User/home');                            }
-                        } else {
+
+                            header('Location: /logBook/User/home');
+
+                        }elseif (USession::getIsSet('admin')){
+
+                            header('Location: /logBook/Admin/adminHome');
+                        }
+                        else {
+
                             header('Location: /logBook/User/home');
                         }
                     }
                 } else {
+                    USession::getInstance();
+                    var_dump($_SESSION);
                     if (CUser::isLogged()) {
 
-                        $utente = unserialize(USession::getElement('user'));
-                        $adm = $pm->loadAdmin("Email", $utente->getMail());
-                        if (isset($adm))
-                            header('Location: /logBook/Admin/adminHome');
-                        else {
-                            header('Location: /logBook/User/home');
-                        }
-                    } else {
+                        header('Location: /logBook/User/home');
+
+                    }elseif (USession::getIsSet('admin')){
+
+                        header('Location: /logBook/Admin/adminHome');
+                    }
+                    else {
+
                         header('Location: /logBook/User/home');
                     }
                 }
             } else {
+                USession::getInstance();
+                var_dump($_SESSION);
                 if (CUser::isLogged()) {
 
-                    $utente = unserialize(USession::getElement('user'));
-                    $adm = $pm->loadAdmin("Email", $utente->getMail());
-                    if (isset($adm))
-                        header('Location: /logBook/Admin/adminHome');
-                    else {
-                        header('Location: /logBook/User/home');                    }
-                } else {
-                    header('Location: /logBook/User/home');                }
+                    header('Location: /logBook/User/home');
+
+                }elseif (USession::getIsSet('admin')){
+
+                    header('Location: /logBook/Admin/adminHome');
+                }
+                else {
+
+                    header('Location: /logBook/User/home');
+                }
             }
         }
     }
