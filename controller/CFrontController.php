@@ -45,7 +45,6 @@ class CFrontController
 
                     } else {
                         USession::getInstance();
-                        var_dump($_SESSION);
                         if (CUser::isLogged()) {
 
                             header('Location: /logBook/User/home');
@@ -61,7 +60,6 @@ class CFrontController
                     }
                 } else {
                     USession::getInstance();
-                    var_dump($_SESSION);
                     if (CUser::isLogged()) {
 
                         header('Location: /logBook/User/home');
@@ -77,7 +75,6 @@ class CFrontController
                 }
             } else {
                 USession::getInstance();
-                var_dump($_SESSION);
                 if (CUser::isLogged()) {
 
                     header('Location: /logBook/User/home');

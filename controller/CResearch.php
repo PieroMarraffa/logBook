@@ -385,7 +385,7 @@ class CResearch
                         if ($reporter == null) {
                             $pm->storeCommentReporter($user->getUserID(), $idComment);
                         } elseif (!is_array($reporter)) {
-                            if ($reporter->getMail() != $reporter->getMail()) {
+                            if ($reporter->getMail() != $user->getMail()) {
                                 $pm->storeCommentReporter($user->getUserID(), $idComment);
                             }
                         } else {
