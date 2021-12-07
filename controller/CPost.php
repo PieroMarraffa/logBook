@@ -201,18 +201,7 @@ class CPost{
 
             for ($numImg = 2; isset($_FILES['image' . $numImg]); $numImg++) {
                 $nome_file = 'image' . $numImg;
-                $img = static::upload($postID, $nome_file);
-                switch ($img) {
-                    case "size":
-                        //$view->registrationError("size");
-                        break;
-                    case "type":
-                        //$view->registrationError("type");
-                        break;
-                    case "ok":
-                        //header('Location: /logBook/User/profile');
-                        break;
-                }
+                static::upload($postID, $nome_file);
             }
             header('Location: /logBook/User/profile');
         }

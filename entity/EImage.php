@@ -15,8 +15,10 @@ class EImage
 
     /**
      * EImage constructor.
-     * @param $imageID
-     * @param $url
+     * @param $imageFile
+     * @param $postID
+     * @param $size
+     * @param $type
      */
     public function __construct($imageFile, $postID, $size, $type)
     {

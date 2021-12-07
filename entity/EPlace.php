@@ -11,11 +11,10 @@ class EPlace implements Countable
 
     /**
      * EPlace constructor.
-     * @param $padreID
      * @param $name
      * @param $latitude
      * @param $longitude
-     * @param $category
+     * @param $countryName
      */
     public function __construct($latitude, $longitude, $name, $countryName)
     {
